@@ -1,0 +1,136 @@
+pronunciation = "Python"
+function_prefix = "fun"
+template_prefix = "template"
+
+[commands]
+"assign" = " = "
+"iffae" = ["if :", "left"]
+"shells" = "else:"
+"shell iffae" = ["elif :", "left"]
+"breaker" = "break"
+"for each" = ["for  in :", "left:5"]
+"for loop" = ["for i in range(0, ):", "left:2"]
+"while loop" = ["while :", "left"]
+"lambda" = ["lambda :", "left"]
+"list comprehension" = ["lc", "tab"]
+"lodge and" = " and "
+"lodge in" = " in "
+"lodge is" = " is "
+"lodge not" = " not "
+"lodge or" = " or "
+"import" = "import "
+"from import" = ["from  import ", "home, right:5"]
+"function" = ["def", "tab"]
+"return" = "return "
+"class" = "class "
+"value none" = "None"
+"value true" = "True"
+"value false" = "False"
+"with open" = ["with open() as f:", "left:7"]
+
+[functions]
+"(int | integer)" = "int"
+"(iter | hitter) items" = "iteritems"
+"append" = "append"
+"capitalise" = "capitalize"
+"clear" = "clear"
+"character" = "chr"
+"copy" = "copy"
+"count" = "count"
+"choice" = "Choice"
+"enumerate" = "enumerate"
+"execute" = "execute"
+"extend" = "extend"
+"find all" = "find_all"
+"float" = "float"
+"function" = "Function"
+"get" = "get"
+"join" = "join"
+"index" = "index"
+"insert" = "insert"
+"items" = "items"
+"keys" = "keys"
+"key" = "Key"
+"length" = "len"
+"list" = "list"
+"min" = "min"
+"max" = "max"
+"pop" = "pop"
+"print" = "print"
+"range" = "range"
+"read lines" = "readlines"
+"remove" = "remove"
+"replace" = "replace"
+"reverse" = "reverse"
+"set default" = "setdefault"
+"sort" = "sort"
+"string" = "str"
+"strip" = "strip"
+"split" = "split"
+"sum" = "sum"
+"text" = "Text"
+"title" = "title"
+"type" = "type"
+"update" = "update"
+"upper" = "upper"
+"values" = "values"
+"write" = "write"
+
+[templates]
+"CCR" = '''
+from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
+from caster.lib.actions import Key, Text, Mouse
+
+from caster.lib import control, utilities
+from caster.lib.merge.mergerule import MergeRule
+
+BINDINGS = utilities.load_toml_relative("config/.toml")
+
+class classNameNon(MergeRule):
+	mapping = {
+
+	}
+
+class className(MergeRule):
+	non = classNameNon
+    pronunciation = BINDINGS["pronunciation"]
+
+    mapping = {
+
+    }
+
+    extras = [
+    ]
+
+    defaults = {}
+
+
+control.nexus().merger.add_global_rule(className())
+'''
+
+"App" = '''
+from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef)
+from caster.lib.actions import Key, Text
+from caster.lib.context import AppContext
+
+from caster.lib.merge.mergerule import MergeRule
+
+
+class AppNameRule(MergeRule):
+    pronunciation = "AppName"
+
+    mapping = {
+    }
+
+    extras = [
+    ]
+    defaults = {
+    }
+
+
+context = AppContext(executable="AppName", title="AppName")
+grammar = Grammar("AppName", context=context)
+rule = AppNameRule()
+grammar.add_rule(AppNameRule(name="AppName"))
+grammar.load()
+'''

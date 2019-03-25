@@ -1,0 +1,20 @@
+[website]
+YouTube = "https://www.youtube.com/"
+
+[folder]
+dissertation = "C:\\Users\\Mike\\Documents\\1_uni_work\\dissertation\\FS"
+documents = "C:\\Users\\Mike\\Documents"
+Castor = "C:\\Users\\Mike\\Documents\\NatLink\\caster"
+University = "C:\\Users\\Mike\\Documents\\1 uni work"
+"uni work" = "C:\\Users\\Mike\\Documents\\1_uni_work"
+downloads = "Downloads"
+
+[program]
+licks = "C:\\Program Files (x86)\\LyX 2.3\\bin\\LyX.exe"
+chrome = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+"a spot of five" = "C:\\Users\\Mike\\AppData\\Roaming\\Spotify\\Spotify.exe"
+Kindle = "C:\\Users\\Mike\\AppData\\Local\\Amazon\\Kindle\\application\\Kindle.exe"
+torrent = "C:\\Program Files (x86)\\uTorrent\\uTorrent.exe"
+sublime = "C:\\Program Files\\Sublime Text 3\\sublime_text.exe"
+
+[file]

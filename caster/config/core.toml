@@ -1,0 +1,180 @@
+# Once you have finished making changes, use the "rebuild caster"
+# command to enact them.
+"numbers_max"          = 1000
+"pronunciation"        = "Core"
+"capitals_prefix"      = "big"
+"numbers_prefix"       = "numb"
+"dictation_prefix"     = "say"
+"extreme"              = "wally"
+
+
+[letters]
+"alpha"                = "a"
+"bravo"                = "b"
+"charlie"              = "c"
+"delta"                = "d"
+"echo"                 = "e"
+"foxtrot"              = "f"
+"golf"                 = "g"
+"hotel"                = "h"
+"india"                = "i"
+"juliet"               = "j"
+"kilo"                 = "k"
+"lima"                 = "l"
+"mike"                 = "m"
+"november"             = "n"
+"oscar"                = "o"
+"papa"                 = "p"
+"quebec"               = "q"
+"romeo"                = "r"
+"sierra"               = "s"
+"tango"                = "t"
+"uniform"              = "u"
+"victor"               = "v"
+"whiskey"              = "w"
+"x-ray"                = "x"
+"yankee"               = "y"
+"zulu"                 = "z"
+
+[letters_alt]
+"(anti | arch)"        = "a"
+"bat"                  = "b"
+"cap"                  = "c"
+"die"                  = "d"
+"each"                 = "e"
+"fail"                 = "f"
+"(gone | gust)"        = "g"
+"(harp | harm)"        = "h"
+"sit"                  = "i"
+"jury"                 = "j"
+"crunch"               = "k"
+"look"                 = "l"
+"(made | mad)"         = "m"
+"near"                 = "n"
+"odd"                  = "o"
+"(pit)"                = "p"
+"queer"                = "q"
+"red"                  = "r"
+"sun"                  = "s"
+"trap"                 = "t"
+"urge"                 = "u"
+"vest"                 = "v"
+"whale"                = "w"
+"box"                  = "x"
+"yes"                  =  "y"
+"zulu"                 = "z"
+
+
+[punctuation]
+"ampersand"            = "ampersand"
+"apostrophe"           = "apostrophe"
+"(asterisk | starling)"= "asterisk"
+"at sign"              = "at"
+"backslash"            = "backslash"
+"backtick"             = "backtick"
+"pipe symbol"          = "bar"
+"caret"                = "caret"
+"colon"                = "colon"
+"comma"                = "comma"
+"boom"                 = "comma, space"
+"dollar"               = "dollar"
+"point"                = "dot"
+"thin quotes"          = "apostrophe"
+"(quote | quotes)"     = "dquote"
+"equals"               = "equal"
+"long equals"          = "space, equal, space"
+"clamor"               = "exclamation"
+"hashtag"              = "hash"
+"hyphen"               = "hyphen"
+"minus"                = "minus"
+"long minus"           = "space, minus, space"
+"modulo"               = "percent"
+"plus"                 = "plus"
+"long plus"            = "space, plus, space"
+"questo"               = "question"
+"semicolon"            = "semicolon"
+"slash"                = "slash"
+"single quote"         = "squote"
+"tilde"                = "tilde"
+"underscore"           = "underscore"
+"greater than"         = "rangle"
+"greater equal"        = "rangle, equal"
+"less than"            = "langle"
+"less equal"           = "langle, equal"
+"equal to"             = "space, equal, equal, space"
+"prekris"              = "lparen, rparen, left"
+"brax"                 = "lbracket, rbracket, left"
+"curly"                = "lbrace, rbrace, left"
+"angle"                = "langle, rangle, left"
+"left paren"           = "lparen"
+"right paren"          = "rparen"
+"left bracket"         = "lbracket"
+"right bracket"        = "rbracket"
+"left brace"           = "lbrace"
+"right brace"          = "rbrace"
+
+[keys]
+"ace"                  = "space"
+# "tabby"              = "tab"
+# "tabby left"         = "s-tab"
+"shock"                = "enter"
+"check"                = "c-enter"
+"clear"                = "backspace"
+# "splat"              = "c-backspace"
+# "splat right"        = "c-delete"
+"deli"                 = "del"
+
+[misc_core_keys]
+"eskimo"               = "escape"
+"shackle"              = "home, s-end"
+"select all"           = "c-a"
+"find"                 = "c-f"
+
+[misc_core_keys_noCCR]
+"save"                 = "c-s"
+#
+
+[directions]
+"left"                 = "left"
+"right"                = "right"
+"up"                   = "up"
+"down"                 = "down"
+
+[directions_alt]
+"lease"                = "left"
+"ross"                 = "right"
+"sauce"                = "up"
+"dunce"                = "down"
+
+[modifiers]
+"queue"                = "cs"
+"shin"                 = "s"
+"fly"                  = "c"
+
+[enclosures]
+"prekris"              = "(~)"
+"angle"                = "<~>"
+"curly"                = "{~}"
+"brax"                 = "[~]"
+"thin quotes"          = "'~'"
+'quotes'               = '"~"'
+
+[capitalization]
+"yell"                 = 1
+"tie"                  = 2
+"(Gerrish | camel)"    = 3
+"sing"                 = 4
+"laws"                 = 5
+"password"             = 6
+
+[spacing]
+"gum"                  = 1
+"gun"                  = 1
+"spine"                = 2
+"snake"                = 3
+"pebble"               = 4
+"incline"              = 5
+"dissent"              = 6
+"descent"              = 6
+"list"                 = 7
+"dictionary"           = 8

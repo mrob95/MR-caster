@@ -1,0 +1,17 @@
+enabling_order = [ "Python",]
+
+[app]
+
+[global]
+Core = true
+"LyX maths" = false
+"Scientific notebook" = false
+LaTeX = false
+Python = true
+"LaTeX maths" = false
+R = false
+Go = false
+Markdown = false
+
+[selfmod]
+variable = true

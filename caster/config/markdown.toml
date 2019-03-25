@@ -1,0 +1,43 @@
+"pronunciation" = "Markdown"
+"insert_prefix" = "insert"
+"template_prefix" = "template"
+"output_prefix" = "output"
+"option_prefix" = "option"
+
+[elements]
+"horizontal rule" = "minus, minus, minus"
+"heading" = "hashtag, space"
+"subheading" = "hashtag, hashtag, space "
+"sub sub heading" = "hashtag, hashtag, hashtag, space"
+"link" = "lbracket, rbracket, lparen, rparen, left:3"
+"reference" = "lbracket, rbracket, left, at"
+"equation" = "dollar, dollar, enter:2, dollar, dollar, up"
+"math" = "dollar, dollar, left"
+"(italics | italic text)" = "underscore:2, left"
+"bold [text]" = "asterisk:4, left:2"
+"R code" = "backtick:3, lbrace, r, rbrace, enter:2, backtick:3, up"
+
+[alternating]
+"hidden R code" = ["", "backtick:3", "{r, include=FALSE}", "enter:2, backtick:3, up"]
+"graph" = ["", "backtick:3", "{r echo=FALSE}", "enter:2, backtick:3, up"]
+
+[outputs]
+"beamer [presentation]" = "output:\nbeamer_presentation:\ndf_print: kable\ntheme: metropolis"
+"HTML" = "output: html_document"
+"PDF" = "output:\npdf_document:\ndf_print: kable"
+"word" = "output:\nword_document"
+
+[options]
+"author" = "author: "
+"bibliography" = "bibliography: "
+"date" = "date: "
+"figure width" = "fig_width: "
+"figure height" = "fig_height: "
+"figure caption" = "fig_caption: true"
+"font size" = "fontsize: 11pt"
+"keep tex" = "keep_tex: true"
+"small output" = "header-includes:\n- \\let\\oldverbatim\\verbatim\n- \\def\\verbatim{\\tiny \\oldverbatim}"
+"table of contents" = "toc: true"
+"title" = "title: "
+
+[templates]
