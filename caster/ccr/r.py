@@ -1,5 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, Function
 from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
+from caster.lib.context import AppContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -26,6 +27,7 @@ class RlangNon(MergeRule):
 class Rlang(MergeRule):
     non = RlangNon
     pronunciation = BINDINGS["pronunciation"]
+    mwith = "Core"
 
     mapping = {
         "<command>":
@@ -57,4 +59,7 @@ class Rlang(MergeRule):
     defaults = {}
 
 
-control.nexus().merger.add_global_rule(Rlang())
+# control.nexus().merger.add_global_rule(Rlang())
+context = AppContext(title=".r") | AppContext(title=".R")
+
+control.nexus().merger.add_app_rule(Rlang(), context=context)

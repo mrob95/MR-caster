@@ -3,7 +3,7 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, Key, Text, Mouse, IntegerRef
+from dragonfly import Function, Choice, Key, Text, Mouse, IntegerRef, Dictation
 from dragonfly import AppContext, Grammar, Repeat
 
 from caster.lib.merge.mergerule import MergeRule
@@ -22,6 +22,7 @@ class SNRule(MergeRule):
 
         "toggle math": Key("c-m"),
         "toggle text": Key("c-t"),
+        "text <dict>": Key("c-t") + Function(lambda dict: Text(str(dict).capitalize()).execute()),
         "body math": Key("a-2, down, enter"),
         "body text": Key("a-2, down:2, enter"),
 
@@ -50,6 +51,7 @@ class SNRule(MergeRule):
 
         }
     extras = [
+        Dictation("dict"),
         IntegerRef("n", 1, 10),
 
     ]

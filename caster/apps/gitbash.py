@@ -1,12 +1,13 @@
 from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef, Mimic, Clipboard)
 from caster.lib.actions import Key, Text
 from caster.lib.context import AppContext
-
+from caster.lib import control
 from caster.lib.merge.mergerule import MergeRule
 
 
 class GitBashRule(MergeRule):
     pronunciation = "GitBash"
+    mwith = "Core"
 
     mapping = {
         "paste": Function(lambda: Text(Clipboard.get_system_text().replace("\n", "")).execute()),
@@ -79,6 +80,7 @@ class GitBashRule(MergeRule):
         	Text("git rm --cached "),
         "preview remove untracked | git clean preview":
         	Text("git clean -nd"),
+        "git reset": Text("git reset"),
 
         "remove untracked | git clean untracked":
         	Text("git clean -fd"),
@@ -110,12 +112,11 @@ class GitBashRule(MergeRule):
 
 
 
-context = AppContext(executable="\\sh.exe")
-context2 = AppContext(executable="\\bash.exe")
-context3 = AppContext(executable="\\cmd.exe")
-context4 = AppContext(executable="\\mintty.exe")
+context = AppContext(executable="\\sh.exe") | AppContext(executable="\\bash.exe") | AppContext(executable="\\cmd.exe") | AppContext(executable="\\mintty.exe")
 
-grammar = Grammar("MINGW32", context=(context | context2 | context3 | context4))
-rule = GitBashRule()
-grammar.add_rule(GitBashRule(name="GitBash"))
-grammar.load()
+control.nexus().merger.add_app_rule(GitBashRule(), context=context)
+
+# grammar = Grammar("MINGW32", context)
+# rule = GitBashRule()
+# grammar.add_rule(GitBashRule(name="GitBash"))
+# grammar.load()

@@ -1,5 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
 from caster.lib.actions import Key, Text, Mouse
+from caster.lib.context import AppContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -22,6 +23,7 @@ class MarkdownNon(MergeRule):
 
 class Markdown(MergeRule):
     non = MarkdownNon
+    mwith = "Core"
     pronunciation = BINDINGS["pronunciation"]
     mapping = {
 
@@ -32,6 +34,7 @@ class Markdown(MergeRule):
 
     	BINDINGS["insert_prefix"] + " <element>":
     		Key("%(element)s"),
+
 
     	BINDINGS["insert_prefix"] + " <command>":
     		Function(execution.alternating_command),
@@ -65,4 +68,7 @@ class Markdown(MergeRule):
     }
 
 
-control.nexus().merger.add_global_rule(Markdown())
+# control.nexus().merger.add_global_rule(Markdown())
+context = AppContext(title=".md") | AppContext(title=".Rmd") | AppContext(title="GitHub") | AppContext(title="Gitter")
+
+control.nexus().merger.add_app_rule(Markdown(), context=context)

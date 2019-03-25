@@ -1,17 +1,16 @@
-enabling_order = [ "Python",]
-
 [app]
+Python = false
+R = false
+GitBash = false
+Markdown = false
+"Scientific notebook" = false
 
 [global]
-Core = true
-"LyX maths" = false
-"Scientific notebook" = false
-LaTeX = false
-Python = true
-"LaTeX maths" = false
-R = false
 Go = false
-Markdown = false
+Core = true
+"LaTeX maths" = false
+"LyX maths" = false
+LaTeX = false
 
 [selfmod]
 variable = true

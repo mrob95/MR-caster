@@ -81,6 +81,6 @@ class sn_mathematics(MergeRule):
         "big": False,
     }
 
-control.nexus().merger.add_global_rule(sn_mathematics())
-# context = AppContext(executable="scientific notebook")
-# control.nexus().merger.add_app_rule(sn_mathematics(), context)
+# control.nexus().merger.add_global_rule(sn_mathematics())
+context = AppContext(executable="scientific notebook")
+control.nexus().merger.add_app_rule(sn_mathematics(), context)

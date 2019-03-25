@@ -1,5 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, Function
 from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
+from caster.lib.context import AppContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -13,13 +14,19 @@ class PythonNon(MergeRule):
 
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="python.toml"),
+
+        "test test": Text(" seater successful"),
     }
     extras = [
         Choice("template", BINDINGS["templates"]),
     ]
 
+
+
 class Python(MergeRule):
     non = PythonNon
+    mwith = "Core"
+
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {
@@ -38,4 +45,6 @@ class Python(MergeRule):
     defaults = {}
 
 
-control.nexus().merger.add_global_rule(Python())
+# control.nexus().merger.add_global_rule(Python())
+context = AppContext(title=".py")
+control.nexus().merger.add_app_rule(Python(), context=context)
