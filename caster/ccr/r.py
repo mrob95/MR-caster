@@ -60,6 +60,6 @@ class Rlang(MergeRule):
 
 
 # control.nexus().merger.add_global_rule(Rlang())
-context = AppContext(title=".r") | AppContext(title=".R")
+context = AppContext(title=".r") | AppContext(title=".R")| AppContext(title="RStudio")
 
 control.nexus().merger.add_app_rule(Rlang(), context=context)
