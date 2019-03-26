@@ -40,7 +40,9 @@ class RStudioRule(MergeRule):
     "next plot"                        :  Key("ac-f12"),
     "previous plot"                    :  Key("ac-f11"),
 
-    "help that"                        :  Store() + Key("c-2, question") + Retrieve() + Key("enter, c-1"),
+    "help that"                        :  Store() + Key("c-2, question") + Retrieve() + Key("enter/50, c-1"),
+    "glimpse that"                     :  Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" glimpse()") + Key("enter/50, c-1"),
+    "head that"                        :  Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" head()") + Key("enter/50, c-1"),
     }
     extras = [
         IntegerRef("n", 1, 10000),
