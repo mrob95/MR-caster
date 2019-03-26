@@ -96,7 +96,7 @@ def duple(nnavi50):
     Key("escape, home, s-end, c-c, end").execute()
     time.sleep(SETTINGS["keypress_wait"])
     for _ in range(nnavi50):
-        Key("enter, c-v").execute()
+        Key("enter, home, c-v").execute()
         time.sleep(SETTINGS["keypress_wait"])
     cb.copy_to_system()
 
