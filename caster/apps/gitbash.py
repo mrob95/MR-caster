@@ -58,6 +58,7 @@ class GitBashRule(MergeRule):
         "git fetch":       Text("git fetch "),
         "git fetch upstream":       Text("git fetch upstream"),
         "git push":        Text("git push "),
+        "git publish":        Text("git push -u origin "),
         "git push set upstream [origin]":        Text("git push --set-upstream origin "),
         "git pull":        Text("git pull "),
         "git status":      Text("git status") + Key("enter"),
