@@ -110,7 +110,7 @@ class SublimeRule(MergeRule):
         "focus <panel>"                  : Key("c-%(panel)s"),
         "move <panel>"                   : Key("cs-%(panel)s"),
         # {"keys"                        : ["ctrl+alt+v"], "command": "clone_file"}
-        "duplicate tab"                  : Key("ca-v"),
+        "duplicate (tab | file)"                  : Key("ca-v"),
         "split right"                    : Key("as-2, c-1, cs-2"),
         #
         "terminal here"                  : Key("cs-t"),

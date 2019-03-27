@@ -3,7 +3,7 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, Key, Text, Mouse, IntegerRef
+from dragonfly import Function, Choice, Key, Text, Mouse, IntegerRef, Dictation
 from dragonfly import AppContext, Grammar, Repeat
 
 from caster.lib import control, utilities, execution
@@ -28,7 +28,26 @@ def matrix(rows, cols):
     Key("f10/5, i/5, down:8, enter/50").execute()
     Key(str(rows) + "/50, tab, " + str(cols) + "/50, enter").execute()
 
+class sn_mathematicsNon(MergeRule):
+    mapping = {
+        "configure " + BINDINGS["pronunciation"]:
+            Function(utilities.load_config, config_name="scientific_notebook.toml"),
+
+        "text <dict>":
+            Key("c-t") + Function(lambda dict: Text(str(dict).capitalize()).execute()),
+
+        "<control>":
+            Key("%(control)s"),
+
+    }
+    extras = [
+        Dictation("dict"),
+        IntegerRef("n", 1, 10),
+        Choice("control", BINDINGS["control"]),
+    ]
+
 class sn_mathematics(MergeRule):
+    non = sn_mathematicsNon
     mwith = ["Core"]
     pronunciation = BINDINGS["pronunciation"]
 

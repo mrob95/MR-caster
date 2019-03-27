@@ -76,6 +76,7 @@ class ChromeRule(MergeRule):
             "exams": "https://www.york.ac.uk/economics/current-students/ug-information/exampapers/#tab-2",
             "facebook":"facebook.com",
             "iPlayer": "https://www.bbc.co.uk/iplayer",
+            "math fly": "mathfly.org",
             "scholar":"scholar.google.co.uk",
             "spectator":"spectator.co.uk",
             "times":"thetimes.co.uk",

@@ -48,7 +48,8 @@ class GitBashRule(MergeRule):
         "git checkout master":    Text("git checkout master") + Key("enter"),
         "git checkout upstream develop":    Text("git checkout upstream/develop") + Key("enter"),
         "git (checkout branch | new branch)":    Text("git checkout -b "),
-        "git (branch delete | delete branch)":    Text("git branch -d "),
+        "git (branch delete | delete branch)":    Text("git branch -D "),
+        "git remove branch":    Text("git branch -d "),
         "git branch":      Text("git branch "),
         "git branch set upstream [to]":
             Text("git branch --set-upstream-to="),

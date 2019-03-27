@@ -25,7 +25,7 @@ def matrix(rows, cols):
 
 class lyx_mathematics(MergeRule):
     pronunciation = BINDINGS["pronunciation"]
-
+    mwith = CORE["pronunciation"]
     mapping = {
         "<numbers>": Text("%(numbers)s"),
 
@@ -79,4 +79,6 @@ class lyx_mathematics(MergeRule):
         "big": False,
     }
 
-control.nexus().merger.add_global_rule(lyx_mathematics())
+# control.nexus().merger.add_global_rule(lyx_mathematics())
+context = AppContext(executable="lyx")
+control.nexus().merger.add_app_rule(lyx_mathematics(), context)
