@@ -32,6 +32,8 @@
 "omega" = "w"
 
 [misc_sn_keys]
+"toggle math"                      = "c-m"
+"toggle text"                      = "c-t"
 "fraction" = "c-f"
 "over" = "cs-left, c-f"
 "(super [script] | to the power)" = "c-h"
@@ -172,8 +174,6 @@
 "print file"                       = "c-p"
 "export document"                  = "f10, f, down:7, enter"
 "page preview"                     = "f10, f, down:17, enter"
-"toggle math"                      = "c-m"
-"toggle text"                      = "c-t"
 "body math"                        = "a-2, down, enter"
 "body text"                        = "a-2, down:2, enter"
 "(begin | insert) [bulleted] list" = "a-1, down:2, enter"

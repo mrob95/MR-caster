@@ -1,7 +1,7 @@
 from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef, Mimic, Clipboard)
 from caster.lib.actions import Key, Text
 from caster.lib.context import AppContext
-from caster.lib import control
+from caster.lib import control, utilities
 from caster.lib.merge.mergerule import MergeRule
 
 
@@ -10,7 +10,9 @@ class GitBashRule(MergeRule):
     mwith = "Core"
 
     mapping = {
-        "paste": Function(lambda: Text(Clipboard.get_system_text().replace("\n", "")).execute()),
+        "copy": Key("c-insert"),
+        "paste": Key("s-insert"),
+        "pull request": Key("c-insert") + Function(lambda: utilities.browser_open(Clipboard.get_system_text())),
         "CD up":           Text("cd ..") + Key("enter"),
         "CD":              Text("cd "),
         "list":            Text("ls") + Key("enter"),
@@ -20,7 +22,7 @@ class GitBashRule(MergeRule):
     	"bib TeX":         Text("bibtex "),
     	"python 3":        Text("python3 .py") + Key("left:3"),
     	"python 2":        Text("python27 .py") + Key("left:3"),
-        "python 2 pip [install]":    Text("python27 -m pip install ") + Key("left:3"),
+        "python 2 pip [install]":    Text("python27 -m pip install "),
     	"R script":        Text("Rscript .r") + Key("left:2"),
     	"R markdown":      Text("Rscript -e \"rmarkdown::render('.Rmd', clean=TRUE)\"") + Key("left:19"),
 

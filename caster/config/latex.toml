@@ -187,6 +187,8 @@
 # puts that number of curly braces after the command, e.g.
 # "symbol fraction" produces "\frac{}{}"
 [symbols]
+"quad" = "quad"
+"double quad" = "qquad"
 "square root" = ["sqrt", "1"]
 "[generic] root" = ["sqrt[]", "1"]
 "integral" = "int"

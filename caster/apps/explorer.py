@@ -18,7 +18,8 @@ class IERule(MergeRule):
         "go back [<n>]"                      : Key("a-left")* Repeat(extra="n"),
         "go forward [<n>]"                   : Key("a-right")* Repeat(extra="n"),
         "terminal here"                      :
-            Key("a-d:50") + Store() + Key("escape:50") + Function(lambda: utilities.terminal(Retrieve.text())),
+            Key("f6:5, s-f10, g, down, enter"),
+            # Key("a-d:50") + Store() + Key("escape:50") + Function(lambda: utilities.terminal(Retrieve.text())),
         "sublime here"                       :
             Key("a-d:50") + Store() + Key("escape:50") + Function(lambda: Popen(["subl", Retrieve.text() + "/"])),
     }

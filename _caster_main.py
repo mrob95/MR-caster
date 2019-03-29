@@ -39,6 +39,10 @@ CORE = utilities.load_toml_relative("config/core.toml")
 # Seems ugly but works
 def build(startup=False):
     SETTINGS = utilities.load_toml_relative("config/settings.toml")
+    _NEXUS.merger.wipe()
+    _NEXUS.merger._global_rules = {}
+    _NEXUS.merger._app_rules = {}
+    _NEXUS.merger._self_modifying_rules = {}
     if startup:
         apploaded = []
         for module_name in SETTINGS["app_modules"]:
@@ -50,9 +54,6 @@ def build(startup=False):
                 print(e)
         if apploaded:
             print("App modules loaded: " + ", ".join(apploaded))
-    _NEXUS.merger.wipe()
-    _NEXUS.merger._global_rules = {}
-    _NEXUS.merger._self_modifying_rules = {}
     ccrloaded = []
     ccrrebuilt = []
     for module_name in SETTINGS["ccr_modules"]:

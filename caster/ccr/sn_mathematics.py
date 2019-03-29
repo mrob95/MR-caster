@@ -39,6 +39,7 @@ class sn_mathematicsNon(MergeRule):
         "<control>":
             Key("%(control)s"),
 
+
     }
     extras = [
         Dictation("dict"),
@@ -52,6 +53,7 @@ class sn_mathematics(MergeRule):
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {
+
         BINDINGS["symbol_prefix"] + " <symbol>":
             Function(texchar),
         #

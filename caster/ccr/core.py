@@ -32,6 +32,7 @@ class coreNon(MappingRule):
     mapping = {
         "external notify": Function(utilities.toast_notify, title="external", message="messageAC test"),
 
+
         "super hold":        Key("win:down"),
         "super release":     Key("win:up"),
         "shift hold":        Key("shift:down"),

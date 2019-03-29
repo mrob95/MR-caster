@@ -1,25 +1,26 @@
 from caster.lib import control, utilities, textformat
 from caster.lib.actions import Key, Text, Mouse
 from caster.lib.clipboard import Clipboard
+from dragonfly.actions.action_mouse import get_cursor_position
 import time
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
 
 # https://github.com/reckoner/pyVirtualDesktopAccessor
 from ctypes import cdll
 from win32gui import GetForegroundWindow
-def load_vda():
-    return cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor.dll"))
+# def load_vda():
+vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor.dll"))
 # vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor.dll"))
 
 def move_current_window_to_desktop(n=0,follow=False):
-    vda = load_vda()
+    # vda = load_vda()
     wndh = GetForegroundWindow()
     vda.MoveWindowToDesktopNumber(wndh, n-1)
     if follow:
         vda.GoToDesktopNumber(n-1)
 
 def move_current_window_to_new_desktop(follow=False):
-    vda = load_vda()
+    # vda = load_vda()
     wndh = GetForegroundWindow()
     current = vda.GetCurrentDesktopNumber()
     total = vda.GetDesktopCount()
@@ -29,11 +30,21 @@ def move_current_window_to_new_desktop(follow=False):
         vda.GoToDesktopNumber(current)
 
 def go_to_desktop_number(n):
-    vda = load_vda()
-    return vda.GoToDesktopNumber(n-1)
+    # vda = load_vda()
+    # vda.GoToDesktopNumber(n-1)
+    # position = get_cursor_position()
+    # Mouse("[300, 1], left").execute()
+    # Mouse("[%d, %d]" % position).execute()
+    current = vda.GetCurrentDesktopNumber() + 1
+    if n>=1 and n != current:
+        if current>n:
+            Key("wc-left:" + str(current-n)).execute()
+        else:
+            Key("wc-right:" + str(n-current)).execute()
+
 
 def close_all_workspaces():
-    vda = load_vda()
+    # vda = load_vda()
     total = vda.GetDesktopCount()
     go_to_desktop_number(total)
     Key("wc-f4/10:" + str(total-1)).execute()

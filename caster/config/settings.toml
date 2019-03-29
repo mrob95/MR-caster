@@ -10,20 +10,20 @@ ccr_modules = ["core",
 			"latex",
 			"latex_maths",
 			"alias",
+			"file_dialogue",
 			"go",
+			"gitbash",
 			"python",
 			"r",
 			"markdown"
 			]
 app_modules = ["sublime",
 			"lyx",
-			# "scientific_notebook",
 			"chrome",
 			"fman",
 			"dragon",
 			"photoshop",
 			"rstudio",
-			"file_dialogue",
 			"explorer",
 			"github",
 			"sumatrapdf",
@@ -32,7 +32,6 @@ app_modules = ["sublime",
 			"oxmetrics",
 			"spotify",
 			"powershell",
-			"gitbash"
 			# "accessibility"
 			]
 max_ccr_repetitions = 16
