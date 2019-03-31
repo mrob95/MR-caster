@@ -110,7 +110,7 @@ class SublimeRule(MergeRule):
         "focus <panel>"                  : Key("c-%(panel)s"),
         "move <panel>"                   : Key("cs-%(panel)s"),
         # {"keys"                        : ["ctrl+alt+v"], "command": "clone_file"}
-        "duplicate (tab | file)"                  : Key("ca-v"),
+        "duplicate (tab | file)"         : Key("ca-v"),
         "split right"                    : Key("as-2, c-1, cs-2"),
         #
         "terminal here"                  : Key("cs-t"),
@@ -120,7 +120,6 @@ class SublimeRule(MergeRule):
 
         # wrap plus
         "(wrap | split) lines"           : Key("a-q"),
-        "run line [<n2>]"                : Key("ca-enter")*Repeat(extra="n2"),
         "align that"                     : Key("ca-a"),
 
     }
@@ -180,6 +179,30 @@ class SublimeRule(MergeRule):
         "filetype": "",
     }
 
+class SublimeRRule(MergeRule):
+    mwith = "Core"
+    mapping = {
+        "run line [<n>]": Key("cs-r")*Repeat(extra="n"),
+        "open are terminal": Key("ca-r"),
+        "terminal right": Key("ca-r/50, as-2, c-1, cs-2, c-1"),
+        "help that":
+            Store() + Key("c-2, question") + Retrieve() + Key("enter/50, c-1"),
+        "glimpse that":
+            Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" glimpse()") + Key("enter/50, c-1"),
+        "head that":
+            Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" head()") + Key("enter/50, c-1"),
+        "vee table that":
+                Store() + Key("c-2") + Text("library(vtable)") + Key("enter/50") + Retrieve() + Key("space, percent, rangle, percent") + Text(" vtable()") + Key("enter/50, c-1"),
+    }
+    extras = [
+        IntegerRef("n", 1, 9)
+    ]
+    default = {
+        "n": 1,
+    }
+
+
+
 
 #---------------------------------------------------------------------------
 
@@ -189,3 +212,6 @@ rule = SublimeRule(name="sublime")
 grammar = Grammar("Sublime", context=context)
 grammar.add_rule(rule)
 grammar.load()
+
+Rcontext = AppContext(title=".R") & AppContext(title="Sublime Text")
+control.nexus().merger.add_app_rule(SublimeRRule(), context=Rcontext)
