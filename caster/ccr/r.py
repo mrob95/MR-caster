@@ -46,6 +46,9 @@ class Rlang(MergeRule):
         BINDINGS["argument_prefix"] + " <argument>":
             Text("%(argument)s"),
 
+        BINDINGS["library_prefix"] + " <library>":
+            Text("library(%(library)s)") + Key("end, enter"),
+
     }
 
     extras = [
@@ -55,6 +58,7 @@ class Rlang(MergeRule):
         Choice("ggfun", BINDINGS["r_graph"]),
         Choice("argument", BINDINGS["r_args"]),
         Choice("modelargs", BINDINGS["r_model"]),
+        Choice("library", BINDINGS["libraries"]),
     ]
     defaults = {}
 

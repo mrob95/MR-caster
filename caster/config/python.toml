@@ -54,13 +54,14 @@ method_prefix = "meth"
 
 [commands]
 "assign"             = " = "
-"iffae"              = ["if :", "left"]
-"shells"             = "else:"
-"shell iffae"        = ["elif :", "left"]
 "breaker"            = "break"
+"class"              = ["class :", "left"]
 "for each"           = ["for  in :", "left:5"]
 "for loop"           = ["for i in range(0, ):", "left:2"]
-"while loop"         = ["while :", "left"]
+"from import"        = ["from  import ", "home, right:5"]
+"function"           = ["def", "tab"]
+"iffae"              = ["if :", "left"]
+"import"             = "import "
 "lambda"             = ["lambda :", "left"]
 "list comprehension" = ["lc", "tab"]
 "lodge and"          = " and "
@@ -68,18 +69,17 @@ method_prefix = "meth"
 "lodge is"           = " is "
 "lodge not"          = " not "
 "lodge or"           = " or "
-"import"             = "import "
-"from import"        = ["from  import ", "home, right:5"]
-"function"           = ["def", "tab"]
+"method"             = ["defs", "tab"]
 "return"             = "return "
-"class"              = "class "
+"shell iffae"        = ["elif :", "left"]
+"shells"             = "else:"
+"value false"        = "False"
 "value none"         = "None"
 "value true"         = "True"
-"value false"        = "False"
+"while loop"         = ["while :", "left"]
 "with open"          = ["with open() as f:", "left:7"]
 
-[methods]
-"(init | initialise)"      = "init"
+[unary_methods]
 "(reper | representation)" = "repr"
 "string"                   = "str"
 "(len | length)"           = "len"
@@ -88,6 +88,8 @@ method_prefix = "meth"
 "size of"                  = "sizeof"
 "dir"                      = "dir"
 "(int | integer)"          = "int"
+
+[binary_methods]
 "add"                      = "add"
 "subtract"                 = "sub"
 "equal"                    = "eq"

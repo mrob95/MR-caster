@@ -36,13 +36,18 @@ class Python(MergeRule):
         BINDINGS["function_prefix"] + " <fun>":
             Store() + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
 
-        BINDINGS["method_prefix"] + " <meth>":
-            Text("def __%(meth)s__():") + Key("left:2") + Text("self, "),
+        BINDINGS["method_prefix"] + " init":
+            Text("def __init__():") + Key("left:2") + Text("self, "),
+        BINDINGS["method_prefix"] + " <umeth>":
+            Text("def __%(meth)s__(self):"),
+        BINDINGS["method_prefix"] + " <bmeth>":
+            Text("def __%(meth)s__(self, other):"),
     }
 
     extras = [
         Choice("fun",    BINDINGS["functions"]),
-        Choice("meth",   BINDINGS["methods"]),
+        Choice("umeth",  BINDINGS["unary_methods"]),
+        Choice("bmeth",  BINDINGS["binary_methods"]),
         Choice("command",BINDINGS["commands"]),
     ]
 
