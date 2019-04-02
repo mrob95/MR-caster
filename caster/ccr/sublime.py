@@ -143,18 +143,8 @@ class SublimeRule(MergeRule):
             "ninth"  : "9",
             "tenth"  : "10",
             }),
-        Choice("cols", {
-            "one"  : "1",
-            "two"  : "2",
-            "three": "3",
-            "grid" : "5",
-        }),
-        Choice("panel", {
-            "one": "1",
-            "left": "1",
-            "two": "2",
-            "right": "2",
-            }),
+        Choice("cols", {"one": "1", "two": "2", "three": "3", "grid": "5",}),
+        Choice("panel", {"one": "1", "left": "1", "two": "2", "right": "2", }),
         Choice("filetype", {
             "pie | python": "py",
             "mark [down]": "md",

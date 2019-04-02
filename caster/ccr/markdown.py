@@ -24,22 +24,20 @@ class MarkdownNon(MergeRule):
 class Markdown(MergeRule):
     non = MarkdownNon
     mwith = "Core"
+    mcontext = AppContext(title=".md") | AppContext(title=".Rmd") | AppContext(title="GitHub") | AppContext(title="Gitter")
     pronunciation = BINDINGS["pronunciation"]
     mapping = {
-
         "heading [<num>] [<dict>]":
                 Function(lambda num, dict:
                     Text(("#" * num) + " " + str(dict).capitalize()).execute()),
 
+        BINDINGS["insert_prefix"] + " <element>":
+            Key("%(element)s"),
 
-    	BINDINGS["insert_prefix"] + " <element>":
-    		Key("%(element)s"),
+        BINDINGS["insert_prefix"] + " <command>":
+            Function(execution.alternating_command),
 
-
-    	BINDINGS["insert_prefix"] + " <command>":
-    		Function(execution.alternating_command),
-
-    	BINDINGS["output_prefix"] + " <output>":
+        BINDINGS["output_prefix"] + " <output>":
             Text("%(output)s"),
 
         BINDINGS["option_prefix"] + " <option>":
@@ -49,17 +47,16 @@ class Markdown(MergeRule):
             Function(lambda n: Text("|"*(n-1)).execute()) + Key("home"),
         "table (break | split) <n>":
             Function(lambda n: Text("---|"*(n-1) + "---").execute()) + Key("enter"),
-
     }
 
     extras = [
         Dictation("dict"),
-    	IntegerRef("num", 1, 7),
+        IntegerRef("num", 1, 7),
         IntegerRef("n", 1, 12),
-    	Choice("element", BINDINGS["elements"]),
-    	Choice("output", BINDINGS["outputs"]),
-    	Choice("option", BINDINGS["options"]),
-    	Choice("command", BINDINGS["alternating"]),
+        Choice("element", BINDINGS["elements"]),
+        Choice("output", BINDINGS["outputs"]),
+        Choice("option", BINDINGS["options"]),
+        Choice("command", BINDINGS["alternating"]),
     ]
 
     defaults = {
@@ -67,8 +64,4 @@ class Markdown(MergeRule):
         "num": 1,
     }
 
-
-# control.nexus().merger.add_global_rule(Markdown())
-context = AppContext(title=".md") | AppContext(title=".Rmd") | AppContext(title="GitHub") | AppContext(title="Gitter")
-
-control.nexus().merger.add_app_rule(Markdown(), context=context)
+control.nexus().merger.add_app_rule(Markdown())

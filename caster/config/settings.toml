@@ -16,7 +16,8 @@ ccr_modules = ["core",
 			"python",
 			"r",
 			"markdown",
-			"sublime"
+			"sublime",
+			"notepad",
 			]
 app_modules = [
 			"lyx",
