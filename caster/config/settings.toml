@@ -15,9 +15,10 @@ ccr_modules = ["core",
 			"gitbash",
 			"python",
 			"r",
-			"markdown"
+			"markdown",
+			"sublime"
 			]
-app_modules = ["sublime",
+app_modules = [
 			"lyx",
 			"chrome",
 			"fman",
@@ -34,7 +35,7 @@ app_modules = ["sublime",
 			"powershell",
 			# "accessibility"
 			]
-max_ccr_repetitions = 16
+max_ccr_repetitions = 13
 keypress_wait = 0.05
 alternative_letters = true
 alternative_directions = true

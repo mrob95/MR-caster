@@ -43,8 +43,8 @@ class Rlang(MergeRule):
         BINDINGS["model_prefix"] + " <modelargs>":
             Text("%(modelargs)s"),
 
-        BINDINGS["argument_prefix"] + " <argument>":
-            Text("%(argument)s"),
+        # BINDINGS["argument_prefix"] + " <argument>":
+            # Text("%(argument)s"),review Dragon
 
         BINDINGS["library_prefix"] + " <library>":
             Text("library(%(library)s)") + Key("end, enter"),

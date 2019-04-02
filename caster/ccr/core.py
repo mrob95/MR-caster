@@ -177,8 +177,6 @@ class core(MergeRule):
     extras = [
         Dictation("text"),
     	IntegerRef("n", 1, 10),
-        # IntegerRef("numbers", 0, CORE["numbers_max"]),
-        # element_series_wrap_class(IntegerRef("wnKK", 0, 10)),
         IntegerRef("wnKK", 0, 10),
         IntegerRef("wnKK2", 0, 10),
         IntegerRef("wnKK3", 0, 10),

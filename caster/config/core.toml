@@ -1,6 +1,6 @@
 # Once you have finished making changes, use the "rebuild caster"
 # command to enact them.
-"numbers_max"          = 1000
+"numbers_max"          = 500
 "pronunciation"        = "Core"
 "capitals_prefix"      = "big"
 "numbers_prefix"       = "numb"

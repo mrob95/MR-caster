@@ -103,18 +103,13 @@ class CCRMerger(object):
 
     def add_app_rule(self, rule, context=None):
         if context is not None and rule.get_context() is None: rule.set_context(context)
-        assert rule.get_context(
-        ) is not None, "app rules must have contexts, " + rule.get_pronunciation(
-        ) + " has no context"
-        assert rule.get_merge_with(
-        ) is not None, "app rules must define mwith, " + rule.get_pronunciation(
-        ) + " has no mwith"
+        assert rule.get_context() is not None, "app rules must have contexts, " + rule.get_pronunciation() + " has no context"
+        assert rule.get_merge_with() is not None, "app rules must define mwith, " + rule.get_pronunciation() + " has no mwith"
         self._add_to(rule, self._app_rules)
 
     def add_selfmodrule(self, rule):
         assert hasattr(rule,"set_merger"), "only SelfModifyingRules may be added by add_selfmodrule()"
-        assert not hasattr(rule,
-                           "master_node"), "NodeRules are not permitted in the merger"
+        assert not hasattr(rule, "master_node"), "NodeRules are not permitted in the merger"
         rule.set_merger(self)
         self._add_to(rule, self._self_modifying_rules)
 
@@ -295,8 +290,7 @@ class CCRMerger(object):
             ) if base is not None else base  # make a copy b/c commands will get stripped out
             context = rule.get_context()
             non_copy = rule.non if rule.non else None
-            mp = MergePair(time, MergeInf.APP, base_copy, rule.copy(), False,
-                           CCRMerger.specs_per_rulename(self._global_rules))
+            mp = MergePair(time, MergeInf.APP, base_copy, rule.copy(), False, CCRMerger.specs_per_rulename(self._global_rules))
             self._run_filters(mp)
             rule = self._compatibility_merge(
                 mp, base_copy, mp.rule2)  # mp.rule2 because named_rule got copied
@@ -320,14 +314,10 @@ class CCRMerger(object):
         active_global = self._get_rules_by_composite(base.composite, True)
         global_non_ccr = [rule.non() for rule in active_global \
                          if rule.non is not None]
-        # app_non_ccr = [rule.non() for rule in active_apps \
-                         # if rule.non is not None]
         '''update grammars'''
         self._add_grammar(base, True, negation_context)
         for rule in global_non_ccr:
             self._add_grammar(rule)
-        # for rule in app_non_ccr:
-            # self._add_grammar(rule, context=rule.get_context())
         for rule in active_apps:
             self._add_grammar(rule, True, rule.get_context())
             if rule.non is not None:
