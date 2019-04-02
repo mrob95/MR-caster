@@ -16,9 +16,9 @@ def action_lines(action, n, nn):
 
 class SublimeRule(MergeRule):
     pronunciation = "sublime"
+    mcontext = AppContext(title="Sublime Text")
 
     mapping = {
-        "comment line"                   : Key("c-slash"),
         "comment block"                  : Key("cs-slash"),
         "convert indentation"            : Key("f10, v, i, up:2, enter"),
 
@@ -28,12 +28,6 @@ class SublimeRule(MergeRule):
         "edit all"                       : Key("c-d, a-f3"),
         "reverse selection"              : Key("as-r"),
 
-        "transform upper"                : Key("c-k, c-u"),
-        "transform lower"                : Key("c-k, c-l"),
-        # {"keys"                        : ["ctrl+k", "ctrl+t"], "command": "title_case"},
-        "transform title"                : Key("c-k, c-t"),
-
-        "line <n>"                       : Key("c-g") + Text("%(n)s") + Key("enter"),
         "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter"),
         "<action> [line] <n> [to <nn>]"  : Function(action_lines),
 
@@ -70,7 +64,6 @@ class SublimeRule(MergeRule):
         "replace"                        : Key("c-h"),
         #
 
-        "go to file"                     : Key("c-p"),
         "go to <dict> [<filetype>]"      : Key("c-p") + Text("%(dict)s" + "%(filetype)s") + Key("enter"),
         "go to word"                     : Key("c-semicolon"),
         "go to symbol"                   : Key("c-r"),
@@ -120,7 +113,6 @@ class SublimeRule(MergeRule):
 
         # wrap plus
         "(wrap | split) lines"           : Key("a-q"),
-        "align that"                     : Key("ca-a"),
 
     }
     extras = [
@@ -179,12 +171,43 @@ class SublimeRule(MergeRule):
         "filetype": "",
     }
 
+control.nexus().merger.add_non_ccr_app_rule(SublimeRule())
+
+#---------------------------------------------------------------------------
+
+class SublimeCCRRule(MergeRule):
+    mwith = ["Core"]
+    mcontext = AppContext(title="Sublime Text")
+    mapping = {
+        "line <n>"       : Key("c-g") + Text("%(n)s") + Key("enter"),
+        "align that"     : Key("ca-a"),
+        "go to file"     : Key("c-p"),
+        "comment line"   : Key("c-slash"),
+
+        "transform upper": Key("c-k, c-u"),
+        "transform lower": Key("c-k, c-l"),
+        # {"keys"        : ["ctrl+k", "ctrl+t"], "command": "title_case"},
+        "transform title": Key("c-k, c-t"),
+
+    }
+    extras = [
+        IntegerRef("n",1, 1000),
+    ]
+
+control.nexus().merger.add_app_rule(SublimeCCRRule())
+
+#---------------------------------------------------------------------------
+
 class SublimeRRule(MergeRule):
     mwith = ["Core"]
+    mcontext = AppContext(title=".R") & AppContext(title="Sublime Text")
     mapping = {
-        "run (line | that) [<n>]": Key("cs-r")*Repeat(extra="n"),
-        "open are terminal": Key("ca-r"),
-        "terminal right": Key("ca-r/50, as-2, c-1, cs-2, c-1"),
+        "run (line | that) [<n>]":
+            Key("cas-r")*Repeat(extra="n"),
+        "open are terminal":
+            Key("ca-r"),
+        "terminal right":
+            Key("ca-r/50, as-2, c-1, cs-2, c-1"),
         "help that":
             Store() + Key("c-2, question") + Retrieve() + Key("enter/50, c-1"),
         "glimpse that":
@@ -195,23 +218,28 @@ class SublimeRRule(MergeRule):
                 Store() + Key("c-2") + Text("library(vtable)") + Key("enter/50") + Retrieve() + Key("space, percent, rangle, percent") + Text(" vtable()") + Key("enter/50, c-1"),
     }
     extras = [
-        IntegerRef("n", 1, 9)
+        IntegerRef("n", 1, 9),
     ]
     default = {
         "n": 1,
     }
 
-
-
+control.nexus().merger.add_app_rule(SublimeRRule())
 
 #---------------------------------------------------------------------------
 
-context = AppContext(executable="sublime_text", title="Sublime Text")
-rule = SublimeRule(name="sublime")
+class SublimeTeXRule(MergeRule):
+    mcontext = AppContext(title=".tex") & AppContext(title="Sublime Text")
+    mapping = {
+        "go [to] word <dict>": Key("c-r") + Text("%(dict)s") + Key("enter"),
+    }
+    extras = [
+        Dictation("dict"),
+    ]
+    default = {
+        "n": 1,
+    }
 
-grammar = Grammar("Sublime", context=context)
-grammar.add_rule(rule)
-grammar.load()
+control.nexus().merger.add_non_ccr_app_rule(SublimeTeXRule())
 
-Rcontext = AppContext(title=".R") & AppContext(title="Sublime Text")
-control.nexus().merger.add_app_rule(SublimeRRule(), context=Rcontext)
+#---------------------------------------------------------------------------

@@ -26,7 +26,7 @@ class PythonNon(MergeRule):
 class Python(MergeRule):
     non = PythonNon
     mwith = "Core"
-
+    mcontext = AppContext(title=".py")
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {
@@ -53,7 +53,4 @@ class Python(MergeRule):
 
     defaults = {}
 
-
-# control.nexus().merger.add_global_rule(Python())
-context = AppContext(title=".py")
-control.nexus().merger.add_app_rule(Python(), context=context)
+control.nexus().merger.add_app_rule(Python())

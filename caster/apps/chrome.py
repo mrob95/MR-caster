@@ -110,3 +110,57 @@ grammar = Grammar("chrome", context=context)
 rule = ChromeRule(name="chrome")
 grammar.add_rule(rule)
 grammar.load()
+
+class DocsRule(MergeRule):
+    mapping = {
+        "(insert | edit) link": Key("c-k"),
+        "print file": Key("c-p"),
+        "find and replace": Key("c-h"),
+        "find next": Key("c-g"),
+        "find previous": Key("cs-g"),
+
+        "bold text": Key("c-b"),
+        "italic text": Key("c-i"),
+        "underlined text": Key("c-u"),
+        "strikethrough text": Key("as-5"),
+        "superscript": Key("c-dot"),
+        "subscript": Key("c-comma"),
+        "increase font size": Key("cs-rangle"),
+        "decrease font size": Key("cs-langle"),
+
+        "normal text style": Key("ca-0"),
+        "heading style [<headn>]": Key("ca-%(headn)s"),
+        "left align text": Key("cs-l"),
+        "centre align text": Key("cs-e"),
+        "right align text": Key("cs-r"),
+        "justify [align] text": Key("cs-j"),
+        "insert numbered list": Key("cs-7"),
+        "insert [bulleted] list": Key("cs-8"),
+
+        "move paragraph up": Key("as-up"),
+        "move paragraph down": Key("as-down"),
+
+        "(insert | add) comment": Key("ca-m"),
+        "open discussion thread": Key("cas-a"),
+        "insert footnote": Key("ca-f"),
+
+        "file menu": Key("a-f"),
+        "edit menu": Key("a-e"),
+        "view menu": Key("a-v"),
+        "insert menu": Key("a-i"),
+        "format menu": Key("a-o"),
+        "tools menu": Key("a-t"),
+        "help menu": Key("a-h"),
+
+    }
+    extras = [
+        IntegerRef("headn", 1, 7),
+        ]
+    defaults = {"headn": 1}
+
+docscontext = AppContext(title="Google docs")
+docsgrammar = Grammar("googledocs", context=docscontext)
+
+rule = DocsRule(name="googledocs")
+docsgrammar.add_rule(rule)
+docsgrammar.load()
