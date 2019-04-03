@@ -28,7 +28,6 @@ class SublimeRule(MergeRule):
         "edit all"                       : Key("c-d, a-f3"),
         "reverse selection"              : Key("as-r"),
 
-        "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter"),
         "<action> [line] <n> [to <nn>]"  : Function(action_lines),
 
         "new (file | tab)"               : Key("c-n"),
@@ -54,6 +53,7 @@ class SublimeRule(MergeRule):
         "(select | sell) until"          : Key("as-s"),
 
         "toggle side bar"                : Key("c-k, c-b"),
+        "show key bindings"              : Key("f10, p, right, k"),
 
         #
         "find"                           : Key("c-f"),
@@ -69,7 +69,7 @@ class SublimeRule(MergeRule):
         "go to symbol"                   : Key("c-r"),
         "go to [symbol in] project"      : Key("cs-r"),
 
-        "command pallette"               : Key("cs-p"),
+        "command pallette [<dict>]"      : Key("cs-p") + Text("%(dict)s"),
         "search in directory"            : Key("cs-f"),
         "go to that"                     : Store() + Key("cs-r") + Retrieve() + Key("enter"),
         "search [for] that"              : Store() + Key("cs-f") + Retrieve() + Key("enter"),
@@ -97,7 +97,7 @@ class SublimeRule(MergeRule):
         "close tab"                      : Key("c-w"),
         "next tab"                       : Key("c-pgdown"),
         "previous tab"                   : Key("c-pgup"),
-        "<nth> tab"                      : Key("a-%(n2)s"),
+        "<nth> tab"                      : Key("a-%(nth)s"),
         #
         "column <cols>"                  : Key("as-%(cols)s"),
         "focus <panel>"                  : Key("c-%(panel)s"),
@@ -119,9 +119,6 @@ class SublimeRule(MergeRule):
         Dictation("dict"),
         IntegerRef("n",1, 1000),
         IntegerRef("nn", 1, 1000),
-        IntegerRef("n11", 1, 20),
-        IntegerRef("n12", 0, 10),
-        IntegerRef("n13", 0, 10),
         IntegerRef("n2", 1, 9),
         IntegerRef("n3", 1, 21),
         Choice("action", {
@@ -141,7 +138,6 @@ class SublimeRule(MergeRule):
             "seventh": "7",
             "eighth" : "8",
             "ninth"  : "9",
-            "tenth"  : "10",
             }),
         Choice("cols", {"one": "1", "two": "2", "three": "3", "grid": "5",}),
         Choice("panel", {"one": "1", "left": "1", "two": "2", "right": "2", }),
@@ -153,9 +149,8 @@ class SublimeRule(MergeRule):
             }),
     ]
     defaults = {
+        "dict": "",
         "nn": None,
-        "n12": "",
-        "n13": "",
         "n2": 1,
         "n3": 1,
         "filetype": "",
@@ -170,6 +165,8 @@ class SublimeCCRRule(MergeRule):
     mcontext = AppContext(title="Sublime Text")
     mapping = {
         "line <n>"       : Key("c-g") + Text("%(n)s") + Key("enter"),
+        "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter"),
+
         "align that"     : Key("ca-a"),
         "go to file"     : Key("c-p"),
         "comment line"   : Key("c-slash"),
@@ -182,14 +179,18 @@ class SublimeCCRRule(MergeRule):
     }
     extras = [
         IntegerRef("n",1, 1000),
+        IntegerRef("n11", 1, 20),
+        IntegerRef("n12", 0, 10),
+        IntegerRef("n13", 0, 10),
     ]
+    defaults = {"n12": "", "n13": ""}
 
 control.nexus().merger.add_app_rule(SublimeCCRRule())
 
 #---------------------------------------------------------------------------
 
 class SublimeRRule(MergeRule):
-    mwith = ["Core"]
+    mwith = ["Core", "R"]
     mcontext = AppContext(title=".R") & AppContext(title="Sublime Text")
     mapping = {
         "run (line | that) [<n>]":

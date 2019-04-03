@@ -36,7 +36,7 @@ class Rlang(MergeRule):
 
         #
         BINDINGS["function_prefix"] + " <function>":
-            Store() + Text("%(function)s()") + Key("left") + Retrieve(action_if_text="right"),
+            Store(same_is_okay=False) + Text("%(function)s()") + Key("left") + Retrieve(action_if_text="right"),
         #
         BINDINGS["graph_prefix"] + " <ggfun>":
             Text("%(ggfun)s()") + Key("left"),

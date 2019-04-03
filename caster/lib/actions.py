@@ -43,13 +43,14 @@ Sample usage:
 
 
 class Store(ActionBase):
-    def __init__(self, space=" ", remove_cr=False):
+    def __init__(self, space=" ", remove_cr=False, same_is_okay=True):
         ActionBase.__init__(self)
         self.space = space
         self.remove_cr = remove_cr
+        self.same_is_okay = same_is_okay
 
     def _execute(self, data=None):
-        _, orig = utilities.read_selected(False)
+        _, orig = utilities.read_selected(self.same_is_okay)
         text = orig.replace(" ", self.space) if orig else ""
         control.nexus().temp = text.replace("\n", "") if self.remove_cr else text
         return True

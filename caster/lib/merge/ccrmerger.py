@@ -110,9 +110,10 @@ class CCRMerger(object):
     def add_non_ccr_app_rule(self, rule, context=None):
         if context is not None and rule.get_context() is None: rule.set_context(context)
         assert rule.get_context() is not None, "app rules must have contexts, " + rule.get_pronunciation() + " has no context"
-        name = str(rule)
-        grammar = Grammar(name, context=rule.get_context())
+        grammar = Grammar(str(rule), context=rule.get_context())
         grammar.add_rule(rule)
+        if rule.non is not None:
+            grammar.add_rule(rule.non())
         grammar.load()
 
     def add_selfmodrule(self, rule):

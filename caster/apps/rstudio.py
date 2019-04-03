@@ -14,7 +14,7 @@ class RStudioRule(MergeRule):
     pronunciation = "R studio"
 
     mapping = {
-    "new file"                         :  Key("cs-n"),
+    "new (file | tab)"                 :  Key("cs-n"),
     "open file"                        :  Key("c-o"),
     "save all"                         :  Key("ac-s"),
     "select all"                       :  Key("c-a"),
@@ -30,7 +30,6 @@ class RStudioRule(MergeRule):
     "previous tab"                     :  Key("c-f11"),
     "last tab"                         :  Key("cs-f12"),
     "close tab"                        :  Key("c-w"),
-
 
     "run (line | that)"                :  Key("c-enter"),
     "run document"                     :  Key("ac-r"),

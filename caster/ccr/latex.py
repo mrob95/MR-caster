@@ -76,13 +76,13 @@ class LaTeX(MergeRule):
             Function(lambda misc_symbol: execution.alternating_command(misc_symbol)),
         BINDINGS["accent_prefix"] + " <accent>":
             # Function(lambda accent: execution.paren_function("\\" + accent, "{", "}")),
-            Store() + Text("\\%(accent)s{}") + Key("left") + Retrieve(action_if_text="right"),
+            Store(same_is_okay=False) + Text("\\%(accent)s{}") + Key("left") + Retrieve(action_if_text="right"),
 
         BINDINGS["greek_prefix"] + " [<big>] <greek_letter>":
             Function(tex_funcs.greek_letters),
         #
         BINDINGS["command_prefix"] + " <command>":
-            Store() + Text("\\%(command)s{}") + Key("left") + Retrieve(action_if_text="right"),
+            Store(same_is_okay=False) + Text("\\%(command)s{}") + Key("left") + Retrieve(action_if_text="right"),
         BINDINGS["command_prefix"] + " <commandnoarg>":
             Text("\\%(commandnoarg)s "),
 
