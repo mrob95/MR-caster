@@ -56,8 +56,7 @@ class Python(MergeRule):
 control.nexus().merger.add_app_rule(Python())
 
 #---------------------------------------------------------------------------
-def function(self):
-    pass
+
 class BasePythonRule(MergeRule):
     mwith = ["Core", "Python"]
     mcontext = AppContext(title=".py") & ~AppContext(title="Sublime Text")
