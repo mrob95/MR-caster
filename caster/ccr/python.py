@@ -84,3 +84,24 @@ control.nexus().merger.add_app_rule(SublimePythonRule())
 
 #---------------------------------------------------------------------------
 
+CASTER = utilities.load_toml_relative("config/python_caster.toml")
+
+class CasterPythonRule(MergeRule):
+    mwith = ["Core", "Python"]
+    mcontext = AppContext(title=".py") & AppContext(title="caster")
+    mapping = {
+        "integer ref <intn>": Text("IntegerRef("", 1, %(intn)s),") + Key("left:16"),
+        BINDINGS["function_prefix"] + " <cfun>":
+            Store(same_is_okay=False) + Text("%(cfun)s()") + Key("left") + Retrieve(action_if_text="right"),
+        "<cmisc>":
+            Function(lambda cmisc: execution.alternating_command(cmisc)),
+    }
+    extras = [
+        IntegerRef("intn", 1, 1001),
+        Choice("cfun", CASTER["functions"]),
+        Choice("cmisc", CASTER["misc"]),
+    ]
+
+control.nexus().merger.add_app_rule(CasterPythonRule())
+
+#---------------------------------------------------------------------------

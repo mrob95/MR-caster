@@ -44,8 +44,8 @@ class CCRMerger(object):
     MAX_REPETITIONS = 16
 
     def __init__(self, use_real_config=True):
-        self._grammars = [
-        ]  # cannot put multiple large rules in a single grammar despite context separation
+        self._grammars = []
+        # cannot put multiple large rules in a single grammar despite context separation
         # original copies of rules
         self._global_rules = {}
         self._app_rules = {}
@@ -79,6 +79,7 @@ class CCRMerger(object):
         # new rules will be added
         new_config = {}
         for tag, rules in {CCRMerger._GLOBAL: self.global_rule_names(),
+        # {"global": [rules], }...
                     CCRMerger._APP: self.app_rule_names(),
                     CCRMerger._SELFMOD: self.selfmod_rule_names()}.iteritems():
             new_config[tag] = {}
@@ -134,8 +135,8 @@ class CCRMerger(object):
             raise Exception("Rule Naming Conflict: " + rule.get_pronunciation())
         if isinstance(rule, MergeRule):
             for name in group.keys():
-                group[name].compatibility_check(
-                    rule)  # calculate compatibility for uncombined rules at boot time
+                group[name].compatibility_check(rule)
+                # calculate compatibility for uncombined rules at boot time
             group[rule.get_pronunciation()] = rule
 
     '''getters'''
@@ -182,8 +183,8 @@ class CCRMerger(object):
             base = rule if base is None else base.merge(rule)
         else:
             # figure out which MergeRules aren't compatible
-            composite = base.composite.copy(
-            )  # composite is a set of the ids of the rules which make up this rule
+            composite = base.composite.copy()
+            # composite is a set of the ids of the rules which make up this rule
             for ID in rule.compatible:
                 if not rule.compatible[ID]: composite.discard(ID)
             # rebuild a base from remaining MergeRules

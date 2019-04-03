@@ -23,6 +23,7 @@ class SublimeRule(MergeRule):
         "convert indentation"            : Key("f10, v, i, up:2, enter"),
 
         "edit lines"                     : Key("cs-l"),
+        "sort lines"                     : Key("f9"),
         "edit next [<n3>]"               : Key("c-d")*Repeat(extra="n3"),
         "skip next [<n3>]"               : Key("c-k, c-d")*Repeat(extra="n3"),
         "edit all"                       : Key("c-d, a-f3"),
@@ -164,8 +165,8 @@ class SublimeCCRRule(MergeRule):
     mwith = ["Core"]
     mcontext = AppContext(title="Sublime Text")
     mapping = {
-        "line <n>"       : Key("c-g") + Text("%(n)s") + Key("enter"),
-        "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter"),
+        "line <n>"       : Key("c-g") + Text("%(n)s") + Key("enter, end"),
+        "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter, end"),
 
         "align that"     : Key("ca-a"),
         "go to file"     : Key("c-p"),
@@ -178,7 +179,7 @@ class SublimeCCRRule(MergeRule):
 
     }
     extras = [
-        IntegerRef("n",1, 1000),
+        IntegerRef("n", 1, 1000),
         IntegerRef("n11", 1, 20),
         IntegerRef("n12", 0, 10),
         IntegerRef("n13", 0, 10),

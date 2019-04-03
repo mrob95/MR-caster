@@ -94,7 +94,7 @@ class ChromeRule(MergeRule):
             "sixth": "6",
             "seventh": "7",
             "eighth": "8",
-            "ninth": "9",
+            "(last | ninth)": "9",
             "next":"pgdown",
             "previous":"pgup",
         }),

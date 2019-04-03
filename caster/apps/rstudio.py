@@ -8,10 +8,12 @@ from caster.lib.actions import Key, Text, Store, Retrieve
 from caster.lib.context import AppContext
 
 from caster.lib.merge.mergerule import MergeRule
+from caster.lib import control
 
 
 class RStudioRule(MergeRule):
     pronunciation = "R studio"
+    mcontext = AppContext(executable="rstudio")
 
     mapping = {
     "new (file | tab)"                 :  Key("cs-n"),
@@ -53,8 +55,4 @@ class RStudioRule(MergeRule):
     ]
     defaults = {}
 
-context = AppContext(executable="rstudio")
-grammar = Grammar("RStudio", context=context)
-rule = RStudioRule()
-grammar.add_rule(RStudioRule(name="rstudio"))
-grammar.load()
+control.nexus().merger.add_non_ccr_app_rule(RStudioRule())

@@ -1,10 +1,17 @@
-from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef, Repeat
+from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef, Repeat, Clipboard
 from caster.lib.actions import Key, Text, Mouse
 from caster.lib.context import AppContext
+import markdown2
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
 
+
+def CliptoHTML():
+    Key("c-c/10").execute()
+    cb = Clipboard.get_system_text()
+    html = markdown2.markdown(cb)
+    Clipboard.set_system_text(html)
 
 class Notepad(MergeRule):
     mwith = "Core"
@@ -12,6 +19,7 @@ class Notepad(MergeRule):
     mapping = {
         "splat [<splatdir>] [<nnavi10>]":
             Key("%(splatdir)s") * Repeat(extra="nnavi10") + Key("backspace"),
+        "copy HTML": Function(CliptoHTML),
     }
 
     extras = [
