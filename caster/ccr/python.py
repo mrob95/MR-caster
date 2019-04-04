@@ -42,6 +42,8 @@ class Python(MergeRule):
         BINDINGS["method_prefix"] + " <bmeth>":
             Text("def __%(meth)s__(self, other):"),
 
+        "import <lib>": Text("import %(lib)s") + Key("enter"),
+
     }
 
     extras = [
@@ -49,6 +51,7 @@ class Python(MergeRule):
         Choice("umeth",  BINDINGS["unary_methods"]),
         Choice("bmeth",  BINDINGS["binary_methods"]),
         Choice("command",BINDINGS["commands"]),
+        Choice("lib",    BINDINGS["libraries"]),
     ]
 
     defaults = {}
@@ -85,7 +88,17 @@ control.nexus().merger.add_app_rule(SublimePythonRule())
 
 CASTER = utilities.load_toml_relative("config/python_caster.toml")
 
+class CasterPythonRuleNon(MergeRule):
+    mapping = {
+        BINDINGS["template_prefix"] + " <ctemplate>":
+            Function(lambda ctemplate: execution.template(ctemplate)),
+    }
+    extras = [
+        Choice("ctemplate", CASTER["templates"]),
+    ]
+
 class CasterPythonRule(MergeRule):
+    non = CasterPythonRuleNon
     mwith = ["Core", "Python"]
     mcontext = AppContext(title=".py") & AppContext(title="caster")
     mapping = {

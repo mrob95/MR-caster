@@ -39,13 +39,14 @@ class SublimeRule(MergeRule):
         "open folder"                    : Key("cs-o"),
         "open recent"                    : Key("f10, down:4, right, down:9"),
         "save as"                        : Key("cs-s"),
+        "revert (file | [unsaved] changes)": Key("f10, f, up:3, enter"),
+
         #
         "outdent lines"                  : Key("c-lbracket"),
         "join lines [<n3>]"              : Key("c-j")*Repeat(extra="n3"),
         "match bracket"                  : Key("c-m"),
         #
         # "(select | sell) all"          : Key("c-a"),
-        "(select | sell) scope [<n2>]"   : Key("cs-space")*Repeat(extra="n2"),
         "(select | sell) brackets [<n2>]": Key("cs-m")*Repeat(extra="n2"),
         "(select | sell) indent"         : Key("cs-j"),
         # {"keys"                        : ["ctrl+alt+p"], "command": "expand_selection_to_paragraph"},
@@ -60,7 +61,7 @@ class SublimeRule(MergeRule):
         "find"                           : Key("c-f"),
         "find <dict>"                    : Key("c-f") + Text("%(dict)s") + Key("escape"),
         "find next [<n2>]"               : Key("f3")*Repeat(extra="n2"),
-        "find previous [<n2>]"           : Key("f3")*Repeat(extra="n2"),
+        "find previous [<n2>]"           : Key("s-f3")*Repeat(extra="n2"),
         "find all"                       : Key("a-enter"),
         "replace"                        : Key("c-h"),
         #
@@ -103,6 +104,7 @@ class SublimeRule(MergeRule):
         "column <cols>"                  : Key("as-%(cols)s"),
         "focus <panel>"                  : Key("c-%(panel)s"),
         "move <panel>"                   : Key("cs-%(panel)s"),
+
         # {"keys"                        : ["ctrl+alt+v"], "command": "clone_file"}
         "duplicate (tab | file)"         : Key("ca-v"),
         "split right"                    : Key("as-2, c-1, cs-2"),
@@ -114,6 +116,9 @@ class SublimeRule(MergeRule):
 
         # wrap plus
         "(wrap | split) lines"           : Key("a-q"),
+
+        "paste from history": Key("c-k, c-v"),
+
 
     }
     extras = [
@@ -177,14 +182,19 @@ class SublimeCCRRule(MergeRule):
         # {"keys"        : ["ctrl+k", "ctrl+t"], "command": "title_case"},
         "transform title": Key("c-k, c-t"),
 
+        "(select | sell) scope [<n2>]"   : Key("cs-space")*Repeat(extra="n2"),
+        "copy scope"   : Key("cs-space, c-c"),
+        "replace scope"   : Key("cs-space, c-v"),
+
     }
     extras = [
         IntegerRef("n", 1, 1000),
+        IntegerRef("n2", 1, 9),
         IntegerRef("n11", 1, 20),
         IntegerRef("n12", 0, 10),
         IntegerRef("n13", 0, 10),
     ]
-    defaults = {"n12": "", "n13": ""}
+    defaults = {"n12": "", "n13": "", "n2": 1}
 
 control.nexus().merger.add_app_rule(SublimeCCRRule())
 

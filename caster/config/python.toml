@@ -48,6 +48,11 @@ method_prefix = "meth"
 "values"                = "values"
 "write"                 = "write"
 
+[libraries]
+"OS" = "os"
+"(system | sis)" = "sys"
+"(regular expressions | regex | ree)" = "re"
+
 [commands]
 "assign"             = " = "
 "breaker"            = "break"
@@ -92,60 +97,3 @@ method_prefix = "meth"
 "greater equal"            = "ge"
 
 [templates]
-"CCR" = '''
-from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
-from caster.lib.actions import Key, Text, Mouse
-
-from caster.lib import control, utilities
-from caster.lib.merge.mergerule import MergeRule
-
-BINDINGS = utilities.load_toml_relative("config/.toml")
-
-class classNameNon(MergeRule):
-	mapping = {
-
-	}
-
-class className(MergeRule):
-	non = classNameNon
-    pronunciation = BINDINGS["pronunciation"]
-
-    mapping = {
-
-    }
-
-    extras = [
-    ]
-
-    defaults = {}
-
-
-control.nexus().merger.add_global_rule(className())
-'''
-
-"App" = '''
-from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef)
-from caster.lib.actions import Key, Text
-from caster.lib.context import AppContext
-
-from caster.lib.merge.mergerule import MergeRule
-
-
-class AppNameRule(MergeRule):
-    pronunciation = "AppName"
-
-    mapping = {
-    }
-
-    extras = [
-    ]
-    defaults = {
-    }
-
-
-context = AppContext(executable="AppName", title="AppName")
-grammar = Grammar("AppName", context=context)
-rule = AppNameRule()
-grammar.add_rule(AppNameRule(name="AppName"))
-grammar.load()
-'''

@@ -38,8 +38,6 @@ class sn_mathematicsNon(MergeRule):
 
         "<control>":
             Key("%(control)s"),
-
-
     }
     extras = [
         Dictation("dict"),
@@ -50,10 +48,10 @@ class sn_mathematicsNon(MergeRule):
 class sn_mathematics(MergeRule):
     non = sn_mathematicsNon
     mwith = ["Core"]
+    mcontext = AppContext(executable="scientific notebook")
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {
-
         BINDINGS["symbol_prefix"] + " <symbol>":
             Function(texchar),
         #
@@ -80,13 +78,11 @@ class sn_mathematics(MergeRule):
             Key("c-f, %(numbers)s, down, %(denominator)s, right"),
 
         "configure " + BINDINGS["pronunciation"]: Function(utilities.load_config, config_name="scientific_notebook.toml"),
-
-
     }
 
     extras = [
-        IntegerRef("rows", 1, 6),
-        IntegerRef("cols", 1, 6),
+        IntegerRef("rows", 1, 10),
+        IntegerRef("cols", 1, 10),
         IntegerRef("numbers", 0, CORE["numbers_max"]),
         Choice("big", {CORE["capitals_prefix"]: True}),
         Choice("greek_letter", BINDINGS["greek_letters"]),
@@ -102,6 +98,4 @@ class sn_mathematics(MergeRule):
         "big": False,
     }
 
-# control.nexus().merger.add_global_rule(sn_mathematics())
-context = AppContext(executable="scientific notebook")
-control.nexus().merger.add_app_rule(sn_mathematics(), context)
+control.nexus().merger.add_app_rule(sn_mathematics())
