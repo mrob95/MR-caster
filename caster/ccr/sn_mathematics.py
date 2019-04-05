@@ -3,7 +3,7 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, Key, Text, Mouse, IntegerRef, Dictation
+from dragonfly import Function, Choice, Key, Text, Mouse, IntegerRef, Dictation, CompoundRule
 from dragonfly import AppContext, Grammar, Repeat
 
 from caster.lib import control, utilities, execution
@@ -11,6 +11,8 @@ from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/scientific_notebook.toml")
 CORE = utilities.load_toml_relative("config/core.toml")
+
+#---------------------------------------------------------------------------
 
 def texchar(symbol):
     keychain = "ctrl:down, "
@@ -50,6 +52,24 @@ class sn_mathematics(MergeRule):
     mwith = ["Core"]
     mcontext = AppContext(executable="scientific notebook")
     pronunciation = BINDINGS["pronunciation"]
+
+    compounds = {
+        "[<before>] integral from <sequence1> to <sequence2>":
+            [Function(lambda: texchar("int")) + Key("c-l"),
+            Key("right, c-h"), Key("right")],
+
+        "[<before>] differential <sequence1> by <sequence2>":
+            [Key("c-f, d"), Key("down, d"), Key("right")],
+
+        "[<before>] sum from <sequence1> to <sequence2>":
+            [Key("f10, i, down:11, enter/25, a, enter, f10, i, down:11, enter/25, b, enter") + Function(lambda: texchar("sum")) + Key("down"),
+            Key("up:2"), Key("right")],
+
+        "[<before>] limit from <sequence1> to <sequence2>":
+            [Key("f10, i, down:11, enter/25, b, enter") + Function(lambda: texchar("lim")) + Key("down"),
+            Function(lambda: texchar("rightarrow")),
+            Key("right")],
+    }
 
     mapping = {
         BINDINGS["symbol_prefix"] + " <symbol>":

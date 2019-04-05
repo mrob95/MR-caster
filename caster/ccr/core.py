@@ -198,7 +198,6 @@ class core(MergeRule):
         Choice("spacing", CORE["spacing"]),
         Choice("personal", PERSONAL),
         Choice("splatdir", {
-            "lease":"backspace",
             "ross":"delete",
         }),
         Choice("tabdir", {

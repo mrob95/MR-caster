@@ -100,7 +100,7 @@ class CasterPythonRuleNon(MergeRule):
 class CasterPythonRule(MergeRule):
     non = CasterPythonRuleNon
     mwith = ["Core", "Python"]
-    mcontext = AppContext(title=".py") & AppContext(title="caster")
+    mcontext = AppContext(title=".py") & (AppContext(title="caster") | AppContext(title="mathfly"))
     mapping = {
         "integer ref <intn>": Text("IntegerRef("", 1, %(intn)s),") + Key("left:16"),
         BINDINGS["function_prefix"] + " <cfun>":

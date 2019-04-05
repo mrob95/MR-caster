@@ -4,7 +4,7 @@ Created Jan 2019
 @author: Mike Roberts, Alex Boche
 '''
 from dragonfly import Function, Choice, Mouse, IntegerRef
-from dragonfly import AppContext, Grammar, Repeat
+from dragonfly import AppContext, Grammar, Repeat, CompoundRule
 
 from caster.lib.actions import Key, Text
 from caster.lib import control, utilities, execution
@@ -26,6 +26,23 @@ def matrix(rows, cols):
 class lyx_mathematics(MergeRule):
     pronunciation = BINDINGS["pronunciation"]
     mwith = CORE["pronunciation"]
+
+    compounds = {
+        "[<before>] integral from <sequence1> to <sequence2>":
+            [Text("\\int _"), Key("right, caret"), Key("right")],
+
+        "[<before>] differential <sequence1> by <sequence2>":
+            [Key("a-m, f, d"), Key("down, d"), Key("right")],
+
+        "[<before>] sum from <sequence1> to <sequence2>":
+            [Text("\\stackrelthree ") + Key("down") + Text("\\sum ") + Key("down"),
+            Key("up:2"), Key("right")],
+
+        "[<before>] limit from <sequence1> to <sequence2>":
+            [Text("\\underset \\lim ") + Key("down"),
+            Text("\\rightarrow "), Key("right")],
+    }
+
     mapping = {
         "<numbers>": Text("%(numbers)s"),
 

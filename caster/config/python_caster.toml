@@ -2,6 +2,7 @@
 "app context" = "AppContext"
 "choice"      = "Choice"
 "dictation"   = "Dictation"
+"execute"     = "execute"
 "function"    = "Function"
 "integer ref" = "IntegerRef"
 "key"         = "Key"
@@ -11,6 +12,7 @@
 
 [misc]
 "from dragonfly import all" = "from dragonfly import Dictation, Choice, Function, IntegerRef, "
+"from dragonfly import" = "from dragonfly import "
 "import actions" = "from caster.lib.actions import Key, Text, Mouse, Store, Retrieve"
 "Import [app] context" = "from caster.lib.context import AppContextc"
 "import merge rule" = "from caster.lib.merge.mergerule import MergeRule"

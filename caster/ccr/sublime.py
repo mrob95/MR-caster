@@ -233,7 +233,8 @@ control.nexus().merger.add_app_rule(SublimeRRule())
 class SublimeTeXRule(MergeRule):
     mcontext = AppContext(title=".tex") & AppContext(title="Sublime Text")
     mapping = {
-        "go [to] word <dict>": Key("c-r") + Text("%(dict)s") + Key("enter"),
+        "go [to] (word | name) <dict>":
+            Key("c-r") + Text("%(dict)s") + Key("enter"),
     }
     extras = [
         Dictation("dict"),

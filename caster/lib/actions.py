@@ -1,9 +1,16 @@
-from dragonfly import Key, Text, Mouse, Function, Pause, ActionBase, ActionError
+from dragonfly import Key, Mouse, Function, Pause, ActionBase, ActionError
+from dragonfly import Text as TextBase
+
+class Text(TextBase):
+    _pause_default = 0.002
+    def __init__(self, spec=None, static=False, pause=_pause_default, autofmt=False, use_hardware=False):
+        TextBase.__init__(self, spec=spec, static=static, pause=pause, autofmt=autofmt, use_hardware=use_hardware)
+
+# class Text(TextBase):
+    # _pause_default = 0.002
 
 from caster.lib import utilities, control, navigation
-
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
-
 # Override imported dragonfly actions with aenea's if the 'use_aenea' setting
 # is set to true.
 if SETTINGS["use_aenea"]:
