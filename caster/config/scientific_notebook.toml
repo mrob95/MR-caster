@@ -5,6 +5,7 @@
 "symbol_prefix" = ""
 "accent_prefix" = "accent"
 "unit_prefix" = "unit"
+"max_matrix_size" = 10
 
 [greek_letters]
 "alpha" = "a"

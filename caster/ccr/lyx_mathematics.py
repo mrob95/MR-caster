@@ -9,6 +9,7 @@ from dragonfly import AppContext, Grammar, Repeat, CompoundRule
 from caster.lib.actions import Key, Text
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.nestedrule import NestedRule
 
 BINDINGS = utilities.load_toml_relative("config/lyx.toml")
 CORE = utilities.load_toml_relative("config/core.toml")
@@ -23,13 +24,14 @@ def matrix(rows, cols):
     Key("a-m, w, i, "*(rows-1) + "a-m, c, i, "*(cols-1)).execute()
 
 
-class lyx_mathematics(MergeRule):
-    pronunciation = BINDINGS["pronunciation"]
-    mwith = CORE["pronunciation"]
-
-    compounds = {
+class lyx_nested(NestedRule):
+    mapping = {
         "[<before>] integral from <sequence1> to <sequence2>":
             [Text("\\int _"), Key("right, caret"), Key("right")],
+
+        "[<before>] definite from <sequence1> to <sequence2>":
+            [Key("a-m, lbracket, right, underscore"),
+            Key("right, caret"), Key("right, left:2")],
 
         "[<before>] differential <sequence1> by <sequence2>":
             [Key("a-m, f, d"), Key("down, d"), Key("right")],
@@ -42,6 +44,12 @@ class lyx_mathematics(MergeRule):
             [Text("\\underset \\lim ") + Key("down"),
             Text("\\rightarrow "), Key("right")],
     }
+
+class lyx_mathematics(MergeRule):
+    nested = lyx_nested
+    pronunciation = BINDINGS["pronunciation"]
+    mwith = CORE["pronunciation"]
+    mcontext = AppContext(executable="lyx")
 
     mapping = {
         "<numbers>": Text("%(numbers)s"),
@@ -96,6 +104,4 @@ class lyx_mathematics(MergeRule):
         "big": False,
     }
 
-# control.nexus().merger.add_global_rule(lyx_mathematics())
-context = AppContext(executable="lyx")
-control.nexus().merger.add_app_rule(lyx_mathematics(), context)
+control.nexus().merger.add_app_rule(lyx_mathematics())

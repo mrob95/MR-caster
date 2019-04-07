@@ -158,6 +158,7 @@
 "brax"                 = "[~]"
 "thin quotes"          = "'~'"
 'quotes'               = '"~"'
+'backticks'            = '`~`'
 
 [capitalization]
 "yell"                 = 1

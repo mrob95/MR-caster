@@ -1,5 +1,6 @@
-from dragonfly import (AppContext, Dictation, Grammar, IntegerRef, Key, MappingRule, Pause, Repeat, Text, Choice)
+from dragonfly import (AppContext, Dictation, Grammar, IntegerRef, Key, MappingRule, Pause, Repeat, Choice)
 
+from caster.lib.actions import Text
 from caster.lib.merge.mergerule import MergeRule
 from caster.lib import control
 
@@ -24,7 +25,7 @@ class FileDialogueRule(MergeRule):
                 "batch": "bat",
                 "(hyper | HTML)": "html",
                 "git ignore": "gitignore",
-                "mark [down]": "md",
+                "(mark | markdown)": "md",
                 "PDF": "pdf",
                 "(pie | python)": "py",
                 "R": "R",

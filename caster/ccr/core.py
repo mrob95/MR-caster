@@ -81,8 +81,6 @@ class coreNon(MappingRule):
             Playback([(["minimize", "window"], 0.0)]),
         'maximize':
             Playback([(["maximize", "window"], 0.0)]),
-        "next tab":               Playback([(["press", "control", "tab"], 0.2)]),
-
         "configure " + CORE["pronunciation"]: Function(utilities.load_config, config_name="core.toml"),
 
         "undo [<n>]":

@@ -5,7 +5,7 @@ dragon_path = "C:/Program Files (x86)/Nuance/NaturallySpeaking15/Program/natspea
 browser_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 editor_path = "C:/Program Files/Sublime Text 3/sublime_text.exe"
 ccr_modules = ["core",
-			"sn_mathematics",
+			"ScientificNotebook55",
 			"lyx_mathematics",
 			"latex",
 			"latex_maths",
@@ -42,3 +42,10 @@ alternative_letters = true
 alternative_directions = true
 use_aenea = false
 use_wsr = false
+delete_words = ["one-to-one",
+	'(\left-parenthesis\left paren',
+ '(\left-parenthesis\left parenthesis',
+ ')\right-parenthesis\right paren',
+ ')\right-parenthesis\right parenthesis',
+ '[\left-square-bracket\left bracket',
+ ']\right-square-bracket\right bracket']

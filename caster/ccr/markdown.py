@@ -24,7 +24,7 @@ class MarkdownNon(MergeRule):
 class Markdown(MergeRule):
     non = MarkdownNon
     mwith = "Core"
-    mcontext = AppContext(title=".md") | AppContext(title=".Rmd") | AppContext(title="GitHub") | AppContext(title="Gitter")
+    mcontext = AppContext(title=".md") | AppContext(title=".Rmd") | AppContext(title="GitHub") | AppContext(title="Gitter") | AppContext(title="Notepad")
     pronunciation = BINDINGS["pronunciation"]
     mapping = {
         "heading [<num>] [<dict>]":

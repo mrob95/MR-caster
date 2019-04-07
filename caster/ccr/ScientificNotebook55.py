@@ -8,6 +8,7 @@ from dragonfly import AppContext, Grammar, Repeat
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.nestedrule import NestedRule
 
 BINDINGS = utilities.load_toml_relative("config/scientific_notebook.toml")
 CORE = utilities.load_toml_relative("config/core.toml")
@@ -30,33 +31,17 @@ def matrix(rows, cols):
     Key("f10/5, i/5, down:8, enter/50").execute()
     Key(str(rows) + "/50, tab, " + str(cols) + "/50, enter").execute()
 
-class sn_mathematicsNon(MergeRule):
+#---------------------------------------------------------------------------
+
+class sn_nested(NestedRule):
     mapping = {
-        "configure " + BINDINGS["pronunciation"]:
-            Function(utilities.load_config, config_name="scientific_notebook.toml"),
-
-        "text <dict>":
-            Key("c-t") + Function(lambda dict: Text(str(dict).capitalize()).execute()),
-
-        "<control>":
-            Key("%(control)s"),
-    }
-    extras = [
-        Dictation("dict"),
-        IntegerRef("n", 1, 10),
-        Choice("control", BINDINGS["control"]),
-    ]
-
-class sn_mathematics(MergeRule):
-    non = sn_mathematicsNon
-    mwith = ["Core"]
-    mcontext = AppContext(executable="scientific notebook")
-    pronunciation = BINDINGS["pronunciation"]
-
-    compounds = {
         "[<before>] integral from <sequence1> to <sequence2>":
             [Function(lambda: texchar("int")) + Key("c-l"),
             Key("right, c-h"), Key("right")],
+
+        "[<before>] definite from <sequence1> to <sequence2>":
+            [Key("c-6, right, c-l"),
+            Key("right, c-h"), Key("right, c-left, left")],
 
         "[<before>] differential <sequence1> by <sequence2>":
             [Key("c-f, d"), Key("down, d"), Key("right")],
@@ -71,6 +56,32 @@ class sn_mathematics(MergeRule):
             Key("right")],
     }
 
+class sn_mathematicsNon(MergeRule):
+    mapping = {
+        "configure " + BINDINGS["pronunciation"]:
+            Function(utilities.load_config, config_name="scientific_notebook.toml"),
+
+        "text <dict>":
+            Key("c-t") + Function(lambda dict: Text(str(dict).capitalize()).execute()),
+        "<control>":
+            Key("%(control)s"),
+    }
+    extras = [
+        Dictation("dict"),
+        IntegerRef("n", 1, 10),
+        Choice("control", BINDINGS["control"]),
+    ]
+
+#---------------------------------------------------------------------------
+
+class sn_mathematics(MergeRule):
+    non = sn_mathematicsNon
+    mwith = CORE["pronunciation"]
+    mcontext = AppContext(executable="scientific notebook")
+    pronunciation = BINDINGS["pronunciation"]
+
+    nested = sn_nested
+
     mapping = {
         BINDINGS["symbol_prefix"] + " <symbol>":
             Function(texchar),
@@ -83,35 +94,32 @@ class sn_mathematics(MergeRule):
         BINDINGS["unit_prefix"] + " <units>":
             Function(lambda units: execution.alternating_command(units)),
 
-        "<numbers>": Text("%(numbers)s"),
-
         "<misc_sn_keys>":
             Key("%(misc_sn_keys)s"),
         "<misc_sn_text>":
             Text("%(misc_sn_text)s"),
 
-        #
         "matrix <rows> by <cols>":
             Function(matrix),
 
-        "<numbers> <denominator>":
-            Key("c-f, %(numbers)s, down, %(denominator)s, right"),
+        "<numbers>": Text("%(numbers)s"),
 
-        "configure " + BINDINGS["pronunciation"]: Function(utilities.load_config, config_name="scientific_notebook.toml"),
+        "<numbers> <denominator>":
+            Key("c-f") + Text("%(numbers)s") + Key("down") + Text("%(denominator)s") + Key("right"),
     }
 
     extras = [
-        IntegerRef("rows", 1, 10),
-        IntegerRef("cols", 1, 10),
+        IntegerRef("rows",    1, BINDINGS["max_matrix_size"]),
+        IntegerRef("cols",    1, BINDINGS["max_matrix_size"]),
         IntegerRef("numbers", 0, CORE["numbers_max"]),
-        Choice("big", {CORE["capitals_prefix"]: True}),
-        Choice("greek_letter", BINDINGS["greek_letters"]),
-        Choice("units", BINDINGS["units"]),
-        Choice("symbol", BINDINGS["tex_symbols"]),
-        Choice("accent", BINDINGS["accents"]),
-        Choice("misc_sn_keys", BINDINGS["misc_sn_keys"]),
-        Choice("misc_sn_text", BINDINGS["misc_sn_text"]),
-        Choice("denominator", BINDINGS["denominators"]),
+        Choice("big",           {CORE["capitals_prefix"]: True}),
+        Choice("greek_letter",   BINDINGS["greek_letters"]),
+        Choice("units",          BINDINGS["units"]),
+        Choice("symbol",         BINDINGS["tex_symbols"]),
+        Choice("accent",         BINDINGS["accents"]),
+        Choice("misc_sn_keys",   BINDINGS["misc_sn_keys"]),
+        Choice("misc_sn_text",   BINDINGS["misc_sn_text"]),
+        Choice("denominator",    BINDINGS["denominators"]),
     ]
 
     defaults = {
@@ -119,3 +127,5 @@ class sn_mathematics(MergeRule):
     }
 
 control.nexus().merger.add_app_rule(sn_mathematics())
+
+#---------------------------------------------------------------------------

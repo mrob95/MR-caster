@@ -235,6 +235,8 @@ class SublimeTeXRule(MergeRule):
     mapping = {
         "go [to] (word | name) <dict>":
             Key("c-r") + Text("%(dict)s") + Key("enter"),
+        "count words": Key("cs-c"),
+
     }
     extras = [
         Dictation("dict"),

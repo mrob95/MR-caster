@@ -7,8 +7,15 @@ from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/python.toml")
 
+
+def test(a="default"):
+    print(a)
+
+
 class PythonNon(MergeRule):
     mapping = {
+        "this is a <test>": Function(test, a="%(test)s"),
+
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
 
@@ -17,6 +24,9 @@ class PythonNon(MergeRule):
 
     }
     extras = [
+        Choice("test", {
+                "test": "success",
+            }),
         Choice("template", BINDINGS["templates"]),
     ]
 
@@ -38,9 +48,9 @@ class Python(MergeRule):
         BINDINGS["method_prefix"] + " init":
             Text("def __init__():") + Key("left:2") + Text("self, "),
         BINDINGS["method_prefix"] + " <umeth>":
-            Text("def __%(meth)s__(self):"),
+            Text("def __%(umeth)s__(self):"),
         BINDINGS["method_prefix"] + " <bmeth>":
-            Text("def __%(meth)s__(self, other):"),
+            Text("def __%(bmeth)s__(self, other):"),
 
         "import <lib>": Text("import %(lib)s") + Key("enter"),
 
