@@ -1,126 +1,50 @@
-from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef, Mimic, Clipboard)
-from caster.lib.actions import Key, Text
+from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
+from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib.context import AppContext
-from caster.lib import control, utilities
+
+from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
 
+BINDINGS = utilities.load_toml_relative("config/gitbash.toml")
 
 class GitBashRule(MergeRule):
     pronunciation = "GitBash"
     mwith = "Core"
+    mcontext = AppContext(executable="\\sh.exe") | AppContext(executable="\\bash.exe") | AppContext(executable="\\cmd.exe") | AppContext(executable="\\mintty.exe")
 
     mapping = {
-        "copy": Key("c-insert"),
-        "paste": Key("s-insert"),
-        "pull request": Key("c-insert") + Function(lambda: utilities.browser_open(Clipboard.get_system_text())),
-        "CD up":           Text("cd ..") + Key("enter"),
-        "CD":              Text("cd "),
-        "list":            Text("ls") + Key("enter"),
-        "make directory":  Text("mkdir "),
-        "to file":         Text(" > "),
-        "PDF LaTeX":       Text("pdflatex "),
-    	"bib TeX":         Text("bibtex "),
-    	"python 3":        Text("python3 .py") + Key("left:3"),
-    	"python 2":        Text("python27 .py") + Key("left:3"),
-        "python 2 pip [install]":    Text("python27 -m pip install "),
-    	"R script":        Text("Rscript .r") + Key("left:2"),
-    	"R markdown":      Text("Rscript -e \"rmarkdown::render('.Rmd', clean=TRUE)\"") + Key("left:19"),
+        "<general_command>":
+            Function(lambda general_command: execution.alternating_command(general_command)),
+        "<git_command>":
+            Function(lambda git_command: execution.alternating_command(git_command)),
+        "<latex_command>":
+            Function(lambda latex_command: execution.alternating_command(latex_command)),
+        "<python_command>":
+            Function(lambda python_command: execution.alternating_command(python_command)),
+        "<r_command>":
+            Function(lambda r_command: execution.alternating_command(r_command)),
+        "<jekyll_command>":
+            Function(lambda jekyll_command: execution.alternating_command(jekyll_command)),
+        "<image_command>":
+            Function(lambda image_command: execution.alternating_command(image_command)),
 
-        "pan doc":         Text("pandoc  -o ") + Key("left:4"),
-        "pan doc beamer":  Text("pandoc  -t beamer -o ") + Key("left:14"),
-
-    	"dot pie":         Text(".py"),
-    	"dot tex":         Text(".tex"),
-    	"dot PDF":         Text(".pdf"),
-
-        "jekyll serve watch": Text("jekyll serve --watch"),
-        "jekyll build": Text("jekyll build"),
-        "jekyll": Text("jekyll"),
-
-        "image [magic] trim": Text("convert  -fuzz 1% -trim +repage ") + Key("left:24"),
-
-		"git base":        Text("git "),
-        "git clone":       Text("git clone "),
-        "git clone github":Text("git clone https://github.com/.git") + Key("left:4"),
-        "git init":        Text("git init"),
-        "git add":         Text("git add "),
-        "git add all":         Text("git add -A"),
-		"git checkout":    Text("git checkout "),
-        "git checkout develop":    Text("git checkout develop") + Key("enter"),
-        "git checkout master":    Text("git checkout master") + Key("enter"),
-        "git checkout upstream develop":    Text("git checkout upstream/develop") + Key("enter"),
-        "git (checkout branch | new branch)":    Text("git checkout -b "),
-        "git (branch delete | delete branch)":    Text("git branch -D "),
-        "git remove branch":    Text("git branch -d "),
-        "git branch":      Text("git branch "),
-        "git branch set upstream [to]":
-            Text("git branch --set-upstream-to="),
-        "git remote":      Text("git remote "),
-        "git merge":       Text("git merge "),
-        "git merge tool":  Text("git mergetool"),
-        "git fetch":       Text("git fetch "),
-        "git fetch upstream":       Text("git fetch upstream"),
-        "git push":        Text("git push "),
-        "git publish":        Text("git push -u origin "),
-        "git push set upstream [origin]":        Text("git push --set-upstream origin "),
-        "git pull":        Text("git pull "),
-        "git status":      Text("git status") + Key("enter"),
-        "git commit":      Text("git commit -m \"\"") + Key("left"),
-        "git commit all":      Text("git commit -a -m \"\"") + Key("left"),
-        "git remote add origin": Text("git remote add origin "),
-        "git hub": Text("https://github.com/"),
-
-        "git bug fix commit <n>": Mimic("git", "commit") + Text("fixes #%(n)d ") + Key("backspace"),
-
-        "git reference commit <n>": Mimic("git", "commit") + Text("refs #%(n)d ") + Key("backspace"),
-
-        "undo [last] commit | git reset soft head":
-        	Text("git reset --soft HEAD~1"),
-
-        "(undo changes | git reset hard)":
-        	Text("git reset --hard"),
-
-        "stop tracking [file] | git remove":
-        	Text("git rm --cached "),
-        "preview remove untracked | git clean preview":
-        	Text("git clean -nd"),
-        "git reset": Text("git reset"),
-
-        "remove untracked | git clean untracked":
-        	Text("git clean -fd"),
-        "git visualize":           Text("gitk"),
-        "git visualize file":      Text("gitk -- PATH"),
-        "git visualize all":       Text("gitk --all"),
-        "git stash":               Text("git stash"),
-        "git stash list":          Text("git stash list"),
-        "git stash branch":        Text("git stash branch NAME"),
-        "git cherry pick":         Text("git cherry-pick "),
-        "git (abort cherry pick | cherry pick abort)":
-        	Text("git cherry-pick --abort"),
-        "git (GUI | gooey)":       Text("git gui"),
-        "git blame":               ("git blame PATH -L FIRSTLINE,LASTLINE"),
-        "git gooey blame":         Text("git gui blame PATH"),
-        "search recursive":        Text("grep -rinH \"PATTERN\" *"),
-        "search recursive count":  Text("grep -rinH \"PATTERN\" * | wc -l"),
-        "search recursive filetype":Text("find . -name \"*.java\" -exec grep -rinH \"PATTERN\" {} \\;"),
-
-
+        "(pull request | open link)":
+            Key("c-insert") + Function(lambda: utilities.browser_open(Clipboard.get_system_text())),
     }
 
     extras = [
-    	IntegerRef("n", 1, 10),
+        Choice("git_command",    BINDINGS["git_commands"]),
+        Choice("python_command", BINDINGS["python_commands"]),
+        Choice("r_command",      BINDINGS["r_commands"]),
+        Choice("image_command",  BINDINGS["image_commands"]),
+        Choice("latex_command",  BINDINGS["latex_commands"]),
+        Choice("jekyll_command", BINDINGS["jekyll_commands"]),
+        Choice("general_command",BINDINGS["general_commands"]),
     ]
+
     defaults = {
-    	"n": 1,
+        "n": 1,
     }
 
 
-
-context = AppContext(executable="\\sh.exe") | AppContext(executable="\\bash.exe") | AppContext(executable="\\cmd.exe") | AppContext(executable="\\mintty.exe")
-
-control.nexus().merger.add_app_rule(GitBashRule(), context=context)
-
-# grammar = Grammar("MINGW32", context)
-# rule = GitBashRule()
-# grammar.add_rule(GitBashRule(name="GitBash"))
-# grammar.load()
+control.nexus().merger.add_app_rule(GitBashRule())
