@@ -1,4 +1,4 @@
-from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
+from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef, Clipboard
 from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib.context import AppContext
 
@@ -7,8 +7,15 @@ from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/gitbash.toml")
 
+class GitBashNon(MergeRule):
+    mapping = {
+        "configure " + BINDINGS["pronunciation"]:
+            Function(utilities.load_config, config_name="gitbash.toml"),
+    }
+
 class GitBashRule(MergeRule):
-    pronunciation = "GitBash"
+    non = GitBashNon
+    pronunciation = BINDINGS["pronunciation"]
     mwith = "Core"
     mcontext = AppContext(executable="\\sh.exe") | AppContext(executable="\\bash.exe") | AppContext(executable="\\cmd.exe") | AppContext(executable="\\mintty.exe")
 
@@ -41,10 +48,5 @@ class GitBashRule(MergeRule):
         Choice("jekyll_command", BINDINGS["jekyll_commands"]),
         Choice("general_command",BINDINGS["general_commands"]),
     ]
-
-    defaults = {
-        "n": 1,
-    }
-
 
 control.nexus().merger.add_app_rule(GitBashRule())

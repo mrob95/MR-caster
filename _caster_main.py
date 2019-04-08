@@ -44,6 +44,11 @@ def build(startup=False):
             natlink.deleteWord(word)
         except:
             pass
+    for word in SETTINGS["add_words"]:
+        try:
+            natlink.addWord(word)
+        except:
+            pass
     _NEXUS.merger.wipe()
     _NEXUS.merger._global_rules = {}
     _NEXUS.merger._app_rules = {}

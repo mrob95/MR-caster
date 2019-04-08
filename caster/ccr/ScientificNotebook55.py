@@ -43,7 +43,7 @@ class sn_nested(NestedRule):
             [Key("c-6, right, c-l"),
             Key("right, c-h"), Key("right, c-left, left")],
 
-        "[<before>] differential <sequence1> by <sequence2>":
+        "[<before>] differential [<sequence1>] by <sequence2>":
             [Key("c-f, d"), Key("down, d"), Key("right")],
 
         "[<before>] sum from <sequence1> to <sequence2>":
@@ -54,6 +54,22 @@ class sn_nested(NestedRule):
             [Key("f10, i, down:11, enter/25, b, enter") + Function(lambda: texchar("lim")) + Key("down"),
             Function(lambda: texchar("rightarrow")),
             Key("right")],
+
+        "[<before>] argument that minimises <sequence1>":
+            [Key("f10, i, down:11, enter/25, b, enter") + Text("argmin") + Key("down"),
+            Key("right"), None],
+
+        "[<before>] argument that maximises <sequence1>":
+            [Key("f10, i, down:11, enter/25, b, enter") + Text("argmax") + Key("down"),
+            Key("right"), None],
+
+        "[<before>] minimum by <sequence1>":
+            [Key("f10, i, down:11, enter/25, b, enter") + Text("min") + Key("down"),
+            Key("right"), None],
+
+        "[<before>] maximum by <sequence1>":
+            [Key("f10, i, down:11, enter/25, b, enter") + Text("max") + Key("down"),
+            Key("right"), None],
     }
 
 class sn_mathematicsNon(MergeRule):

@@ -125,10 +125,11 @@
 "deli"                 = "del"
 
 [misc_core_keys]
-"eskimo"               = "escape"
-"shackle"              = "home, s-end"
-"select all"           = "c-a"
-"find"                 = "c-f"
+"eskimo"     = "escape"
+"shackle"    = "home, s-end"
+"select all" = "c-a"
+"find"       = "c-f"
+"and save"   = "c-s"
 
 [misc_core_keys_noCCR]
 "save"                 = "c-s"

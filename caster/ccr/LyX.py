@@ -43,9 +43,42 @@ class lyx_nested(NestedRule):
         "[<before>] limit from <sequence1> to <sequence2>":
             [Text("\\underset \\lim ") + Key("down"),
             Text("\\rightarrow "), Key("right")],
+
+        "[<before>] argument that minimises <sequence1>":
+            [Text("\\underset \\arg \\min ") + Key("down"),
+            Key("right"), None],
+
+        "[<before>] argument that maximises <sequence1>":
+            [Text("\\underset \\arg \\max ") + Key("down"),
+            Key("right"), None],
+
+        "[<before>] minimum by <sequence1>":
+            [Text("\\underset \\min ") + Key("down"),
+            Key("right"), None],
+
+        "[<before>] maximum by <sequence1>":
+            [Text("\\underset \\max ") + Key("down"),
+            Key("right"), None],
+    }
+
+class lyx_mathematicsNon(MergeRule):
+    mapping = {
+        "<control>":
+            Key("%(control)s"),
+        "<control_repeat> [<n>]":
+            Key("%(control_repeat)s")*Repeat(extra="n"),
+    }
+    extras = [
+        IntegerRef("n", 1, 10),
+        Choice("control",        BINDINGS["control"]),
+        Choice("control_repeat", BINDINGS["control_repeat"]),
+    ]
+    defaults = {
+        "n": 1,
     }
 
 class lyx_mathematics(MergeRule):
+    non = lyx_mathematicsNon
     nested = lyx_nested
     pronunciation = BINDINGS["pronunciation"]
     mwith = CORE["pronunciation"]

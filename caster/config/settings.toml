@@ -6,7 +6,7 @@ browser_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 editor_path = "C:/Program Files/Sublime Text 3/sublime_text.exe"
 ccr_modules = ["core",
 			"ScientificNotebook55",
-			"lyx_mathematics",
+			"LyX",
 			"latex",
 			"latex_maths",
 			"alias",
@@ -20,7 +20,6 @@ ccr_modules = ["core",
 			"notepad",
 			]
 app_modules = [
-			"lyx",
 			"chrome",
 			"fman",
 			"dragon",
@@ -49,3 +48,8 @@ delete_words = ["one-to-one",
  ')\right-parenthesis\right parenthesis',
  '[\left-square-bracket\left bracket',
  ']\right-square-bracket\right bracket']
+add_words = ["heteroscedasticity",
+	"homoscedasticity",
+	"mathfly",
+	"GitHub"
+	]

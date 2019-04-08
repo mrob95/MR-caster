@@ -75,6 +75,8 @@ class coreNon(MappingRule):
             Key("shift:down") + Mouse("right") + Key("shift:up"),
         "colic":
             Key("control:down") + Mouse("left") + Key("control:up"),
+        "millick":
+            Mouse("middle"),
         "window <direction> [<direction2>]":
             Key("win:down, %(direction)s/15, %(direction2)s, win:up"),
         'minimize':
