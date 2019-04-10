@@ -1,6 +1,8 @@
 from dragonfly import AppContext
+from dragonfly.grammar.context import LogicOrContext
 
 from caster.lib import utilities
+
 
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
 # Override dragonfly.AppContext with aenea.ProxyAppContext if the 'use_aenea'
@@ -11,3 +13,12 @@ if SETTINGS["use_aenea"]:
     except ImportError:
         print("Unable to import aenea.ProxyAppContext. dragonfly.AppContext "
               "will be used instead.")
+
+
+class ListContext(LogicOrContext):
+    def __init__(self, executables=[], titles=[]):
+        self._children = [AppContext(executable=context)
+                            for context in executables] + \
+                        [AppContext(title=context)
+                            for context in titles]
+        self._str = ", ".join(str(child) for child in self._children)

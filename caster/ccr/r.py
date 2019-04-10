@@ -1,13 +1,13 @@
 from dragonfly import Dictation, MappingRule, Choice, Function
 from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
-from caster.lib.context import AppContext
+from caster.lib.context import AppContext, ListContext
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 
 BINDINGS = utilities.load_toml_relative("config/r.toml")
 
-class RlangNon(MergeRule):
+class RlangNon(t):
     mapping = {
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
@@ -24,11 +24,11 @@ class RlangNon(MergeRule):
         Choice("markdown_command", BINDINGS["markdown"]),
     ]
 
-class Rlang(MergeRule):
+class Rlang(t):
     non = RlangNon
     pronunciation = BINDINGS["pronunciation"]
     mwith = "Core"
-    mcontext = AppContext(title=".r") | AppContext(title=".R")| AppContext(title="RStudio") | AppContext(title="Rterm")
+    mcontext = ListContext(titles = BINDINGS["title_contexts"])
 
     mapping = {
         "<command>":
@@ -48,7 +48,7 @@ class Rlang(MergeRule):
             # Text("%(argument)s"),
 
         BINDINGS["library_prefix"] + " <library>":
-            Text("library(%(library)s)") + Key("end, enter"),
+            Text("library(%(library)s)") + Key("end"),
 
     }
 

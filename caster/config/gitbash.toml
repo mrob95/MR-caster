@@ -1,4 +1,5 @@
 "pronunciation" = "Git Bash"
+"executable_contexts" = ["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]
 
 [general_commands]
 "copy"                   = ["", "c-insert"]
@@ -58,6 +59,7 @@
 "git clone"                           = "git clone "
 "git commit all"                      = ["git commit -a -m \"\"", "left"]
 "git commit"                          = ["git commit -m \"\"", "left"]
+"git diff" = "git diff"
 "git fetch upstream"                  = "git fetch upstream"
 "git fetch"                           = "git fetch "
 "git gooey blame"                     = "git gui blame PATH"

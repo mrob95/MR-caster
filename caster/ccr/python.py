@@ -1,41 +1,42 @@
-from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
-from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
-from caster.lib.context import AppContext
+from dragonfly import Dictation, MappingRule, Choice, IntegerRef
+from caster.lib.actions import Key, Text, Mouse, Store, Retrieve, Function
+from caster.lib.context import AppContext, ListContext
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 
 BINDINGS = utilities.load_toml_relative("config/python.toml")
 
+def test(arg):
+    Text(arg).execute()
 
-def test(a="default"):
-    print(a)
-
-
-class PythonNon(MergeRule):
+class PythonNon(t):
     mapping = {
-        "this is a <test>": Function(test, a="%(test)s"),
-
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
 
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="python.toml"),
 
+        "test with <test>":
+            Function(test, arg="%(test)s"),
+
+        "test to with <test>":
+            Function(test, arg="%(test2)s"),
+
     }
     extras = [
         Choice("test", {
-                "test": "success",
+                "success": "success",
+                "failure": "failure",
             }),
         Choice("template", BINDINGS["templates"]),
     ]
 
-
-
-class Python(MergeRule):
+class Python(t):
     non = PythonNon
     mwith = "Core"
-    mcontext = AppContext(title=".py")
+    mcontext = ListContext(titles = BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {
@@ -53,7 +54,6 @@ class Python(MergeRule):
             Text("def __%(bmeth)s__(self, other):"),
 
         "import <lib>": Text("import %(lib)s") + Key("enter"),
-
     }
 
     extras = [
@@ -70,7 +70,7 @@ control.nexus().merger.add_app_rule(Python())
 
 #---------------------------------------------------------------------------
 
-class BasePythonRule(MergeRule):
+class BasePythonRule(t):
     mwith = ["Core", "Python"]
     mcontext = AppContext(title=".py") & ~AppContext(title="Sublime Text")
     mapping = {
@@ -83,7 +83,7 @@ control.nexus().merger.add_app_rule(BasePythonRule())
 
 #---------------------------------------------------------------------------
 
-class SublimePythonRule(MergeRule):
+class SublimePythonRule(t):
     mwith = ["Core", "Python"]
     mcontext = AppContext(title=".py") & AppContext(title="Sublime Text")
     mapping = {
@@ -98,7 +98,7 @@ control.nexus().merger.add_app_rule(SublimePythonRule())
 
 CASTER = utilities.load_toml_relative("config/python_caster.toml")
 
-class CasterPythonRuleNon(MergeRule):
+class CasterPythonRuleNon(t):
     mapping = {
         BINDINGS["template_prefix"] + " <ctemplate>":
             Function(lambda ctemplate: execution.template(ctemplate)),
@@ -107,7 +107,7 @@ class CasterPythonRuleNon(MergeRule):
         Choice("ctemplate", CASTER["templates"]),
     ]
 
-class CasterPythonRule(MergeRule):
+class CasterPythonRule(t):
     non = CasterPythonRuleNon
     mwith = ["Core", "Python"]
     mcontext = AppContext(title=".py") & (AppContext(title="caster") | AppContext(title="mathfly"))

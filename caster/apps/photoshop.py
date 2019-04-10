@@ -2,10 +2,10 @@ from dragonfly import Grammar, Repeat, IntegerRef
 from caster.lib.actions import Key, Text
 from caster.lib.context import AppContext
 
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 
 
-class photoshopRule(MergeRule):
+class photoshopRule(t):
     pronunciation = "Photo shop"
 
     mapping = {

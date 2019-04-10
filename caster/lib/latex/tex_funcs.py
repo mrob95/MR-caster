@@ -1,6 +1,6 @@
 from dragonfly import Function
 from caster.lib import control, utilities
-from caster.lib.actions import Key, Text
+from caster.lib.actions import Key, Text, Store, Retrieve
 from caster.lib.clipboard import Clipboard
 from caster.lib.latex import bibtexer, book_citation_generator, word_counter
 import codecs
@@ -64,19 +64,22 @@ def begin_end(environment):
         Key("up").execute()
 
 def selection_to_bib(ref_type, bib_path):
-    Key("c-c/20").execute()
-    cb = Clipboard.get_system_text()
+    Store(remove_cr=True, space="+").execute()
+    print(Retrieve.text())
     if ref_type == "book":
-        ref = book_citation_generator.citation_from_name(cb)
+        ref = book_citation_generator.citation_from_name(Retrieve.text())
     elif ref_type == "paper":
-        ref = bibtexer.bib_from_title(cb)
+        ref = bibtexer.bib_from_title(Retrieve.text())
     elif ref_type == "link":
-        ref = bibtexer.bibtex_from_link(cb)
+        ref = bibtexer.bibtex_from_link(Retrieve.text())
     with codecs.open(bib_path, encoding="utf-8", mode="a") as f:
         f.write(ref)
     print("Reference added:\n" + ref)
     Clipboard.set_system_text(bibtexer.get_tag(ref))
-    utilities.toast_notify("Reference added:", ref.replace(",\n", " -"))
+    try:
+        utilities.toast_notify("Reference added:", ref.replace(",\n", " -"))
+    except:
+        pass
 
 
 def word_count_from_string():

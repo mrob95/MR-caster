@@ -8,7 +8,8 @@ from multiprocessing import Process, Queue
 from win10toast import ToastNotifier
 import threading
 
-BASE_PATH = os.path.realpath(__file__).split("\\lib\\")[0].replace("\\", "/")
+BASE_PATH = os.path.abspath(__file__).replace("\\", "/").rsplit("/lib/")[0]
+
 if BASE_PATH not in sys.path:
     sys.path.append(BASE_PATH)
 

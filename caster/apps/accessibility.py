@@ -12,12 +12,12 @@ from dragonfly import get_accessibility_controller
 
 from caster.lib import control
 from caster.lib.context import AppContext
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 
 accessibility = get_accessibility_controller()
 
 
-class AccessibilityRule(MergeRule):
+class AccessibilityRule(t):
     pronunciation = "accessibility"
 
     mapping = {

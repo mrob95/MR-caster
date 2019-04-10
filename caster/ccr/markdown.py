@@ -1,13 +1,13 @@
 from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
 from caster.lib.actions import Key, Text, Mouse
-from caster.lib.context import AppContext
+from caster.lib.context import AppContext, ListContext
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 
 BINDINGS = utilities.load_toml_relative("config/markdown.toml")
 
-class MarkdownNon(MergeRule):
+class MarkdownNon(t):
     mapping = {
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
@@ -21,10 +21,10 @@ class MarkdownNon(MergeRule):
     ]
 
 
-class Markdown(MergeRule):
+class Markdown(t):
     non = MarkdownNon
     mwith = "Core"
-    mcontext = AppContext(title=".md") | AppContext(title=".Rmd") | AppContext(title="GitHub") | AppContext(title="Gitter") | AppContext(title="Notepad")
+    mcontext = ListContext(titles = BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
     mapping = {
         "heading [<num>] [<dict>]":

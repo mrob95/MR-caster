@@ -18,6 +18,7 @@ ccr_modules = ["core",
 			"markdown",
 			"sublime",
 			"notepad",
+			"toml"
 			]
 app_modules = [
 			"chrome",

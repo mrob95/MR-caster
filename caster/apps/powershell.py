@@ -2,10 +2,10 @@ from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef)
 from caster.lib.actions import Key, Text
 from caster.lib.context import AppContext
 
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 
 
-class PowerShellRule(MergeRule):
+class PowerShellRule(t):
     pronunciation = "PowerShell"
 
     mapping = {

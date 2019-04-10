@@ -7,11 +7,11 @@ from dragonfly import (Dictation, Grammar, IntegerRef, MappingRule,
 from caster.lib.actions import Key, Text, Store, Retrieve
 from caster.lib.context import AppContext
 
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 from caster.lib import control
 
 
-class RStudioRule(MergeRule):
+class RStudioRule(t):
     pronunciation = "R studio"
     mcontext = AppContext(executable="rstudio")
 
@@ -48,7 +48,7 @@ class RStudioRule(MergeRule):
     "head that":
         Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" head()") + Key("enter/50, c-1"),
     "vee table that":
-        Store() + Key("c-2") + Text("library(vtable)") + Key("enter/50") + Retrieve() + Key("space, percent, rangle, percent") + Text(" vtable()") + Key("enter/50, c-1"),
+        Store() + Key("c-2") + Text("library(vtable)") + Key("enter/50") + Retrieve() + Text(" %>% vtable()", static=True) + Key("enter/50, c-1"),
     }
     extras = [
         IntegerRef("n", 1, 10000),

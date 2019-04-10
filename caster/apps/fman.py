@@ -3,10 +3,10 @@ from dragonfly import (Grammar, MappingRule,
 from caster.lib.actions import Key, Text
 from caster.lib.context import AppContext
 
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 
 
-class fmanRule(MergeRule):
+class fmanRule(t):
     pronunciation = "F man"
 
     mapping = {

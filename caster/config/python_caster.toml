@@ -29,7 +29,7 @@
 
 [templates]
 "language rule" = '''
-pronunciation = ""
+pronunciation =
 function_prefix = "fun"
 template_prefix = "template"
 

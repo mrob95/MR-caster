@@ -2,10 +2,10 @@ from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef, Mimic, Play
 from caster.lib.actions import Key, Text
 from caster.lib.context import AppContext
 
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 
 
-class SumatraPDFRule(MergeRule):
+class SumatraPDFRule(t):
 	pronunciation = "SumatraPDF"
 
 	mapping = {

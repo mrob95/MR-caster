@@ -1,10 +1,10 @@
 from dragonfly import (Grammar, Playback, Key, Dictation, Function)
 
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 from caster.lib import utilities
 
 
-class DragonRule(MergeRule):
+class DragonRule(t):
     pronunciation = "dragon"
 
     mapping = {

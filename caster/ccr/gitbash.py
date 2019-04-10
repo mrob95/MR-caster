@@ -1,23 +1,23 @@
-from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef, Clipboard
-from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
-from caster.lib.context import AppContext
+from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Clipboard
+from caster.lib.actions import Key, Text, Mouse, Store, Retrieve, Function
+from caster.lib.context import AppContext, ListContext
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 
 BINDINGS = utilities.load_toml_relative("config/gitbash.toml")
 
-class GitBashNon(MergeRule):
+class GitBashNon(t):
     mapping = {
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="gitbash.toml"),
     }
 
-class GitBashRule(MergeRule):
+class GitBashRule(t):
     non = GitBashNon
     pronunciation = BINDINGS["pronunciation"]
     mwith = "Core"
-    mcontext = AppContext(executable="\\sh.exe") | AppContext(executable="\\bash.exe") | AppContext(executable="\\cmd.exe") | AppContext(executable="\\mintty.exe")
+    mcontext = ListContext(BINDINGS["executable_contexts"])
 
     mapping = {
         "<general_command>":

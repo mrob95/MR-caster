@@ -1,10 +1,10 @@
 from dragonfly import (AppContext, Dictation, Grammar, IntegerRef, Key, MappingRule, Pause, Repeat, Choice)
 
 from caster.lib.actions import Text
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 from caster.lib import control
 
-class FileDialogueRule(MergeRule):
+class FileDialogueRule(t):
     pronunciation = "file dialogue"
     mwith = "Core"
 

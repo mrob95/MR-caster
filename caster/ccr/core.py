@@ -7,7 +7,7 @@ from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRu
 
 from caster.lib.actions import Key, Text, Mouse
 from caster.lib import control, utilities, navigation, textformat, execution
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 
 from dragonfly.language.en.characters import element_series_wrap_class
 import os
@@ -124,7 +124,7 @@ class coreNon(MappingRule):
         "direction2": "",
     }
 
-class core(MergeRule):
+class core(t):
     non = coreNon
 
     pronunciation = CORE["pronunciation"]

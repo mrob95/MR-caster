@@ -7,7 +7,7 @@ from dragonfly import Function, Choice, Key, Text, Mouse, IntegerRef, Dictation,
 from dragonfly import AppContext, Grammar, Repeat
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 from caster.lib.merge.nestedrule import NestedRule
 
 BINDINGS = utilities.load_toml_relative("config/scientific_notebook.toml")
@@ -72,7 +72,7 @@ class sn_nested(NestedRule):
             Key("right"), None],
     }
 
-class sn_mathematicsNon(MergeRule):
+class sn_mathematicsNon(t):
     mapping = {
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="scientific_notebook.toml"),
@@ -90,7 +90,7 @@ class sn_mathematicsNon(MergeRule):
 
 #---------------------------------------------------------------------------
 
-class sn_mathematics(MergeRule):
+class sn_mathematics(t):
     non = sn_mathematicsNon
     mwith = CORE["pronunciation"]
     mcontext = AppContext(executable="scientific notebook")

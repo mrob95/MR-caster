@@ -7,13 +7,13 @@ from dragonfly import Function, Choice, Mouse, Repeat, Clipboard, Dictation
 
 from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
+from caster.lib.merge.mergerule import t
 from caster.lib.latex import tex_funcs
 
 BINDINGS = utilities.load_toml_relative("config/latex.toml")
 CORE = utilities.load_toml_relative("config/core.toml")
 
-class LaTeXNon(MergeRule):
+class LaTeXNon(t):
     mapping = {
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="latex.toml"),
@@ -52,7 +52,7 @@ class LaTeXNon(MergeRule):
         "sub": "",
     }
 
-class LaTeX(MergeRule):
+class LaTeX(t):
     non = LaTeXNon
     pronunciation = BINDINGS["pronunciation"]
 

@@ -6,17 +6,17 @@ Created on Sep 1, 2015
 from dragonfly import MappingRule, Pause, Function
 
 
-class MergeRule(MappingRule):
+class t(MappingRule):
     @staticmethod
     def _get_next_id():
-        if not hasattr(MergeRule._get_next_id, "id"):
-            MergeRule._get_next_id.id = 0
-        MergeRule._get_next_id.id += 1
-        return MergeRule._get_next_id.id
+        if not hasattr(t._get_next_id, "id"):
+            t._get_next_id.id = 0
+        t._get_next_id.id += 1
+        return t._get_next_id.id
 
     @staticmethod
     def get_merge_name():  # returns unique str(int) for procedural rule names
-        return str(MergeRule._get_next_id())
+        return str(t._get_next_id())
 
     mapping = {"hello world default macro": Pause("10")}
     '''MergeRules which define `pronunciation` will use
@@ -51,7 +51,7 @@ class MergeRule(MappingRule):
                  mcontext=None,
                  mwith=None):
 
-        self.ID = ID if ID is not None else MergeRule._get_next_id()
+        self.ID = ID if ID is not None else t._get_next_id()
         self.compatible = {} if compatible is None else compatible
         '''composite is the IDs of the rules which this MergeRule is composed of: '''
         self.composite = composite if composite is not None else set([self.ID])
@@ -67,7 +67,7 @@ class MergeRule(MappingRule):
         MappingRule.__init__(self, name, mapping, extras, defaults, exported)
 
     def __eq__(self, other):
-        if not isinstance(other, MergeRule):
+        if not isinstance(other, t):
             return False
         return self.ID == other.ID
 
@@ -103,8 +103,8 @@ class MergeRule(MappingRule):
         defaults.update(other.defaults_copy())
         context = self._mcontext if self._mcontext is not None else other.get_context(
         )  # one of these should always be None; contexts don't mix here
-        return MergeRule(
-            "Merged" + MergeRule.get_merge_name() + self.get_pronunciation()[0] +
+        return t(
+            "Merged" + t.get_merge_name() + self.get_pronunciation()[0] +
             other.get_pronunciation()[0],
             mapping,
             extras,
@@ -117,7 +117,7 @@ class MergeRule(MappingRule):
         return self.pronunciation if self.pronunciation is not None else self.name
 
     def copy(self):
-        return MergeRule(self.name, self._mapping.copy(), self._extras.values(),
+        return t(self.name, self._mapping.copy(), self._extras.values(),
                          self._defaults.copy(), self._exported, self.ID, self.composite,
                          self.compatible, self._mcontext, self._mwith)
 

@@ -26,8 +26,8 @@ def request_page(url):
     return htmlsoup
 
 def google_scholar_query(searchstr):
-    searchstr = '/scholar?q=' + quote(searchstr)
-    url = "https://scholar.google.com" + searchstr
+    searchstr = searchstr.encode("ascii", "ignore")
+    url = "https://scholar.google.com/scholar?q=" + searchstr
     htmlsoup = request_page(url)
     links_list = []
     refre = re.compile(r'https://scholar.googleusercontent.com(/scholar\.bib\?[^"]*)')

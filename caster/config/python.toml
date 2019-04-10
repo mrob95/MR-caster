@@ -1,4 +1,5 @@
 pronunciation = "Python"
+title_contexts = [".py"]
 function_prefix = "fun"
 template_prefix = "template"
 method_prefix = "meth"
@@ -53,28 +54,28 @@ method_prefix = "meth"
 "(regular expressions | regex | ree)" = "re"
 
 [commands]
-"assign"             = " = "
-"breaker"            = "break"
-"class"              = ["class :", "left"]
-"dunder init" = ["__init__()", "left"]
-"for each"           = ["for  in :", "left:5"]
-"for loop"           = ["for i in range(0, ):", "left:2"]
-"from import"        = ["from  import ", "home, right:5"]
-"iffae"              = ["if :", "left"]
-"import"             = "import "
+"assign"              = " = "
+"breaker"             = "break"
+"class"               = ["class :", "left"]
+"dunder init"         = ["__init__()", "left"]
+"for each"            = ["for  in :", "left:5"]
+"for loop"            = ["for i in range(0, ):", "left:2"]
+"from import"         = ["from  import ", "home, right:5"]
+"iffae"               = ["if :", "left"]
+"import"              = "import "
 "insert long comment" = ["''''''", "left:3, enter:2, up"]
-"lambda"             = ["lambda :", "left"]
-"lodge and"          = " and "
-"lodge in"           = " in "
-"lodge is"           = " is "
-"lodge not"          = " not "
-"lodge or"           = " or "
-"return"             = "return "
-"shell iffae"        = ["elif :", "left"]
-"shells"             = "else:"
-"value false"        = "False"
-"value none"         = "None"
-"value true"         = "True"
+"lambda"              = ["lambda :", "left"]
+"lodge and"           = " and "
+"lodge in"            = " in "
+"lodge is"            = " is "
+"lodge not"           = " not "
+"lodge or"            = " or "
+"return"              = "return "
+"shell iffae"         = ["elif :", "left"]
+"shells"              = "else:"
+"value false"         = "False"
+"value none"          = "None"
+"value true"          = "True"
 "while loop"         = ["while :", "left"]
 "with open"          = ["with open() as f:", "left:7"]
 
