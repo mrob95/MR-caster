@@ -3,11 +3,11 @@ from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib.context import AppContext
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/toml.toml")
 
-class TOMLNon(t):
+class TOMLNon(MergeRule):
     mapping = {
         # BINDINGS["template_prefix"] + " <template>":
             # Function(execution.template),
@@ -19,7 +19,7 @@ class TOMLNon(t):
         # Choice("template", BINDINGS["templates"]),
     ]
 
-class TOML(t):
+class TOML(MergeRule):
     non = TOMLNon
     mwith = "Core"
     mcontext = AppContext(title=".toml")

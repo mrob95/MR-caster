@@ -2,7 +2,7 @@ from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, AppContext
 from caster.lib.actions import Key, Text, Store, Retrieve
 
 from caster.lib import control
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 def action_lines(action, n, nn):
     if nn:
@@ -14,7 +14,7 @@ def action_lines(action, n, nn):
     command = Key("c-g") + Text(str(top_line)) + Key("enter, s-down:" + str(num_lines) + ", " + action)
     command.execute()
 
-class SublimeRule(t):
+class SublimeRule(MergeRule):
     pronunciation = "sublime"
     mcontext = AppContext(title="Sublime Text")
 
@@ -168,7 +168,7 @@ control.nexus().merger.add_non_ccr_app_rule(SublimeRule())
 
 #---------------------------------------------------------------------------
 
-class SublimeCCRRule(t):
+class SublimeCCRRule(MergeRule):
     mwith = ["Core"]
     mcontext = AppContext(title="Sublime Text")
     mapping = {
@@ -202,7 +202,7 @@ control.nexus().merger.add_app_rule(SublimeCCRRule())
 
 #---------------------------------------------------------------------------
 
-class SublimeRRule(t):
+class SublimeRRule(MergeRule):
     mwith = ["Core", "R"]
     mcontext = AppContext(title=".R") & AppContext(title="Sublime Text")
     mapping = {
@@ -232,7 +232,7 @@ control.nexus().merger.add_app_rule(SublimeRRule())
 
 #---------------------------------------------------------------------------
 
-class SublimeTeXRule(t):
+class SublimeTeXRule(MergeRule):
     mcontext = AppContext(title=".tex") & AppContext(title="Sublime Text")
     mapping = {
         "go [to] (word | name) <dict>":

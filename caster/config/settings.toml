@@ -51,6 +51,7 @@ delete_words = ["one-to-one",
  ']\right-square-bracket\right bracket']
 add_words = ["heteroscedasticity",
 	"homoscedasticity",
+	"stationarity",
 	"mathfly",
 	"GitHub"
 	]

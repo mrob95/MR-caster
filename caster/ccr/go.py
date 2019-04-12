@@ -8,11 +8,11 @@ from caster.lib.actions import Key, Text, Mouse
 from caster.lib.context import AppContext
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/go.toml")
 
-class GoNon(t):
+class GoNon(MergeRule):
     mapping = {
         BINDINGS["template_prefix"] + " <template>":
             Text("%(template)s"),
@@ -25,7 +25,7 @@ class GoNon(t):
         Choice("template", BINDINGS["templates"]),
     ]
 
-class Go(t):
+class Go(MergeRule):
     non = GoNon
     mwith = "Core"
     mcontext = AppContext(title=".go")

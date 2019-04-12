@@ -4,7 +4,7 @@ from caster.lib.context import AppContext
 import markdown2
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 
 def CliptoHTML():
@@ -13,7 +13,7 @@ def CliptoHTML():
     html = markdown2.markdown(cb)
     Clipboard.set_system_text(html)
 
-class Notepad(t):
+class Notepad(MergeRule):
     mwith = "Core"
     mcontext = AppContext(title="notepad")
     mapping = {

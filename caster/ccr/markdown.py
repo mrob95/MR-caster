@@ -3,11 +3,11 @@ from caster.lib.actions import Key, Text, Mouse
 from caster.lib.context import AppContext, ListContext
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/markdown.toml")
 
-class MarkdownNon(t):
+class MarkdownNon(MergeRule):
     mapping = {
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
@@ -21,7 +21,7 @@ class MarkdownNon(t):
     ]
 
 
-class Markdown(t):
+class Markdown(MergeRule):
     non = MarkdownNon
     mwith = "Core"
     mcontext = ListContext(titles = BINDINGS["title_contexts"])

@@ -3,11 +3,11 @@ from caster.lib.actions import Key, Text
 from caster.lib.context import AppContext
 
 from caster.lib import control
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 
 
-class EmacsRule(t):
+class EmacsRule(MergeRule):
     pronunciation = "E max"
 
     mapping = {

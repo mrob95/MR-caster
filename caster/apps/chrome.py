@@ -4,10 +4,10 @@ from caster.lib.context import AppContext
 
 from caster.lib import control
 
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 
-class ChromeRule(t):
+class ChromeRule(MergeRule):
     pronunciation = "google chrome"
 
     mapping = { # most keybinds are taken from https://support.google.com/chrome/answer/157179?hl=en
@@ -23,6 +23,7 @@ class ChromeRule(t):
         "zoom reset":               Key("c-0"),
         "refresh":                  Key("c-f5"),
         "switch focus [<n>]":       Key("f6/20") * Repeat(extra="n"),
+        "find <dict>": Key("c-f") + Text("%(dict)s"),
         "[find] next match [<n>]":  Key("c-g/20") * Repeat(extra="n"),
         "[find] prior match [<n>]": Key("cs-g/20") * Repeat(extra="n"),
         "[toggle] caret browsing":  Key("f7"),
@@ -111,7 +112,7 @@ rule = ChromeRule(name="chrome")
 grammar.add_rule(rule)
 grammar.load()
 
-class DocsRule(t):
+class DocsRule(MergeRule):
     mapping = {
         "(insert | edit) link": Key("c-k"),
         "print file": Key("c-p"),

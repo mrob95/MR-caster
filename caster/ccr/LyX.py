@@ -8,7 +8,7 @@ from dragonfly import AppContext, Grammar, Repeat, CompoundRule
 
 from caster.lib.actions import Key, Text
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 from caster.lib.merge.nestedrule import NestedRule
 
 BINDINGS = utilities.load_toml_relative("config/lyx.toml")
@@ -61,7 +61,7 @@ class lyx_nested(NestedRule):
             Key("right"), None],
     }
 
-class lyx_mathematicsNon(t):
+class lyx_mathematicsNon(MergeRule):
     mapping = {
         "<control>":
             Key("%(control)s"),
@@ -77,7 +77,7 @@ class lyx_mathematicsNon(t):
         "n": 1,
     }
 
-class lyx_mathematics(t):
+class lyx_mathematics(MergeRule):
     non = lyx_mathematicsNon
     nested = lyx_nested
     pronunciation = BINDINGS["pronunciation"]

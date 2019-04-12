@@ -6,10 +6,10 @@ Created on Sep 6, 2015
 from dragonfly import Dictation, IntegerRef
 
 from caster.lib.merge.mergepair import MergeInf
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 
-class SelfModifyingRule(t):
+class SelfModifyingRule(MergeRule):
     '''
     SelfModifyingRule is a kind of rule which gets its command set changed
     on-the-fly based on some kind of user interaction. Child classes
@@ -23,7 +23,7 @@ class SelfModifyingRule(t):
                  defaults=None,
                  exported=None,
                  refresh=True):
-        t.__init__(self, name, mapping, extras, defaults, exported)
+        MergeRule.__init__(self, name, mapping, extras, defaults, exported)
         self._merger = None
         if refresh: self.refresh()
 
@@ -45,7 +45,7 @@ class SelfModifyingRule(t):
 
         extras = self.extras if self.extras else [IntegerRef("n", 1, 50), Dictation("s")]
         defaults = self.defaults if self.defaults else { "n": 1, "s": "" }
-        t.__init__(self, self.name, mapping, extras, defaults, self.exported,
+        MergeRule.__init__(self, self.name, mapping, extras, defaults, self.exported,
                            self.context)
 
         if ccr: self._merger.merge(MergeInf.SELFMOD)

@@ -11,7 +11,7 @@ from dragonfly.grammar.rule_compound import CompoundRule
 
 from caster.lib import utilities
 from caster.lib.merge.mergepair import MergePair, MergeInf
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 CCR_PATH = utilities.get_full_path("config/ccr.toml")
 
@@ -98,7 +98,7 @@ class CCRMerger(object):
 
     def add_global_rule(self, rule):
         assert rule.get_context() is None, "global rules may not have contexts, " + rule.get_pronunciation() + " has a context: " + str(rule.get_context())
-        assert isinstance(rule, t) and not hasattr(rule, "set_merger"), \
+        assert isinstance(rule, MergeRule) and not hasattr(rule, "set_merger"), \
             "only MergeRules may be added as global rules; use add_selfmodrule() or add_app_rule()"
         self._add_to(rule, self._global_rules)
 
@@ -133,7 +133,7 @@ class CCRMerger(object):
         self.app_rule_names()+\
         self.selfmod_rule_names():
             raise Exception("Rule Naming Conflict: " + rule.get_pronunciation())
-        if isinstance(rule, t):
+        if isinstance(rule, MergeRule):
             for name in group.keys():
                 group[name].compatibility_check(rule)
                 # calculate compatibility for uncombined rules at boot time
@@ -320,7 +320,7 @@ class CCRMerger(object):
             else: negation_context & negate
         '''handle empty merge'''
         if base is None:
-            base = t()
+            base = MergeRule()
         ''' save results for next merge '''
         self._base_global = base.copy()
         '''instantiate non-ccr rules affiliated with rules in the base CCR rule'''
@@ -398,15 +398,20 @@ class CCRMerger(object):
                 if terminal is not None: terminal.execute()
 
         rules = []
-        rules.append(RepeatRule(name="Repeater" + t.get_merge_name()))
+        rules.append(RepeatRule(name="Repeater" + MergeRule.get_merge_name()))
 
         if rule.nested is not None:
             bef  = Repetition(single_action, min=1, max=8, name="before")
-            aft  = Repetition(single_action, min=1, max=8, name="before")
+            aft  = Repetition(single_action, min=1, max=8, name="after")
             seq1 = Repetition(single_action, min=1, max=6, name="sequence1")
             seq2 = Repetition(single_action, min=1, max=6, name="sequence2")
+            sing1 = Alternative(alts, name="singleton1")
+            sing2 = Alternative(alts, name="singleton2")
 
-            rule.nested.extras = [bef, aft, seq1, seq2]
+            if rule.nested.extras is None:
+                rule.nested.extras = [bef, aft, seq1, seq2, sing1, sing2]
+            else:
+                rule.nested.extras.extend([bef, aft, seq1, seq2, sing1, sing2])
             nested = rule.nested()
             rules.append(nested)
 

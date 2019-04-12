@@ -3,11 +3,11 @@ from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib.context import AppContext, ListContext
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/language_name.toml")
 
-class classNameNon(t):
+class classNameNon(MergeRule):
     mapping = {
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
@@ -19,7 +19,7 @@ class classNameNon(t):
         Choice("template", BINDINGS["templates"]),
     ]
 
-class className(t):
+class className(MergeRule):
     non = classNameNon
     mwith = "Core"
     mcontext = ListContext(titles = BINDINGS["title_contexts"])

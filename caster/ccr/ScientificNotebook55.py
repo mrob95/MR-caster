@@ -3,11 +3,12 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, Key, Text, Mouse, IntegerRef, Dictation, CompoundRule
+from dragonfly import Function, Choice, IntegerRef, Dictation
 from dragonfly import AppContext, Grammar, Repeat
 
+from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 from caster.lib.merge.nestedrule import NestedRule
 
 BINDINGS = utilities.load_toml_relative("config/scientific_notebook.toml")
@@ -55,24 +56,36 @@ class sn_nested(NestedRule):
             Function(lambda: texchar("rightarrow")),
             Key("right")],
 
-        "[<before>] argument that minimises <sequence1>":
-            [Key("f10, i, down:11, enter/25, b, enter") + Text("argmin") + Key("down"),
+        "[<before>] argument that <minmax> <sequence1>":
+            [Key("f10, i, down:11, enter/25, b, enter") + Text("arg%(minmax)s") + Key("down"),
             Key("right"), None],
 
-        "[<before>] argument that maximises <sequence1>":
-            [Key("f10, i, down:11, enter/25, b, enter") + Text("argmax") + Key("down"),
+        "[<before>] <minmax> by <sequence1>":
+            [Key("f10, i, down:11, enter/25, b, enter") + Text("%(minmax)s") + Key("down"),
             Key("right"), None],
+        "[<before>] <script1> <singleton1> [<after>]":
+            [Key("%(script1)s"), Key("right"), None],
 
-        "[<before>] minimum by <sequence1>":
-            [Key("f10, i, down:11, enter/25, b, enter") + Text("min") + Key("down"),
-            Key("right"), None],
+        "[<before>] <script1> <singleton1> <script2> <singleton2> [<after>]":
+            [Key("%(script1)s"), Key("right, %(script2)s"), Key("right")],
 
-        "[<before>] maximum by <sequence1>":
-            [Key("f10, i, down:11, enter/25, b, enter") + Text("max") + Key("down"),
-            Key("right"), None],
     }
+    extras = [
+        Choice("minmax", {
+            "(minimum | minimises)": "min",
+            "(maximum | maximises)": "max",
+            }),
+        Choice("script1", {
+            "sub": "c-l",
+            "super": "c-h",
+            }),
+        Choice("script2", {
+            "sub": "c-l",
+            "super": "c-h",
+            }),
+    ]
 
-class sn_mathematicsNon(t):
+class sn_mathematicsNon(MergeRule):
     mapping = {
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="scientific_notebook.toml"),
@@ -90,7 +103,7 @@ class sn_mathematicsNon(t):
 
 #---------------------------------------------------------------------------
 
-class sn_mathematics(t):
+class sn_mathematics(MergeRule):
     non = sn_mathematicsNon
     mwith = CORE["pronunciation"]
     mcontext = AppContext(executable="scientific notebook")

@@ -2,10 +2,10 @@ from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef, Repeat)
 from caster.lib.actions import Key, Text
 from caster.lib.context import AppContext
 
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 
-class SpotifyRule(t):
+class SpotifyRule(MergeRule):
     pronunciation = "Spotify"
 
     mapping = {

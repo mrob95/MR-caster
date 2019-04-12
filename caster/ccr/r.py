@@ -3,11 +3,11 @@ from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib.context import AppContext, ListContext
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/r.toml")
 
-class RlangNon(t):
+class RlangNon(MergeRule):
     mapping = {
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
@@ -24,7 +24,7 @@ class RlangNon(t):
         Choice("markdown_command", BINDINGS["markdown"]),
     ]
 
-class Rlang(t):
+class Rlang(MergeRule):
     non = RlangNon
     pronunciation = BINDINGS["pronunciation"]
     mwith = "Core"

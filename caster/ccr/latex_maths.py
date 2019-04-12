@@ -6,14 +6,14 @@ Created on Sep 4, 2018
 from dragonfly import Function, Choice, Key, Text, IntegerRef
 
 from caster.lib import control, execution, utilities
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 from caster.lib.latex import tex_funcs
 
 BINDINGS = utilities.load_toml_relative("config/latex.toml")
 CORE = utilities.load_toml_relative("config/core.toml")
 
 
-class LaTeXmath(t):
+class LaTeXmath(MergeRule):
     pronunciation = BINDINGS["pronunciation"]  +  " maths"
 
     mapping = {

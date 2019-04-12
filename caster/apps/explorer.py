@@ -2,11 +2,11 @@ from dragonfly import (Grammar, AppContext, MappingRule, Dictation, IntegerRef, 
                        Repeat, Pause, Function)
 
 from caster.lib.actions import Store, Retrieve
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 from subprocess import Popen
 from caster.lib import utilities
 
-class IERule(t):
+class IERule(MergeRule):
     pronunciation = "explorer"
 
     mapping = {

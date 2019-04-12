@@ -26,7 +26,7 @@ if WSR:
     _wait_for_wsr_activation()
 
 from caster.lib import control, utilities
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 from caster.lib.merge.mergepair import MergeInf
 _NEXUS = control.nexus()
 
@@ -110,7 +110,7 @@ def rule_changer(enable, name):
     if name == CORE["pronunciation"]:
         _NEXUS.merger.selfmod_rule_changer(name2="variable", enable=enable, save=True)
 
-class MainRule(t):
+class MainRule(MergeRule):
 
 	mapping = {
         "<enable> <name>": Function(rule_changer),

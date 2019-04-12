@@ -7,11 +7,11 @@ from dragonfly import (Dictation, Grammar, IntegerRef, MappingRule,
 from caster.lib.actions import Key, Text, Store, Retrieve
 from caster.lib.context import AppContext
 
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 from caster.lib import control
 
 
-class RStudioRule(t):
+class RStudioRule(MergeRule):
     pronunciation = "R studio"
     mcontext = AppContext(executable="rstudio")
 

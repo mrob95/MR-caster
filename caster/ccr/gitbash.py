@@ -3,17 +3,17 @@ from caster.lib.actions import Key, Text, Mouse, Store, Retrieve, Function
 from caster.lib.context import AppContext, ListContext
 
 from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import t
+from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/gitbash.toml")
 
-class GitBashNon(t):
+class GitBashNon(MergeRule):
     mapping = {
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="gitbash.toml"),
     }
 
-class GitBashRule(t):
+class GitBashRule(MergeRule):
     non = GitBashNon
     pronunciation = BINDINGS["pronunciation"]
     mwith = "Core"
