@@ -4,11 +4,21 @@ from caster.lib.context import AppContext, ListContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
+import re
 
 BINDINGS = utilities.load_toml_relative("config/python.toml")
 
 def test(arg):
     Text(arg).execute()
+
+def setters():
+    Store().execute()
+    text = re.search(r"self,(.*?)\)", Retrieve.text())
+    args = text.group(1).split(",")
+    args2 = [x.split("=")[0].strip() for x in args]
+    Key("c-enter").execute()
+    for arg in args2:
+        Text("self.%s = %s\n" % (arg, arg)).execute()
 
 class PythonNon(MergeRule):
     mapping = {
@@ -23,6 +33,9 @@ class PythonNon(MergeRule):
 
         "test to with <test>":
             Function(test, arg="%(test2)s"),
+
+        "create setters":
+            Function(setters),
 
     }
     extras = [

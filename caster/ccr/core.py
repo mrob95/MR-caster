@@ -3,7 +3,7 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic
+from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, LineIntegerRef
 
 from caster.lib.actions import Key, Text, Mouse
 from caster.lib import control, utilities, navigation, textformat, execution
@@ -111,9 +111,12 @@ class coreNon(MappingRule):
 
         "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
 
+        "number test <ntest>": Text("%(ntest)s"),
+
         }
     extras = [
         Dictation("dict"),
+        LineIntegerRef("ntest", 1, 10000),
         IntegerRef("n", 1, 20),
         Choice("direction", CORE[_DIRECTIONS]),
         Choice("direction2", CORE[_DIRECTIONS]),
@@ -172,11 +175,14 @@ class core(MergeRule):
 
         "<personal>": Text("%(personal)s"),
 
+        # "number test <ntest>": Text("%(ntest)s"),we would
+
     	}
 
     extras = [
         Dictation("text"),
-    	IntegerRef("n", 1, 10),
+    	# LineIntegerRef("ntest", 1, 1000we were going),
+        IntegerRef("n", 1, 10),
         IntegerRef("wnKK", 0, 10),
         IntegerRef("wnKK2", 0, 10),
         IntegerRef("wnKK3", 0, 10),

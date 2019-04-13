@@ -1,7 +1,9 @@
-from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, AppContext, IntegerRef, Function, Pause)
+from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, AppContext, Function, Pause, IntegerRef, LineIntegerRef)
 from caster.lib.actions import Key, Text, Store, Retrieve
-
+import sys
+# from dragonfly_testing.dragonfly import IntegerRef,  LineIntegerRef
 from caster.lib import control
+# from caster.lib.integers import IntegerRefMF
 from caster.lib.merge.mergerule import MergeRule
 
 def action_lines(action, n, nn):
@@ -125,8 +127,10 @@ class SublimeRule(MergeRule):
     }
     extras = [
         Dictation("dict"),
-        IntegerRef("n",1, 1000),
-        IntegerRef("nn", 1, 1000),
+        LineIntegerRef("n",1, 1000),
+        # IntegerRef("n",1, 1000),
+        # IntegerRef("nn", 1, 1000),
+        LineIntegerRef("nn", 1, 1000),
         IntegerRef("n2", 1, 9),
         IntegerRef("n3", 1, 21),
         Choice("action", {
@@ -173,7 +177,7 @@ class SublimeCCRRule(MergeRule):
     mcontext = AppContext(title="Sublime Text")
     mapping = {
         "line <n>"       : Key("c-g") + Text("%(n)s") + Key("enter, end"),
-        "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter, end"),
+        # "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter, end"),
 
         "align that"     : Key("ca-a"),
         "go to file"     : Key("c-p"),
@@ -190,7 +194,8 @@ class SublimeCCRRule(MergeRule):
 
     }
     extras = [
-        IntegerRef("n", 1, 1000),
+        LineIntegerRef("n", 1, 1000),
+        # IntegerRef("n", 1, 1000),
         IntegerRef("n2", 1, 9),
         IntegerRef("n11", 1, 20),
         IntegerRef("n12", 0, 10),

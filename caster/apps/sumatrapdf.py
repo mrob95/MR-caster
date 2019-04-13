@@ -1,4 +1,4 @@
-from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef, Mimic, Playback, Repeat)
+from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef, Mimic, Playback, Repeat, LineIntegerRef)
 from caster.lib.actions import Key, Text
 from caster.lib.context import AppContext
 

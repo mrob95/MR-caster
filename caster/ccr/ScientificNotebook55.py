@@ -56,7 +56,7 @@ class sn_nested(NestedRule):
             Function(lambda: texchar("rightarrow")),
             Key("right")],
 
-        "[<before>] argument that <minmax> <sequence1>":
+        "[<before>] argument [that] <minmax> <sequence1>":
             [Key("f10, i, down:11, enter/25, b, enter") + Text("arg%(minmax)s") + Key("down"),
             Key("right"), None],
 
