@@ -131,3 +131,7 @@ def browser_search(text=None, site="google"):
 def terminal(dir):
     Popen(["C:/Program Files/Git/git-bash.exe",
         "--cd=" + dir.replace("\\", "/")])
+
+def mathfly_switch():
+    Popen("C:/Users/Mike/Documents/NatLink/mathfly/SwitchHere.bat")
+    Popen("C:/Users/Mike/Documents/NatLink/caster/caster/lib/bin/reboot.bat")

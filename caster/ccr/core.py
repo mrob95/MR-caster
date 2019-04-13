@@ -3,7 +3,7 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, LineIntegerRef
+from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, LineIntegerRef, ContextAction, AppContext
 
 from caster.lib.actions import Key, Text, Mouse
 from caster.lib import control, utilities, navigation, textformat, execution
@@ -113,6 +113,8 @@ class coreNon(MappingRule):
 
         "number test <ntest>": Text("%(ntest)s"),
 
+        "switch to math fly": Function(utilities.mathfly_switch),
+
         }
     extras = [
         Dictation("dict"),
@@ -148,7 +150,9 @@ class core(MergeRule):
         'tabby [<tabdir>] [<nnavi10>]':
             Key("%(tabdir)s" + "tab")*Repeat(extra="nnavi10"),
         "splat [<splatdir>] [<nnavi10>]":
-            Key("c-%(splatdir)s") * Repeat(extra="nnavi10"),
+            ContextAction(Key("c-%(splatdir)s:%(nnavi10)s"),
+                [(AppContext("notepad"),
+                    Key("cs-left:%(nnavi10)s") + Key("delete"))]),
 
     	"<misc_core_keys>": Key("%(misc_core_keys)s"),
 

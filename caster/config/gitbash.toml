@@ -23,6 +23,7 @@
 "python 3"               = ["python3 .py", "left:3"]
 "python 2"               = ["python27 .py", "left:3"]
 "python 2 pip [install]" = "python27 -m pip install "
+"pip two (install | build) package" = "pip2 install -e ."
 
 [r_commands]
 "R script"               = ["Rscript .r", "left:2"]
@@ -65,6 +66,7 @@
 "git gooey blame"                     = "git gui blame PATH"
 "git hub"                             = "https://github.com/"
 "git init"                            = "git init"
+"git log"                            = "git log"
 "git merge tool"                      = "git mergetool"
 "git merge"                           = "git merge "
 "git publish"                         = "git push -u origin "
