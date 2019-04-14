@@ -3,79 +3,73 @@ type_prefix = "type"
 template_prefix = "template"
 
 [commands]
-"assign" = " := "
-"iffae" = ["if", "tab"]
-"shells" = ["else {}", "left, enter"]
-"shell iffae" = ["else if  {}", "left:3"]
-"switch" = ["switch  {}", "left, enter, up, end, left:2"]
-"case" = ["case :", "left"]
-"default" = ["default:", "enter"]
-"breaker" = "break"
-"for each" = ["for  := range  {}", "left, enter, up, home, right:4"]
-"for loop" = ["for", "tab"]
-"while loop" = ["for  {}", "left, enter, up, end, left:2"]
-"convert to integer" = ["strconv.Atoi()", "left"]
-"convert to string" = ["strconv.Itoa()", "left"]
-"lodge and" = " && "
-"lodge or" = " || "
-"print to console" = ["fmt.Println()", "left"]
-"import" = ["import ()", "left, enter"]
-"function" = ["func", "tab"]
-"type struct" = ["type  struct {}", "left, enter, up, home, right:5"]
-"value (null | nil)" = "nil"
-"value true" = "true"
-"value false" = "false"
-
-"(function | funk) main" = ["func main() {}", "left, enter"]
-"make map" = ["make(map[])", "left:2"]
-"make channel" = ["make(chan )", "left"]
-"package" = ["package "]
-"package main" = ["package main", "enter"]
-"variable" = ["var "]
-"go routine" = ["go "]
-"create mutex" = "var mutex = sync.Mutex{}"
-"mutex lock" = "mutex.Lock()"
-"mutex unlock" = "mutex.Unlock()"
-"create weight group" = "var wg sync.WaitGroup"
-"weight group add" = "wg.Add(1)"
-"weight group done" = "wg.Done()"
-"weight group weight" = "wg.Wait()"
-"(start | begin) timer" = "start := time.Now()"
-"(end | finish) timer" = "elapsed := time.Since(start)\nfmt.Printf(\"execution took %s\", elapsed)"
-"send (message | channel)" = " <- "
-"append" = ["", "home/5, s-end, c-c, right, space, equal, space, a, p, p, e, n, d, lparen, c-v, comma, space"]
-
-"regular compile" = ["regexp.MustCompile()", "left, dquote"]
-"regular find all [string]" = ["FindAllString(, -1)", "left:5"]
+"(end | finish) timer"               = "elapsed := time.Since(start)\nfmt.Printf(\"execution took %s\", elapsed)"
+"(function | funk) main"             = ["func main() {}", "left, enter"]
+"(split string | strings split)"     = ["strings.Split()", "left"]
+"(start | begin) timer"              = "start := time.Now()"
+"append"                             = ["", "home/5, s-end, c-c, right, space, equal, space, a, p, p, e, n, d, lparen, c-v, comma, space"]
+"assign"                             = " := "
+"breaker"                            = "break"
+"case"                               = ["case :", "left"]
+"convert to integer"                 = ["strconv.Atoi()", "left"]
+"convert to string"                  = ["strconv.Itoa()", "left"]
+"create mutex"                       = "var mutex = sync.Mutex{}"
+"create weight group"                = "var wg sync.WaitGroup"
+"default"                            = ["default:", "enter"]
+"file open"                          = ["file, _ := os.Open()\ndefer file.Close()", "up, end, left, dquote"]
+"for each"                           = ["for  := range  {}", "left, enter, up, home, right:4"]
+"for loop"                           = ["for", "tab"]
+"function"                           = ["func", "tab"]
+"go routine"                         = ["go "]
+"iffae"                              = ["if", "tab"]
+"import"                             = ["import ()", "left, enter"]
+"lodge and"                          = " && "
+"lodge or"                           = " || "
+"make channel"                       = ["make(chan )", "left"]
+"make map"                           = ["make(map[])", "left:2"]
+"mutex lock"                         = "mutex.Lock()"
+"mutex unlock"                       = "mutex.Unlock()"
+"package main"                       = ["package main", "enter"]
+"package"                            = ["package "]
+"print to console"                   = ["fmt.Println()", "left"]
+"read file"                          = ["ioutil.ReadFile()", "left, dquote"]
+"regular compile"                    = ["regexp.MustCompile()", "left, dquote"]
 "regular find all [string] submatch" = ["FindAllStringSubmatch(, -1)", "left:5"]
-
-"read file" = ["ioutil.ReadFile()", "left, dquote"]
-
-"(split string | strings split)" = ["strings.Split()", "left"]
-
-"file open" = ["file, _ := os.Open()\ndefer file.Close()", "up, end, left, dquote"]
-
-"scanner new" = "scanner := bufio.NewScanner(file)"
-"scanner scan" = "scanner.Scan()"
-"scanner text" = "scanner.Text()"
+"regular find all [string]"          = ["FindAllString(, -1)", "left:5"]
+"scanner new"                        = "scanner := bufio.NewScanner(file)"
+"scanner scan"                       = "scanner.Scan()"
+"scanner text"                       = "scanner.Text()"
+"send (message | channel)"           = " <- "
+"shell iffae"                        = ["else if  {}", "left:3"]
+"shells"                             = ["else {}", "left, enter"]
+"switch"                             = ["switch  {}", "left, enter, up, end, left:2"]
+"type struct"                        = ["type  struct {}", "left, enter, up, home, right:5"]
+"value (null | nil)"                 = "nil"
+"value false"                        = "false"
+"value true"                         = "true"
+"variable"                           = ["var "]
+"weight group add"                   = "wg.Add(1)"
+"weight group done"                  = "wg.Done()"
+"weight group weight"                = "wg.Wait()"
+"while loop"                         = ["for  {}", "left, enter, up, end, left:2"]
 
 
 [types]
-"(inter | integer)" = "int"
-"(inter | integer) eight" = "int8"
-"(inter | integer) sixteen" = "int16"
-"(inter | integer) thirty two" = "int32"
-"(inter | integer) sixty four" = "int64"
-"unsigned (inter | integer)" = "uint"
-"unsigned (inter | integer) eight" = "uint8"
-"unsigned (inter | integer) sixteen" = "uint16"
-"unsigned (inter | integer) thirty two" = "uint32"
+"(inter | integer) eight"               = "int8"
+"(inter | integer) sixteen"             = "int16"
+"(inter | integer) sixty four"          = "int64"
+"(inter | integer) thirty two"          = "int32"
+"(inter | integer)"                     = "int"
+"boolean"                               = "bool"
+"byte"                                  = "byte"
+"float"                                 = "float64"
+"interface"                             = "interface"
+"rune"                                  = "rune"
+"string"                                = "string"
+"unsigned (inter | integer) eight"      = "uint8"
+"unsigned (inter | integer) sixteen"    = "uint16"
 "unsigned (inter | integer) sixty four" = "uint64"
-"boolean" = "bool"
-"string" = "string"
-"rune" = "rune"
-"byte" = "byte"
-"interface" = "interface"
-"float" = "float64"
+"unsigned (inter | integer) thirty two" = "uint32"
+"unsigned (inter | integer)"            = "uint"
 
 [templates]

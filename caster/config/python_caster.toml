@@ -1,31 +1,33 @@
 [functions]
 "app context" = "AppContext"
 "choice"      = "Choice"
+"context action" = "ContextAction"
 "dictation"   = "Dictation"
 "execute"     = "execute"
 "function"    = "Function"
 "integer ref" = "IntegerRef"
 "key"         = "Key"
 "mouse"       = "Mouse"
+"repeat" = "Repeat"
 "text"        = "Text"
 
 
 [misc]
-"from dragonfly import all" = "from dragonfly import Dictation, Choice, Function, IntegerRef, "
-"from dragonfly import" = "from dragonfly import "
-"import actions" = "from caster.lib.actions import Key, Text, Mouse, Store, Retrieve"
-"Import [app] context" = "from caster.lib.context import AppContextc"
-"import merge rule" = "from caster.lib.merge.mergerule import MergeRule"
-"import (libs | libraries)" = "from caster.lib import control, utilities, execution"
-"class merge rule" = ["class (MergeRule):", "left:12"]
-"utilities read selected" = ["utilities.read_selected()", "left"]
+"from dragonfly import all"      = "from dragonfly import Dictation, Choice, Function, IntegerRef, "
+"from dragonfly import"          = "from dragonfly import "
+"import actions"                 = "from caster.lib.actions import Key, Text, Mouse, Store, Retrieve"
+"Import [app] context"           = "from caster.lib.context import AppContextc"
+"import merge rule"              = "from caster.lib.merge.mergerule import MergeRule"
+"import (libs | libraries)"      = "from caster.lib import control, utilities, execution"
+"class merge rule"               = ["class (MergeRule):", "left:12"]
+"utilities read selected"        = ["utilities.read_selected()", "left"]
 "utilities load tommel relative" = ["utilities.load_toml_relative()", "left"]
-"control nexus merger" = "control.nexus().merger."
-"add global rule" = ["add_global_rule()", "left"]
-"add app rule" = ["add_app_rule()", "left"]
-"insert mapping" = ["mapping = {}", "left, enter, tab"]
-"insert defaults" = ["defaults = {}", "left, enter, tab"]
-"insert extras" = ["extras = []", "left, enter:2, up, tab"]
+"control nexus merger"           = "control.nexus().merger."
+"add global rule"                = ["add_global_rule()", "left"]
+"add app rule"                   = ["add_app_rule()", "left"]
+"insert mapping"                 = ["mapping = {}", "left, enter, tab"]
+"insert defaults"                = ["defaults = {}", "left, enter, tab"]
+"insert extras"                  = ["extras = []", "left, enter:2, up, tab"]
 
 [templates]
 "language rule" = '''

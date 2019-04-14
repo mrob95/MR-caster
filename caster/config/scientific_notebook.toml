@@ -55,6 +55,8 @@
 "variance of"                     = "s-v, a, r, c-0"
 "covariance of"                   = "s-c, o, v, c-0"
 "prime"                           = "apostrophe"
+"moving average" = "M, A, c-0"
+"autoregressive" = "A, R, c-0"
 #
 "label above" = "f10, i, down:11, enter/25, a, enter"
 "label below" = "f10, i, down:11, enter/25, b, enter"

@@ -3,9 +3,10 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ShortIntegerRef, ContextAction, AppContext
+from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ShortIntegerRef, ContextAction
 
 from caster.lib.actions import Key, Text, Mouse
+from caster.lib.context import AppContext, TitleContext
 from caster.lib import control, utilities, navigation, textformat, execution
 from caster.lib.merge.mergerule import MergeRule
 
@@ -183,6 +184,11 @@ class core(MergeRule):
             Function(navigation.enclose_selected),
 
         "<personal>": Text("%(personal)s"),
+
+        "check [<n>]":
+            ContextAction(Key("c-enter")*Repeat(extra="n"),
+                [(TitleContext("notepad", "scientific notebook"),
+                    Key("end, enter")*Repeat(extra="n"))]),
 
         # "number test <ntest>": Text("%(ntest)s"),we would
 

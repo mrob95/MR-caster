@@ -1,6 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, IntegerRef
 from caster.lib.actions import Key, Text, Mouse, Store, Retrieve, Function
-from caster.lib.context import AppContext, ListContext
+from caster.lib.context import AppContext, TitleContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -43,7 +43,7 @@ class PythonNon(MergeRule):
 class Python(MergeRule):
     non = PythonNon
     mwith = "Core"
-    mcontext = ListContext(titles = BINDINGS["title_contexts"])
+    mcontext = TitleContext(*BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {

@@ -1,6 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
 from caster.lib.actions import Key, Text, Mouse
-from caster.lib.context import AppContext, ListContext
+from caster.lib.context import AppContext, TitleContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -24,7 +24,7 @@ class MarkdownNon(MergeRule):
 class Markdown(MergeRule):
     non = MarkdownNon
     mwith = "Core"
-    mcontext = ListContext(titles = BINDINGS["title_contexts"])
+    mcontext = TitleContext(*BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
     mapping = {
         "heading [<num>] [<dict>]":

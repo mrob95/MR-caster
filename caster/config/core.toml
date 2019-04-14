@@ -118,7 +118,6 @@
 # "tabby"              = "tab"
 # "tabby left"         = "s-tab"
 "shock"                = "enter"
-"check"                = "c-enter"
 "clear"                = "backspace"
 # "splat"              = "c-backspace"
 # "splat right"        = "c-delete"

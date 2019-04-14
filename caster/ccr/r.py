@@ -1,6 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, Function
 from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
-from caster.lib.context import AppContext, ListContext
+from caster.lib.context import AppContext, TitleContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -28,7 +28,7 @@ class Rlang(MergeRule):
     non = RlangNon
     pronunciation = BINDINGS["pronunciation"]
     mwith = "Core"
-    mcontext = ListContext(titles = BINDINGS["title_contexts"])
+    mcontext = TitleContext(*BINDINGS["title_contexts"])
 
     mapping = {
         "<command>":

@@ -1,82 +1,49 @@
-'''
-Created on Sep 2, 2015
+from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
+from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
+from caster.lib.context import AppContext, TitleContext
 
-@author: synkarius
-'''
-from dragonfly import Choice
-from caster.lib.actions import Key, Text, Mouse
+from caster.lib import control, utilities, execution
+from caster.lib.merge.mergerule import MergeRule
 
-from caster.lib import control
-from caster.lib.dfplus.merge.mergerule import MergeRule
-from caster.lib.dfplus.state.short import R
+BINDINGS = utilities.load_toml_relative("config/sql.toml")
 
+class SQLNon(MergeRule):
+    mapping = {
+        BINDINGS["template_prefix"] + " <template>":
+            Function(execution.template),
+
+        "configure " + BINDINGS["pronunciation"]:
+            Function(utilities.load_config, config_name="sql.toml"),
+    }
+    extras = [
+        Choice("template", BINDINGS["templates"]),
+    ]
 
 class SQL(MergeRule):
-    pronunciation = "sequel"
+    non = SQLNon
+    mwith = "Core"
+    mcontext = TitleContext(*BINDINGS["title_contexts"])
+    pronunciation = BINDINGS["pronunciation"]
 
     mapping = {
+        "<command>":
+            Function(execution.alternating_command),
 
-        "lodge <logical>":
-            R(Text("%(logical)s")),
+        BINDINGS["logical_prefix"] + "<logical>":
+            Text("%(logical)s"),
 
-        "<general>":
-            R(Text("%(general)s")),
 
-        "fun <function>":
-            R(Text("%(function)s") + Key("left:2")),
+        BINDINGS["function_prefix"] + " <fun>":
+            Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
     }
 
     extras = [
-        Choice("logical", {
-            "and":"AND ",
-            "or":" OR ",
-            "in":" IN ",
-            "not":" NOT ",
-        }),
-        Choice("general", {
-            "from":"FROM ",
-            "select":"SELECT ",
-            "select every":"SELECT *",
-            "where":"WHERE ",
-            "delete":"DELETE ",
-            "update":"UPDATE",
-            "insert into": "INSERT INTO ",
-
-            "between":" BETWEEN ",
-            "group by":"GROUP BY ",
-            "not equals":" <> ",
-            "like":"LIKE ",
-            "not like":"NOT LIKE ",
-
-            "order by":"ORDER BY ",
-            "order ascending":"ASC ",
-            "order descending":"DESC ",
-
-            "left join":"LEFT JOIN ",
-            "inner join":"INNER JOIN ",
-            "right join":"RIGHT JOIN ",
-            "full join":"FULL JOIN ",
-            "normal join":"JOIN ",
-            "on columns":"ON ",
-            "union":"UNION ",
-            "using":"USING ",
-
-            "is null":" IS NULL",
-            "is not null": " IS NOT NULL",
-            "alias as":" AS ",
-            "distinct":"DISTINCT ",
-            "having": "HAVING ",
-            "limit": "LIMIT ",
-        }),
-        Choice("function", {
-            "average":"AVG() ",
-            "count":"COUNT() ",
-            "max":"MAX() ",
-            "min":"MIN() ",
-            "sum":"SUM() ",
-        }),
+        Choice("fun",    BINDINGS["functions"]),
+        Choice("command",BINDINGS["commands"]),
+        Choice("logical",BINDINGS["logicals"]),
     ]
+
     defaults = {}
 
 
-control.nexus().merger.add_global_rule(SQL())
+control.nexus().merger.add_app_rule(SQL())

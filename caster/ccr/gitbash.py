@@ -1,6 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Clipboard
 from caster.lib.actions import Key, Text, Mouse, Store, Retrieve, Function
-from caster.lib.context import AppContext, ListContext
+from caster.lib.context import AppContext, ExeContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -17,7 +17,7 @@ class GitBashRule(MergeRule):
     non = GitBashNon
     pronunciation = BINDINGS["pronunciation"]
     mwith = "Core"
-    mcontext = ListContext(BINDINGS["executable_contexts"])
+    mcontext = ExeContext(*BINDINGS["executable_contexts"])
 
     mapping = {
         "<general_command>":

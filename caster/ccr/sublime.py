@@ -30,7 +30,7 @@ class SublimeRule(MergeRule):
         "edit all"                       : Key("c-d, a-f3"),
         "reverse selection"              : Key("as-r"),
 
-        "<action> [line] <n> [to <nn>]"  : Function(action_lines),
+        "<action> [line] <n> [(by | to) <nn>]"  : Function(action_lines),
 
         "new (file | tab)"               : Key("c-n"),
         # {"keys"                        : ["ctrl+alt+n"], "command": "new_window"},
