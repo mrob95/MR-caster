@@ -3,7 +3,7 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, LineIntegerRef, ContextAction, AppContext
+from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ShortIntegerRef, ContextAction, AppContext
 
 from caster.lib.actions import Key, Text, Mouse
 from caster.lib import control, utilities, navigation, textformat, execution
@@ -30,8 +30,6 @@ def alphabet(big, letter):
 
 class coreNon(MappingRule):
     mapping = {
-        "external notify": Function(utilities.toast_notify, title="external", message="messageAC test"),
-
 
         "super hold":        Key("win:down"),
         "super release":     Key("win:up"),
@@ -44,27 +42,33 @@ class coreNon(MappingRule):
         "all release":       Key("win:up, shift:up, ctrl:up, alt:up"),
         "release all":       Key("win:up, shift:up, ctrl:up, alt:up"),
 
-        "volume up [<n>]": Key("volumeup/5:%(n)d"),
-        "volume down [<n>]": Key("volumedown/5:%(n)d"),
-        "volume (mute|unmute)": Key("volumemute"),
-        "music next": Key("tracknext"),
-        "music previous": Key("trackprev"),
-        "music (pause|play)": Key("playpause"),
+        "volume up [<n>]"            : Key("volumeup/5:%(n)d"),
+        "volume down [<n>]"          : Key("volumedown/5:%(n)d"),
+        "volume (mute|unmute)"       : Key("volumemute"),
+        "music next"                 : Key("tracknext"),
+        "music previous"             : Key("trackprev"),
+        "music (pause|play)"         : Key("playpause"),
 
-        "context menu": Key("s-f10"),
+        "context menu"               : Key("s-f10"),
 
-        "show work [spaces]": Key("w-tab"),
+        "show work [spaces]"         : Key("w-tab"),
         "(create | new) work [space]": Key("wc-d"),
-        "close work [space]": Key("wc-f4"),
-        "next work [space] [<n>]": Key("wc-right")*Repeat(extra="n"),
+        "close work [space]"         : Key("wc-f4"),
+        "next work [space] [<n>]"    : Key("wc-right")*Repeat(extra="n"),
         "(previous | prior) work [space] [<n>]": Key("wc-left")*Repeat(extra="n"),
 
-        "go work [space] <n>": Function(lambda n: navigation.go_to_desktop_number(n)),
-        "send work [space] <n>": Function(lambda n: navigation.move_current_window_to_desktop(n)),
-        "move work [space] <n>": Function(lambda n: navigation.move_current_window_to_desktop(n, True)),
-        "send work [space] new": Function(navigation.move_current_window_to_new_desktop, follow=False),
-        "move work [space] new": Function(navigation.move_current_window_to_new_desktop, follow=True),
-        "close all work [spaces]": Function(navigation.close_all_workspaces),
+        "go work [space] <n>":
+            Function(lambda n: navigation.go_to_desktop_number(n)),
+        "send work [space] <n>":
+            Function(lambda n: navigation.move_current_window_to_desktop(n)),
+        "move work [space] <n>":
+            Function(lambda n: navigation.move_current_window_to_desktop(n, True)),
+        "send work [space] new":
+            Function(navigation.move_current_window_to_new_desktop, follow=False),
+        "move work [space] new":
+            Function(navigation.move_current_window_to_new_desktop, follow=True),
+        "close all work [spaces]":
+            Function(navigation.close_all_workspaces),
 
         "take screenshot": Key("ws-s"),
 
@@ -75,8 +79,7 @@ class coreNon(MappingRule):
             Key("shift:down") + Mouse("right") + Key("shift:up"),
         "colic":
             Key("control:down") + Mouse("left") + Key("control:up"),
-        "millick":
-            Mouse("middle"),
+        "millick": Mouse("middle"),
         "window <direction> [<direction2>]":
             Key("win:down, %(direction)s/15, %(direction2)s, win:up"),
         'minimize':
@@ -85,10 +88,8 @@ class coreNon(MappingRule):
             Playback([(["maximize", "window"], 0.0)]),
         "configure " + CORE["pronunciation"]: Function(utilities.load_config, config_name="core.toml"),
 
-        "undo [<n>]":
-            Key("c-z")*Repeat(extra="n"),
-        "redo [<n>]":
-            Key("c-y")*Repeat(extra="n"),
+        "undo [<n>]": Key("c-z")*Repeat(extra="n"),
+        "redo [<n>]": Key("c-y")*Repeat(extra="n"),
 
         "close all notepads": Function(utilities.kill_notepad),
 
@@ -118,7 +119,7 @@ class coreNon(MappingRule):
         }
     extras = [
         Dictation("dict"),
-        LineIntegerRef("ntest", 1, 10000),
+        ShortIntegerRef("ntest", 1, 10000),
         IntegerRef("n", 1, 20),
         Choice("direction", CORE[_DIRECTIONS]),
         Choice("direction2", CORE[_DIRECTIONS]),
@@ -162,15 +163,19 @@ class core(MergeRule):
         "(shift click | shifty)": Key("shift:down") + Mouse("left") + Key("shift:up"),
 
         "stoosh [<nnavi500>]":
-            Function(navigation.stoosh, nexus=_NEXUS),
+            ContextAction(Function(navigation.stoosh, nexus=_NEXUS),
+                [(AppContext("mingw"),
+                    Function(navigation.stoosh, nexus=_NEXUS, key="c-insert"))]),
         "cutter [<nnavi500>]":
-            Function(navigation.stoosh, nexus=_NEXUS, key="x"),
+            Function(navigation.stoosh, nexus=_NEXUS, key="c-x"),
         "duple [<nnavi50>]":
             Function(navigation.duple),
 
 
         "spark [<nnavi500>] [(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel)]":
-            Function(navigation.drop, nexus=_NEXUS),
+            ContextAction(Function(navigation.drop, nexus=_NEXUS),
+                [(AppContext("mingw"),
+                    Function(navigation.drop, nexus=_NEXUS, key="s-insert"))]),
 
         "(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel) <text>":
             Function(textformat.master_format_text),
@@ -185,7 +190,6 @@ class core(MergeRule):
 
     extras = [
         Dictation("text"),
-    	# LineIntegerRef("ntest", 1, 1000we were going),
         IntegerRef("n", 1, 10),
         IntegerRef("wnKK", 0, 10),
         IntegerRef("wnKK2", 0, 10),
@@ -216,22 +220,22 @@ class core(MergeRule):
     ]
 
     defaults = {
-        "big": False,
-        "extreme": False,
+        "big"           : False,
+        "extreme"       : False,
         "capitalization": 0,
-        "spacing": 0,
-        "nnavi10": 1,
-        "nnavi50": 1,
-        "nnavi500": 1,
-    	"n": 1,
-        "direction": "left",
-    	"modifier": "",
-        "wnKK2": "",
-        "wnKK3": "",
-        "wnKK4": "",
-        "wnKK5": "",
-        "tabdir": "",
-        "splatdir": "backspace",
+        "spacing"       : 0,
+        "nnavi10"       : 1,
+        "nnavi50"       : 1,
+        "nnavi500"      : 1,
+        "n"             : 1,
+        "direction"     : "left",
+        "modifier"      : "",
+        "wnKK2"         : "",
+        "wnKK3"         : "",
+        "wnKK4"         : "",
+        "wnKK5"         : "",
+        "tabdir"        : "",
+        "splatdir"      : "backspace",
     }
 
 

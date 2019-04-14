@@ -1,7 +1,6 @@
-from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, AppContext, Function, Pause, IntegerRef, LineIntegerRef)
+from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, AppContext, Function, Pause, IntegerRef, ShortIntegerRef)
 from caster.lib.actions import Key, Text, Store, Retrieve
 import sys
-# from dragonfly_testing.dragonfly import IntegerRef,  LineIntegerRef
 from caster.lib import control
 # from caster.lib.integers import IntegerRefMF
 from caster.lib.merge.mergerule import MergeRule
@@ -41,6 +40,7 @@ class SublimeRule(MergeRule):
         "open folder"                    : Key("cs-o"),
         "open recent"                    : Key("f10, down:4, right, down:9"),
         "save as"                        : Key("cs-s"),
+        "save all"                        : Key("f10, f, up:8, enter"),
         "revert (file | [unsaved] changes)": Key("f10, f, up:3, enter"),
 
         #
@@ -127,10 +127,10 @@ class SublimeRule(MergeRule):
     }
     extras = [
         Dictation("dict"),
-        LineIntegerRef("n",1, 1000),
+        ShortIntegerRef("n",1, 1000),
         # IntegerRef("n",1, 1000),
         # IntegerRef("nn", 1, 1000),
-        LineIntegerRef("nn", 1, 1000),
+        ShortIntegerRef("nn", 1, 1000),
         IntegerRef("n2", 1, 9),
         IntegerRef("n3", 1, 21),
         Choice("action", {
@@ -194,7 +194,7 @@ class SublimeCCRRule(MergeRule):
 
     }
     extras = [
-        LineIntegerRef("n", 1, 1000),
+        ShortIntegerRef("n", 1, 1000),
         # IntegerRef("n", 1, 1000),
         IntegerRef("n2", 1, 9),
         IntegerRef("n11", 1, 20),

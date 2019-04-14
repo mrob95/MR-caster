@@ -4,6 +4,7 @@
 [general_commands]
 "copy"                   = ["", "c-insert"]
 "paste"                  = ["", "s-insert"]
+"cancel" = ["", "c-c"]
 "CD up"                  = ["cd ..", "enter"]
 "CD"                     = "cd "
 "list"                   = ["ls", "enter"]

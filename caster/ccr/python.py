@@ -28,12 +28,6 @@ class PythonNon(MergeRule):
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="python.toml"),
 
-        "test with <test>":
-            Function(test, arg="%(test)s"),
-
-        "test to with <test>":
-            Function(test, arg="%(test2)s"),
-
         "create setters":
             Function(setters),
 
@@ -65,6 +59,8 @@ class Python(MergeRule):
             Text("def __%(umeth)s__(self):"),
         BINDINGS["method_prefix"] + " <bmeth>":
             Text("def __%(bmeth)s__(self, other):"),
+        BINDINGS["method_prefix"] + " <mmeth>":
+            Function(lambda mmeth: Text("def __%s__(%s):" % (mmeth[0], mmeth[1])).execute()),
 
         "import <lib>": Text("import %(lib)s") + Key("enter"),
 
@@ -78,6 +74,7 @@ class Python(MergeRule):
         Choice("fun",      BINDINGS["functions"]),
         Choice("umeth",    BINDINGS["unary_methods"]),
         Choice("bmeth",    BINDINGS["binary_methods"]),
+        Choice("mmeth",    BINDINGS["misc_methods"]),
         Choice("command",  BINDINGS["commands"]),
         Choice("lib",      BINDINGS["libraries"]),
         Choice("exception",BINDINGS["exceptions"]),
@@ -133,7 +130,7 @@ class CasterPythonRule(MergeRule):
     mwith = ["Core", "Python"]
     mcontext = AppContext(title=".py") & (AppContext(title="caster") | AppContext(title="mathfly"))
     mapping = {
-        "integer ref <intn>": Text("IntegerRef("", 1, %(intn)s),") + Key("left:16"),
+        "integer ref <intn>": Text("IntegerRef("", 1, %(intn)s),") + Key("c-left:3"),
         BINDINGS["function_prefix"] + " <cfun>":
             Store(same_is_okay=False) + Text("%(cfun)s()") + Key("left") + Retrieve(action_if_text="right"),
         "<cmisc>":

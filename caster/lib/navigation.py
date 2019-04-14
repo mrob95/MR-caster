@@ -63,12 +63,12 @@ def type_temp(nexus):
     if nexus.temp:
         Text(nexus.temp).execute()
 
-def stoosh(nnavi500, nexus, key="c"):
+def stoosh(nnavi500, nexus, key="c-c"):
     if nnavi500 == 1:
-        Key("c-" + key).execute()
+        Key(key).execute()
     else:
         cb = Clipboard(from_system=True)
-        Key("c-" + key).execute()
+        Key(key).execute()
         # time for keypress to execute
         time.sleep(SETTINGS["keypress_wait"])
         nexus.clip[str(nnavi500)] = Clipboard.get_system_text()
@@ -77,10 +77,10 @@ def stoosh(nnavi500, nexus, key="c"):
         cb.copy_to_system()
 
 
-def drop(nnavi500, nexus, capitalization, spacing):
+def drop(nnavi500, nexus, capitalization, spacing, key="c-v"):
     # Maintain standard spark functionality for non-strings
     if capitalization == 0 and spacing == 0 and nnavi500 == 1:
-        Key("c-v").execute()
+        Key(key).execute()
         return
     # Get clipboard text
     if nnavi500 > 1:
@@ -97,7 +97,7 @@ def drop(nnavi500, nexus, capitalization, spacing):
             text = textformat.formatted_text(capitalization, spacing, text)
         Clipboard.set_system_text(text)
         time.sleep(SETTINGS["keypress_wait"])
-        Key("c-v").execute()
+        Key(key).execute()
         time.sleep(SETTINGS["keypress_wait"])
         # Restore the clipboard contents.
         cb.copy_to_system()

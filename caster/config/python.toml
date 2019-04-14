@@ -60,9 +60,10 @@ method_prefix = "meth"
 "class"               = ["class :", "left"]
 "dunder init"         = ["__init__()", "left"]
 "for each"            = ["for  in :", "left:5"]
-"for loop"            = ["for i in range(0, ):", "left:2"]
+"for loop"            = ["for i in range():", "left:2"]
 "from import"         = ["from  import ", "home, right:5"]
 "iffae"               = ["if :", "left"]
+"iffae not"           = ["if not :", "left"]
 "import"              = "import "
 "insert long comment" = ["''''''", "left:3, enter:2, up"]
 "lambda"              = ["lambda :", "left"]
@@ -71,6 +72,7 @@ method_prefix = "meth"
 "lodge is"            = " is "
 "lodge not"           = " not "
 "lodge or"            = " or "
+"lodge for"           = " for "
 "return"              = "return "
 "shell iffae"         = ["elif :", "left"]
 "shells"              = "else:"
@@ -81,24 +83,47 @@ method_prefix = "meth"
 "with open"          = ["with open() as f:", "left:7"]
 
 [unary_methods]
-"(reper | representation)" = "repr"
-"string"                   = "str"
-"(len | length)"           = "len"
-"name"                     = "name"
-"non zero"                 = "nonzero"
-"unicode"                  = "unicode"
-"size of"                  = "sizeof"
-"dir"                      = "dir"
 "(int | integer)"          = "int"
+"(len | length)"           = "len"
+"(negation | negative)"    = "neg"
+"(reper | representation)" = "repr"
+"absolute"                 = "abs"
+"dir"                      = "dir"
+"enter"                    = "enter"
+"exit"                     = "exit"
+"invert"                   = "invert"
+"(iter | iterator)"        = "iter"
+"name"                     = "name"
+"new"                      = "new"
+"(non zero | boolean)"     = "nonzero"
+"positive"                 = "pos"
+"size of"                  = "sizeof"
+"string"                   = "str"
+"unicode"                  = "unicode"
 
 [binary_methods]
 "add"                      = "add"
 "subtract"                 = "sub"
+"multiply"                 = "mul"
+"divide"                   = "div"
 "equal"                    = "eq"
 "less than"                = "lt"
 "greater than"             = "gt"
 "less equal"               = "le"
 "greater equal"            = "ge"
+"modulo"                   = "mod"
+"power"                    = "pow"
+"and"                      = "and"
+"or"                       = "or"
+"ex or"                    = "xor"
+
+[misc_methods]
+"get item"    = ["getitem", "self, key"]
+"set item"    = ["setitem", "self, key, value"]
+"delete item" = ["delitem", "self, key"]
+"contains"    = ["contains", "self, item"]
+"missing"     = ["missing", "self, key"]
+
 
 [exceptions]
 "arithmetic"         = "ArithmeticError"
