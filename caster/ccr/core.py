@@ -6,7 +6,7 @@ Created on Sep 4, 2018
 from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ShortIntegerRef, ContextAction
 
 from caster.lib.actions import Key, Text, Mouse
-from caster.lib.context import AppContext, TitleContext
+from caster.lib.context import AppContext, ExeContext, TitleContext
 from caster.lib import control, utilities, navigation, textformat, execution
 from caster.lib.merge.mergerule import MergeRule
 
@@ -87,7 +87,8 @@ class coreNon(MappingRule):
             Playback([(["minimize", "window"], 0.0)]),
         'maximize':
             Playback([(["maximize", "window"], 0.0)]),
-        "configure " + CORE["pronunciation"]: Function(utilities.load_config, config_name="core.toml"),
+        "configure " + CORE["pronunciation"]:
+            Function(utilities.load_config, config_name="core.toml"),
 
         "undo [<n>]": Key("c-z")*Repeat(extra="n"),
         "redo [<n>]": Key("c-y")*Repeat(extra="n"),
@@ -122,8 +123,8 @@ class coreNon(MappingRule):
         Dictation("dict"),
         ShortIntegerRef("ntest", 1, 10000),
         IntegerRef("n", 1, 20),
-        Choice("direction", CORE[_DIRECTIONS]),
-        Choice("direction2", CORE[_DIRECTIONS]),
+        Choice("direction",            CORE[_DIRECTIONS]),
+        Choice("direction2",           CORE[_DIRECTIONS]),
         Choice("misc_core_keys_noCCR", CORE["misc_core_keys_noCCR"]),
     ]
     defaults = {
@@ -151,10 +152,10 @@ class core(MergeRule):
 
         'tabby [<tabdir>] [<nnavi10>]':
             Key("%(tabdir)s" + "tab")*Repeat(extra="nnavi10"),
-        "splat [<splatdir>] [<nnavi10>]":
-            ContextAction(Key("c-%(splatdir)s:%(nnavi10)s"),
-                [(AppContext("notepad"),
-                    Key("cs-left:%(nnavi10)s") + Key("delete"))]),
+        "splat [<splatdir>] [(<nnavi10> | <extreme>)]":
+            ContextAction(Function(navigation.splat),
+                [(TitleContext("notepad"),
+                    Function(navigation.splat, manual=True))]),
 
     	"<misc_core_keys>": Key("%(misc_core_keys)s"),
 
@@ -165,17 +166,16 @@ class core(MergeRule):
 
         "stoosh [<nnavi500>]":
             ContextAction(Function(navigation.stoosh, nexus=_NEXUS),
-                [(AppContext("mingw"),
+                [(ExeContext("\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"),
                     Function(navigation.stoosh, nexus=_NEXUS, key="c-insert"))]),
         "cutter [<nnavi500>]":
             Function(navigation.stoosh, nexus=_NEXUS, key="c-x"),
         "duple [<nnavi50>]":
             Function(navigation.duple),
 
-
         "spark [<nnavi500>] [(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel)]":
             ContextAction(Function(navigation.drop, nexus=_NEXUS),
-                [(AppContext("mingw"),
+                [(ExeContext("\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"),
                     Function(navigation.drop, nexus=_NEXUS, key="s-insert"))]),
 
         "(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel) <text>":
@@ -186,9 +186,9 @@ class core(MergeRule):
         "<personal>": Text("%(personal)s"),
 
         "check [<n>]":
-            ContextAction(Key("c-enter")*Repeat(extra="n"),
+            ContextAction(Key("c-enter:%(n)s"),
                 [(TitleContext("notepad", "scientific notebook"),
-                    Key("end, enter")*Repeat(extra="n"))]),
+                    Key("end, enter:%(n)s"))]),
 
         # "number test <ntest>": Text("%(ntest)s"),we would
 
@@ -205,20 +205,20 @@ class core(MergeRule):
         IntegerRef("nnavi10", 1, 11),
         IntegerRef("nnavi50", 1, 20),
         IntegerRef("nnavi500", 1, 500),
-        Choice("big", {CORE["capitals_prefix"]: True}),
-    	Choice("letter", CORE[_LETTERS]),
-    	Choice("punctuation", CORE["punctuation"]),
-    	Choice("key", CORE["keys"]),
-    	Choice("misc_core_keys", CORE["misc_core_keys"]),
-    	Choice("direction", CORE[_DIRECTIONS]),
-    	Choice("modifier", CORE["modifiers"]),
-        Choice("extreme", {CORE["extreme"]: True}),
-        Choice("enclosure", CORE["enclosures"]),
+        Choice("big",            {CORE["capitals_prefix"]: True}),
+        Choice("letter",         CORE[_LETTERS]),
+        Choice("punctuation",    CORE["punctuation"]),
+        Choice("key",            CORE["keys"]),
+        Choice("misc_core_keys", CORE["misc_core_keys"]),
+        Choice("direction",      CORE[_DIRECTIONS]),
+        Choice("modifier",       CORE["modifiers"]),
+        Choice("extreme",        {CORE["extreme"]: True}),
+        Choice("enclosure",      CORE["enclosures"]),
         Choice("capitalization", CORE["capitalization"]),
-        Choice("spacing", CORE["spacing"]),
-        Choice("personal", PERSONAL),
+        Choice("spacing",        CORE["spacing"]),
+        Choice("personal",       PERSONAL),
         Choice("splatdir", {
-            "ross":"delete",
+            "ross": "right",
         }),
         Choice("tabdir", {
             "lease": "s-",
@@ -241,7 +241,7 @@ class core(MergeRule):
         "wnKK4"         : "",
         "wnKK5"         : "",
         "tabdir"        : "",
-        "splatdir"      : "backspace",
+        "splatdir"      : "left",
     }
 
 

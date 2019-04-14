@@ -111,6 +111,18 @@ def duple(nnavi50):
         time.sleep(SETTINGS["keypress_wait"])
     cb.copy_to_system()
 
+def splat(splatdir, nnavi10, extreme, manual=False):
+    if extreme and splatdir == "left":
+        key = "s-home, delete"
+    elif extreme and splatdir == "right":
+        key = "s-end, delete"
+    elif manual:
+        key = "cs-%s:%s, delete" % (splatdir, nnavi10)
+    elif splatdir == "left":
+        key = "c-backspace:%s" % nnavi10
+    elif splatdir == "left":
+        key = "c-delete:%s" % nnavi10
+    Key(key).execute()
 
 def text_nav(modifier, direction, nnavi50, extreme):
     k = ""

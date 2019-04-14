@@ -96,8 +96,8 @@ class MergeRule(MappingRule):
         mapping = self.mapping_copy()
         mapping.update(other.mapping_copy())
         extras_dict = self.extras_copy()
-        extras_dict.update(
-            other.extras_copy())  # not just combining lists avoids duplicates
+        extras_dict.update(other.extras_copy())
+        # not just combining lists avoids duplicates
         extras = extras_dict.values()
         defaults = self.defaults_copy()
         defaults.update(other.defaults_copy())
