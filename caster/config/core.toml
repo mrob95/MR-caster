@@ -49,7 +49,7 @@
 "jury"                 = "j"
 "crunch"               = "k"
 "look"                 = "l"
-"(made | mad)"         = "m"
+"(made )"         = "m"
 "near"                 = "n"
 "odd"                  = "o"
 "(pit)"                = "p"

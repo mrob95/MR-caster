@@ -137,7 +137,7 @@ class SublimeRule(MergeRule):
             "select": "",
             "copy": "c-c",
             "cut": "c-x",
-            "delete": "backspace",
+            "(delete | remove)": "backspace",
             "replace": "c-v",
             }),
         Choice("nth", {
@@ -191,6 +191,8 @@ class SublimeCCRRule(MergeRule):
         "(select | sell) scope [<n2>]"   : Key("cs-space")*Repeat(extra="n2"),
         "copy scope"   : Key("cs-space, c-c"),
         "replace scope"   : Key("cs-space, c-v"),
+
+        "indent [<n2>]": Key("c-rbracket:%(n2)s"),
 
     }
     extras = [

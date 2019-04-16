@@ -31,6 +31,25 @@ class PythonNon(MergeRule):
         "create setters":
             Function(setters),
 
+        BINDINGS["method_prefix"] + " init":
+            Text("def __init__():") + Key("left:2") + Text("self, "),
+        BINDINGS["method_prefix"] + " <umeth>":
+            Text("def __%(umeth)s__(self):"),
+        BINDINGS["method_prefix"] + " <bmeth>":
+            Text("def __%(bmeth)s__(self, other):"),
+        BINDINGS["method_prefix"] + " <mmeth>":
+            Function(lambda mmeth: Text("def __%s__(%s):" % (mmeth[0], mmeth[1])).execute()),
+
+        "import <lib>":
+            Text("import %(lib)s") + Key("enter"),
+
+        "try except [<exception>]":
+            Text("try: ") + Key("enter:2, backspace") + Text("except %(exception)s:") + Key("up"),
+        "try except [<exception>] as":
+            Text("try:") + Key("enter:2, backspace") + Text("except %(exception)s as :") + Key("left"),
+
+        "insert line break": Text("#---------------------------------------------------------------------------"),
+
     }
     extras = [
         Choice("test", {
@@ -38,7 +57,35 @@ class PythonNon(MergeRule):
                 "failure": "failure",
             }),
         Choice("template", BINDINGS["templates"]),
+        Choice("umeth",    BINDINGS["unary_methods"]),
+        Choice("bmeth",    BINDINGS["binary_methods"]),
+        Choice("mmeth",    BINDINGS["misc_methods"]),
+        Choice("exception",BINDINGS["exceptions"]),
     ]
+
+PYLIBS = utilities.load_toml_relative("config/python_libs.toml")
+
+# Dynamically adds library commands
+libs={}
+for lib, data in PYLIBS.iteritems():
+    pronunciation = data.pop("pronunciation")
+    if "name" in data:
+        name = data.pop("name")
+    else:
+        name = lib
+    if "import_as" in data:
+        libs[pronunciation] = "%s as %s" % (name, data.pop("import_as"))
+    else:
+        libs[pronunciation] = name
+    command = "%s <%s_lib>" % (pronunciation, lib)
+    action = Function(eval("lambda %s_lib: execution.alternating_command(%s_lib)" % (lib, lib)))
+    PythonNon.mapping[command] = action
+    choice = Choice("%s_lib" % lib, data)
+    PythonNon.extras.append(choice)
+PythonNon.extras.append(Choice("lib", libs))
+
+#---------------------------------------------------------------------------
+
 
 class Python(MergeRule):
     non = PythonNon
@@ -53,31 +100,11 @@ class Python(MergeRule):
         BINDINGS["function_prefix"] + " <fun>":
             Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
 
-        BINDINGS["method_prefix"] + " init":
-            Text("def __init__():") + Key("left:2") + Text("self, "),
-        BINDINGS["method_prefix"] + " <umeth>":
-            Text("def __%(umeth)s__(self):"),
-        BINDINGS["method_prefix"] + " <bmeth>":
-            Text("def __%(bmeth)s__(self, other):"),
-        BINDINGS["method_prefix"] + " <mmeth>":
-            Function(lambda mmeth: Text("def __%s__(%s):" % (mmeth[0], mmeth[1])).execute()),
-
-        "import <lib>": Text("import %(lib)s") + Key("enter"),
-
-        "try except [<exception>]":
-            Text("try: ") + Key("enter:2, backspace") + Text("except %(exception)s:") + Key("up"),
-        "try except [<exception>] as":
-            Text("try:") + Key("enter:2, backspace") + Text("except %(exception)s as :") + Key("left"),
     }
 
     extras = [
         Choice("fun",      BINDINGS["functions"]),
-        Choice("umeth",    BINDINGS["unary_methods"]),
-        Choice("bmeth",    BINDINGS["binary_methods"]),
-        Choice("mmeth",    BINDINGS["misc_methods"]),
         Choice("command",  BINDINGS["commands"]),
-        Choice("lib",      BINDINGS["libraries"]),
-        Choice("exception",BINDINGS["exceptions"]),
     ]
 
     defaults = {

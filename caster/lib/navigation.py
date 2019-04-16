@@ -120,7 +120,7 @@ def splat(splatdir, nnavi10, extreme, manual=False):
         key = "cs-%s:%s, delete" % (splatdir, nnavi10)
     elif splatdir == "left":
         key = "c-backspace:%s" % nnavi10
-    elif splatdir == "left":
+    elif splatdir == "right":
         key = "c-delete:%s" % nnavi10
     Key(key).execute()
 

@@ -2,6 +2,8 @@
 "app context" = "AppContext"
 "choice"      = "Choice"
 "context action" = "ContextAction"
+"title context" = "TitleContext"
+"executable context" = "ExeContext"
 "dictation"   = "Dictation"
 "execute"     = "execute"
 "function"    = "Function"

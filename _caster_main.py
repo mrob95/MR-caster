@@ -35,38 +35,35 @@ sys.path.append(BASE_PATH)
 
 CORE = utilities.load_toml_relative("config/core.toml")
 
-
-# Seems ugly but works
-def build(startup=False):
-    SETTINGS = utilities.load_toml_relative("config/settings.toml")
-    for word in SETTINGS["delete_words"]:
+def delete_words(words):
+    for word in words:
         try:
             natlink.deleteWord(word)
         except:
             pass
-    for word in SETTINGS["add_words"]:
+def add_words(words):
+    for word in words:
         try:
             natlink.addWord(word)
         except:
             pass
-    _NEXUS.merger.wipe()
-    _NEXUS.merger._global_rules = {}
-    _NEXUS.merger._app_rules = {}
-    _NEXUS.merger._self_modifying_rules = {}
-    if startup:
-        apploaded = []
-        for module_name in SETTINGS["app_modules"]:
-            try:
-                lib = __import__("caster.apps." + module_name)
-                apploaded.append(module_name)
-            except Exception as e:
-                print("Ignoring rule '{}'. Failed to load with: ".format(module_name))
-                print(e)
-        if apploaded:
-            print("App modules loaded: " + ", ".join(apploaded))
+
+def load_app_rules(apps):
+    apploaded = []
+    for module_name in apps:
+        try:
+            lib = __import__("caster.apps." + module_name)
+            apploaded.append(module_name)
+        except Exception as e:
+            print("Ignoring rule '{}'. Failed to load with: ".format(module_name))
+            print(e)
+    if apploaded:
+        print("App modules loaded: " + ", ".join(apploaded))
+
+def load_ccr_rules(rules):
     ccrloaded = []
     ccrrebuilt = []
-    for module_name in SETTINGS["ccr_modules"]:
+    for module_name in rules:
         if "caster.ccr." + module_name in sys.modules:
             try:
                 want_reload_module = sys.modules["caster.ccr." + module_name]
@@ -85,10 +82,24 @@ def build(startup=False):
         print("CCR modules loaded: " + ", ".join(ccrloaded))
     if ccrrebuilt:
         print("CCR modules rebuilt: " + ", ".join(ccrrebuilt))
+
+# Seems ugly but works
+def build(startup=False):
+    SETTINGS = utilities.load_toml_relative("config/settings.toml")
+    delete_words(SETTINGS["delete_words"])
+    add_words(SETTINGS["add_words"])
+    _NEXUS.merger.wipe()
+    _NEXUS.merger._global_rules = {}
+    _NEXUS.merger._app_rules = {}
+    _NEXUS.merger._self_modifying_rules = {}
+    if startup:
+        load_app_rules(SETTINGS["app_modules"])
+    load_ccr_rules(SETTINGS["ccr_modules"])
     _NEXUS.merger.update_config()
     _NEXUS.merger.merge(MergeInf.BOOT)
-    print("*- Starting caster -*")
-    print("Say \"enable <module name>\" to begin, or \n\"configure <module name>\" to make changes.")
+    if startup:
+        print("*- Starting caster -*")
+        print("Say \"enable <module name>\" to begin, or \n\"configure <module name>\" to make changes.")
     print("Modules available:")
     _NEXUS.merger.display_rules()
 

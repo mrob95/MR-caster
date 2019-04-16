@@ -21,6 +21,7 @@ class RStudioRule(MergeRule):
     "save all"                         :  Key("ac-s"),
     "select all"                       :  Key("c-a"),
     "find"                             :  Key("c-f"),
+    "align that"                       :  Key("c-i"),
 
     "[go to] line <n>"                 :  Key("as-g/10") + Text("%(n)s") + Key("enter"),
 

@@ -171,7 +171,9 @@ class core(MergeRule):
         "cutter [<nnavi500>]":
             Function(navigation.stoosh, nexus=_NEXUS, key="c-x"),
         "duple [<nnavi50>]":
-            Function(navigation.duple),
+            ContextAction(Function(navigation.duple),
+                [(TitleContext("Sublime Text"), Key("cs-d:%(nnavi50)s"))]),
+
 
         "spark [<nnavi500>] [(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel)]":
             ContextAction(Function(navigation.drop, nexus=_NEXUS),

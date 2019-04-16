@@ -3,5 +3,6 @@ function_prefix = "fun"
 template_prefix = "template"
 
 [commands]
+"assign" = ["", "end, space, equal, space"]
 
 [templates]
