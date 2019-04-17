@@ -1,10 +1,12 @@
-from dragonfly import (Grammar, AppContext, MappingRule, Dictation, IntegerRef, Key, Text,
-                       Repeat, Pause, Function)
+from dragonfly import (Grammar, AppContext, MappingRule, Dictation, IntegerRef,
+                       Repeat, Pause, Function, Choice)
 
-from caster.lib.actions import Store, Retrieve
+from caster.lib.actions import Store, Retrieve, Key, Text
 from caster.lib.merge.mergerule import MergeRule
 from subprocess import Popen
 from caster.lib import utilities
+
+CORE = utilities.load_toml_relative("config/core.toml")
 
 class IERule(MergeRule):
     pronunciation = "explorer"
@@ -22,9 +24,13 @@ class IERule(MergeRule):
             # Key("a-d:50") + Store() + Key("escape:50") + Function(lambda: utilities.terminal(Retrieve.text())),
         "sublime here"                       :
             Key("a-d:50") + Store() + Key("escape:50") + Function(lambda: Popen(["subl", Retrieve.text() + "/"])),
+
+        "go <path>"          : Key("a-d/20") + Text("%(path)s") + Key("enter"),
+
     }
     extras = [
-        IntegerRef("n", 1, 10)
+        IntegerRef("n", 1, 10),
+        Choice("path", CORE["directories"]),
     ]
     defaults = {"n":1}
 

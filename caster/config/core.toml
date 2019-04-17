@@ -7,6 +7,18 @@
 "dictation_prefix"     = "say"
 "extreme"              = "wally"
 
+[directories]
+"caster"    =  "C:\\Users\\Mike\\Documents\\NatLink\\caster"
+"documents" =  "C:\\Users\\Mike\\Documents"
+"e-books"   =  "C:\\Users\\Mike\\Documents\\ebooks"
+"films"     =  "E:\\films"
+"git hub"   =  "C:\\Users\\Mike\\Documents\\GitHub"
+"math fly"  =  "C:\\Users\\Mike\\Documents\\NatLink\\mathfly"
+"papers"    =  "C:\\Users\\Mike\\Documents\\papers"
+"pictures"  =  "C:\\Users\\Mike\\Pictures"
+"queue tea" =  "C:\\Users\\Mike\\Pictures\\pol\\qt"
+"sea"       =  "C:\\"
+"uni work"  =  "C:\\Users\\Mike\\Documents\\1_uni_work"
 
 [letters]
 "alpha"                = "a"

@@ -61,13 +61,14 @@
 "git clone"                           = "git clone "
 "git commit all"                      = ["git commit -a -m \"\"", "left"]
 "git commit"                          = ["git commit -m \"\"", "left"]
-"git diff" = "git diff"
+"git diff"                            = "git diff"
+"git discard"                         = "git checkout -- "
 "git fetch upstream"                  = "git fetch upstream"
 "git fetch"                           = "git fetch "
 "git gooey blame"                     = "git gui blame PATH"
 "git hub"                             = "https://github.com/"
 "git init"                            = "git init"
-"git log"                            = "git log"
+"git log"                             = "git log"
 "git merge tool"                      = "git mergetool"
 "git merge"                           = "git merge "
 "git publish"                         = "git push -u origin "

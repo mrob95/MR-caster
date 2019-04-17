@@ -1,9 +1,11 @@
-from dragonfly import (AppContext, Dictation, Grammar, IntegerRef, Key, MappingRule, Pause, Repeat, Choice)
+from dragonfly import (AppContext, Dictation, Grammar, IntegerRef, Pause, Repeat, Choice)
 
-from caster.lib.actions import Text
+from caster.lib.actions import Text, Key
 from caster.lib.context import TitleContext
 from caster.lib.merge.mergerule import MergeRule
-from caster.lib import control
+from caster.lib import control, utilities
+
+CORE = utilities.load_toml_relative("config/core.toml")
 
 class FileDialogueRule(MergeRule):
     pronunciation = "file dialogue"
@@ -24,17 +26,7 @@ class FileDialogueRule(MergeRule):
     extras = [
         IntegerRef("n", 1, 10),
         Dictation("dict"),
-        Choice("path", {
-               "caster"   : "C:\\Users\\Mike\\Documents\\NatLink\\caster",
-               "documents": "C:\\Users\\Mike\\Documents",
-               "films"    : "E:\\films",
-               "git hub"  : "C:\\Users\\Mike\\Documents\\GitHub",
-               "math fly" : "C:\\Users\\Mike\\Documents\\NatLink\\mathfly",
-               "pictures" : "C:\\Users\\Mike\\Pictures",
-               "queue tea": "C:\\Users\\Mike\\Pictures\\pol\\qt",
-               "sea"      : "C:\\",
-               "uni work" : "C:\\Users\\Mike\\Documents\\1_uni_work",
-            }),
+        Choice("path", CORE["directories"]),
         Choice("ext", {
                 "batch"            : "bat",
                 "(hyper | HTML)"   : "html",

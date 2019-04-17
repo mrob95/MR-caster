@@ -142,6 +142,15 @@ def text_nav(modifier, direction, nnavi50, extreme):
             k = str(modifier) + "-" + k.replace("c-", "")
     Key(k).execute()
 
+def action_lines(action, n, nn, go_to_line="c-g", select_line_down="s-down", wait=""):
+    if nn:
+        num_lines = int(nn)-int(n)+1 if nn>n else int(n)-int(nn)+1
+        top_line = min(int(nn), int(n))
+    else:
+        num_lines = 1
+        top_line = int(n)
+    command = Key(go_to_line) + Text(str(top_line)) + Key("enter%s, %s%s:%s, %s" % (wait, select_line_down, wait, str(num_lines), action))
+    command.execute()
 
 
 def enclose_selected(enclosure):

@@ -44,9 +44,9 @@ class PythonNon(MergeRule):
             Text("import %(lib)s") + Key("enter"),
 
         "try except [<exception>]":
-            Text("try: ") + Key("enter:2, backspace") + Text("except %(exception)s:") + Key("up"),
-        "try except [<exception>] as":
-            Text("try:") + Key("enter:2, backspace") + Text("except %(exception)s as :") + Key("left"),
+            Text("try: ") + Key("enter:2, backspace") + Text("except%(exception)s:") + Key("up"),
+        "try except <exception> as":
+            Text("try:") + Key("enter:2, backspace") + Text("except%(exception)s as :") + Key("left"),
 
         "insert line break": Text("#---------------------------------------------------------------------------"),
 
@@ -62,6 +62,9 @@ class PythonNon(MergeRule):
         Choice("mmeth",    BINDINGS["misc_methods"]),
         Choice("exception",BINDINGS["exceptions"]),
     ]
+    defaults = {
+        "exception": "",
+    }
 
 PYLIBS = utilities.load_toml_relative("config/python_libs.toml")
 

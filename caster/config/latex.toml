@@ -173,6 +173,7 @@
 
 
 [misc_symbols]
+"inline" = ["$$", "left"]
 "super [script]"            = ["^{}", "left"]
 "sub [script]"              = ["_{}", "left"]
 "squared"                   = "^{2} "

@@ -83,7 +83,6 @@ def load_ccr_rules(rules):
     if ccrrebuilt:
         print("CCR modules rebuilt: " + ", ".join(ccrrebuilt))
 
-# Seems ugly but works
 def build(startup=False):
     SETTINGS = utilities.load_toml_relative("config/settings.toml")
     delete_words(SETTINGS["delete_words"])

@@ -1,19 +1,10 @@
 from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, AppContext, Function, Pause, IntegerRef, ShortIntegerRef)
 from caster.lib.actions import Key, Text, Store, Retrieve
 import sys
-from caster.lib import control
+from caster.lib import control, navigation
 # from caster.lib.integers import IntegerRefMF
 from caster.lib.merge.mergerule import MergeRule
 
-def action_lines(action, n, nn):
-    if nn:
-        num_lines = int(nn)-int(n)+1 if nn>n else int(n)-int(nn)+1
-        top_line = min(int(nn), int(n))
-    else:
-        num_lines = 1
-        top_line = int(n)
-    command = Key("c-g") + Text(str(top_line)) + Key("enter, s-down:" + str(num_lines) + ", " + action)
-    command.execute()
 
 class SublimeRule(MergeRule):
     pronunciation = "sublime"
@@ -30,7 +21,7 @@ class SublimeRule(MergeRule):
         "edit all"                       : Key("c-d, a-f3"),
         "reverse selection"              : Key("as-r"),
 
-        "<action> [line] <n> [(by | to) <nn>]"  : Function(action_lines),
+        "<action> [line] <n> [(by | to) <nn>]"  : Function(navigation.action_lines),
 
         "new (file | tab)"               : Key("c-n"),
         # {"keys"                        : ["ctrl+alt+n"], "command": "new_window"},
@@ -123,6 +114,8 @@ class SublimeRule(MergeRule):
 
         "format table": Key("cas-t"),
 
+        "configure alignment": Key("f10, p, right, p, right, down, enter"),
+
 
     }
     extras = [
@@ -193,6 +186,8 @@ class SublimeCCRRule(MergeRule):
         "replace scope"   : Key("cs-space, c-v"),
 
         "indent [<n2>]": Key("c-rbracket:%(n2)s"),
+
+        "auto complete": Key("c-space"),
 
     }
     extras = [
