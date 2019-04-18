@@ -1,11 +1,16 @@
-from dragonfly import (AppContext, Dictation, Grammar, IntegerRef, Key, MappingRule, Pause, Repeat, Text, Choice)
+from dragonfly import (AppContext, Dictation, Grammar, IntegerRef, Pause, Repeat, Choice)
 
+from caster.lib.actions import Text, Key
+from caster.lib.context import TitleContext
 from caster.lib.merge.mergerule import MergeRule
-from caster.lib import control
+from caster.lib import control, utilities
+
+CORE = utilities.load_toml_relative("config/core.toml")
 
 class FileDialogueRule(MergeRule):
     pronunciation = "file dialogue"
     mwith = "Core"
+    mcontext = TitleContext("save", "open", "select")
 
     mapping = {
         "go up [<n>]"        : Key("a-up")*Repeat(extra="n"),
@@ -16,10 +21,13 @@ class FileDialogueRule(MergeRule):
         "file name [<dict>]" : Key("a-d, f6:5") + Text("%(dict)s"),
 
         "dot <ext>"          : Text(".%(ext)s"),
+
+        "go <directory>"     : Key("a-d/20") + Text("%(directory)s") + Key("enter"),
     }
     extras = [
         IntegerRef("n", 1, 10),
         Dictation("dict"),
+        Choice("directory", CORE["directories"]),
         Choice("ext", {
                 "batch": "bat",
                 "(hyper | HTML)": "html",
@@ -40,6 +48,5 @@ class FileDialogueRule(MergeRule):
         "dict": "",
     }
 
-context = AppContext(title="save") | AppContext(title="open") | AppContext(title="select")
 
-control.nexus().merger.add_app_rule(FileDialogueRule(), context=context)
+control.nexus().merger.add_app_rule(FileDialogueRule())
