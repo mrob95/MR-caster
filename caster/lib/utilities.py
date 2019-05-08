@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import io, os, sys, time, re
+import io, os, sys, time, re, datetime
 import toml
 from subprocess import Popen
 from dragonfly import Choice, Clipboard, Key
@@ -12,6 +12,20 @@ BASE_PATH = os.path.abspath(__file__).replace("\\", "/").rsplit("/lib/")[0]
 
 if BASE_PATH not in sys.path:
     sys.path.append(BASE_PATH)
+
+
+def diary():
+    now = datetime.datetime.now()
+    datestr = "%s-%s-%s" % (now.year, now.month, now.day)
+    path = "C:/Users/Mike/Documents/notes/%s.md" % datestr
+    if os.path.isfile(path):
+        Popen(["notepad", path])
+    else:
+        with open(path, "w+") as f:
+            title = "# %s - Notes - Mike Roberts\n" % datestr
+            f.write(title)
+        Popen(["notepad", path])
+
 
 def toast_notify(title="title", message="message"):
     Popen([
@@ -134,4 +148,3 @@ def terminal(dir):
 
 def mathfly_switch():
     Popen("C:/Users/Mike/Documents/NatLink/mathfly/SwitchHere.bat")
-    Popen("C:/Users/Mike/Documents/NatLink/caster/caster/lib/bin/reboot.bat")

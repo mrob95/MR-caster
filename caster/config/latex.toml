@@ -330,6 +330,7 @@
 "header" = '''
 \documentclass[12pt, a4paper]{article}
 
+\usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage[backend=bibtex,style=authoryear]{biblatex}

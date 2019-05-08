@@ -3,24 +3,21 @@ from caster.lib.actions import Key, Text, Store, Retrieve
 from caster.lib.context import AppContext, TitleContext
 import sys
 from caster.lib import control, navigation
-# from caster.lib.integers import IntegerRefMF
 from caster.lib.merge.mergerule import MergeRule
 
 
-class SublimeRule(MergeRule):
-    pronunciation = "sublime"
-    mcontext = AppContext(title="Sublime Text")
+class VSCodeRule(MergeRule):
+    pronunciation = "VSCode"
+    mcontext = AppContext(title="Visual Studio Code")
 
     mapping = {
-        "comment block"                  : Key("cs-slash"),
-        "convert indentation"            : Key("f10, v, i, up:2, enter"),
+        "comment block"                  : Key("sa-a"),
 
-        "edit lines"                     : Key("cs-l"),
+        "edit lines"                     : Key("sa-i"),
         "sort lines"                     : Key("f9"),
         "edit next [<n3>]"               : Key("c-d")*Repeat(extra="n3"),
         "skip next [<n3>]"               : Key("c-k, c-d")*Repeat(extra="n3"),
-        "edit all"                       : Key("c-d, a-f3"),
-        "reverse selection"              : Key("as-r"),
+        "edit all"                       : Key("cs-l"),
 
         "<action> [line] <n> [by <nn>]"  :
             Function(navigation.action_lines),
@@ -30,13 +27,12 @@ class SublimeRule(MergeRule):
 
         "new (file | tab)"               : Key("c-n"),
         # {"keys"                        : ["ctrl+alt+n"], "command": "new_window"},
-        "new window"                     : Key("ca-n"),
+        "new window"                     : Key("cs-n"),
         "open file"                      : Key("c-o"),
         # {"keys"                        : ["ctrl+shift+o"], "command": "prompt_add_folder"},
-        "open folder"                    : Key("cs-o"),
-        "open recent"                    : Key("f10, down:4, right, down:9"),
+        "open folder"                    : Key("c-k, c-o"),
         "save as"                        : Key("cs-s"),
-        "save all"                        : Key("f10, f, up:8, enter"),
+        "save all"                        : Key("c-k, s"),
         "revert (file | [unsaved] changes)": Key("f10, f, up:3, enter"),
 
         #
@@ -52,8 +48,7 @@ class SublimeRule(MergeRule):
         # SelectUntil
         "(select | sell) until"          : Key("as-s"),
 
-        "toggle side bar"                : Key("c-k, c-b"),
-        "show key bindings"              : Key("f10, p, right, k"),
+        "toggle side bar"                : Key("c-b"),
 
         #
         "find"                           : Key("c-f"),
@@ -164,13 +159,13 @@ class SublimeRule(MergeRule):
         "filetype": "",
     }
 
-control.nexus().merger.add_non_ccr_app_rule(SublimeRule())
+control.nexus().merger.add_non_ccr_app_rule(VSCodeRule())
 
 #---------------------------------------------------------------------------
 
-class SublimeCCRRule(MergeRule):
+class VSCodeCCRRule(MergeRule):
     mwith = ["Core"]
-    mcontext = AppContext(title="Sublime Text")
+    mcontext = AppContext(title="Visual Studio Code")
     mapping = {
         "line <n>"       : Key("c-g") + Text("%(n)s") + Key("enter"),
         # "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter, end"),
@@ -202,55 +197,6 @@ class SublimeCCRRule(MergeRule):
     ]
     defaults = {"n12": "", "n13": "", "n2": 1}
 
-control.nexus().merger.add_app_rule(SublimeCCRRule())
-
-#---------------------------------------------------------------------------
-
-class SublimeRRule(MergeRule):
-    mwith = ["Core", "R"]
-    mcontext = AppContext(title=".R") & AppContext(title="Sublime Text")
-    mapping = {
-        "run (line | that) [<n>]":
-            Key("cas-r")*Repeat(extra="n"),
-        "open are terminal":
-            Key("ca-r"),
-        "terminal right":
-            Key("ca-r/50, as-2, c-1, cs-2, c-1"),
-        "help that":
-            Store() + Key("c-2, question") + Retrieve() + Key("enter/50, c-1"),
-        "glimpse that":
-            Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" glimpse()") + Key("enter/50, c-1"),
-        "head that":
-            Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" head()") + Key("enter/50, c-1"),
-        "vee table that":
-                Store() + Key("c-2") + Text("library(vtable)") + Key("enter/50") + Retrieve() + Key("space, percent, rangle, percent") + Text(" vtable()") + Key("enter/50, c-1"),
-    }
-    extras = [
-        IntegerRef("n", 1, 9),
-    ]
-    default = {
-        "n": 1,
-    }
-
-control.nexus().merger.add_app_rule(SublimeRRule())
-
-#---------------------------------------------------------------------------
-
-class SublimeTeXRule(MergeRule):
-    mcontext = TitleContext(".tex", ".md") & AppContext(title="Sublime Text")
-    mapping = {
-        "go [to] (word | name) <dict>":
-            Key("c-r") + Text("%(dict)s") + Key("enter"),
-        "count words": Key("cs-c"),
-
-    }
-    extras = [
-        Dictation("dict"),
-    ]
-    default = {
-        "n": 1,
-    }
-
-control.nexus().merger.add_non_ccr_app_rule(SublimeTeXRule())
+control.nexus().merger.add_app_rule(VSCodeCCRRule())
 
 #---------------------------------------------------------------------------

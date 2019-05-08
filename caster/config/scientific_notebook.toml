@@ -37,8 +37,8 @@
 "toggle text"                     = "c-t"
 "fraction"                        = "c-f"
 "over"                            = "cs-left, c-f"
-"(super script | to the power)" = "c-h"
-"sub script"                    = "c-l"
+"(super script | to the power)"   = "c-h"
+"sub script"                      = "c-l"
 "squared"                         = "c-h, 2, right"
 "cubed"                           = "c-h, 3, right"
 "inverse"                         = "c-h, minus, 1, right"
@@ -55,13 +55,17 @@
 "variance of"                     = "s-v, a, r, c-0"
 "covariance of"                   = "s-c, o, v, c-0"
 "prime"                           = "apostrophe"
-"moving average" = "M, A, c-0"
-"autoregressive" = "A, R, c-0"
+"moving average"                  = "M, A, c-0"
+"autoregressive"                  = "A, R, c-0"
 #
-"label above" = "f10, i, down:11, enter/25, a, enter"
-"label below" = "f10, i, down:11, enter/25, b, enter"
-"thin space" = "ctrl:down, t, h, i, n, s, p, a, c, e, ctrl:up"
-"thick space" = "ctrl:down, q, u, a, d, ctrl:up"
+"label above"                     = "f10, i, down:11, enter/25, a, enter"
+"label below"                     = "f10, i, down:11, enter/25, b, enter"
+"thin space"                      = "ctrl:down, t, h, i, n, s, p, a, c, e, ctrl:up"
+"thick space"                     = "ctrl:down, q, u, a, d, ctrl:up"
+"subject to"                      = "ctrl:down, q, u, a, d, ctrl:up, s, dot, t, dot, ctrl:down, q, u, a, d, ctrl:up"
+"add matrix row"                  = "f10, e, up:2, enter/10, enter"
+"add matrix column"               = "f10, e, up, enter/10, enter"
+
 
 
 [tex_symbols]
@@ -199,6 +203,7 @@
 "insert (heading | title) four"    = "a-2, down:9, enter"
 "insert (heading | title) five"    = "a-2, down:10, enter"
 "evaluate"                         = "c-e"
+"evaluate numerically"             = "f10, c/10, down, enter"
 
 
 [units]

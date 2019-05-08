@@ -41,7 +41,7 @@ class SumatraPDFRule(MergeRule):
 	}
 
 	extras = [
-		IntegerRef("n", 1, 10),
+		ShortIntegerRef("n", 1, 1000),
 		Choice("nth", {
 			"first": "1",
             "second": "2",

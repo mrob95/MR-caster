@@ -1,6 +1,5 @@
 from dragonfly import Key, Mouse, Pause, ActionBase, ActionError
 from dragonfly import Text as TextBase
-from dragonfly import Function as FunctionBase
 from inspect import getargspec
 import re
 
@@ -8,34 +7,6 @@ class Text(TextBase):
     _pause_default = 0.002
     def __init__(self, spec=None, static=False, pause=_pause_default, autofmt=False, use_hardware=False):
         TextBase.__init__(self, spec=spec, static=static, pause=pause, autofmt=autofmt, use_hardware=use_hardware)
-
-class Function(FunctionBase):
-    def _execute(self, data=None):
-        arguments = dict(self._defaults)
-        if isinstance(data, dict):
-            arguments.update(data)
-
-        if self._filter_keywords:
-            invalid_keywords = set(arguments.keys()) - self._valid_keywords
-            for key in invalid_keywords:
-                del arguments[key]
-
-        for argname, spec in arguments.iteritems():
-            if type(spec) is str and spec.find("%") != -1:
-                try:
-                    arguments[argname] = spec % data
-                except KeyError:
-                    self._log_exec.error("%s: Spec %r doesn't match data %r."
-                                         % (self._str, spec,
-                                            {k:v for k,v in data.items() if k not in ["_grammar", "_rule", "_node"]}))
-                    return False
-
-        try:
-            self._function(**arguments)
-        except Exception as e:
-            self._log.exception("Exception from function %s:"
-                                % self._function.__name__)
-            raise ActionError("%s: %s" % (self, e))
 
 from caster.lib import utilities, control, navigation
 SETTINGS = utilities.load_toml_relative("config/settings.toml")

@@ -30,6 +30,9 @@ class Markdown(MergeRule):
         "heading [<num>] [<dict>]":
                 Function(lambda num, dict:
                     Text(("#" * num) + " " + str(dict).capitalize()).execute()),
+        "subheading [<dict>]":
+            Function(lambda num, dict:
+                Text(("#" * 2) + " " + str(dict).capitalize()).execute()),
 
         BINDINGS["insert_prefix"] + " <element>":
             Key("%(element)s"),

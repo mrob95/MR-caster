@@ -1,11 +1,12 @@
-from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Clipboard
-from caster.lib.actions import Key, Text, Mouse, Store, Retrieve, Function
+from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Clipboard, Function
+from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib.context import AppContext, ExeContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/gitbash.toml")
+CORE     = utilities.load_toml_relative("config/core.toml")
 
 class GitBashNon(MergeRule):
     mapping = {
@@ -35,11 +36,18 @@ class GitBashRule(MergeRule):
         "<image_command>":
             Function(lambda image_command: execution.alternating_command(image_command)),
 
+        "go <directory>":
+            Text("cd %(directory)s") + Key("enter"),
+
+        "folder <directory>":
+            Text("%(directory)s"),
+
         "(pull request | open link)":
             Key("c-insert") + Function(lambda: utilities.browser_open(Clipboard.get_system_text())),
     }
 
     extras = [
+        Choice("directory",      CORE["directories"]),
         Choice("git_command",    BINDINGS["git_commands"]),
         Choice("python_command", BINDINGS["python_commands"]),
         Choice("r_command",      BINDINGS["r_commands"]),

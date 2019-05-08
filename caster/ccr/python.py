@@ -1,5 +1,5 @@
-from dragonfly import Dictation, MappingRule, Choice, IntegerRef
-from caster.lib.actions import Key, Text, Mouse, Store, Retrieve, Function
+from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Function
+from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib.context import AppContext, TitleContext
 
 from caster.lib import control, utilities, execution

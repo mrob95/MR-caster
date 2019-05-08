@@ -2,17 +2,21 @@
 "executable_contexts" = ["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]
 
 [general_commands]
-"copy"                   = ["", "c-insert"]
-"paste"                  = ["", "s-insert"]
-"cancel" = ["", "c-c"]
-"CD up"                  = ["cd ..", "enter"]
-"CD"                     = "cd "
-"list"                   = ["ls", "enter"]
-"make directory"         = "mkdir "
-"to file"                = " > "
-"dot pie"                = ".py"
-"dot tex"                = ".tex"
-"dot PDF"                = ".pdf"
+"bash"           = "bash "
+"cancel"         = ["", "c-c"]
+"CD up"          = ["cd ..", "enter"]
+"CD"             = "cd "
+"copy"           = ["", "c-insert"]
+"dot PDF"        = ".pdf"
+"dot jay peg"    = ".jpg"
+"dot PNG"        = ".png"
+"dot pie"        = ".py"
+"dot tex"        = ".tex"
+"list"           = ["ls", "enter"]
+"make directory" = "mkdir "
+"paste"          = ["", "s-insert"]
+"pipe" = " | "
+"to file"        = " > "
 
 [latex_commands]
 "PDF LaTeX"              = "pdflatex "
@@ -37,6 +41,7 @@
 
 [image_commands]
 "image [magic] trim"     = ["convert  -fuzz 1% -trim +repage ", "left:24"]
+"image [magic] transparent"     = ["convert  -fuzz 1% -transparent white ", "left:29"]
 
 [git_commands]
 "generate change log" = ["github_changelog_generator /", "left"]

@@ -6,6 +6,7 @@ browser_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 editor_path = "C:/Program Files/Sublime Text 3/sublime_text.exe"
 ccr_modules = ["core",
 			"ScientificNotebook55",
+			"ScientificNotebook6",
 			"LyX",
 			"latex",
 			"latex_maths",
@@ -19,7 +20,8 @@ ccr_modules = ["core",
 			"sublime",
 			"notepad",
 			"toml",
-			"sql"
+			"sql",
+			"vscode"
 			]
 app_modules = [
 			"chrome",

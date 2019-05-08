@@ -26,8 +26,8 @@ class TOML(MergeRule):
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {
-        # "<command>":
-            # Function(execution.alternating_command),
+        "<command>":
+            Function(execution.alternating_command),
 
         "command that":
             Key("end, s-home") + Store() + Key("quote, right:2, space, equal, space, quote") + Retrieve(),
@@ -35,7 +35,7 @@ class TOML(MergeRule):
     }
 
     extras = [
-        # Choice("command",BINDINGS["commands"]),
+        Choice("command", BINDINGS["commands"]),
     ]
 
     defaults = {}

@@ -3,3 +3,4 @@ personal.toml
 ccr.toml
 clipboard.toml
 aliases.toml
+.vscode/*

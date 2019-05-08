@@ -192,3 +192,34 @@ library_prefix    = "library"
 "graph"                               = ["", "backtick:3", "{r echo=FALSE}", "enter:2, backtick:3, up"]
 
 [templates]
+"stargazer models" = '''
+stargazer(,
+    type = "latex",
+    out = ".tex",
+    font.size = scriptsize,
+    single.row = TRUE,
+    dep.var.labels.include = FALSE,
+    intercept.bottom = FALSE,
+    intercept.top = TRUE,
+    model.numbers = FALSE,
+    omit.stat = c("rsq", "ser"),
+    header = FALSE,
+    float = FALSE,
+    column.labels = c(),
+    covariate.labels = c()
+    )
+'''
+# ------------------------------------------------
+"stargazer summary" = '''
+  as.data.frame() %>%
+  stargazer(out = ".tex",
+    type = "latex",
+    header = FALSE,
+    float = FALSE,
+    summary = TRUE,
+    omit.summary.stat = c("p25", "p75"),
+    font.size = "scriptsize",
+    covariate.labels = c()
+    )
+'''
+# ------------------------------------------------

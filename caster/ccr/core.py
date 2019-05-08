@@ -11,7 +11,7 @@ from caster.lib import control, utilities, navigation, textformat, execution
 from caster.lib.merge.mergerule import MergeRule
 
 from dragonfly.language.en.characters import element_series_wrap_class
-import os
+import os, datetime
 _NEXUS = control.nexus()
 
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
@@ -112,16 +112,16 @@ class coreNon(MappingRule):
         "open terminal":
             Function(lambda: utilities.terminal("C:/Users/Mike/Documents")),
 
-        "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
+        "open diary":
+            Function(utilities.diary),
 
-        "number test <ntest>": Text("%(ntest)s"),
+        "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
 
         "switch to math fly": Function(utilities.mathfly_switch),
 
         }
     extras = [
         Dictation("dict"),
-        ShortIntegerRef("ntest", 1, 10000),
         IntegerRef("n", 1, 20),
         Choice("direction",            CORE[_DIRECTIONS]),
         Choice("direction2",           CORE[_DIRECTIONS]),
@@ -172,7 +172,8 @@ class core(MergeRule):
             Function(navigation.stoosh, nexus=_NEXUS, key="c-x"),
         "duple [<nnavi50>]":
             ContextAction(Function(navigation.duple),
-                [(TitleContext("Sublime Text"), Key("cs-d:%(nnavi50)s"))]),
+                [(TitleContext("Sublime Text"), Key("cs-d:%(nnavi50)s")),
+                (ExeContext("\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"), Key(""))]),
 
 
         "spark [<nnavi500>] [(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel)]":
@@ -198,7 +199,7 @@ class core(MergeRule):
 
     extras = [
         Dictation("text"),
-        IntegerRef("n", 1, 10),
+        IntegerRef("n", 1, 20),
         IntegerRef("wnKK", 0, 10),
         IntegerRef("wnKK2", 0, 10),
         IntegerRef("wnKK3", 0, 10),
