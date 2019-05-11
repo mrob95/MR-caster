@@ -65,7 +65,7 @@
 "subject to"                      = "ctrl:down, q, u, a, d, ctrl:up, s, dot, t, dot, ctrl:down, q, u, a, d, ctrl:up"
 "add matrix row"                  = "f10, e, up:2, enter/10, enter"
 "add matrix column"               = "f10, e, up, enter/10, enter"
-
+"unit degrees" = "u, d, e, g"
 
 
 [tex_symbols]
@@ -344,7 +344,6 @@
 "Pounds" = "ulbm"
 "Slug" = "uslug"
 # Angle
-"degrees" = "udeg"
 "Microradians" = "umcrad"
 "Milliradians" = "umrad"
 "Minutes of angle" = "udmn"

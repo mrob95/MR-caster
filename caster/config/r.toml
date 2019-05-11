@@ -9,35 +9,36 @@ function_prefix   = "fun"
 library_prefix    = "library"
 
 [commands]
-"assign"              = " <- "
-"add comment"         = "# "
-"pipe"                = " %>% "
-"data pipe"           = " %$% "
-"chain"               = ["", "end", " %>%", "enter"]
-"data chain"          = ["", "end", " %$%", "enter"]
-"tell add"            = ["", "end, space, plus, enter"]
-"iffae"               = ["if ()", "left"]
-"shells"              = "else "
-"breaker"             = "break"
-"for each"            = ["for ( in )", "left:6"]
-"for loop"            = ["for (i in 1:)", "left"]
-"graph remove legend" = ["theme(legend.position = \"none\")"]
-"while loop"          = ["while ()", "left"]
-"lodge and"           = " & "
-"lodge in"            = " %in% "
-"lodge or"            = " | "
-"function"            = ["function()", "left"]
-"value null"          = "NULL"
-"value NA"            = "NA"
-"value true"          = "TRUE"
-"value false"         = "FALSE"
+"assign"                 = " <- "
+"add comment"            = "# "
+"pipe"                   = " %>% "
+"data pipe"              = " %$% "
+"chain"                  = ["", "end", " %>%", "enter"]
+"data chain"             = ["", "end", " %$%", "enter"]
+"tell add"               = ["", "end, space, plus, enter"]
+"iffae"                  = ["if ()", "left"]
+"shells"                 = "else "
+"breaker"                = "break"
+"for each"               = ["for ( in )", "left:6"]
+"for loop"               = ["for (i in 1:)", "left"]
+"graph remove legend"    = ["theme(legend.position = \"none\")"]
+"while loop"             = ["while ()", "left"]
+"lodge and"              = " & "
+"lodge in"               = " %in% "
+"lodge or"               = " | "
+"function"               = ["function()", "left"]
+"value null"             = "NULL"
+"value NA"               = "NA"
+"value true"             = "TRUE"
+"value false"            = "FALSE"
 
 [r_functions]
-"anti join" = "anti_join"
+"anti join"           = "anti_join"
 "arrange"             = "arrange"
 "as character"        = "as.character"
 "as date"             = "as.Date"
 "as data frame"       = "as.data.frame"
+"as tibble"           = "as_tibble"
 "as double"           = "as.double"
 "as factor"           = "as.factor"
 "as numeric"          = "as.numeric"
@@ -57,7 +58,6 @@ library_prefix    = "library"
 "gather"              = "gather"
 "glimpse"             = "glimpse"
 "group by"            = "group_by"
-"haversine"           = "haversine"
 "head"                = "head"
 "if else"             = "ifelse"
 "inner join"          = "inner_join"
@@ -68,6 +68,7 @@ library_prefix    = "library"
 "length"              = "length"
 "library"             = "library"
 "list"                = "list"
+"list files"             = ["list.files", "path=\".\", pattern=NULL", "0"]
 "(LM | linear model)" = "lm"
 "log"                 = "log"
 "M table"             = "mtable"
@@ -78,17 +79,19 @@ library_prefix    = "library"
 "mean"                = "mean"
 "mutate"              = "mutate"
 "names"               = "names"
-"nest"               = "nest"
+"nest"                = "nest"
 "paste"               = "paste0"
 "print"               = "print"
 "read CSV"            = "read_csv"
 "read E views"        = "readEViews"
 "read excel"          = "read_xlsx"
 "read RDS"            = "read_rds"
+"read standard in [put]" = ["scan", "file=\"stdin\", quiet=TRUE", "0"]
 "rename"              = "rename"
+"rename all"              = "rename_all"
 "reorder"             = "reorder"
 "right join"          = "right_join"
-"semi join"          = "semi_join"
+"semi join"           = "semi_join"
 "select"              = "select"
 "scale"               = "scale"
 "starts with"         = "starts_with"
@@ -112,7 +115,7 @@ library_prefix    = "library"
 "write RDS"           = "write_rds"
 "write CSV"           = "write_csv"
 "ex table"            = "xtable"
-"un nest" = "unnest"
+"un nest"             = "unnest"
 
 [libraries]
 "cable"       = "kable"

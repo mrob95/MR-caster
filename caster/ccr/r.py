@@ -7,6 +7,14 @@ from caster.lib.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_relative("config/r.toml")
 
+
+def rfunc(rf):
+    if type(rf) in [str, unicode]:
+        action = Store(same_is_okay=False) + Text("%s()" % rf) + Key("left") + Retrieve(action_if_text="right")
+    else:
+        action = Store(same_is_okay=False) + Text("%s()" % rf[0]) + Key("left") + Retrieve(action_if_text="comma, space") + Text(rf[1]) + Key("left:%s" % rf[2])
+    action.execute()
+
 class RlangNon(MergeRule):
     mapping = {
         BINDINGS["template_prefix"] + " <template>":
@@ -36,7 +44,7 @@ class Rlang(MergeRule):
 
         #
         BINDINGS["function_prefix"] + " <function>":
-            Store(same_is_okay=False) + Text("%(function)s()") + Key("left") + Retrieve(action_if_text="right"),
+            Function(lambda function: rfunc(function)),
         #
         BINDINGS["graph_prefix"] + " <ggfun>":
             Text("%(ggfun)s()") + Key("left"),
