@@ -4,6 +4,7 @@ Created on Sep 4, 2018
 @author: Mike Roberts
 '''
 from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ShortIntegerRef, ContextAction
+from dragonfly.actions.action_mouse import get_cursor_position
 
 from caster.lib.actions import Key, Text, Mouse
 from caster.lib.context import AppContext, ExeContext, TitleContext
@@ -31,6 +32,9 @@ def alphabet(big, letter):
 
 class coreNon(MappingRule):
     mapping = {
+
+        "copy mouse position":
+            Function(lambda: Clipboard.set_system_text("[%d, %d]" % get_cursor_position())),
 
         "super hold":        Key("win:down"),
         "super release":     Key("win:up"),

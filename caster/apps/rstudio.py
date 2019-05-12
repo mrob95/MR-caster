@@ -4,7 +4,7 @@ Mike Roberts 13/09/18
 
 from dragonfly import (Dictation, Grammar, IntegerRef, MappingRule,
                        Pause, Repeat, ShortIntegerRef, Choice, Function)
-from caster.lib.actions import Key, Text, Store, Retrieve
+from caster.lib.actions import Key, Text, Store, Retrieve, Mouse
 from caster.lib.context import AppContext
 
 from caster.lib.merge.mergerule import MergeRule
@@ -18,15 +18,19 @@ class RStudioRule(MergeRule):
     mapping = {
         "new (file | tab)"                 :  Key("cs-n"),
         "open file"                        :  Key("c-o"),
+        "go to file"                        :  Key("c-dot"),
+        "open recent"                        :  Mouse("[20, 34], left") + Key("down:5, right"),
+        "open project"                        :  Mouse("[20, 34], left") + Key("down:6, enter"),
+        "open recent project"                        :  Mouse("[20, 34], left") + Key("down:8, right"),
         "save all"                         :  Key("ac-s"),
         "select all"                       :  Key("c-a"),
         "find"                             :  Key("c-f"),
+        "find that"                        :  Key("c-f3"),
         "align that"                       :  Key("c-i"),
 
         "[go to] line <n>"                 :  Key("as-g/10") + Text("%(n)s") + Key("enter"),
 
-        "focus (console | terminal)"       :  Key("c-2"),
-        "focus (main | editor)"            :  Key("c-1"),
+        "focus <screen_element>"           :  Key("%(screen_element)s"),
 
         "next tab"                         :  Key("c-f12"),
         "first tab"                        :  Key("cs-f11"),
@@ -35,12 +39,17 @@ class RStudioRule(MergeRule):
         "close tab"                        :  Key("c-w"),
 
         "run (line | that)"                :  Key("c-enter"),
-        "run document"                     :  Key("ac-r"),
+        "(run document | build it)"        :  Key("ac-r"),
         "comment (line | selected | block)":  Key("cs-c"),
         "knit (document | file)"           :  Key("cs-k"),
 
         "next plot"                        :  Key("ac-f12"),
         "previous plot"                    :  Key("ac-f11"),
+
+        "create function": Key("ca-x"),
+        "create variable": Key("ca-v"),
+        "rename that": Key("cas-m"),
+
 
         "help that":
             Store() + Key("c-2, question") + Retrieve() + Key("enter/50, c-1"),
@@ -51,19 +60,33 @@ class RStudioRule(MergeRule):
         "vee table that":
             Store() + Key("c-2") + Text("library(vtable)") + Key("enter/50") + Retrieve() + Text(" %>% vtable()", static=True) + Key("enter/50, c-1"),
 
-        "<action> [line] <n> [(by | to) <nn>]"  :
+        "<action> [line] <n> [by <nn>]"  :
             Function(navigation.action_lines, go_to_line="as-g/10", select_line_down="s-down", wait="/3"),
 
     }
     extras = [
-        ShortIntegerRef("n", 1, 1000),
+        ShortIntegerRef("n",  1, 1000),
         ShortIntegerRef("nn", 1, 1000),
+        Choice("screen_element", {
+            "(main | editor)": "c-1",
+            "console"        : "c-2",
+            "terminal"       : "as-t",
+            "help"           : "c-3",
+            "history"        : "c-4",
+            "files"          : "c-5",
+            "plots"          : "c-6",
+            "packages"       : "c-7",
+            "environment"    : "c-8",
+            "viewer"         : "c-9",
+            "git"            : "c-f1",
+            "connections"    : "c-f5",
+            }),
         Choice("action", {
-            "select": "",
-            "copy": "c-c",
-            "cut": "c-x",
+            "select"           : "",
+            "copy"             : "c-c",
+            "cut"              : "c-x",
             "(delete | remove)": "backspace",
-            "replace": "c-v",
+            "replace"          : "c-v",
             }),
     ]
     defaults = {

@@ -4,9 +4,9 @@ from caster.lib.context import AppContext, TitleContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
+from subprocess import Popen
 
 BINDINGS = utilities.load_toml_relative("config/r.toml")
-
 
 def rfunc(rf):
     if type(rf) in [str, unicode]:
@@ -17,6 +17,9 @@ def rfunc(rf):
 
 class RlangNon(MergeRule):
     mapping = {
+        "<module> cheatsheet":
+            Function(lambda module: Popen(["SumatraPDF", "C:/Users/Mike/Documents/cheatsheets/R/%s.pdf" % module])),
+
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
 
@@ -28,15 +31,16 @@ class RlangNon(MergeRule):
             Function(utilities.load_config, config_name="r.toml"),
     }
     extras = [
-        Choice("template", BINDINGS["templates"]),
-        Choice("markdown_command", BINDINGS["markdown"]),
+        Choice("template",        BINDINGS["templates"]),
+        Choice("markdown_command",BINDINGS["markdown"]),
+        Choice("module",          BINDINGS["cheatsheets"]),
     ]
 
 class Rlang(MergeRule):
-    non = RlangNon
+    non           = RlangNon
     pronunciation = BINDINGS["pronunciation"]
-    mwith = "Core"
-    mcontext = TitleContext(*BINDINGS["title_contexts"])
+    mwith         = "Core"
+    mcontext      = TitleContext(*BINDINGS["title_contexts"])
 
     mapping = {
         "<command>":
@@ -62,12 +66,12 @@ class Rlang(MergeRule):
 
     extras = [
         Dictation("text"),
-        Choice("command", BINDINGS["commands"]),
+        Choice("command",  BINDINGS["commands"]),
         Choice("function", BINDINGS["r_functions"]),
-        Choice("ggfun", BINDINGS["r_graph"]),
+        Choice("ggfun",    BINDINGS["r_graph"]),
         Choice("argument", BINDINGS["r_args"]),
-        Choice("modelargs", BINDINGS["r_model"]),
-        Choice("library", BINDINGS["libraries"]),
+        Choice("modelargs",BINDINGS["r_model"]),
+        Choice("library",  BINDINGS["libraries"]),
     ]
     defaults = {}
 
