@@ -64,28 +64,25 @@ class ChromeRule(MergeRule):
         "science hub": Key("a-d") + Store() + Key("delete") + Text("https://sci-hub.tw/") + Retrieve() + Key("enter"),
 
         "split right": Key("w-left/50, W/50, w-right"),
-
-        "google that": Store() + Key("c-t") + Retrieve() + Key("enter"),
-
         }
     extras = [
         Dictation("dict"),
         Dictation("text"),
         IntegerRef("n", 1, 10),
         Choice("site", {
-            "amazon"   :"smile.amazon.co.uk",
+            "amazon"   : "smile.amazon.co.uk",
             "exams"    : "https://www.york.ac.uk/economics/current-students/ug-information/exampapers/#tab-2",
-            "facebook" :"facebook.com",
+            "facebook" : "facebook.com",
             "iPlayer"  : "https://www.bbc.co.uk/iplayer",
             "math fly" : "mathfly.org",
-            "scholar"  :"scholar.google.co.uk",
-            "SMS"      :"scholar.google.co.uk",
-            "spectator":"spectator.co.uk",
-            "times"    :"thetimes.co.uk",
-            "timetable":"timetable.york.ac.uk",
-            "twitter"  :"twitter.com",
+            "scholar"  : "scholar.google.co.uk",
+            "SMS"      : "https://mightytext.net/web8/",
+            "spectator": "spectator.co.uk",
+            "times"    : "thetimes.co.uk",
+            "timetable": "timetable.york.ac.uk",
+            "twitter"  : "twitter.com",
             "VLE"      : "https://vle.york.ac.uk",
-            "youtube"  :"youtube.com",
+            "youtube"  : "youtube.com",
         }),
         Choice("numberth", {
             "first"         : "1",

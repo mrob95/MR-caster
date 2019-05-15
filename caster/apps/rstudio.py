@@ -8,7 +8,16 @@ from caster.lib.actions import Key, Text, Store, Retrieve, Mouse
 from caster.lib.context import AppContext
 
 from caster.lib.merge.mergerule import MergeRule
-from caster.lib import control, navigation
+from caster.lib import control, navigation, utilities
+
+BINDINGS = utilities.load_toml_relative("config/r.toml")
+
+
+def helper(function):
+    if type(function) in ["str", "unicode"]:
+        Text(function).execute()
+    else:
+        Text(function[0]).execute()
 
 
 class RStudioRule(MergeRule):
@@ -18,10 +27,10 @@ class RStudioRule(MergeRule):
     mapping = {
         "new (file | tab)"                 :  Key("cs-n"),
         "open file"                        :  Key("c-o"),
-        "go to file"                        :  Key("c-dot"),
-        "open recent"                        :  Mouse("[20, 34], left") + Key("down:5, right"),
-        "open project"                        :  Mouse("[20, 34], left") + Key("down:6, enter"),
-        "open recent project"                        :  Mouse("[20, 34], left") + Key("down:8, right"),
+        "go to file"                       :  Key("c-dot"),
+        "open recent"                      :  Mouse("[20, 34], left") + Key("down:5, right"),
+        "open project"                     :  Mouse("[20, 34], left") + Key("down:6, enter"),
+        "open recent project"              :  Mouse("[20, 34], left") + Key("down:8, right"),
         "save all"                         :  Key("ac-s"),
         "select all"                       :  Key("c-a"),
         "find"                             :  Key("c-f"),
@@ -53,10 +62,12 @@ class RStudioRule(MergeRule):
 
         "help that":
             Store() + Key("c-2, question") + Retrieve() + Key("enter/50, c-1"),
+        "help <function>":
+            Key("c-2") + Function(helper) + Key("enter/50, c-1"),
         "glimpse that":
-            Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" glimpse()") + Key("enter/50, c-1"),
+            Store() + Key("c-2") + Retrieve() + Text(" %>%  glimpse()", static=True) + Key("enter/50, c-1"),
         "head that":
-            Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" head()") + Key("enter/50, c-1"),
+            Store() + Key("c-2") + Retrieve() + Text(" %>%  head()", static=True) + Key("enter/50, c-1"),
         "vee table that":
             Store() + Key("c-2") + Text("library(vtable)") + Key("enter/50") + Retrieve() + Text(" %>% vtable()", static=True) + Key("enter/50, c-1"),
 
@@ -67,6 +78,7 @@ class RStudioRule(MergeRule):
     extras = [
         ShortIntegerRef("n",  1, 1000),
         ShortIntegerRef("nn", 1, 1000),
+        Choice("function", BINDINGS["r_functions"]),
         Choice("screen_element", {
             "(main | editor)": "c-1",
             "console"        : "c-2",

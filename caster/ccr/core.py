@@ -16,7 +16,7 @@ import os, datetime
 _NEXUS = control.nexus()
 
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
-CORE = utilities.load_toml_relative("config/core.toml")
+CORE     = utilities.load_toml_relative("config/core.toml")
 PERSONAL = utilities.load_toml_relative("config/personal.toml")
 
 _LETTERS, _DIRECTIONS = "letters", "directions"
@@ -36,16 +36,16 @@ class coreNon(MappingRule):
         "copy mouse position":
             Function(lambda: Clipboard.set_system_text("[%d, %d]" % get_cursor_position())),
 
-        "super hold":        Key("win:down"),
-        "super release":     Key("win:up"),
-        "shift hold":        Key("shift:down"),
-        "shift release":     Key("shift:up"),
-        "control hold":      Key("ctrl:down"),
-        "control release":   Key("ctrl:up"),
-        "(meta|alt) hold":   Key("alt:down"),
-        "(meta|alt) release":Key("alt:up"),
-        "all release":       Key("win:up, shift:up, ctrl:up, alt:up"),
-        "release all":       Key("win:up, shift:up, ctrl:up, alt:up"),
+        "super hold"        : Key("win:down"),
+        "super release"     : Key("win:up"),
+        "shift hold"        : Key("shift:down"),
+        "shift release"     : Key("shift:up"),
+        "control hold"      : Key("ctrl:down"),
+        "control release"   : Key("ctrl:up"),
+        "(meta|alt) hold"   : Key("alt:down"),
+        "(meta|alt) release": Key("alt:up"),
+        "all release"       : Key("win:up, shift:up, ctrl:up, alt:up"),
+        "release all"       : Key("win:up, shift:up, ctrl:up, alt:up"),
 
         "volume up [<n>]"            : Key("volumeup/5:%(n)d"),
         "volume down [<n>]"          : Key("volumedown/5:%(n)d"),
@@ -104,14 +104,10 @@ class coreNon(MappingRule):
 
         "paste as administrator": Function(execution.paste_as_admin),
 
-        "google that":
-            Function(utilities.browser_search, site="google"),
-        "(wiki | wikipedia) that":
-            Function(utilities.browser_search, site="wikipedia"),
-        "google <dict>":
-            Function(lambda dict: utilities.browser_search(dict, site="google")),
-        "wikipedia <dict>":
-            Function(lambda dict: utilities.browser_search(dict, site="wikipedia")),
+        "<search> that":
+            Function(lambda search: utilities.browser_search(url=search)),
+        "<search> <dict>":
+            Function(lambda search, dict: utilities.browser_search(dict, url=search)),
 
         "open terminal":
             Function(lambda: utilities.terminal("C:/Users/Mike/Documents")),
@@ -130,6 +126,12 @@ class coreNon(MappingRule):
         Choice("direction",            CORE[_DIRECTIONS]),
         Choice("direction2",           CORE[_DIRECTIONS]),
         Choice("misc_core_keys_noCCR", CORE["misc_core_keys_noCCR"]),
+        Choice("search", {
+            "amazon": "https://smile.amazon.co.uk/s?k=%s",
+            "kindle": "https://smile.amazon.co.uk/s?k=%s&rh=n%%3A341689031",
+            "wikipedia": "https://en.wikipedia.org/w/index.php?search=%s",
+            "google": "https://www.google.com/search?q=%s",
+            }),
     ]
     defaults = {
         "n": 1,
@@ -138,7 +140,6 @@ class coreNon(MappingRule):
 
 class core(MergeRule):
     non = coreNon
-
     pronunciation = CORE["pronunciation"]
 
     mapping = {

@@ -13,9 +13,11 @@
 "dot pie"        = ".py"
 "dot tex"        = ".tex"
 "list"           = ["ls", "enter"]
+"LS"             = "ls "
+"line count"     = "wc -l "
 "make directory" = "mkdir "
 "paste"          = ["", "s-insert"]
-"pipe" = " | "
+"pipe"           = " | "
 "to file"        = " > "
 
 [latex_commands]
@@ -37,7 +39,7 @@
 [jekyll_commands]
 "jekyll serve watch"     = "jekyll serve --watch"
 "jekyll build"           = "jekyll build"
-"jekyll"                 = "jekyll"
+"jekyll"                 = "jekyll "
 
 [image_commands]
 "image [magic] trim"     = ["convert  -fuzz 1% -trim +repage ", "left:24"]
@@ -88,12 +90,3 @@
 "git stash list"                      = "git stash list"
 "git stash"                           = "git stash"
 "git status"                          = ["git status", "enter"]
-"git visualize all"                   = "gitk --all"
-"git visualize file"                  = "gitk -- PATH"
-"preview remove untracked | git clean preview" = "git clean -nd"
-"remove untracked | git clean untracked"       = "git clean -fd"
-"search recursive count"                       = "grep -rinH \"PATTERN\" * | wc -l"
-"search recursive filetype"                    = "find . -name \"*.java\" -exec grep -rinH \"PATTERN\" {} \\;"
-"search recursive"                             = "grep -rinH \"PATTERN\" *"
-"stop tracking [file] | git remove"            = "git rm --cached "
-"undo [last] commit | git reset soft head"     = "git reset --soft HEAD~1"

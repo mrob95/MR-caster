@@ -184,9 +184,7 @@ class SublimeCCRRule(MergeRule):
         # {"keys"        : ["ctrl+k", "ctrl+t"], "command": "title_case"},
         "transform title": Key("c-k, c-t"),
 
-        "(select | sell) scope [<n2>]"   : Key("cs-space")*Repeat(extra="n2"),
-        "copy scope"   : Key("cs-space, c-c"),
-        "replace scope"   : Key("cs-space, c-v"),
+        "<action> scope [<n2>]"   : Key("cs-space")*Repeat(extra="n2") + Key("%(action)s"),
 
         "indent [<n2>]": Key("c-rbracket:%(n2)s"),
 
@@ -199,6 +197,13 @@ class SublimeCCRRule(MergeRule):
         IntegerRef("n11", 1, 20),
         IntegerRef("n12", 0, 10),
         IntegerRef("n13", 0, 10),
+        Choice("action", {
+            "select": "",
+            "copy": "c-c",
+            "cut": "c-x",
+            "(delete | remove)": "backspace",
+            "replace": "c-v",
+            }),
     ]
     defaults = {"n12": "", "n13": "", "n2": 1}
 

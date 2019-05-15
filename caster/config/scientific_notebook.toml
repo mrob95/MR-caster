@@ -47,7 +47,7 @@
 "absolute"                        = "c-backslash"
 "norm"                            = "cs-backslash"
 "chi squared"                     = "c-g, q, c-h, 2, right"
-"(radical | root | square root)"  = "c-r"
+"(radical | square root)"         = "c-r"
 "summation"                       = "c-7"
 "sum to N"                        = "s, m, i, t, o, n"
 "expectation"                     = "s-e, c-0"

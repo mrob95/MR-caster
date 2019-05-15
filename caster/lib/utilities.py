@@ -129,16 +129,12 @@ def browser_open(url):
     browser = SETTINGS["browser_path"]
     Popen([browser, url])
 
-def browser_search(text=None, site="google"):
+def browser_search(text=None, url="https://www.google.com/search?q=%s"):
     if not text:
         _, selection = read_selected(True)
     else:
         selection = str(text)
-    if site == "google":
-        url = "https://www.google.com/search?q=" + quote(selection)
-    elif site == "wikipedia":
-        url = "https://en.wikipedia.org/w/index.php?search=" + selection.replace(" ", "+")
-    print(url)
+    url = url % quote(selection)
     browser_open(url)
 
 
