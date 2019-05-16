@@ -1,0 +1,43 @@
+pronunciation = "Shell"
+title_contexts = [".sh"]
+function_prefix = "fun"
+template_prefix = "template"
+
+# [functions]
+
+[commands]
+"bash"                      = "bash "
+"bib TeX"                   = "bibtex "
+"cat"                       = "cat "
+"CD"                        = "cd "
+"dot jay peg"               = ".jpg"
+"dot PDF"                   = ".pdf"
+"dot pie"                   = ".py"
+"dot PNG"                   = ".png"
+"dot tex"                   = ".tex"
+"echo"                      = "echo "
+"for loop"                  = ["for  in \ndo\n\ndone", "up:3, home, right:4"]
+"function"                  = ["(){}", "left, enter, up, home"]
+"image [magic] transparent" = ["convert  -fuzz 1% -transparent white ", "left:29"]
+"image [magic] trim"        = ["convert  -fuzz 1% -trim +repage ", "left:24"]
+"iffae"                     = ["if [  ]\nthen\n\nfi", "up:3, end, left:2"]
+"inline if"                 = ["[  ] && ", "left:6"]
+"line count"                = "wc -l "
+"lodge and"                 = " && "
+"lodge or"                  = " || "
+"LS"                        = "ls "
+"make directory"            = "mkdir "
+"pan doc beamer"            = ["pandoc  -t beamer -o ", "left:14"]
+"pan doc"                   = ["pandoc  -o ", "left:4"]
+"PDF LaTeX"                 = "pdflatex "
+"pipe"                      = " | "
+"python 2"                  = ["python27 .py", "left:3"]
+"python 3"                  = ["python3 .py", "left:3"]
+"R markdown"                = ["Rscript -e \"rmarkdown::render('.Rmd', clean=TRUE)\"", "left:19"]
+"R script"                  = ["Rscript .r", "left:2"]
+"she bang"                  = "#!/bin/sh"
+"Sumatra [PDF]"             = "SumatraPDF "
+"to file"                   = " > "
+
+
+[templates]

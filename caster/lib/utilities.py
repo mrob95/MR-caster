@@ -22,8 +22,7 @@ def diary():
         Popen(["notepad", path])
     else:
         with open(path, "w+") as f:
-            title = "# %s - Notes - Mike Roberts\n" % datestr
-            f.write(title)
+            f.write(title = "# %s - Notes - Mike Roberts\n" % datestr)
         Popen(["notepad", path])
 
 

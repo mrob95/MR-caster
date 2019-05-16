@@ -63,7 +63,7 @@ class RStudioRule(MergeRule):
         "help that":
             Store() + Key("c-2, question") + Retrieve() + Key("enter/50, c-1"),
         "help <function>":
-            Key("c-2") + Function(helper) + Key("enter/50, c-1"),
+            Key("c-2, question") + Function(helper) + Key("enter/50, c-1"),
         "glimpse that":
             Store() + Key("c-2") + Retrieve() + Text(" %>%  glimpse()", static=True) + Key("enter/50, c-1"),
         "head that":

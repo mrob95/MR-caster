@@ -16,8 +16,10 @@
 "LS"             = "ls "
 "line count"     = "wc -l "
 "make directory" = "mkdir "
+"move file"      = "mv  "
 "paste"          = ["", "s-insert"]
 "pipe"           = " | "
+"Sumatra [PDF]"  = "SumatraPDF "
 "to file"        = " > "
 
 [latex_commands]

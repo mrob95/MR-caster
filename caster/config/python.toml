@@ -1,8 +1,8 @@
-pronunciation = "Python"
-title_contexts = [".py"]
+pronunciation   = "Python"
+title_contexts  = [".py"]
 function_prefix = "fun"
 template_prefix = "template"
-method_prefix = "meth"
+method_prefix   = "meth"
 
 [functions]
 "(int | integer)"       = "int"
@@ -19,7 +19,7 @@ method_prefix = "meth"
 "find"                  = "find"
 "float"                 = "float"
 "get"                   = "get"
-"has attribute" = "hasattr"
+"has attribute"         = "hasattr"
 "join"                  = "join"
 "index"                 = "index"
 "insert"                = "insert"
@@ -27,8 +27,8 @@ method_prefix = "meth"
 "keys"                  = "keys"
 "length"                = "len"
 "list"                  = "list"
-"min"                   = "min"
-"max"                   = "max"
+"(min | minimum)"       = "min"
+"(max | maximum)"       = "max"
 "pop"                   = "pop"
 "print"                 = "print"
 "range"                 = "range"
@@ -74,8 +74,8 @@ method_prefix = "meth"
 "value false"         = "False"
 "value none"          = "None"
 "value true"          = "True"
-"while loop"         = ["while :", "left"]
-"with open"          = ["with open() as f:", "left:7"]
+"while loop"          = ["while :", "left"]
+"with open"           = ["with open() as f:", "left:7"]
 
 [unary_methods]
 "(int | integer)"          = "int"

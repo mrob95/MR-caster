@@ -7,7 +7,7 @@ template_prefix = "template"
 "(function | funk) main"             = ["func main() {}", "left, enter"]
 "(split string | strings split)"     = ["strings.Split()", "left"]
 "(start | begin) timer"              = "start := time.Now()"
-"append"                             = ["", "home/5, s-end, c-c, right, space, equal, space, a, p, p, e, n, d, lparen, c-v, comma, space"]
+"append"                             = ["", "home/5, s-end, c-c, right", " = append(", "c-v, comma, space"]
 "assign"                             = " := "
 "breaker"                            = "break"
 "case"                               = ["case :", "left"]

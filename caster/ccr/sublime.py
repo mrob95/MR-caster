@@ -3,7 +3,6 @@ from caster.lib.actions import Key, Text, Store, Retrieve
 from caster.lib.context import AppContext, TitleContext
 import sys
 from caster.lib import control, navigation
-# from caster.lib.integers import IntegerRefMF
 from caster.lib.merge.mergerule import MergeRule
 
 
@@ -120,8 +119,6 @@ class SublimeRule(MergeRule):
         "format table": Key("cas-t"),
 
         "configure alignment": Key("f10, p, right, p, right, down, enter"),
-
-
     }
     extras = [
         Dictation("dict"),

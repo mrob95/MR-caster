@@ -1,7 +1,8 @@
-from dragonfly import Key, Mouse, Pause, ActionBase, ActionError
+from dragonfly import Key, Mouse, Pause, ActionBase, ActionError, Alternative, Compound
 from dragonfly import Text as TextBase
 from inspect import getargspec
 import re
+from six import string_types
 
 class Text(TextBase):
     _pause_default = 0.002
@@ -80,3 +81,31 @@ class Retrieve(ActionBase):
         else:
             Key(self.action_if_no_text).execute()
         return True
+
+class MultiChoice(Alternative):
+
+    def __init__(self, name, choices, extras=None, default=None):
+
+        # Argument type checking.
+        assert isinstance(name, string_types) or name is None
+        for choice in choices:
+            assert isinstance(choice, dict)
+
+        # self._choices = {k:v for k,v in choices.items()}
+        self._choices = {}
+        for choice in choices:
+            self._choices.update(choice)
+
+        for k, v in self._choices.items():
+            assert isinstance(k, string_types)
+
+        # Construct children from the given choice keys and values.
+        self._extras = extras
+        children = []
+        for k, v in self._choices.items():
+            child = Compound(spec=k, value=v, extras=extras)
+            children.append(child)
+
+        # Initialize super class.
+        Alternative.__init__(self, children=children,
+                                       name=name, default=default)
