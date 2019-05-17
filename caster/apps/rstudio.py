@@ -12,13 +12,11 @@ from caster.lib import control, navigation, utilities
 
 BINDINGS = utilities.load_toml_relative("config/r.toml")
 
-
 def helper(function):
     if type(function) in ["str", "unicode"]:
         Text(function).execute()
     else:
         Text(function[0]).execute()
-
 
 class RStudioRule(MergeRule):
     pronunciation = "R studio"

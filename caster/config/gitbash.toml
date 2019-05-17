@@ -25,7 +25,7 @@
 [latex_commands]
 "PDF LaTeX"              = "pdflatex "
 "bib TeX"                = "bibtex "
-"pan doc"                = ["pandoc  -o ", "left:4"]
+"pan doc"                = ["pandoc \"\" -o \"", "left:7"]
 "pan doc beamer"         = ["pandoc  -t beamer -o ", "left:14"]
 
 [python_commands]

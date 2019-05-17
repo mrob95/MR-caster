@@ -18,7 +18,7 @@ class GitBashRule(MergeRule):
     non = GitBashNon
     pronunciation = BINDINGS["pronunciation"]
     mwith = "Core"
-    mcontext = ExeContext(*BINDINGS["executable_contexts"])
+    mcontext = AppContext(executable=BINDINGS["executable_contexts"])
 
     mapping = {
         "<command>":

@@ -13,9 +13,9 @@ class FileDialogueRule(MergeRule):
     mcontext = TitleContext("save", "open", "select")
 
     mapping = {
-        "go up [<n>]"        : Key("a-up")*Repeat(extra="n"),
-        "go back [<n>]"      : Key("a-left")*Repeat(extra="n"),
-        "go forward [<n>]"   : Key("a-right")*Repeat(extra="n"),
+        "go up [<n>]"        : Key("a-up:%(n)s"),
+        "go back [<n>]"      : Key("a-left:%(n)s"),
+        "go forward [<n>]"   : Key("a-right:%(n)s"),
         "(files | file list)": Key("a-d, f6:3"),
         "navigation [pane]"  : Key("a-d, f6:2"),
         "file name [<dict>]" : Key("a-d, f6:5") + Text("%(dict)s"),
@@ -39,6 +39,7 @@ class FileDialogueRule(MergeRule):
             "R mark [down]" : "Rmd",
             "shell"         : "sh",
             "tech"          : "tex",
+            "text"          : "txt",
             "tommel"        : "toml",
             "yammel"        : "yml",
         }),
@@ -47,6 +48,5 @@ class FileDialogueRule(MergeRule):
         "n"   : 1,
         "dict": "",
     }
-
 
 control.nexus().merger.add_app_rule(FileDialogueRule())

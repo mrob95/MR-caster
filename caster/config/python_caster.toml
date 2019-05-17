@@ -12,6 +12,9 @@
 "mouse"       = "Mouse"
 "repeat" = "Repeat"
 "text"        = "Text"
+"add non ccr app rule" = "add_non_ccr_app_rule"
+"add app rule" = "add_app_rule"
+"add global rule" = "add_global_rule"
 
 
 [misc]

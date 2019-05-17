@@ -6,7 +6,7 @@ from caster.lib import control
 from caster.lib.merge.mergerule import MergeRule
 
 
-class photoshopRule(MergeRule):
+class PhotoshopRule(MergeRule):
     pronunciation = "Photo shop"
     mcontext = AppContext(title="photoshop")
 
@@ -24,11 +24,11 @@ class photoshopRule(MergeRule):
         "open folder"         : Key("cs-o"),
         "save as"             : Key("cs-s"),
 
-        "step backwards [<n>]": Key("ca-z")*Repeat(extra="n"),
-        "step forwards [<n>]" : Key("cs-z")*Repeat(extra="n"),
+        "step backwards [<n>]": Key("ca-z:%(n)s"),
+        "step forwards [<n>]" : Key("cs-z:%(n)s"),
 
-        "zoom in [<n>]"       : Key("c-equals")*Repeat(extra="n"),
-        "zoom out [<n>]"      : Key("c-minus")*Repeat(extra="n"),
+        "zoom in [<n>]"       : Key("c-equals:%(n)s"),
+        "zoom out [<n>]"      : Key("c-minus:%(n)s"),
         }
 
     extras = [
@@ -38,4 +38,4 @@ class photoshopRule(MergeRule):
         "n": 1,
     }
 
-control.nexus().merger.add_non_ccr_app_rule(photoshopRule())
+control.nexus().merger.add_non_ccr_app_rule(PhotoshopRule())

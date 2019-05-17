@@ -50,6 +50,11 @@ class PythonNon(MergeRule):
 
         "insert line break": Text("#---------------------------------------------------------------------------"),
 
+        "help <fun>":
+            Function(lambda fun: utilities.browser_search(fun, url="https://docs.python.org/3/search.html?q=%s")),
+        "help that":
+            Function(utilities.browser_search, url="https://www.google.com/search?q=python+%s"),
+
     }
     extras = [
         Choice("test", {
@@ -61,6 +66,7 @@ class PythonNon(MergeRule):
         Choice("bmeth",    BINDINGS["binary_methods"]),
         Choice("mmeth",    BINDINGS["misc_methods"]),
         Choice("exception",BINDINGS["exceptions"]),
+        Choice("fun",      BINDINGS["functions"]),
     ]
     defaults = {
         "exception": "",

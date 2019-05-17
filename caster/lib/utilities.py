@@ -133,7 +133,7 @@ def browser_search(text=None, url="https://www.google.com/search?q=%s"):
         _, selection = read_selected(True)
     else:
         selection = str(text)
-    url = url % quote(selection)
+    url = url % selection.replace(" ", "+").replace("\n", "")
     browser_open(url)
 
 

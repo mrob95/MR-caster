@@ -25,8 +25,8 @@ class RuleNameRule(MergeRule):
 		"find previous" : Key("s-f3"),
 		"page <n>"      : Key("c-g") + Text("%(n)s") + Key("enter"),
 
-		"zoom in [<n>]" : Key("c-equals")*Repeat(extra="n"),
-		"zoom out [<n>]": Key("c-minus")*Repeat(extra="n"),
+		"zoom in [<n>]" : Key("c-equals:%(n)s"),
+		"zoom out [<n>]": Key("c-minus:%(n)s"),
 	}
 
 	extras = [
