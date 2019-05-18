@@ -144,4 +144,4 @@ class SN6(MergeRule):
         "big": False,
     }
 
-control.nexus().merger.add_app_rule(SN6())
+control.app_rule(SN6())

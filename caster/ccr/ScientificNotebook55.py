@@ -159,6 +159,6 @@ class sn_mathematics(MergeRule):
         "big": False,
     }
 
-control.nexus().merger.add_app_rule(sn_mathematics())
+control.app_rule(sn_mathematics())
 
 #---------------------------------------------------------------------------

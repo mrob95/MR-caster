@@ -45,4 +45,4 @@ class GitBashRule(MergeRule):
                                  BINDINGS["general_commands"]]),
     ]
 
-control.nexus().merger.add_app_rule(GitBashRule())
+control.app_rule(GitBashRule())

@@ -67,4 +67,4 @@ class Markdown(MergeRule):
         "num": 1,
     }
 
-control.nexus().merger.add_app_rule(Markdown())
+control.app_rule(Markdown())

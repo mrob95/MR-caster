@@ -47,4 +47,4 @@ class Go(MergeRule):
 
 
 
-control.nexus().merger.add_app_rule(Go())
+control.app_rule(Go())

@@ -1,4 +1,4 @@
-from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Function
+from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Function, ContextAction
 from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib.context import AppContext, TitleContext
 
@@ -95,7 +95,6 @@ PythonNon.extras.append(Choice("lib", libs))
 
 #---------------------------------------------------------------------------
 
-
 class Python(MergeRule):
     non = PythonNon
     mwith = "Core"
@@ -109,6 +108,11 @@ class Python(MergeRule):
         BINDINGS["function_prefix"] + " <fun>":
             Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
 
+        "method": ContextAction(Text("def (self):") + Key("left:7"),
+            [(AppContext(title="Sublime Text"), Text("defs") + Key("tab"))]),
+        "list comprehension": ContextAction(Text("[ for  in i]") + Key("left:11"),
+            [(AppContext(title="Sublime Text"), Text("lc") + Key("tab"))]),
+
     }
 
     extras = [
@@ -120,33 +124,7 @@ class Python(MergeRule):
         "exception": "",
     }
 
-control.nexus().merger.add_app_rule(Python())
-
-#---------------------------------------------------------------------------
-
-class BasePythonRule(MergeRule):
-    mwith = ["Core", "Python"]
-    mcontext = AppContext(title=".py") & ~AppContext(title="Sublime Text")
-    mapping = {
-        "function": Text("def ():") + Key("left:2"),
-        "method": Text("def (self):") + Key("left:7"),
-        "list comprehension": Text("[ for  in i]") + Key("left:11"),
-    }
-
-control.nexus().merger.add_app_rule(BasePythonRule())
-
-#---------------------------------------------------------------------------
-
-class SublimePythonRule(MergeRule):
-    mwith = ["Core", "Python"]
-    mcontext = AppContext(title=".py") & AppContext(title="Sublime Text")
-    mapping = {
-        "function": Text("def") + Key("tab"),
-        "method": Text("defs") + Key("tab"),
-        "list comprehension": Text("lc") + Key("tab"),
-    }
-
-control.nexus().merger.add_app_rule(SublimePythonRule())
+control.app_rule(Python())
 
 #---------------------------------------------------------------------------
 
@@ -178,6 +156,6 @@ class CasterPythonRule(MergeRule):
         Choice("cmisc", CASTER["misc"]),
     ]
 
-control.nexus().merger.add_app_rule(CasterPythonRule())
+control.app_rule(CasterPythonRule())
 
 #---------------------------------------------------------------------------

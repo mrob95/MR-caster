@@ -57,6 +57,7 @@ method_prefix   = "meth"
 "for each"            = ["for  in :", "left:5"]
 "for loop"            = ["for i in range():", "left:2"]
 "from import"         = ["from  import ", "home, right:5"]
+"function"            = ["def ():", "left:3"]
 "iffae"               = ["if :", "left"]
 "iffae not"           = ["if not :", "left"]
 "import"              = "import "

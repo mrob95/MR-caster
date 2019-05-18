@@ -41,4 +41,4 @@ class Shell(MergeRule):
     defaults = {}
 
 
-control.nexus().merger.add_app_rule(Shell())
+control.app_rule(Shell())

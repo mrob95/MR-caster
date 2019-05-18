@@ -37,4 +37,4 @@ class LaTeXmath(MergeRule):
     }
 
 
-control.nexus().merger.add_global_rule(LaTeXmath())
+control.global_rule(LaTeXmath())

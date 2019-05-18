@@ -49,4 +49,4 @@ class FileDialogueRule(MergeRule):
         "dict": "",
     }
 
-control.nexus().merger.add_app_rule(FileDialogueRule())
+control.app_rule(FileDialogueRule())

@@ -41,4 +41,4 @@ class TOML(MergeRule):
     defaults = {}
 
 
-control.nexus().merger.add_app_rule(TOML())
+control.app_rule(TOML())

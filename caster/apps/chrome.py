@@ -96,7 +96,7 @@ class ChromeRule(MergeRule):
     ]
     defaults = {"n": 1, "dict": "nothing"}
 
-control.nexus().merger.add_non_ccr_app_rule(ChromeRule())
+control.non_ccr_app_rule(ChromeRule())
 
 #---------------------------------------------------------------------------
 
@@ -148,4 +148,4 @@ class DocsRule(MergeRule):
         ]
     defaults = {"headn": 1}
 
-control.nexus().merger.add_non_ccr_app_rule(DocsRule())
+control.non_ccr_app_rule(DocsRule())

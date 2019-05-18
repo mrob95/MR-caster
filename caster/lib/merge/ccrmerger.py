@@ -117,7 +117,7 @@ class CCRMerger(object):
             grammar.add_rule(rule.non())
         grammar.load()
 
-    def add_selfmodrule(self, rule):
+    def add_selfmod_rule(self, rule):
         assert hasattr(rule,"set_merger"), "only SelfModifyingRules may be added by add_selfmodrule()"
         assert not hasattr(rule, "master_node"), "NodeRules are not permitted in the merger"
         rule.set_merger(self)

@@ -41,4 +41,4 @@ class className(MergeRule):
     defaults = {}
 
 
-control.nexus().merger.add_app_rule(className())
+control.app_rule(className())

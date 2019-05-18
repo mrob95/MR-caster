@@ -31,5 +31,4 @@ class WERule(MergeRule):
     ]
     defaults = {"n":1}
 
-control.nexus().merger.add_non_ccr_app_rule(WERule())
-
+control.non_ccr_app_rule(WERule())

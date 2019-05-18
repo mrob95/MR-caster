@@ -45,7 +45,7 @@ class Alias(SelfModifyingRule):
         mapping["delete aliases"] = Function(self.delete_all)
         self.reset(mapping)
 
-# control.nexus().merger.add_selfmodrule(Alias())
+# control.selfmod_rule(Alias())
 grammar = Grammar("alias")
 rule = Alias()
 grammar.add_rule(rule)
@@ -91,4 +91,4 @@ class Var(SelfModifyingRule):
         mapping["delete variables"] = Function(self.delete_all)
         self.reset(mapping)
 
-control.nexus().merger.add_selfmodrule(Var())
+control.selfmod_rule(Var())

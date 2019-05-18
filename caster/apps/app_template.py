@@ -48,4 +48,4 @@ class RuleNameRule(MergeRule):
 		"n": 1,
 	}
 
-control.nexus().merger.add_non_ccr_app_rule(RuleNameRule())
+control.non_ccr_app_rule(RuleNameRule())

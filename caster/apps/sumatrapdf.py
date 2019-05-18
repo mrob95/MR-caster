@@ -61,4 +61,4 @@ class SumatraPDFRule(MergeRule):
 		"n": 1,
 	}
 
-control.nexus().merger.add_non_ccr_app_rule(SumatraPDFRule())
+control.non_ccr_app_rule(SumatraPDFRule())

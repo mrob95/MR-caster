@@ -38,4 +38,4 @@ class PhotoshopRule(MergeRule):
         "n": 1,
     }
 
-control.nexus().merger.add_non_ccr_app_rule(PhotoshopRule())
+control.non_ccr_app_rule(PhotoshopRule())

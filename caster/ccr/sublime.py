@@ -21,11 +21,11 @@ class SublimeRule(MergeRule):
         "edit all"                       : Key("c-d, a-f3"),
         "reverse selection"              : Key("as-r"),
 
-        "<action> [line] <n> [by <nn>]"  :
+        "<action> [line] <ln1> [by <ln2>]"  :
             Function(navigation.action_lines),
 
-        "<action> by [line] <n>"  :
-            Key("c-k, c-space, c-g") + Function(lambda n: Text(str(n+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
+        "<action> by [line] <ln1>"  :
+            Key("c-k, c-space, c-g") + Function(lambda ln1: Text(str(ln1+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
 
         "new (file | tab)"               : Key("c-n"),
         # {"keys"                        : ["ctrl+alt+n"], "command": "new_window"},
@@ -122,8 +122,8 @@ class SublimeRule(MergeRule):
     }
     extras = [
         Dictation("dict"),
-        ShortIntegerRef("n",1, 1000),
-        ShortIntegerRef("nn", 1, 1000),
+        ShortIntegerRef("ln1",1, 1000),
+        ShortIntegerRef("ln2", 1, 1000),
         IntegerRef("n2", 1, 9),
         IntegerRef("n3", 1, 21),
         Choice("action", {
@@ -161,7 +161,7 @@ class SublimeRule(MergeRule):
         "filetype": "",
     }
 
-control.nexus().merger.add_non_ccr_app_rule(SublimeRule())
+control.non_ccr_app_rule(SublimeRule())
 
 #---------------------------------------------------------------------------
 
@@ -204,7 +204,7 @@ class SublimeCCRRule(MergeRule):
     ]
     defaults = {"n12": "", "n13": "", "n2": 1}
 
-control.nexus().merger.add_app_rule(SublimeCCRRule())
+control.app_rule(SublimeCCRRule())
 
 #---------------------------------------------------------------------------
 
@@ -234,7 +234,7 @@ class SublimeRRule(MergeRule):
         "n": 1,
     }
 
-control.nexus().merger.add_app_rule(SublimeRRule())
+control.app_rule(SublimeRRule())
 
 #---------------------------------------------------------------------------
 
@@ -253,6 +253,6 @@ class SublimeTeXRule(MergeRule):
         "n": 1,
     }
 
-control.nexus().merger.add_non_ccr_app_rule(SublimeTeXRule())
+control.non_ccr_app_rule(SublimeTeXRule())
 
 #---------------------------------------------------------------------------

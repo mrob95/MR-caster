@@ -159,7 +159,7 @@ class VSCodeRule(MergeRule):
         "filetype": "",
     }
 
-control.nexus().merger.add_non_ccr_app_rule(VSCodeRule())
+control.non_ccr_app_rule(VSCodeRule())
 
 #---------------------------------------------------------------------------
 
@@ -197,6 +197,6 @@ class VSCodeCCRRule(MergeRule):
     ]
     defaults = {"n12": "", "n13": "", "n2": 1}
 
-control.nexus().merger.add_app_rule(VSCodeCCRRule())
+control.app_rule(VSCodeCCRRule())
 
 #---------------------------------------------------------------------------

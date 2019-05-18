@@ -137,4 +137,4 @@ class lyx_mathematics(MergeRule):
         "big": False,
     }
 
-control.nexus().merger.add_app_rule(lyx_mathematics())
+control.app_rule(lyx_mathematics())

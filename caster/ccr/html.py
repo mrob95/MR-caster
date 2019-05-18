@@ -29,4 +29,4 @@ class HTML(MergeRule):
     defaults = {}
 
 
-control.nexus().merger.add_global_rule(HTML())
+control.global_rule(HTML())

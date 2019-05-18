@@ -113,4 +113,4 @@ class LaTeX(MergeRule):
     }
 
 
-control.nexus().merger.add_global_rule(LaTeX())
+control.global_rule(LaTeX())

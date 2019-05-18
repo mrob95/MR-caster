@@ -253,4 +253,4 @@ class core(MergeRule):
     }
 
 
-control.nexus().merger.add_global_rule(core())
+control.global_rule(core())

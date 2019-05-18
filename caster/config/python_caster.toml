@@ -89,7 +89,7 @@ class className(MergeRule):
     defaults = {}
 
 
-control.nexus().merger.add_global_rule(className())
+control.global_rule(className())
 '''
 
 "CCR" = '''
@@ -120,7 +120,7 @@ class className(MergeRule):
     defaults = {}
 
 
-control.nexus().merger.add_global_rule(className())
+control.global_rule(className())
 '''
 
 "App" = '''
@@ -145,5 +145,5 @@ class AppNameRule(MergeRule):
 
     }
 
-control.nexus().merger.add_non_ccr_app_rule(AppNameRule())
+control.non_ccr_app_rule(AppNameRule())
 '''

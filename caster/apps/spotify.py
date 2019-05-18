@@ -34,4 +34,4 @@ class SpotifyRule(MergeRule):
 
     }
 
-control.nexus().merger.add_non_ccr_app_rule(SpotifyRule())
+control.non_ccr_app_rule(SpotifyRule())

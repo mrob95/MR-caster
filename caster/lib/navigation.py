@@ -142,13 +142,13 @@ def text_nav(modifier, direction, nnavi50, extreme):
             k = str(modifier) + "-" + k.replace("c-", "")
     Key(k).execute()
 
-def action_lines(action, n, nn, go_to_line="c-g", select_line_down="s-down", wait=""):
+def action_lines(action, ln1, ln2, go_to_line="c-g", select_line_down="s-down", wait=""):
     if nn:
-        num_lines = int(nn)-int(n)+1 if nn>n else int(n)-int(nn)+1
-        top_line = min(int(nn), int(n))
+        num_lines = max(int(ln2)-int(ln1)+1, int(ln1)-int(ln2)+1)
+        top_line = min(int(ln2), int(ln1))
     else:
         num_lines = 1
-        top_line = int(n)
+        top_line = int(ln1)
     command = Key(go_to_line) + Text(str(top_line)) + Key("enter%s, %s%s:%s, %s" % (wait, select_line_down, wait, str(num_lines), action))
     command.execute()
 

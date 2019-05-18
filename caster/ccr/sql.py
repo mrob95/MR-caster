@@ -46,4 +46,4 @@ class SQL(MergeRule):
     defaults = {}
 
 
-control.nexus().merger.add_app_rule(SQL())
+control.app_rule(SQL())

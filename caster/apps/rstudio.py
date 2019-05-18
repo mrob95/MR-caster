@@ -103,4 +103,4 @@ class RStudioRule(MergeRule):
         "nn": None,
     }
 
-control.nexus().merger.add_non_ccr_app_rule(RStudioRule())
+control.non_ccr_app_rule(RStudioRule())

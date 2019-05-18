@@ -76,4 +76,4 @@ class Rlang(MergeRule):
     defaults = {}
 
 
-control.nexus().merger.add_app_rule(Rlang())
+control.app_rule(Rlang())

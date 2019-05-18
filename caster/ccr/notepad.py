@@ -36,4 +36,4 @@ class Notepad(MergeRule):
         "splatdir": "cs-left",
     }
 
-control.nexus().merger.add_app_rule(Notepad())
+control.app_rule(Notepad())
