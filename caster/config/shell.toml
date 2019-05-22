@@ -37,6 +37,7 @@ template_prefix = "template"
 "R script"                  = ["Rscript .r", "left:2"]
 "she bang"                  = "#!/bin/sh"
 "Sumatra [PDF]"             = "SumatraPDF "
+"sed replace"               = ["sed -e \"s///g\"", "left:4"]
 "to file"                   = " > "
 
 

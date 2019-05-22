@@ -22,7 +22,7 @@ class SQLNon(MergeRule):
 class SQL(MergeRule):
     non = SQLNon
     mwith = "Core"
-    mcontext = TitleContext(*BINDINGS["title_contexts"])
+    mcontext = AppContext(title=BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {

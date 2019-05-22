@@ -7,7 +7,7 @@ from caster.lib import control
 
 class RuleNameRule(MergeRule):
 	pronunciation = "apppronunciation"
-	mcontext = TitleContext("apppronunciation")
+	mcontext = AppContext(title="apppronunciation")
 
 	mapping = {
 		"open file"     : Key("c-o"),

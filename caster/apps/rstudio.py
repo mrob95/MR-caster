@@ -35,7 +35,7 @@ class RStudioRule(MergeRule):
         "find that"                        :  Key("c-f3"),
         "align that"                       :  Key("c-i"),
 
-        "[go to] line <n>"                 :  Key("as-g/10") + Text("%(n)s") + Key("enter"),
+        "[go to] line <ln1>"               :  Key("as-g/10") + Text("%(ln1)s") + Key("enter"),
 
         "focus <screen_element>"           :  Key("%(screen_element)s"),
 
@@ -53,9 +53,9 @@ class RStudioRule(MergeRule):
         "next plot"                        :  Key("ac-f12"),
         "previous plot"                    :  Key("ac-f11"),
 
-        "create function": Key("ca-x"),
-        "create variable": Key("ca-v"),
-        "rename that": Key("cas-m"),
+        "create function"                  : Key("ca-x"),
+        "create variable"                  : Key("ca-v"),
+        "rename that"                      : Key("cas-m"),
 
 
         "help that":
@@ -69,13 +69,13 @@ class RStudioRule(MergeRule):
         "vee table that":
             Store() + Key("c-2") + Text("library(vtable)") + Key("enter/50") + Retrieve() + Text(" %>% vtable()", static=True) + Key("enter/50, c-1"),
 
-        "<action> [line] <n> [by <nn>]"  :
+        "<action> [line] <ln1> [by <ln2>]"  :
             Function(navigation.action_lines, go_to_line="as-g/10", select_line_down="s-down", wait="/3"),
 
     }
     extras = [
-        ShortIntegerRef("n",  1, 1000),
-        ShortIntegerRef("nn", 1, 1000),
+        ShortIntegerRef("ln1",  1, 1000),
+        ShortIntegerRef("ln2", 1, 1000),
         Choice("function", BINDINGS["r_functions"]),
         Choice("screen_element", {
             "(main | editor)": "c-1",
@@ -100,7 +100,7 @@ class RStudioRule(MergeRule):
             }),
     ]
     defaults = {
-        "nn": None,
+        "ln2": None,
     }
 
 control.non_ccr_app_rule(RStudioRule())

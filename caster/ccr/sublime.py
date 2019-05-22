@@ -44,8 +44,6 @@ class SublimeRule(MergeRule):
         "match bracket"                  : Key("c-m"),
         #
         # "(select | sell) all"          : Key("c-a"),
-        "(select | sell) brackets [<n2>]": Key("cs-m")*Repeat(extra="n2"),
-        "(select | sell) indent"         : Key("cs-j"),
         # {"keys"                        : ["ctrl+alt+p"], "command": "expand_selection_to_paragraph"},
         "(select | sell) paragraph"      : Key("ca-p"),
         # SelectUntil
@@ -84,6 +82,11 @@ class SublimeRule(MergeRule):
         "next bookmark"                  : Key("f2"),
         "previous bookmark"              : Key("s-f2"),
         "clear bookmarks"                : Key("cs-f2"),
+        #
+        "transform upper": Key("c-k, c-u"),
+        "transform lower": Key("c-k, c-l"),
+        # {"keys"        : ["ctrl+k", "ctrl+t"], "command": "title_case"},
+        "transform title": Key("c-k, c-t"),
         #
         "build it"                       : Key("c-b"),
         "build with"                     : Key("cs-b"),
@@ -155,7 +158,7 @@ class SublimeRule(MergeRule):
     ]
     defaults = {
         "dict": "",
-        "nn": None,
+        "ln2": None,
         "n2": 1,
         "n3": 1,
         "filetype": "",
@@ -176,12 +179,9 @@ class SublimeCCRRule(MergeRule):
         "go to file"     : Key("c-p"),
         "comment line"   : Key("c-slash"),
 
-        "transform upper": Key("c-k, c-u"),
-        "transform lower": Key("c-k, c-l"),
-        # {"keys"        : ["ctrl+k", "ctrl+t"], "command": "title_case"},
-        "transform title": Key("c-k, c-t"),
-
-        "<action> scope [<n2>]"   : Key("cs-space")*Repeat(extra="n2") + Key("%(action)s"),
+        "<action> scope [<n2>]": Key("cs-space:%(n2)s, %(action)s"),
+        "<action> brackets [<n2>]": Key("cs-m:%(n2)s, %(action)s"),
+        "<action> (indent | indentation)": Key("cs-j, %(action)s"),
 
         "indent [<n2>]": Key("c-rbracket:%(n2)s"),
 
@@ -239,7 +239,7 @@ control.app_rule(SublimeRRule())
 #---------------------------------------------------------------------------
 
 class SublimeTeXRule(MergeRule):
-    mcontext = TitleContext(".tex", ".md") & AppContext(title="Sublime Text")
+    mcontext = AppContext(title=[".tex", ".md"]) & AppContext(title="Sublime Text")
     mapping = {
         "go [to] (word | name) <dict>":
             Key("c-r") + Text("%(dict)s") + Key("enter"),

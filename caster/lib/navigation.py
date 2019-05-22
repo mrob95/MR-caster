@@ -143,7 +143,7 @@ def text_nav(modifier, direction, nnavi50, extreme):
     Key(k).execute()
 
 def action_lines(action, ln1, ln2, go_to_line="c-g", select_line_down="s-down", wait=""):
-    if nn:
+    if ln2:
         num_lines = max(int(ln2)-int(ln1)+1, int(ln1)-int(ln2)+1)
         top_line = min(int(ln2), int(ln1))
     else:

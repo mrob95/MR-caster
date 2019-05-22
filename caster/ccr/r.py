@@ -40,7 +40,7 @@ class Rlang(MergeRule):
     non           = RlangNon
     pronunciation = BINDINGS["pronunciation"]
     mwith         = "Core"
-    mcontext      = TitleContext(*BINDINGS["title_contexts"])
+    mcontext      = AppContext(title=BINDINGS["title_contexts"])
 
     mapping = {
         "<command>":

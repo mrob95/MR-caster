@@ -159,7 +159,7 @@ class core(MergeRule):
             Key("%(tabdir)s" + "tab")*Repeat(extra="nnavi10"),
         "splat [<splatdir>] [(<nnavi10> | <extreme>)]":
             ContextAction(Function(navigation.splat),
-                [(TitleContext("notepad"),
+                [(AppContext("notepad"),
                     Function(navigation.splat, manual=True))]),
 
     	"<misc_core_keys>": Key("%(misc_core_keys)s"),
@@ -171,19 +171,19 @@ class core(MergeRule):
 
         "stoosh [<nnavi500>]":
             ContextAction(Function(navigation.stoosh, nexus=_NEXUS),
-                [(ExeContext("\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"),
+                [(AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]),
                     Function(navigation.stoosh, nexus=_NEXUS, key="c-insert"))]),
         "cutter [<nnavi500>]":
             Function(navigation.stoosh, nexus=_NEXUS, key="c-x"),
         "duple [<nnavi50>]":
             ContextAction(Function(navigation.duple),
-                [(TitleContext("Sublime Text"), Key("cs-d:%(nnavi50)s")),
-                (ExeContext("\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"), Key(""))]),
+                [(AppContext(title="Sublime Text"), Key("cs-d:%(nnavi50)s")),
+                (AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]), Key(""))]),
 
 
         "spark [<nnavi500>] [(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel)]":
             ContextAction(Function(navigation.drop, nexus=_NEXUS),
-                [(ExeContext("\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"),
+                [(AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]),
                     Function(navigation.drop, nexus=_NEXUS, key="s-insert"))]),
 
         "(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel) <text>":
@@ -195,7 +195,7 @@ class core(MergeRule):
 
         "check [<n>]":
             ContextAction(Key("c-enter:%(n)s"),
-                [(TitleContext("notepad", "scientific notebook"),
+                [(AppContext(title=["notepad", "scientific notebook"]),
                     Key("end, enter:%(n)s"))]),
 
         # "number test <ntest>": Text("%(ntest)s"),we would

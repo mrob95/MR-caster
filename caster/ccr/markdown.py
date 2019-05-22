@@ -24,7 +24,7 @@ class MarkdownNon(MergeRule):
 class Markdown(MergeRule):
     non = MarkdownNon
     mwith = "Core"
-    mcontext = TitleContext(*BINDINGS["title_contexts"])
+    mcontext = AppContext(title=BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
     mapping = {
         "heading [<num>] [<dict>]":

@@ -22,7 +22,7 @@ class ShellNon(MergeRule):
 class Shell(MergeRule):
     non = ShellNon
     mwith = "Core"
-    mcontext = TitleContext(*BINDINGS["title_contexts"])
+    mcontext = AppContext(title=BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {

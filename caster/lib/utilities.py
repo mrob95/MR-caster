@@ -131,6 +131,7 @@ def browser_open(url):
 def browser_search(text=None, url="https://www.google.com/search?q=%s"):
     if not text:
         _, selection = read_selected(True)
+        selection = ''.join(i for i in selection if ord(i)<128)
     else:
         selection = str(text)
     url = url % selection.replace(" ", "+").replace("\n", "")

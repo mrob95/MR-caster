@@ -22,7 +22,7 @@ class classNameNon(MergeRule):
 class className(MergeRule):
     non = classNameNon
     mwith = "Core"
-    mcontext = TitleContext(*BINDINGS["title_contexts"])
+    mcontext = AppContext(title=BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {

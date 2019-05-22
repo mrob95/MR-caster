@@ -98,7 +98,7 @@ PythonNon.extras.append(Choice("lib", libs))
 class Python(MergeRule):
     non = PythonNon
     mwith = "Core"
-    mcontext = TitleContext(*BINDINGS["title_contexts"])
+    mcontext = AppContext(title=BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
 
     mapping = {

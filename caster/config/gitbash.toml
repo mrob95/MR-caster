@@ -12,8 +12,7 @@
 "dot PNG"        = ".png"
 "dot pie"        = ".py"
 "dot tex"        = ".tex"
-"list"           = ["ls", "enter"]
-"LS"             = "ls "
+"(LS | list)"    = "ls "
 "line count"     = "wc -l "
 "make directory" = "mkdir "
 "move file"      = "mv  "
@@ -21,11 +20,12 @@
 "pipe"           = " | "
 "Sumatra [PDF]"  = "SumatraPDF "
 "to file"        = " > "
+"sed replace"    = ["sed -e \"s///g\"", "left:4"]
 
 [latex_commands]
 "PDF LaTeX"              = "pdflatex "
 "bib TeX"                = "bibtex "
-"pan doc"                = ["pandoc \"\" -o \"", "left:7"]
+"pan doc"                = ["pandoc \"\" -o \"", "left:6"]
 "pan doc beamer"         = ["pandoc  -t beamer -o ", "left:14"]
 
 [python_commands]
