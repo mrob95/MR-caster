@@ -18,17 +18,11 @@ class LaTeXNon(MergeRule):
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="latex.toml"),
 
-        "add <ref_type> to bibliography":
-            Function(tex_funcs.selection_to_bib, bib_path=BINDINGS["bibliography_path"]),
-
         "(open | edit) bibliography":
             Function(utilities.load_text_file, path=BINDINGS["bibliography_path"]),
 
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
-
-        "show word count":
-            Function(tex_funcs.word_count_from_string),
 
         "[<sub>] section <dict>":
             Function(tex_funcs.section),
@@ -41,11 +35,6 @@ class LaTeXNon(MergeRule):
             "sub": "sub",
             "sub sub": "subsub",
             }),
-        Choice("ref_type", {
-                "book": "book",
-                "link": "link",
-                "paper": "paper",
-                }),
         Choice("template", BINDINGS["templates"]),
     ]
     defaults = {

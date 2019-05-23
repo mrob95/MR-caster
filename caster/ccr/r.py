@@ -51,7 +51,7 @@ class Rlang(MergeRule):
             Function(lambda function: rfunc(function)),
         #
         BINDINGS["graph_prefix"] + " <ggfun>":
-            Text("%(ggfun)s()") + Key("left"),
+            Function(lambda ggfun: rfunc(ggfun)),
 
         BINDINGS["model_prefix"] + " <modelargs>":
             Text("%(modelargs)s"),

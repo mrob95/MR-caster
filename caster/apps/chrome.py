@@ -10,6 +10,7 @@ class ChromeRule(MergeRule):
     mcontext = AppContext(executable="chrome")
 
     mapping = { # most keybinds are taken from https://support.google.com/chrome/answer/157179?hl=en
+
         "[new] incognito window"  : Key("cs-n"),
         "new tab [<n>]"           : Key("c-t:%(n)s"),
         "reopen tab [<n>]"        : Key("cs-t:%(n)s"),

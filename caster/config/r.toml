@@ -135,6 +135,7 @@ library_prefix    = "library"
 "stargazer"   = "stargazer"
 "tidy verse"  = "tidyverse"
 "vee table"   = "vtable"
+"viridis"     = "viridis"
 
 [r_graph]
 "aesthetics"                   = "aes"
@@ -159,6 +160,7 @@ library_prefix    = "library"
 "smooth [plot]"                = "geom_smooth"
 "theme"                        = "theme"
 "theme minimal"                = "theme_minimal"
+"viridis"                      = ["scale_color_viridis", "discrete=TRUE", "0"]
 "why limit"                    = "ylim"
 
 [r_args]
@@ -210,7 +212,7 @@ library_prefix    = "library"
 "[R] markdown reference"        = "rmarkdown-reference"
 "[R] markdown"                  = "rmarkdown-2.0"
 "base R"                        = "base-r"
-"advanced R"                        = "advancedR"
+"advanced R"                    = "advancedR"
 "cartography"                   = "cartography"
 "data table"                    = "datatable"
 "keras"                         = "keras"
@@ -219,6 +221,7 @@ library_prefix    = "library"
 "shiny"                         = "shiny"
 "spark"                         = "sparklyr"
 "tidy evaluation"               = "tidyeval"
+"viridis"                       = "viridis"
 
 
 

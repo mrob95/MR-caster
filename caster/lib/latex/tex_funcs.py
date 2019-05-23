@@ -88,8 +88,7 @@ def word_count_from_string():
     sentence_list = word_counter.extract_sentences(raw_line_list)
     words_list = word_counter.extract_words(sentence_list)
     utilities.toast_notify("Word count:", str(len(words_list)))
-    print(words_list)
-    print(len(words_list))
+
 
 def math_mode(enable=True):
     BINDINGS = utilities.load_toml_relative("config/latex.toml")

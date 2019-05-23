@@ -105,24 +105,28 @@ def build_citation(data):
     first_name = data["authors"][0].lower().split(" ")[-1]
     first_title = data["title"].lower().replace("the ", "").split(" ")[0]
 
-    citation1 = "@book{"
-    citation2 = ",\n " + "title={" + data["title"] + "},\n author={" + data["authors_string"] + "},\n year={"
-    citation3 = "},\n publisher={" + data["publisher"] + "}"
-    citation4 = "\n}\n"
-
     # If the year first published is not the same as the year the returned edition was published,
     # format the year as first published/edition published
+    note = ""
     if data["first_published"] == "":
         tag = first_name + data["pub_year"] + first_title
-        year_formatted = data["pub_year"]
+        year = data["pub_year"]
     elif data["pub_year"] == "":
         tag = first_name + data["first_published"] + first_title
-        year_formatted = data["first_published"]
+        year = data["first_published"]
     else:
         tag = first_name + data["first_published"] + first_title
-        citation4 = ",\n note={" + data["pub_year"] + "}\n}\n"
-        year_formatted = data["first_published"]
-    ref = citation1 + tag + citation2 + year_formatted + citation3 + citation4
+        note = ",\n  note={%s}" % data["pub_year"]
+        year = data["first_published"]
+
+    ref = u"""@book{%s,
+  title = {%s},
+  author = {%s},
+  year = {%s},
+  publisher = {%s}%s
+  }
+""" % (tag, data["title"], data["authors_string"], year, data["publisher"], note)
+
     return ref
 
 '''

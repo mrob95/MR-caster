@@ -144,3 +144,8 @@ def terminal(dir):
 
 def mathfly_switch():
     Popen("C:/Users/Mike/Documents/NatLink/mathfly/SwitchHere.bat")
+
+def word_count():
+    _, selection = read_selected(True)
+    words_list = selection.replace("\n", " ").split(" ")
+    toast_notify("Word count", str(len(words_list)))

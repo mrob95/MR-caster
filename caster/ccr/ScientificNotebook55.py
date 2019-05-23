@@ -98,10 +98,14 @@ class sn_mathematicsNon(MergeRule):
             Key("c-t") + Function(lambda dict: Text(str(dict).capitalize()).execute()),
         "<control>":
             Key("%(control)s"),
+
+        "[move] line <direction> <n>":
+            Key("home, s-end, c-x, backspace, %(direction)s:%(n)s, end, enter, c-v")
     }
     extras = [
         Dictation("dict"),
         IntegerRef("n", 1, 10),
+        Choice("direction", {"up":"up", "down": "down"}),
         Choice("control", BINDINGS["control"]),
     ]
 

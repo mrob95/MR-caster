@@ -7,8 +7,9 @@ from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRu
 from dragonfly.actions.action_mouse import get_cursor_position
 
 from caster.lib.actions import Key, Text, Mouse
-from caster.lib.context import AppContext, ExeContext, TitleContext
+from caster.lib.context import AppContext
 from caster.lib import control, utilities, navigation, textformat, execution
+from caster.lib.latex import tex_funcs
 from caster.lib.merge.mergerule import MergeRule
 
 from dragonfly.language.en.characters import element_series_wrap_class
@@ -18,6 +19,7 @@ _NEXUS = control.nexus()
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
 CORE     = utilities.load_toml_relative("config/core.toml")
 PERSONAL = utilities.load_toml_relative("config/personal.toml")
+LATEX    = utilities.load_toml_relative("config/latex.toml")
 
 _LETTERS, _DIRECTIONS = "letters", "directions"
 if SETTINGS["alternative_letters"]:
@@ -32,7 +34,6 @@ def alphabet(big, letter):
 
 class coreNon(MappingRule):
     mapping = {
-
         "copy mouse position":
             Function(lambda: Clipboard.set_system_text("[%d, %d]" % get_cursor_position())),
 
@@ -119,6 +120,12 @@ class coreNon(MappingRule):
 
         "switch to math fly": Function(utilities.mathfly_switch),
 
+        "get word count": ContextAction(Function(utilities.word_count),
+            [(AppContext(".tex"), Function(tex_funcs.word_count_from_string))]),
+
+        "add <ref_type> to bibliography":
+            Function(tex_funcs.selection_to_bib, bib_path=LATEX["bibliography_path"]),
+
         }
     extras = [
         Dictation("dict"),
@@ -132,6 +139,11 @@ class coreNon(MappingRule):
             "wikipedia": "https://en.wikipedia.org/w/index.php?search=%s",
             "google": "https://www.google.com/search?q=%s",
             }),
+        Choice("ref_type", {
+                "book": "book",
+                "link": "link",
+                "paper": "paper",
+                }),
     ]
     defaults = {
         "n": 1,
