@@ -38,6 +38,7 @@ app_modules = [
 			"oxmetrics",
 			"spotify",
 			"powershell",
+			"emacs",
 			# "accessibility"
 			]
 max_ccr_repetitions = 13

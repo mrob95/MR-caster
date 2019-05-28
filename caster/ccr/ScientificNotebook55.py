@@ -12,17 +12,10 @@ from caster.lib.integers import IntegerRefMF
 from caster.lib.merge.mergerule import MergeRule
 from caster.lib.merge.nestedrule import NestedRule
 
-BINDINGS = utilities.load_toml_relative("config/scientific_notebook.toml")
+BINDINGS = utilities.load_toml_relative("config/ScientificNotebook55.toml")
 CORE = utilities.load_toml_relative("config/core.toml")
 
 #---------------------------------------------------------------------------
-
-# def texchar(symbol):
-#     keychain = "ctrl:down, "
-#     for character in symbol:
-#         keychain = keychain + character + ", "
-#     keychain=keychain + "ctrl:up"
-#     Key(keychain).execute()
 
 def TeX(symbol):
     return Key("ctrl:down") + Text(symbol) + Key("ctrl:up")

@@ -3,7 +3,7 @@
 "pronunciation" = "Scientific notebook"
 "greek_prefix" = "greek"
 "symbol_prefix" = ""
-"accent_prefix" = "accent"
+"accent_prefix" = "(accent | top)"
 "unit_prefix" = "unit"
 "max_matrix_size" = 10
 
@@ -42,10 +42,11 @@
 "squared"                         = "c-h, 2, right"
 "cubed"                           = "c-h, 3, right"
 "inverse"                         = "c-h, minus, 1, right"
+"inverse half"                    = "c-h, minus, c-f, 1, down, 2, right:2"
 "(parens | parentheses | prens)"  = "c-0"
 "(squares | square brackets)"     = "c-6"
 "absolute"                        = "c-backslash"
-"norm"                            = "cs-backslash"
+"norma"                           = "cs-backslash"
 "chi squared"                     = "c-g, q, c-h, 2, right"
 "(radical | square root)"         = "c-r"
 "summation"                       = "c-7"
@@ -66,6 +67,7 @@
 "add matrix row"                  = "f10, e, up:2, enter/10, enter"
 "add matrix column"               = "f10, e, up, enter/10, enter"
 "unit degrees" = "u, d, e, g"
+"beater hat" = "c-g, b, c-caret"
 
 
 [tex_symbols]

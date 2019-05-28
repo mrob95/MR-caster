@@ -13,17 +13,14 @@ BASE_PATH = os.path.abspath(__file__).replace("\\", "/").rsplit("/lib/")[0]
 if BASE_PATH not in sys.path:
     sys.path.append(BASE_PATH)
 
-
 def diary():
     now = datetime.datetime.now()
     datestr = "%s-%s-%s" % (now.year, now.month, now.day)
     path = "C:/Users/Mike/Documents/notes/%s.md" % datestr
-    if os.path.isfile(path):
-        Popen(["notepad", path])
-    else:
+    if not os.path.isfile(path):
         with open(path, "w+") as f:
             f.write(title = "# %s - Notes - Mike Roberts\n" % datestr)
-        Popen(["notepad", path])
+    Popen(["notepad", path])
 
 
 def toast_notify(title="title", message="message"):

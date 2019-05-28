@@ -20,7 +20,8 @@ class WERule(MergeRule):
         "go up [<n>]"                        : Key("a-up:%(n)s"),
         "go back [<n>]"                      : Key("a-left:%(n)s"),
         "go forward [<n>]"                   : Key("a-right:%(n)s"),
-        "terminal here"                      : Key("f6:5, s-f10, g, down, enter"),
+        # "terminal here"                      : Key("f6:5, s-f10, g, down, enter"),
+        "terminal here"                      : Key("a-d/20") + Store() + Key("escape/20") + Function(lambda: utilities.terminal(Retrieve.text())),
         "go <path>"                          : Key("a-d/20") + Text("%(path)s") + Key("enter"),
         "sublime here"                       :
             Key("a-d:50") + Store() + Key("escape:50") + Function(lambda: Popen(["subl", Retrieve.text() + "/"])),

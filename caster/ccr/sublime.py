@@ -172,20 +172,20 @@ class SublimeCCRRule(MergeRule):
     mwith = ["Core"]
     mcontext = AppContext(title="Sublime Text")
     mapping = {
-        "line <n>"       : Key("c-g") + Text("%(n)s") + Key("enter"),
-        # "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter, end"),
+        "line <n>"                       : Key("c-g") + Text("%(n)s") + Key("enter"),
+        # "line <n11> [<n12>] [<n13>]"   : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter, end"),
 
-        "align that"     : Key("ca-a"),
-        "go to file"     : Key("c-p"),
-        "comment line"   : Key("c-slash"),
+        "align that"                     : Key("ca-a"),
+        "go to file"                     : Key("c-p"),
+        "comment line"                   : Key("c-slash"),
 
-        "<action> scope [<n2>]": Key("cs-space:%(n2)s, %(action)s"),
-        "<action> brackets [<n2>]": Key("cs-m:%(n2)s, %(action)s"),
+        "<action> scope [<n2>]"          : Key("cs-space:%(n2)s, %(action)s"),
+        "<action> brackets [<n2>]"       : Key("cs-m:%(n2)s, %(action)s"),
         "<action> (indent | indentation)": Key("cs-j, %(action)s"),
 
-        "indent [<n2>]": Key("c-rbracket:%(n2)s"),
+        "indent [<n2>]"                  : Key("c-rbracket:%(n2)s"),
 
-        "auto complete": Key("c-space"),
+        "auto complete"                  : Key("c-space"),
 
     }
     extras = [

@@ -5,45 +5,34 @@ from caster.lib.context import AppContext
 from caster.lib import control
 from caster.lib.merge.mergerule import MergeRule
 
-
-
 class EmacsRule(MergeRule):
     pronunciation = "E max"
+    mcontext = AppContext(executable="emacs", title="emacs")
 
     mapping = {
         "open file":              Key("c-x, c-f"),
+        "go to file":              Key("a-m, f, f"),
+        "go to project":              Key("a-m, p, f"),
+        "cancel":              Key("c-g"),
         "save file":              Key("c-x, c-s"),
         "save as":                Key("c-x, c-w"),
         "save all":               Key("c-x, s"),
         "revert to file":         Key("c-x, c-v"),
         "revert buffer":          Key("a-x"),
         "close buffer":           Key("c-x, c-c"),
-        "undo":                   Key("c-underscore"),
         "begin selection":        Key("c-space"),
         "cancel selection":       Key("c-g"),
         "cut selection":          Key("c-w"),
         "paste":                  Key("c-y"),
         "copy number <n>":        Key("c-x, r, s, %(n)d"),
         "paste number <n>":       Key("c-x, r, i, %(n)d"),
-        "forward delete":         Key("c-delete"),
-        "delete word":            Key("a-delete"),
-        "forward delete word":    Key("a-d"),
-        "word forward":           Key("a-f"),
-        "word backward":          Key("a-b"),
-        "line forward":           Key("c-a"),
-        "line backward":          Key("c-e"),
-        "paragraph forward":      Key("a-lbrace"),
-        "paragraph backward":     Key("a-rbrace"),
-        "document forward":       Key("a-langle"),
-        "document backward":      Key("a-rangle"),
-        "C function forward":     Key("ac-a"),
-        "C function backward":    Key("ac-e"),
-        "incremental search":     Key("c-s"),
-        "incremental reverse":    Key("c-r"),
-        "interactive search":     Key("a-percent"),
-        "go to line <n>":         Key("a-x, %(n)d"),
-        "prior bracket":          Key("escape:down, c-b, escape:up"),
-        "next bracket":           Key("escape:down, c-f, escape:up"),
+        "line <n>":         Key("a-g, g") + Text("%(n)s") + Key("enter"),
+
+        "menu": Key("a-m"),
+        "show help": Key("c-h"),
+        "shell command": Key("a-m, exclamation"),
+        "toggle sidebar": Key("a-m, f, t"),
+        "toggle line numbers": Key("a-m, t, n"),
     }
     extras = [
         Dictation("text"),
@@ -52,12 +41,6 @@ class EmacsRule(MergeRule):
     ]
     defaults = {"n": 1, "mim": ""}
 
+control.non_ccr_app_rule(EmacsRule())
 
 #---------------------------------------------------------------------------
-
-context = AppContext(executable="emacs", title="emacs")
-grammar = Grammar("emacs", context=context)
-
-rule = EmacsRule(name="emacs")
-grammar.add_rule(rule)
-grammar.load()

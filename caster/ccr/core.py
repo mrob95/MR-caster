@@ -32,30 +32,49 @@ def alphabet(big, letter):
 		letter = letter.upper()
 	Key(letter).execute()
 
-class coreNon(MappingRule):
+class CoreNon(MappingRule):
     mapping = {
+        "configure " + CORE["pronunciation"]:
+            Function(utilities.load_config, config_name="core.toml"),
+
+        #---------------------------------------------------------------------------
+
         "copy mouse position":
             Function(lambda: Clipboard.set_system_text("[%d, %d]" % get_cursor_position())),
+        "squat"              : Mouse("left:down"),
+        "bench"              : Mouse("left:up"),
+        "kick"               : Playback([(["mouse", "click"], 0.0)]),
+        "shift right click"  : Key("shift:down") + Mouse("right") + Key("shift:up"),
+        "colic"              : Key("control:down") + Mouse("left") + Key("control:up"),
+        "millick"            : Mouse("middle"),
 
-        "super hold"        : Key("win:down"),
-        "super release"     : Key("win:up"),
-        "shift hold"        : Key("shift:down"),
-        "shift release"     : Key("shift:up"),
-        "control hold"      : Key("ctrl:down"),
-        "control release"   : Key("ctrl:up"),
-        "(meta|alt) hold"   : Key("alt:down"),
-        "(meta|alt) release": Key("alt:up"),
-        "all release"       : Key("win:up, shift:up, ctrl:up, alt:up"),
-        "release all"       : Key("win:up, shift:up, ctrl:up, alt:up"),
+        #---------------------------------------------------------------------------
 
-        "volume up [<n>]"            : Key("volumeup/5:%(n)d"),
-        "volume down [<n>]"          : Key("volumedown/5:%(n)d"),
-        "volume (mute|unmute)"       : Key("volumemute"),
-        "music next"                 : Key("tracknext"),
-        "music previous"             : Key("trackprev"),
-        "music (pause|play)"         : Key("playpause"),
+        "super hold"          : Key("win:down"),
+        "super release"       : Key("win:up"),
+        "shift hold"          : Key("shift:down"),
+        "shift release"       : Key("shift:up"),
+        "control hold"        : Key("ctrl:down"),
+        "control release"     : Key("ctrl:up"),
+        "(meta|alt) hold"     : Key("alt:down"),
+        "(meta|alt) release"  : Key("alt:up"),
+        "all release"         : Key("win:up, shift:up, ctrl:up, alt:up"),
+        "release all"         : Key("win:up, shift:up, ctrl:up, alt:up"),
+        "context menu"        : Key("s-f10"),
 
-        "context menu"               : Key("s-f10"),
+        "volume up [<n>]"     : Key("volumeup/5:%(n)d"),
+        "volume down [<n>]"   : Key("volumedown/5:%(n)d"),
+        "volume (mute|unmute)": Key("volumemute"),
+        "music next"          : Key("tracknext"),
+        "music previous"      : Key("trackprev"),
+        "music (pause|play)"  : Key("playpause"),
+
+        #---------------------------------------------------------------------------
+
+        "window <direction> [<direction2>]":
+            Key("win:down, %(direction)s/15, %(direction2)s, win:up"),
+        'minimize': Playback([(["minimize", "window"], 0.0)]),
+        'maximize': Playback([(["maximize", "window"], 0.0)]),
 
         "show work [spaces]"         : Key("w-tab"),
         "(create | new) work [space]": Key("wc-d"),
@@ -76,49 +95,12 @@ class coreNon(MappingRule):
         "close all work [spaces]":
             Function(navigation.close_all_workspaces),
 
-        "take screenshot": Key("ws-s"),
-
-        "squat": Mouse("left:down"),
-        "bench": Mouse("left:up"),
-        "kick": Playback([(["mouse", "click"], 0.0)]),
-        "shift right click":
-            Key("shift:down") + Mouse("right") + Key("shift:up"),
-        "colic":
-            Key("control:down") + Mouse("left") + Key("control:up"),
-        "millick": Mouse("middle"),
-        "window <direction> [<direction2>]":
-            Key("win:down, %(direction)s/15, %(direction2)s, win:up"),
-        'minimize':
-            Playback([(["minimize", "window"], 0.0)]),
-        'maximize':
-            Playback([(["maximize", "window"], 0.0)]),
-        "configure " + CORE["pronunciation"]:
-            Function(utilities.load_config, config_name="core.toml"),
-
-        "undo [<n>]": Key("c-z")*Repeat(extra="n"),
-        "redo [<n>]": Key("c-y")*Repeat(extra="n"),
-
-        "close all notepads": Function(utilities.kill_notepad),
-
-        "paste as text":
-            Function(lambda: Text(Clipboard.get_system_text()).execute()),
-
-        "paste as administrator": Function(execution.paste_as_admin),
+        #---------------------------------------------------------------------------
 
         "<search> that":
             Function(lambda search: utilities.browser_search(url=search)),
         "<search> <dict>":
             Function(lambda search, dict: utilities.browser_search(dict, url=search)),
-
-        "open terminal":
-            Function(lambda: utilities.terminal("C:/Users/Mike/Documents")),
-
-        "open diary":
-            Function(utilities.diary),
-
-        "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
-
-        "switch to math fly": Function(utilities.mathfly_switch),
 
         "get word count": ContextAction(Function(utilities.word_count),
             [(AppContext(".tex"), Function(tex_funcs.word_count_from_string))]),
@@ -126,6 +108,27 @@ class coreNon(MappingRule):
         "add <ref_type> to bibliography":
             Function(tex_funcs.selection_to_bib, bib_path=LATEX["bibliography_path"]),
 
+        "open diary": Function(utilities.diary),
+        "close all notepads": Function(utilities.kill_notepad),
+        "paste as text":
+            Function(lambda: Text(Clipboard.get_system_text()).execute()),
+
+        "paste as administrator": Function(execution.paste_as_admin),
+
+        "open terminal":
+            Function(lambda: utilities.terminal("C:/Users/Mike/Documents")),
+
+        "switch to math fly": Function(utilities.mathfly_switch),
+
+        #---------------------------------------------------------------------------
+
+        "take screenshot": Key("ws-s"),
+
+        "undo [<n>]": ContextAction(Key("c-z:%(n)s"),
+            [(AppContext(title="emacs"), Key("c-slash")*Repeat(extra="n"))]),
+        "redo [<n>]": Key("c-y:%(n)s"),
+
+        "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
         }
     extras = [
         Dictation("dict"),
@@ -134,14 +137,15 @@ class coreNon(MappingRule):
         Choice("direction2",           CORE[_DIRECTIONS]),
         Choice("misc_core_keys_noCCR", CORE["misc_core_keys_noCCR"]),
         Choice("search", {
-            "amazon": "https://smile.amazon.co.uk/s?k=%s",
-            "kindle": "https://smile.amazon.co.uk/s?k=%s&rh=n%%3A341689031",
+            "amazon"   : "https://smile.amazon.co.uk/s?k=%s",
+            "kindle"   : "https://smile.amazon.co.uk/s?k=%s&rh=n%%3A341689031",
             "wikipedia": "https://en.wikipedia.org/w/index.php?search=%s",
-            "google": "https://www.google.com/search?q=%s",
+            "google"   : "https://www.google.com/search?q=%s",
+            "youtube"  : "https://www.youtube.com/results?search_query=%s",
             }),
         Choice("ref_type", {
-                "book": "book",
-                "link": "link",
+                "book" : "book",
+                "link" : "link",
                 "paper": "paper",
                 }),
     ]
@@ -150,17 +154,19 @@ class coreNon(MappingRule):
         "direction2": "",
     }
 
-class core(MergeRule):
-    non = coreNon
+class Core(MergeRule):
+    non = CoreNon
     pronunciation = CORE["pronunciation"]
 
     mapping = {
     	"[<big>] <letter>": Function(alphabet),
-    	# CORE["numbers_prefix"] + " <numbers>": Text("%(numbers)s"),
+
         CORE["numbers_prefix"] + " <wnKK> [<wnKK2>] [<wnKK3>] [<wnKK4>] [<wnKK5>]":
             Text("%(wnKK)s" + "%(wnKK2)s" + "%(wnKK3)s" + "%(wnKK4)s" + "%(wnKK5)s"),
 
     	"<punctuation>": Key("%(punctuation)s"),
+
+        #---------------------------------------------------------------------------
 
         "(<direction> | <modifier> [<direction>]) [(<nnavi50> | <extreme>)]":
             Function(navigation.text_nav),
@@ -173,13 +179,23 @@ class core(MergeRule):
             ContextAction(Function(navigation.splat),
                 [(AppContext("notepad"),
                     Function(navigation.splat, manual=True))]),
+        "check [<n>]":
+            ContextAction(Key("c-enter:%(n)s"),
+                [(AppContext(title=["notepad", "scientific notebook"]), Key("end, enter:%(n)s")),
+                (AppContext(title="emacs"), Key("a-m, i, j, down")*Repeat(extra="n"))]),
 
     	"<misc_core_keys>": Key("%(misc_core_keys)s"),
+        "(shift click | shifty)": Key("shift:down") + Mouse("left") + Key("shift:up"),
+
+        #---------------------------------------------------------------------------
 
         CORE["dictation_prefix"] + " <text> [brunt]":
             Function(textformat.master_format_text, capitalization=0, spacing=0),
 
-        "(shift click | shifty)": Key("shift:down") + Mouse("left") + Key("shift:up"),
+        "(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel) <text>":
+            Function(textformat.master_format_text),
+
+        #---------------------------------------------------------------------------
 
         "stoosh [<nnavi500>]":
             ContextAction(Function(navigation.stoosh, nexus=_NEXUS),
@@ -192,26 +208,17 @@ class core(MergeRule):
                 [(AppContext(title="Sublime Text"), Key("cs-d:%(nnavi50)s")),
                 (AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]), Key(""))]),
 
-
         "spark [<nnavi500>] [(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel)]":
             ContextAction(Function(navigation.drop, nexus=_NEXUS),
                 [(AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]),
                     Function(navigation.drop, nexus=_NEXUS, key="s-insert"))]),
 
-        "(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel) <text>":
-            Function(textformat.master_format_text),
         "hug <enclosure>":
             Function(navigation.enclose_selected),
 
+        #---------------------------------------------------------------------------
+
         "<personal>": Text("%(personal)s"),
-
-        "check [<n>]":
-            ContextAction(Key("c-enter:%(n)s"),
-                [(AppContext(title=["notepad", "scientific notebook"]),
-                    Key("end, enter:%(n)s"))]),
-
-        # "number test <ntest>": Text("%(ntest)s"),we would
-
     	}
 
     extras = [
@@ -264,5 +271,4 @@ class core(MergeRule):
         "splatdir"      : "left",
     }
 
-
-control.global_rule(core())
+control.global_rule(Core())
