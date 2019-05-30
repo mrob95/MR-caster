@@ -78,6 +78,9 @@ def stoosh(nnavi500, nexus, key="c-c"):
 
 
 def drop(nnavi500, nexus, capitalization, spacing, key="c-v"):
+    # Remove newlines before pasting into terminal
+    if key == "s-insert":
+        Clipboard.set_system_text(Clipboard.get_system_text().replace("\n", ""))
     # Maintain standard spark functionality for non-strings
     if capitalization == 0 and spacing == 0 and nnavi500 == 1:
         Key(key).execute()
@@ -142,13 +145,19 @@ def text_nav(modifier, direction, nnavi50, extreme):
             k = str(modifier) + "-" + k.replace("c-", "")
     Key(k).execute()
 
+'''
+function for performing an action on one or more lines in a text editor.
+E.g.: "cut 128 by 148"
+
+action: key combination to be pressed once the body of text has been highlighted, could be an empty string
+ln1, ln2: line numbers, usually ShortIntegerRef, the default for ln2 should be an empty string
+go_to_line: key combo to navigate by line number
+select_line_down: key combo to select the line below
+wait: some applications are slow and need a pause between keystrokes, e.g. wait="/10"
+'''
 def action_lines(action, ln1, ln2, go_to_line="c-g", select_line_down="s-down", wait=""):
-    if ln2:
-        num_lines = max(int(ln2)-int(ln1)+1, int(ln1)-int(ln2)+1)
-        top_line = min(int(ln2), int(ln1))
-    else:
-        num_lines = 1
-        top_line = int(ln1)
+    num_lines = max(int(ln2)-int(ln1)+1, int(ln1)-int(ln2)+1) if ln2 else 1
+    top_line = min(int(ln2), int(ln1))                        if ln2 else int(ln1)
     command = Key(go_to_line) + Text(str(top_line)) + Key("enter%s, %s%s:%s, %s" % (wait, select_line_down, wait, str(num_lines), action))
     command.execute()
 

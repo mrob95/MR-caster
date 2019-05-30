@@ -1,5 +1,5 @@
 "pronunciation" = "Git Bash"
-"executable_contexts" = ["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]
+"executable_contexts" = ["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe", "powershell"]
 
 [general_commands]
 "bash"           = "bash "

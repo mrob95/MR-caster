@@ -48,7 +48,7 @@ class PythonNon(MergeRule):
         "try except <exception> as":
             Text("try:") + Key("enter:2, backspace") + Text("except%(exception)s as :") + Key("left"),
 
-        "insert line break": Text("#---------------------------------------------------------------------------"),
+        "insert line break": Text("#" + ("-"*77)),
 
         "help <fun>":
             Function(lambda fun: utilities.browser_search(fun, url="https://docs.python.org/3/search.html?q=%s")),
@@ -57,10 +57,6 @@ class PythonNon(MergeRule):
 
     }
     extras = [
-        Choice("test", {
-                "success": "success",
-                "failure": "failure",
-            }),
         Choice("template", BINDINGS["templates"]),
         Choice("umeth",    BINDINGS["unary_methods"]),
         Choice("bmeth",    BINDINGS["binary_methods"]),
@@ -72,16 +68,15 @@ class PythonNon(MergeRule):
         "exception": "",
     }
 
+#---------------------------------------------------------------------------
+
 PYLIBS = utilities.load_toml_relative("config/python_libs.toml")
 
 # Dynamically adds library commands
 libs={}
 for lib, data in PYLIBS.iteritems():
     pronunciation = data.pop("pronunciation")
-    if "name" in data:
-        name = data.pop("name")
-    else:
-        name = lib
+    name = data.pop("name") if "name" in data else lib
     if "import_as" in data:
         libs[pronunciation] = "%s as %s" % (name, data.pop("import_as"))
     else:
@@ -142,7 +137,8 @@ class CasterPythonRuleNon(MergeRule):
 class CasterPythonRule(MergeRule):
     non = CasterPythonRuleNon
     mwith = ["Core", "Python"]
-    mcontext = AppContext(title=".py") & (AppContext(title="caster") | AppContext(title="mathfly"))
+    mcontext = AppContext(title=".py") & AppContext(title=["caster", "mathfly"])
+
     mapping = {
         "integer ref <intn>": Text("IntegerRef("", 1, %(intn)s),") + Key("c-left:3"),
         BINDINGS["function_prefix"] + " <cfun>":
