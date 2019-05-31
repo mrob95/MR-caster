@@ -17,7 +17,7 @@ def rfunc(rf):
 
 class RlangNon(MergeRule):
     mapping = {
-        "<module> cheatsheet":
+        "cheat sheet <module>":
             Function(lambda module: Popen(["SumatraPDF", "C:/Users/Mike/Documents/cheatsheets/R/%s.pdf" % module])),
 
         BINDINGS["template_prefix"] + " <template>":

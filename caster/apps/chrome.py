@@ -16,6 +16,7 @@ class ChromeRule(MergeRule):
         "reopen tab [<n>]"        : Key("cs-t:%(n)s"),
         "<numberth> tab"          : Key("c-%(numberth)s"),
         "close all tabs"          : Key("cs-w"),
+        "duplicate tab"           : Key("y, t"),
 
         "page back [<n>]"         : Key("a-left:%(n)s"),
         "page forward [<n>]"      : Key("a-right:%(n)s"),
@@ -68,6 +69,7 @@ class ChromeRule(MergeRule):
         IntegerRef("n", 1, 10),
         Choice("site", {
             "amazon"   : "smile.amazon.co.uk",
+            "amazon"   : "https://smile.amazon.co.uk/Kindle-eBooks-books/b/ref=nav_shopall_kbo5?ie=UTF8&node=341689031",
             "exams"    : "https://www.york.ac.uk/economics/current-students/ug-information/exampapers/#tab-2",
             "facebook" : "facebook.com",
             "iPlayer"  : "https://www.bbc.co.uk/iplayer",

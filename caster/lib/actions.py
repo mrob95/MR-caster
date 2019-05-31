@@ -1,8 +1,12 @@
-from dragonfly import Key, Mouse, Pause, ActionBase, ActionError, Alternative, Compound
+from dragonfly import Key, Mouse, Pause, ActionBase, ActionError, Alternative, Compound, RuleWrap
 from dragonfly import Text as TextBase
 from inspect import getargspec
 import re
 from six import string_types
+
+from dragonfly.language.loader import language
+from dragonfly.language.base.integer_internal import MapIntBuilder
+from dragonfly.language.base.integer import Integer
 
 class Text(TextBase):
     _pause_default = 0.002
@@ -109,3 +113,21 @@ class MultiChoice(Alternative):
         # Initialize super class.
         Alternative.__init__(self, children=children,
                                        name=name, default=default)
+
+class ShortIntegerRefNo8(RuleWrap):
+    def __init__(self, name, min, max, default=None):
+        content = language.ShortIntegerContent
+        content.builders[1] = MapIntBuilder({
+                                 "one"  : 1,
+                                 "two"  : 2,
+                                 "three": 3,
+                                 "four" : 4,
+                                 "five" : 5,
+                                 "six"  : 6,
+                                 "seven": 7,
+                                 "eigen": 8,
+                                 "nine" : 9,
+                               })
+
+        element = Integer(None, min, max, content=content)
+        RuleWrap.__init__(self, name, element, default=default)

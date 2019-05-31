@@ -6,7 +6,7 @@ Created on Sep 4, 2018
 from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ShortIntegerRef, ContextAction
 from dragonfly.actions.action_mouse import get_cursor_position
 
-from caster.lib.actions import Key, Text, Mouse
+from caster.lib.actions import Key, Text, Mouse, ShortIntegerRefNo8
 from caster.lib.context import AppContext
 from caster.lib import control, utilities, navigation, textformat, execution
 from caster.lib.latex import tex_funcs
@@ -223,13 +223,13 @@ class Core(MergeRule):
 
     extras = [
         Dictation("text"),
-        IntegerRef("n", 2, 20),
+        ShortIntegerRefNo8("n", 2, 20),
         IntegerRef("wnKK", 0, 10),
         IntegerRef("wnKK2", 0, 10),
         IntegerRef("wnKK3", 0, 10),
         IntegerRef("wnKK4", 0, 10),
         IntegerRef("wnKK5", 0, 10),
-        IntegerRef("nnavi10", 1, 11),
+        ShortIntegerRefNo8("nnavi10", 1, 11),
         IntegerRef("nnavi50", 1, 20),
         IntegerRef("nnavi500", 1, 500),
         Choice("big",            {CORE["capitals_prefix"]: True}),
