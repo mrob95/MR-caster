@@ -129,13 +129,7 @@ class SublimeRule(MergeRule):
         ShortIntegerRef("ln2", 1, 1000),
         IntegerRef("n2", 1, 9),
         IntegerRef("n3", 1, 21),
-        Choice("action", {
-            "select": "",
-            "copy": "c-c",
-            "cut": "c-x",
-            "(delete | remove)": "backspace",
-            "replace": "c-v",
-            }),
+        Choice("action", navigation.actions),
         Choice("nth", {
             "first"  : "1",
             "second" : "2",
@@ -151,16 +145,16 @@ class SublimeRule(MergeRule):
         Choice("panel", {"one": "1", "left": "1", "two": "2", "right": "2", }),
         Choice("filetype", {
             "pie | python": "py",
-            "mark [down]": "md",
-            "tech": "tex",
-            "tommel": "toml",
+            "mark [down]" : "md",
+            "tech"        : "tex",
+            "tommel"      : "toml",
             }),
     ]
     defaults = {
-        "dict": "",
-        "ln2": None,
-        "n2": 1,
-        "n3": 1,
+        "dict"    : "",
+        "ln2"     : None,
+        "n2"      : 1,
+        "n3"      : 1,
         "filetype": "",
     }
 
@@ -194,13 +188,7 @@ class SublimeCCRRule(MergeRule):
         IntegerRef("n11", 1, 20),
         IntegerRef("n12", 0, 10),
         IntegerRef("n13", 0, 10),
-        Choice("action", {
-            "select": "",
-            "copy": "c-c",
-            "cut": "c-x",
-            "(delete | remove)": "backspace",
-            "replace": "c-v",
-            }),
+        Choice("action", navigation.actions),
     ]
     defaults = {"n12": "", "n13": "", "n2": 1}
 

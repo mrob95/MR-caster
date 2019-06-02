@@ -94,13 +94,7 @@ class RStudioRule(MergeRule):
             "git"            : "c-f1",
             "connections"    : "c-f5",
             }),
-        Choice("action", {
-            "select"           : "",
-            "copy"             : "c-c",
-            "cut"              : "c-x",
-            "(delete | remove)": "backspace",
-            "replace"          : "c-v",
-            }),
+        Choice("action", navigation.actions),
     ]
     defaults = {
         "ln2": None,

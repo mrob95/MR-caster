@@ -341,7 +341,7 @@
 '''
 # ------------------------------------------------
 "beamer" = '''
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 \usetheme{metropolis}
 \usepackage{graphicx}
 \usepackage[backend=bibtex,style=authoryear]{biblatex}

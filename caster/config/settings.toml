@@ -41,7 +41,7 @@ app_modules = [
 			"emacs",
 			# "accessibility"
 			]
-max_ccr_repetitions = 13
+max_ccr_repetitions = 10
 keypress_wait = 0.05
 alternative_letters = true
 alternative_directions = true
