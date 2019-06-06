@@ -1,6 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, Function
-from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
-from caster.lib.context import AppContext, TitleContext
+from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve
+from caster.lib.dfplus.context import AppContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -44,12 +44,11 @@ class Rlang(MergeRule):
 
     mapping = {
         "<command>":
-            Function(execution.alternating_command),
+            execution.Alternating("command"),
 
-        #
         BINDINGS["function_prefix"] + " <function>":
             Function(lambda function: rfunc(function)),
-        #
+
         BINDINGS["graph_prefix"] + " <ggfun>":
             Function(lambda ggfun: rfunc(ggfun)),
 
@@ -61,7 +60,6 @@ class Rlang(MergeRule):
 
         BINDINGS["library_prefix"] + " <library>":
             Text("library(%(library)s)") + Key("end"),
-
     }
 
     extras = [

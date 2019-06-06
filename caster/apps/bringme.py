@@ -6,8 +6,8 @@ import webbrowser
 # import dragonfly
 from dragonfly import Choice, Function, Dictation, Window, Grammar
 
-from caster.lib import context, utilities
-from caster.lib.actions import Text, Key
+from caster.lib import utilities
+from caster.lib.dfplus.actions import Text, Key
 from caster.lib.merge.selfmodrule import SelfModifyingRule
 
 DEFAULT_CONFIG = {

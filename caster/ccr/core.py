@@ -3,11 +3,13 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, IntegerRef, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ShortIntegerRef, ContextAction
+from dragonfly import Function, Choice, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ContextAction
 from dragonfly.actions.action_mouse import get_cursor_position
 
-from caster.lib.actions import Key, Text, Mouse, ShortIntegerRefNo8
-from caster.lib.context import AppContext
+from caster.lib.dfplus.integers import ShortIntegerRefNo8
+from caster.lib.dfplus.actions import Key, Text, Mouse
+from caster.lib.dfplus.context import AppContext
+from caster.lib.dfplus.integers import IntegerRef, ShortIntegerRef
 from caster.lib import control, utilities, navigation, textformat, execution
 from caster.lib.latex import tex_funcs
 from caster.lib.merge.mergerule import MergeRule

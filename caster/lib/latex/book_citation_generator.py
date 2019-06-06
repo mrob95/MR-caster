@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from bs4 import BeautifulSoup
 from urllib2 import Request, urlopen, quote
-from caster.lib.actions import Key, Text
+from caster.lib.dfplus.actions import Key, Text
 from caster.lib.clipboard import Clipboard
 import re
 

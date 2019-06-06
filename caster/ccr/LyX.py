@@ -3,10 +3,12 @@ Created Jan 2019
 
 @author: Mike Roberts, Alex Boche
 '''
-from dragonfly import Function, Choice, Mouse, IntegerRef
-from dragonfly import AppContext, Grammar, Repeat, CompoundRule
+from dragonfly import Function, Choice, Mouse
+from dragonfly import Grammar, Repeat, CompoundRule
 
-from caster.lib.actions import Key, Text
+from caster.lib.dfplus.context import AppContext
+from caster.lib.dfplus.integers import IntegerRef
+from caster.lib.dfplus.actions import Key, Text
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
 from caster.lib.merge.nestedrule import NestedRule
@@ -106,7 +108,7 @@ class lyx_mathematics(MergeRule):
             Key("%(misc_lyx_keys)s"),
 
         "<command>":
-            Function(execution.alternating_command),
+            execution.Alternating("command"),
 
         "matrix <rows> by <cols>":
             Function(matrix),

@@ -1,6 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
-from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
-from caster.lib.context import AppContext
+from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve
+from caster.lib.dfplus.context import AppContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -27,7 +27,7 @@ class TOML(MergeRule):
 
     mapping = {
         "<command>":
-            Function(execution.alternating_command),
+            execution.Alternating("command"),
 
         "command that":
             Key("end, s-home") + Store() + Key("quote, right:2, space, equal, space, quote") + Retrieve(),

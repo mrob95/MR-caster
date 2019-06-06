@@ -3,11 +3,12 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, Key, Text, IntegerRef
+from dragonfly import Function, Choice, Key, Text
 
 from caster.lib import control, execution, utilities
 from caster.lib.merge.mergerule import MergeRule
 from caster.lib.latex import tex_funcs
+from caster.lib.dfplus.integers import IntegerRef
 
 BINDINGS = utilities.load_toml_relative("config/latex.toml")
 CORE = utilities.load_toml_relative("config/core.toml")

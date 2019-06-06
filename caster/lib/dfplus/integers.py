@@ -1,4 +1,5 @@
 from dragonfly.language.base.integer_internal import MapIntBuilder, MagnitudeIntBuilder, IntegerContentBase, CollectionIntBuilder
+from dragonfly.language.loader import language
 from dragonfly.language.base.integer import Integer
 from dragonfly.grammar.elements_basic import RuleWrap
 
@@ -87,4 +88,60 @@ class IntegerContent(IntegerContentBase):
 class IntegerRefMF(RuleWrap):
     def __init__(self, name, min, max, default=None):
         element = Integer(None, min, max, content=IntegerContent)
+        RuleWrap.__init__(self, name, element, default=default)
+
+#-----------------------------------------------------------------------------
+
+class ShortIntegerRefNo8(RuleWrap):
+    def __init__(self, name, min, max, default=None):
+        content = language.ShortIntegerContent
+        content.builders[1] = MapIntBuilder({
+                                 "one"  : 1,
+                                 "two"  : 2,
+                                 "three": 3,
+                                 "four" : 4,
+                                 "five" : 5,
+                                 "six"  : 6,
+                                 "seven": 7,
+                                 "eigen": 8,
+                                 "nine" : 9,
+                               })
+
+        element = Integer(None, min, max, content=content)
+        RuleWrap.__init__(self, name, element, default=default)
+
+class IntegerRef(RuleWrap):
+    def __init__(self, name, min, max, default=None):
+        content = language.IntegerContent
+        content.builders[1] = MapIntBuilder({
+                                 "one"  : 1,
+                                 "two"  : 2,
+                                 "three": 3,
+                                 "four" : 4,
+                                 "five" : 5,
+                                 "six"  : 6,
+                                 "seven": 7,
+                                 "eight": 8,
+                                 "nine" : 9,
+                               })
+
+        element = Integer(None, min, max, content=content)
+        RuleWrap.__init__(self, name, element, default=default)
+
+class ShortIntegerRef(RuleWrap):
+    def __init__(self, name, min, max, default=None):
+        content = language.ShortIntegerContent
+        content.builders[1] = MapIntBuilder({
+                                 "one"  : 1,
+                                 "two"  : 2,
+                                 "three": 3,
+                                 "four" : 4,
+                                 "five" : 5,
+                                 "six"  : 6,
+                                 "seven": 7,
+                                 "eight": 8,
+                                 "nine" : 9,
+                               })
+
+        element = Integer(None, min, max, content=content)
         RuleWrap.__init__(self, name, element, default=default)

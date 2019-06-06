@@ -15,8 +15,8 @@ class Nexus:
 
         self.preserved = None
 
-        from dragonfly.timer import _Timer
-        self.timer = _Timer(0.025)
+        # from dragonfly.timer import _Timer
+        # self.timer = _Timer(0.025)
 
         self.macros_grammar = Grammar("recorded_macros")
 

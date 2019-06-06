@@ -1,7 +1,7 @@
-from dragonfly import (Grammar, AppContext, MappingRule, Dictation, IntegerRef,
+from dragonfly import (Grammar, MappingRule, Dictation, IntegerRef,
                        Repeat, Pause, Function, Choice)
-
-from caster.lib.actions import Store, Retrieve, Key, Text
+from caster.lib.dfplus.context import AppContext
+from caster.lib.dfplus.actions import Store, Retrieve, Key, Text
 from caster.lib.merge.mergerule import MergeRule
 from subprocess import Popen
 from caster.lib import utilities, control

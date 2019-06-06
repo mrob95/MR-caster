@@ -1,6 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef
-from caster.lib.actions import Key, Text, Mouse
-from caster.lib.context import AppContext, TitleContext
+from caster.lib.dfplus.actions import Key, Text, Mouse
+from caster.lib.dfplus.context import AppContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -38,7 +38,7 @@ class Markdown(MergeRule):
             Key("%(element)s"),
 
         BINDINGS["insert_prefix"] + " <command>":
-            Function(execution.alternating_command),
+            execution.Alternating("command"),
 
         BINDINGS["output_prefix"] + " <output>":
             Text("%(output)s"),

@@ -1,6 +1,6 @@
 from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Clipboard, Function
-from caster.lib.actions import Key, Text, Mouse, Store, Retrieve, MultiChoice
-from caster.lib.context import AppContext, ExeContext
+from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve, MultiChoice
+from caster.lib.dfplus.context import AppContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule

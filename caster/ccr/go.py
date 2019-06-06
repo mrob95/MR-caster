@@ -4,8 +4,8 @@ Created on , 2018
 @author: Mike Roberts
 '''
 from dragonfly import Choice, Function
-from caster.lib.actions import Key, Text, Mouse
-from caster.lib.context import AppContext
+from caster.lib.dfplus.actions import Key, Text, Mouse
+from caster.lib.dfplus.context import AppContext
 
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
@@ -31,7 +31,7 @@ class Go(MergeRule):
     mcontext = AppContext(title=".go")
     mapping = {
         "<command>":
-            Function(execution.alternating_command),
+            execution.Alternating("command"),
 
         BINDINGS["type_prefix"] + " <type>":
             Text("%(type)s"),

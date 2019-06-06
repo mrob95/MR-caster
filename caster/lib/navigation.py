@@ -1,5 +1,5 @@
 from caster.lib import control, utilities, textformat
-from caster.lib.actions import Key, Text, Mouse
+from caster.lib.dfplus.actions import Key, Text, Mouse
 from caster.lib.clipboard import Clipboard
 from dragonfly.actions.action_mouse import get_cursor_position
 import time
@@ -179,5 +179,5 @@ def enclose_selected(enclosure):
 actions = {"select" : "",
            "copy"   : "c-c",
            "cut"    : "c-x",
-           "delete" : "backspace",
+           "remove" : "backspace",
            "replace": "c-v"}

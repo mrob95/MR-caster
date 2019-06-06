@@ -6,11 +6,11 @@ browser_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 editor_path = "C:/Program Files/Sublime Text 3/sublime_text.exe"
 ccr_modules = ["core",
 			"ScientificNotebook55",
-			"ScientificNotebook6",
-			"LyX",
+			# "ScientificNotebook6",
+			# "LyX",
 			"latex",
 			"latex_maths",
-			"alias",
+			# "alias",
 			"file_dialogue",
 			"go",
 			"gitbash",
@@ -39,6 +39,7 @@ app_modules = [
 			"spotify",
 			"powershell",
 			"emacs",
+			"kindle",
 			# "accessibility"
 			]
 max_ccr_repetitions = 10

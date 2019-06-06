@@ -1,7 +1,7 @@
 from dragonfly import (Grammar, MappingRule,
                        Pause, Choice, Function, IntegerRef)
-from caster.lib.actions import Key, Text
-from caster.lib.context import AppContext
+from caster.lib.dfplus.actions import Key, Text
+from caster.lib.dfplus.context import AppContext
 
 from caster.lib.merge.mergerule import MergeRule
 

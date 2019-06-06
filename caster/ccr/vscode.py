@@ -1,6 +1,6 @@
 from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, Function, Pause, IntegerRef, ShortIntegerRef)
-from caster.lib.actions import Key, Text, Store, Retrieve
-from caster.lib.context import AppContext, TitleContext
+from caster.lib.dfplus.actions import Key, Text, Store, Retrieve
+from caster.lib.dfplus.context import AppContext
 import sys
 from caster.lib import control, navigation
 from caster.lib.merge.mergerule import MergeRule

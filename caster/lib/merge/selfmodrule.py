@@ -3,8 +3,9 @@ Created on Sep 6, 2015
 
 @author: synkarius
 '''
-from dragonfly import Dictation, IntegerRef
+from dragonfly import Dictation
 
+from caster.lib.dfplus.integers import IntegerRef, ShortIntegerRef
 from caster.lib.merge.mergepair import MergeInf
 from caster.lib.merge.mergerule import MergeRule
 

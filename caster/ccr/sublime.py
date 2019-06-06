@@ -1,9 +1,11 @@
-from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, Function, Pause, IntegerRef, ShortIntegerRef)
-from caster.lib.actions import Key, Text, Store, Retrieve
-from caster.lib.context import AppContext, TitleContext
-import sys
+from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, Function, Pause)
+
+from caster.lib.dfplus.actions import Key, Text, Store, Retrieve
+from caster.lib.dfplus.context import AppContext
+from caster.lib.dfplus.integers import IntegerRef, ShortIntegerRef
 from caster.lib import control, navigation
 from caster.lib.merge.mergerule import MergeRule
+import sys
 
 
 class SublimeRule(MergeRule):
@@ -97,6 +99,7 @@ class SublimeRule(MergeRule):
         "(new | create) snippet"         : Key("a-n"),
         #
         "close tab"                      : Key("c-w"),
+        "close all tabs"                 : Key("f10, f, up:2, enter"),
         "next tab"                       : Key("c-pgdown"),
         "previous tab"                   : Key("c-pgup"),
         "<nth> tab"                      : Key("a-%(nth)s"),

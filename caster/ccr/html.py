@@ -1,7 +1,7 @@
 from dragonfly import Function, Choice
 
 from caster.lib import control, utilities
-from caster.lib.actions import Key, Text
+from caster.lib.dfplus.actions import Key, Text
 from caster.lib.dfplus.merge.mergerule import MergeRule
 
 BINDINGS = utilities.load_toml_file(utilities.get_full_path("caster/ccr/html/html.toml"))

@@ -1,5 +1,6 @@
-from dragonfly import Dictation, Choice, Text, Function, IntegerRef, Grammar
+from dragonfly import Dictation, Choice, Text, Function, Grammar
 
+from caster.lib.dfplus.integers import IntegerRef, ShortIntegerRef
 from caster.lib import utilities, control
 from caster.lib.merge.selfmodrule import SelfModifyingRule
 

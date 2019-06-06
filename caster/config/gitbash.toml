@@ -31,7 +31,9 @@
 [python_commands]
 "python 3"               = ["python3 .py", "left:3"]
 "python 2"               = ["python27 .py", "left:3"]
+"python 2 64 "           = "C:/Python27-64/python.exe "
 "python 2 pip [install]" = "python27 -m pip install "
+"python 3 pip [install]" = "python3 -m pip install "
 "pip two (install | build) package" = "pip2 install -e ."
 
 [r_commands]

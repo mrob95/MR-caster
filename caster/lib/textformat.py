@@ -1,5 +1,5 @@
 from caster.lib import utilities
-from caster.lib.actions import Text
+from caster.lib.dfplus.actions import Text
 
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
 

@@ -3,12 +3,13 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, IntegerRef, Dictation
-from dragonfly import AppContext, Grammar, Repeat, ShortIntegerRef
+from dragonfly import Function, Choice, Dictation
+from dragonfly import Grammar, Repeat, ShortIntegerRef
 
-from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
+from caster.lib.dfplus.context import AppContext
+from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib import control, utilities, execution
-from caster.lib.integers import IntegerRefMF
+from caster.lib.dfplus.integers import IntegerRefMF, IntegerRef
 from caster.lib.merge.mergerule import MergeRule
 from caster.lib.merge.nestedrule import NestedRule
 

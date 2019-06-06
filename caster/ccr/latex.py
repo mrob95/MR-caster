@@ -5,7 +5,7 @@ Created on Sep 4, 2018
 '''
 from dragonfly import Function, Choice, Mouse, Repeat, Clipboard, Dictation
 
-from caster.lib.actions import Key, Text, Mouse, Store, Retrieve
+from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
 from caster.lib.latex import tex_funcs
@@ -64,7 +64,6 @@ class LaTeX(MergeRule):
         BINDINGS["symbol_prefix"] + " <misc_symbol>":
             Function(lambda misc_symbol: execution.alternating_command(misc_symbol)),
         BINDINGS["accent_prefix"] + " <accent>":
-            # Function(lambda accent: execution.paren_function("\\" + accent, "{", "}")),
             Store(same_is_okay=False) + Text("\\%(accent)s{}") + Key("left") + Retrieve(action_if_text="right"),
 
         BINDINGS["greek_prefix"] + " [<big>] <greek_letter>":
