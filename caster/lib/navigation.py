@@ -54,15 +54,6 @@ def initialize_clipboard(nexus):
     if len(nexus.clip) == 0:
         nexus.clip = utilities.load_toml_relative(SETTINGS["clipboard_path"])
 
-def temp_store(nexus):
-    _, text = utilities.read_selected(False)
-    if text:
-        nexus.temp = text
-
-def type_temp(nexus):
-    if nexus.temp:
-        Text(nexus.temp).execute()
-
 def stoosh(nnavi500, nexus, key="c-c"):
     if nnavi500 == 1:
         Key(key).execute()

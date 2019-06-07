@@ -51,8 +51,6 @@ Sample usage:
     Store() + Text("\\textbf{}") + Key("left") +
     Retrieve(action_if_text="right")
 '''
-
-
 class Store(ActionBase):
     def __init__(self, space=" ", remove_cr=False, same_is_okay=True):
         ActionBase.__init__(self)

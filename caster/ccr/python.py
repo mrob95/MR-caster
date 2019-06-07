@@ -40,9 +40,6 @@ class PythonNon(MergeRule):
         BINDINGS["method_prefix"] + " <mmeth>":
             Function(lambda mmeth: Text("def __%s__(%s):" % (mmeth[0], mmeth[1])).execute()),
 
-        "import <lib>":
-            Text("import %(lib)s") + Key("enter"),
-
         "try except [<exception>]":
             Text("try: ") + Key("enter:2, backspace") + Text("except%(exception)s:") + Key("up"),
         "try except <exception> as":
@@ -77,15 +74,11 @@ libs={}
 for lib, data in PYLIBS.iteritems():
     pronunciation = data.pop("pronunciation")
     name = data.pop("name") if "name" in data else lib
-    if "import_as" in data:
-        libs[pronunciation] = "%s as %s" % (name, data.pop("import_as"))
-    else:
-        libs[pronunciation] = name
-    command = "%s <%s_lib>" % (pronunciation, lib)
-    action = Function(eval("lambda %s_lib: execution.alternating_command(%s_lib)" % (lib, lib)))
-    PythonNon.mapping[command] = action
-    choice = Choice("%s_lib" % lib, data)
-    PythonNon.extras.append(choice)
+    libs[pronunciation] = name + " as " + data.pop("import_as") if "import_as" in data else name
+    # e.g. "numb pie <numpy_lib>": execution.Alternating("numpy_lib")
+    PythonNon.mapping["%s <%s_lib>" % (pronunciation, lib)] = execution.Alternating("%s_lib" % lib)
+    PythonNon.extras.append(Choice("%s_lib" % lib, data))
+PythonNon.mapping["import <lib>"] = Text("import %(lib)s") + Key("enter"),
 PythonNon.extras.append(Choice("lib", libs))
 
 #---------------------------------------------------------------------------

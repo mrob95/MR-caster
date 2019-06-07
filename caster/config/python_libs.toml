@@ -12,6 +12,18 @@
 "pronunciation"   = "(system | sis)"
 "path append"     = ["sys.path.append()", "left"]
 
+[numpy]
+"pronunciation"     = "numb pie"
+"import_as"         = "np"
+"array"             = ["np.array()", "left"]
+"arrange"           = ["np.arrange()", "left"]
+"zeros"             = ["np.zeros()", "left"]
+"matrix"            = ["np.matrix()", "left"]
+"gen from text"     = ["np.genfromtext(, delimiter=\"\")", "left:15"]
+#
+"as type"           = ["astype()", "left"]
+"(dee | data) type" = ["dtype"]
+
 [pandas]
 "pronunciation"   = "pandas"
 "import_as"       = "pd"
