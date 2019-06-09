@@ -15,8 +15,10 @@ BINDINGS = utilities.load_toml_relative("config/r.toml")
 def helper(function):
     if type(function) in ["str", "unicode"]:
         Text(function).execute()
+        Pause("50").execute()
     else:
         Text(function[0]).execute()
+        Pause("50").execute()
 
 class RStudioRule(MergeRule):
     pronunciation = "R studio"

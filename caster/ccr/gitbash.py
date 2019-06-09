@@ -21,8 +21,7 @@ class GitBashRule(MergeRule):
     mcontext = AppContext(executable=BINDINGS["executable_contexts"])
 
     mapping = {
-        "<command>":
-            Function(lambda command: execution.alternating_command(command)),
+        "<command>": execution.Alternating("command"),
 
         "go <directory>":
             Text("cd %(directory)s") + Key("enter"),

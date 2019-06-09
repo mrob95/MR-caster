@@ -4,16 +4,7 @@ from caster.lib.dfplus.actions import Key, Text, Mouse
 from caster.lib import utilities
 
 # Alternate between executing as text and executing as keys
-def alternating_command(command):
-    if type(command) in [str, int, unicode]:
-        Text(str(command)).execute()
-    elif type(command) in [list, tuple]:
-        for i in range(len(command)):
-            if i%2==0:
-                Text(command[i]).execute()
-            else:
-                Key(command[i]).execute()
-
+# "<example>": Alternating("example")
 class Alternating(ActionBase):
     def __init__(self, command=""):
         ActionBase.__init__(self)

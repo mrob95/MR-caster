@@ -27,6 +27,7 @@
 [alternating]
 "hidden R code"         = ["", "backtick:3", "{r, include=FALSE}", "enter:2, backtick:3, up"]
 "graph"                 = ["", "backtick:3", "{r echo=FALSE}", "enter:2, backtick:3, up"]
+"header"                = ["", "c-home", "---\n\n---", "up", "fontsize: 12pt"]
 
 [outputs]
 "beamer [presentation]" = "output:\nbeamer_presentation:\ndf_print: kable\ntheme: metropolis"

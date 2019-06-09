@@ -11,7 +11,7 @@ from caster.lib.merge.mergerule import MergeRule
 from caster.lib.latex import tex_funcs
 
 BINDINGS = utilities.load_toml_relative("config/latex.toml")
-CORE = utilities.load_toml_relative("config/core.toml")
+CORE     = utilities.load_toml_relative("config/core.toml")
 
 class LaTeXNon(MergeRule):
     mapping = {
@@ -26,7 +26,6 @@ class LaTeXNon(MergeRule):
 
         "[<sub>] section <dict>":
             Function(tex_funcs.section),
-
     }
 
     extras = [
@@ -62,7 +61,7 @@ class LaTeX(MergeRule):
         BINDINGS["symbol_prefix"] + " <symbol>":
             Function(tex_funcs.symbol),
         BINDINGS["symbol_prefix"] + " <misc_symbol>":
-            Function(lambda misc_symbol: execution.alternating_command(misc_symbol)),
+            execution.Alternating("misc_symbol"),
         BINDINGS["accent_prefix"] + " <accent>":
             Store(same_is_okay=False) + Text("\\%(accent)s{}") + Key("left") + Retrieve(action_if_text="right"),
 
@@ -79,24 +78,23 @@ class LaTeX(MergeRule):
 
         BINDINGS["command_prefix"] + " quote":
             Function(tex_funcs.quote),
-
     }
 
     extras = [
-        Choice("big", {CORE["capitals_prefix"]: True}),
-        Choice("packopts", BINDINGS["packages"]),
-        Choice("doc_class", BINDINGS["document_classes"]),
-        Choice("greek_letter", BINDINGS["greek_letters"]),
-        Choice("symbol", BINDINGS["symbols"]),
+        Choice("big",        {CORE["capitals_prefix"]: True}),
+        Choice("packopts",    BINDINGS["packages"]),
+        Choice("doc_class",   BINDINGS["document_classes"]),
+        Choice("greek_letter",BINDINGS["greek_letters"]),
+        Choice("symbol",      BINDINGS["symbols"]),
         Choice("misc_symbol", BINDINGS["misc_symbols"]),
-        Choice("accent", BINDINGS["accents"]),
-        Choice("commandnoarg", BINDINGS["commandnoarg"]),
-        Choice("command", BINDINGS["command"]),
+        Choice("accent",      BINDINGS["accents"]),
+        Choice("commandnoarg",BINDINGS["commandnoarg"]),
+        Choice("command",     BINDINGS["command"]),
         Choice("environment", BINDINGS["environments"]),
         ]
     defaults = {
-        "big": False,
-        "packopts": "",
+        "big"      : False,
+        "packopts" : "",
         "doc_class": "",
     }
 

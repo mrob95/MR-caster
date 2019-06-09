@@ -111,8 +111,7 @@ class SN6(MergeRule):
         BINDINGS["accent_prefix"] + " <accent>":
             Key("%(accent)s"),
 
-        BINDINGS["unit_prefix"] + " <units>":
-            Function(lambda units: execution.alternating_command(units)),
+        BINDINGS["unit_prefix"] + " <units>": execution.Alternating("units"),
 
         "<misc_sn_keys>":
             Key("%(misc_sn_keys)s"),

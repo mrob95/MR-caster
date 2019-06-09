@@ -104,6 +104,9 @@ class CoreNon(MappingRule):
         "<search> <dict>":
             Function(lambda search, dict: utilities.browser_search(dict, url=search)),
 
+        "tiny URL that":
+            Function(utilities.tinyurl),
+
         "get word count": ContextAction(Function(utilities.word_count),
             [(AppContext(".tex"), Function(tex_funcs.word_count_from_string))]),
 

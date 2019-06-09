@@ -59,6 +59,7 @@ method_prefix   = "meth"
 "for loop"            = ["for i in range():", "left:2"]
 "from import"         = ["from  import ", "home, right:5"]
 "function"            = ["def ():", "left:3"]
+"inline if"           = [" if  else ", "left:6"]
 "iffae"               = ["if :", "left"]
 "iffae not"           = ["if not :", "left"]
 "import"              = "import "
@@ -148,5 +149,10 @@ method_prefix   = "meth"
 "unbound local"      = " UnboundLocalError"
 "value"              = " ValueError"
 "zero division"      = " ZeroDivisionError"
+
+[cheatsheets]
+"numb pie"           = "numpy"
+"pandas"             = "pandas"
+"sigh pie"           = "scipy"
 
 [templates]

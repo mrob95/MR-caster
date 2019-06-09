@@ -3,7 +3,7 @@ import io, os, sys, time, re, datetime
 import toml
 from subprocess import Popen
 from dragonfly import Choice, Clipboard, Key
-from urllib2 import quote
+from urllib2 import Request, urlopen, quote
 from multiprocessing import Process, Queue
 from win10toast import ToastNotifier
 import threading
@@ -146,3 +146,11 @@ def word_count():
     _, selection = read_selected(True)
     words_list = selection.replace("\n", " ").split(" ")
     toast_notify("Word count", str(len(words_list)))
+
+def tinyurl():
+    _, selection = read_selected(True)
+    url = "http://tinyurl.com/api-create.php?url=" + selection
+    request = Request(url)
+    response = urlopen(request)
+    tiny = response.read()
+    Clipboard.set_system_text(tiny)

@@ -139,6 +139,8 @@
 
 [misc_core_keys]
 "eskimo"     = "escape"
+"ender"      = "end"
+"homer"      = "home"
 "shackle"    = "home, s-end"
 "select all" = "c-a"
 "find"       = "c-f"

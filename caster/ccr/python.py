@@ -5,6 +5,7 @@ from caster.lib.dfplus.context import AppContext
 from caster.lib import control, utilities, execution
 from caster.lib.merge.mergerule import MergeRule
 import re
+from subprocess import Popen
 
 BINDINGS = utilities.load_toml_relative("config/python.toml")
 
@@ -22,6 +23,9 @@ def setters():
 
 class PythonNon(MergeRule):
     mapping = {
+        "cheat sheet <module>":
+            Function(lambda module: Popen(["SumatraPDF", "C:/Users/Mike/Documents/cheatsheets/python/%s.pdf" % module])),
+
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
 
@@ -54,12 +58,14 @@ class PythonNon(MergeRule):
 
     }
     extras = [
+        Choice("module",   BINDINGS["cheatsheets"]),
         Choice("template", BINDINGS["templates"]),
         Choice("umeth",    BINDINGS["unary_methods"]),
         Choice("bmeth",    BINDINGS["binary_methods"]),
         Choice("mmeth",    BINDINGS["misc_methods"]),
         Choice("exception",BINDINGS["exceptions"]),
         Choice("fun",      BINDINGS["functions"]),
+
     ]
     defaults = {
         "exception": "",
@@ -91,15 +97,16 @@ class Python(MergeRule):
 
     mapping = {
         "<command>":
-            # execution.Alternating("command"),
             execution.Alternating("command"),
 
         BINDINGS["function_prefix"] + " <fun>":
             Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
 
-        "method": ContextAction(Text("def (self):") + Key("left:7"),
+        "method": ContextAction(
+            Text("def (self):") + Key("left:7"),
             [(AppContext(title="Sublime Text"), Text("defs") + Key("tab"))]),
-        "list comprehension": ContextAction(Text("[ for  in i]") + Key("left:11"),
+        "list comprehension": ContextAction(
+            Text("[ for  in i]") + Key("left:11"),
             [(AppContext(title="Sublime Text"), Text("lc") + Key("tab"))]),
 
     }
@@ -137,8 +144,7 @@ class CasterPythonRule(MergeRule):
         "integer ref <intn>": Text("IntegerRef("", 1, %(intn)s),") + Key("c-left:3"),
         BINDINGS["function_prefix"] + " <cfun>":
             Store(same_is_okay=False) + Text("%(cfun)s()") + Key("left") + Retrieve(action_if_text="right"),
-        "<cmisc>":
-            Function(lambda cmisc: execution.alternating_command(cmisc)),
+        "<cmisc>": execution.Alternating("cmisc"),
     }
     extras = [
         IntegerRef("intn", 1, 1001),
