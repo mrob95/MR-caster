@@ -60,7 +60,9 @@ class ChromeRule(MergeRule):
         "search <text>":
             Key("c-l/10") + Text("%(text)s") + Key("enter"),
 
-        "science hub": Key("a-d") + Store() + Key("delete") + Text("https://sci-hub.tw/") + Retrieve() + Key("enter"),
+        "science hub":
+            # Key("a-d") + Store() + Key("delete") + Text("https://sci-hub.tw/") + Retrieve() + Key("enter"),
+            Key("a-d/10, left/10") + Text("https://sci-hub.tw/") + Key("enter"),
 
         }
     extras = [
@@ -69,7 +71,7 @@ class ChromeRule(MergeRule):
         IntegerRef("n", 1, 10),
         Choice("site", {
             "amazon"   : "smile.amazon.co.uk",
-            "amazon"   : "https://smile.amazon.co.uk/Kindle-eBooks-books/b/ref=nav_shopall_kbo5?ie=UTF8&node=341689031",
+            "kindle"   : "https://smile.amazon.co.uk/Kindle-eBooks-books/b/ref=nav_shopall_kbo5?ie=UTF8&node=341689031",
             "exams"    : "https://www.york.ac.uk/economics/current-students/ug-information/exampapers/#tab-2",
             "facebook" : "facebook.com",
             "iPlayer"  : "https://www.bbc.co.uk/iplayer",

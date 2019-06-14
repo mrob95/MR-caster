@@ -40,6 +40,7 @@ app_modules = [
 			"powershell",
 			"emacs",
 			"kindle",
+			"virtualbox",
 			# "accessibility"
 			]
 max_ccr_repetitions = 10

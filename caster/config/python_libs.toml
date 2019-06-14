@@ -88,6 +88,7 @@
 "pronunciation"   = "[mat] plot [lib]"
 "import_as"       = "plt"
 "show"            = ["plt.show()", "left"]
+"subplots"        = ["plt.subplots()", "left"]
 "title"           = ["plt.title()", "left"]
 "ex label"        = ["plt.xlabel()", "left"]
 "ex limit"        = ["plt.xlim()", "left"]

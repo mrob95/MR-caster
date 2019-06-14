@@ -22,6 +22,14 @@
 "queue tea" =  "C:\\Users\\Mike\\Pictures\\pol\\qt"
 "sea"       =  "C:\\"
 
+[search]
+"amazon"   = "https://smile.amazon.co.uk/s?k=%s"
+"kindle"   = "https://smile.amazon.co.uk/s?k=%s&rh=n%%3A341689031"
+"morrisons"= "https://groceries.morrisons.com/search?entry=%s"
+"wikipedia"= "https://en.wikipedia.org/w/index.php?search=%s"
+"google"   = "https://www.google.com/search?q=%s"
+"youtube"  = "https://www.youtube.com/results?search_query=%s"
+
 [letters]
 "alpha"                = "a"
 "bravo"                = "b"

@@ -1,5 +1,5 @@
 pronunciation   = "Python"
-title_contexts  = [".py"]
+title_contexts  = [".py", "python"]
 function_prefix = "fun"
 template_prefix = "template"
 method_prefix   = "meth"

@@ -84,7 +84,7 @@ for lib, data in PYLIBS.iteritems():
     # e.g. "numb pie <numpy_lib>": execution.Alternating("numpy_lib")
     PythonNon.mapping["%s <%s_lib>" % (pronunciation, lib)] = execution.Alternating("%s_lib" % lib)
     PythonNon.extras.append(Choice("%s_lib" % lib, data))
-PythonNon.mapping["import <lib>"] = Text("import %(lib)s") + Key("enter"),
+PythonNon.mapping["import <lib>"] = Text("import %(lib)s") + Key("enter")
 PythonNon.extras.append(Choice("lib", libs))
 
 #---------------------------------------------------------------------------
@@ -108,14 +108,11 @@ class Python(MergeRule):
         "list comprehension": ContextAction(
             Text("[ for  in i]") + Key("left:11"),
             [(AppContext(title="Sublime Text"), Text("lc") + Key("tab"))]),
-
     }
-
     extras = [
         Choice("fun",      BINDINGS["functions"]),
         Choice("command",  BINDINGS["commands"]),
     ]
-
     defaults = {
         "exception": "",
     }

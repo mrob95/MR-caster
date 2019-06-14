@@ -141,13 +141,7 @@ class CoreNon(MappingRule):
         Choice("direction",            CORE[_DIRECTIONS]),
         Choice("direction2",           CORE[_DIRECTIONS]),
         Choice("misc_core_keys_noCCR", CORE["misc_core_keys_noCCR"]),
-        Choice("search", {
-            "amazon"   : "https://smile.amazon.co.uk/s?k=%s",
-            "kindle"   : "https://smile.amazon.co.uk/s?k=%s&rh=n%%3A341689031",
-            "wikipedia": "https://en.wikipedia.org/w/index.php?search=%s",
-            "google"   : "https://www.google.com/search?q=%s",
-            "youtube"  : "https://www.youtube.com/results?search_query=%s",
-            }),
+        Choice("search", CORE["search"]),
         Choice("ref_type", {
                 "book" : "book",
                 "link" : "link",
