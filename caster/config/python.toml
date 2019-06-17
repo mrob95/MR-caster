@@ -154,5 +154,6 @@ method_prefix   = "meth"
 "numb pie"           = "numpy"
 "pandas"             = "pandas"
 "sigh pie"           = "scipy"
+"sigh [kit] learn"   = "sklearn"
 
 [templates]

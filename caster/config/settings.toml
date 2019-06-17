@@ -41,6 +41,7 @@ app_modules = [
 			"emacs",
 			"kindle",
 			"virtualbox",
+			"pycharm",
 			# "accessibility"
 			]
 max_ccr_repetitions = 10
@@ -50,12 +51,12 @@ alternative_directions = true
 use_aenea = false
 use_wsr = false
 delete_words = ["one-to-one",
-	'(\left-parenthesis\left paren',
- '(\left-parenthesis\left parenthesis',
- ')\right-parenthesis\right paren',
- ')\right-parenthesis\right parenthesis',
- '[\left-square-bracket\left bracket',
- ']\right-square-bracket\right bracket']
+	'(\\left-parenthesis\\left paren',
+ '(\\left-parenthesis\\left parenthesis',
+ ')\\right-parenthesis\\right paren',
+ ')\\right-parenthesis\\right parenthesis',
+ '[\\left-square-bracket\\left bracket',
+ ']\\right-square-bracket\\right bracket']
 add_words = ["heteroscedasticity",
 	"homoscedasticity",
 	"stationarity",

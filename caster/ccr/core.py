@@ -3,7 +3,7 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ContextAction
+from dragonfly import Function, Choice, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ContextAction, Window
 from dragonfly.actions.action_mouse import get_cursor_position
 
 from caster.lib.dfplus.integers import ShortIntegerRefNo8
@@ -33,6 +33,11 @@ def alphabet(big, letter):
 	if big:
 		letter = letter.upper()
 	Key(letter).execute()
+
+def windowinfo():
+    wd = Window.get_foreground()
+    print(wd.title)
+    print(wd.executable)
 
 class CoreNon(MappingRule):
     mapping = {
@@ -96,6 +101,9 @@ class CoreNon(MappingRule):
             Function(navigation.move_current_window_to_new_desktop, follow=True),
         "close all work [spaces]":
             Function(navigation.close_all_workspaces),
+
+        "show window information":
+            Function(windowinfo),
 
         #---------------------------------------------------------------------------
 
@@ -205,6 +213,7 @@ class Core(MergeRule):
         "duple [<nnavi50>]":
             ContextAction(Function(navigation.duple),
                 [(AppContext(title="Sublime Text"), Key("cs-d:%(nnavi50)s")),
+                (AppContext(title="pycharm"), Key("c-d:%(nnavi50)s")),
                 (AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]), Key(""))]),
 
         "spark [<nnavi500>] [(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel)]":

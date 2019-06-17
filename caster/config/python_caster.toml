@@ -6,6 +6,7 @@
 "execute"              = "execute"
 "function"             = "Function"
 "integer ref"          = "IntegerRef"
+"short integer ref"    = "ShortIntegerRef"
 "key"                  = "Key"
 "mouse"                = "Mouse"
 "repeat"               = "Repeat"

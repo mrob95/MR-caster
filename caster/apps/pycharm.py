@@ -1,35 +1,35 @@
-from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, Function, Pause)
-
+from dragonfly import (Grammar, Pause, Choice, Function, Mimic, Playback, Repeat, Dictation)
 from caster.lib.dfplus.actions import Key, Text, Store, Retrieve
 from caster.lib.dfplus.context import AppContext
 from caster.lib.dfplus.integers import IntegerRef, ShortIntegerRef
-from caster.lib import control, navigation
+
 from caster.lib.merge.mergerule import MergeRule
-import sys
+from caster.lib import control, navigation
 
-
-class SublimeRule(MergeRule):
-    pronunciation = "sublime"
-    mcontext = AppContext(title="Sublime Text")
+class PycharmRule(MergeRule):
+    pronunciation = "pycharm"
+    mcontext = AppContext(title="pycharm")
 
     mapping = {
-        "comment block"                  : Key("cs-slash"),
-        "convert indentation"            : Key("f10, v, i, up:2, enter"),
+        "comment block"                  : Key("c-slash"),
 
         "edit lines"                     : Key("cs-l"),
         "sort lines"                     : Key("f9"),
+        "edit next [<n3>]"               : Key("c-d")*Repeat(extra="n3"),
         "skip next [<n3>]"               : Key("c-k, c-d")*Repeat(extra="n3"),
         "edit all"                       : Key("c-d, a-f3"),
         "reverse selection"              : Key("as-r"),
 
+        "line <ln1>"                     :
+            Key("c-g/10") + Text("%(ln1)s") + Key("enter"),
+
         "<action> [line] <ln1> [by <ln2>]"  :
-            Function(navigation.action_lines),
+            Function(navigation.action_lines, go_to_line="c-g/10", wait="/3"),
 
-        "<action> by [line] <ln1>"  :
-            Key("c-k, c-space, c-g") + Function(lambda ln1: Text(str(ln1+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
+        # "<action> by [line] <ln1>"  :
+        #     Key("c-k, c-space, c-g") + Function(lambda ln1: Text(str(ln1+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
 
-        "new (file | tab)"               : Key("c-n"),
-        # {"keys"                        : ["ctrl+alt+n"], "command": "new_window"},
+        "new (file | tab)"               : Key("a-insert"),
         "new window"                     : Key("ca-n"),
         "open file"                      : Key("c-o"),
         # {"keys"                        : ["ctrl+shift+o"], "command": "prompt_add_folder"},
@@ -37,8 +37,6 @@ class SublimeRule(MergeRule):
         "open recent"                    : Key("f10, down:4, right, down:9"),
         "save as"                        : Key("cs-s"),
         "save all"                        : Key("f10, f, up:8, enter"),
-        "revert (file | [unsaved] changes)": Key("f10, f, up:3, enter"),
-
         #
         "outdent lines"                  : Key("c-lbracket"),
         "join lines [<n3>]"              : Key("c-j")*Repeat(extra="n3"),
@@ -107,7 +105,6 @@ class SublimeRule(MergeRule):
         "focus <panel>"                  : Key("c-%(panel)s"),
         "move <panel>"                   : Key("cs-%(panel)s"),
 
-        # {"keys"                        : ["ctrl+alt+v"], "command": "clone_file"}
         "duplicate (tab | file)"         : Key("ca-v"),
         "split right"                    : Key("as-2, c-1, cs-2"),
         #
@@ -116,18 +113,19 @@ class SublimeRule(MergeRule):
         "zoom in [<n2>]"                 : Key("c-equal")*Repeat(extra="n2"),
         "zoom out [<n2>]"                : Key("c-minus")*Repeat(extra="n2"),
 
-        # wrap plus
-        "(wrap | split) lines"           : Key("a-q"),
+        "align that"                     : Key("ca-a"),
+        "go to file"                     : Key("c-p"),
+        "comment line"                   : Key("c-slash"),
 
-        "paste from history": Key("c-k, c-v"),
+        "<action> scope [<n2>]"          : Key("cs-space:%(n2)s, %(action)s"),
+        "<action> brackets [<n2>]"       : Key("cs-m:%(n2)s, %(action)s"),
+        "<action> (indent | indentation)": Key("cs-j, %(action)s"),
 
-        "format table": Key("cas-t"),
-
-        "configure alignment": Key("f10, p, right, p, right, down, enter"),
+        "indent [<n2>]"                  : Key("c-rbracket:%(n2)s"),
     }
     extras = [
         Dictation("dict"),
-        ShortIntegerRef("ln1",1, 1000),
+        ShortIntegerRef("ln1", 1, 1000),
         ShortIntegerRef("ln2", 1, 1000),
         IntegerRef("n2", 1, 9),
         IntegerRef("n3", 1, 21),
@@ -160,86 +158,4 @@ class SublimeRule(MergeRule):
         "filetype": "",
     }
 
-control.non_ccr_app_rule(SublimeRule())
-
-#---------------------------------------------------------------------------
-
-class SublimeCCRRule(MergeRule):
-    mwith = ["Core"]
-    mcontext = AppContext(title="Sublime Text")
-    mapping = {
-        "line <n>"                       : Key("c-g") + Text("%(n)s") + Key("enter"),
-
-        "edit next [<n3>]"               : Key("c-d")*Repeat(extra="n3"),
-        "align that"                     : Key("ca-a"),
-        "go to file"                     : Key("c-p"),
-        "comment line"                   : Key("c-slash"),
-
-        "<action> scope [<n2>]"          : Key("cs-space:%(n2)s, %(action)s"),
-        "<action> brackets [<n2>]"       : Key("cs-m:%(n2)s, %(action)s"),
-        "<action> (indent | indentation)": Key("cs-j, %(action)s"),
-
-        "indent [<n2>]"                  : Key("c-rbracket:%(n2)s"),
-
-        "auto complete"                  : Key("c-space"),
-
-    }
-    extras = [
-        ShortIntegerRef("n", 1, 1000),
-        IntegerRef("n2", 1, 9),
-        Choice("action", navigation.actions),
-    ]
-    defaults = {"n2": 1}
-
-control.app_rule(SublimeCCRRule())
-
-#---------------------------------------------------------------------------
-
-class SublimeRRule(MergeRule):
-    mwith = ["Core", "R"]
-    mcontext = AppContext(title=".R") & AppContext(title="Sublime Text")
-    mapping = {
-        "run (line | that) [<n>]":
-            Key("cas-r")*Repeat(extra="n"),
-        "open are terminal":
-            Key("ca-r"),
-        "terminal right":
-            Key("ca-r/50, as-2, c-1, cs-2, c-1"),
-        "help that":
-            Store() + Key("c-2, question") + Retrieve() + Key("enter/50, c-1"),
-        "glimpse that":
-            Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" glimpse()") + Key("enter/50, c-1"),
-        "head that":
-            Store() + Key("c-2") + Retrieve() + Key("space, percent, rangle, percent") + Text(" head()") + Key("enter/50, c-1"),
-        "vee table that":
-                Store() + Key("c-2") + Text("library(vtable)") + Key("enter/50") + Retrieve() + Key("space, percent, rangle, percent") + Text(" vtable()") + Key("enter/50, c-1"),
-    }
-    extras = [
-        IntegerRef("n", 1, 9),
-    ]
-    default = {
-        "n": 1,
-    }
-
-control.app_rule(SublimeRRule())
-
-#---------------------------------------------------------------------------
-
-class SublimeTeXRule(MergeRule):
-    mcontext = AppContext(title=[".tex", ".md"]) & AppContext(title="Sublime Text")
-    mapping = {
-        "go [to] (word | name) <dict>":
-            Key("c-r") + Text("%(dict)s") + Key("enter"),
-        "count words": Key("cs-c"),
-
-    }
-    extras = [
-        Dictation("dict"),
-    ]
-    default = {
-        "n": 1,
-    }
-
-control.non_ccr_app_rule(SublimeTeXRule())
-
-#---------------------------------------------------------------------------
+control.non_ccr_app_rule(PycharmRule())

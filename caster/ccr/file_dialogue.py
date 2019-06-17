@@ -10,7 +10,7 @@ CORE = utilities.load_toml_relative("config/core.toml")
 class FileDialogueRule(MergeRule):
     pronunciation = "file dialogue"
     mwith = "Core"
-    mcontext = AppContext(title=["save", "open", "select"])
+    mcontext = AppContext(title=["save", "open", "select", "choose directory"])
 
     mapping = {
         "go up [<n>]"        : Key("a-up:%(n)s"),
