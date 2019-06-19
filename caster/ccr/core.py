@@ -188,7 +188,7 @@ class Core(MergeRule):
                     Function(navigation.splat, manual=True))]),
         "check [<n>]":
             ContextAction(Key("c-enter:%(n)s"),
-                [(AppContext(title=["notepad", "scientific notebook"]), Key("end, enter:%(n)s")),
+                [(AppContext(title=["notepad", "scientific notebook", "jupyter notebook"]), Key("end, enter:%(n)s")),
                 (AppContext(title="emacs"), Key("a-m, i, j, down")*Repeat(extra="n"))]),
 
     	"<misc_core_keys>": Key("%(misc_core_keys)s"),
@@ -213,6 +213,7 @@ class Core(MergeRule):
         "duple [<nnavi50>]":
             ContextAction(Function(navigation.duple),
                 [(AppContext(title="Sublime Text"), Key("cs-d:%(nnavi50)s")),
+                (AppContext(title="jupyter notebook"), Function(navigation.duple, esc=False)),
                 (AppContext(title="pycharm"), Key("c-d:%(nnavi50)s")),
                 (AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]), Key(""))]),
 

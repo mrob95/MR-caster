@@ -42,6 +42,7 @@ app_modules = [
 			"kindle",
 			"virtualbox",
 			"pycharm",
+			"jupyter",
 			# "accessibility"
 			]
 max_ccr_repetitions = 10

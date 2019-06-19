@@ -187,9 +187,10 @@ class SublimeCCRRule(MergeRule):
     extras = [
         ShortIntegerRef("n", 1, 1000),
         IntegerRef("n2", 1, 9),
+        IntegerRef("n3", 1, 21),
         Choice("action", navigation.actions),
     ]
-    defaults = {"n2": 1}
+    defaults = {"n2": 1, "n3": 1}
 
 control.app_rule(SublimeCCRRule())
 

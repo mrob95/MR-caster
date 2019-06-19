@@ -96,9 +96,10 @@ def drop(nnavi500, nexus, capitalization, spacing, key="c-v"):
         # Restore the clipboard contents.
         cb.copy_to_system()
 
-def duple(nnavi50):
+def duple(nnavi50, esc=True):
     cb = Clipboard(from_system=True)
-    Key("escape, home, s-end, c-c, end").execute()
+    if esc: Key("escape").execute()
+    Key("home, s-end, c-c, end").execute()
     time.sleep(SETTINGS["keypress_wait"])
     for _ in range(nnavi50):
         Key("enter, c-v").execute()

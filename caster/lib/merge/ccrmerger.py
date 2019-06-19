@@ -97,7 +97,7 @@ class CCRMerger(object):
     '''setup: adding rules and filters'''
 
     def add_global_rule(self, rule):
-        assert rule.get_context() is None, "global rules may not have contexts, " + rule.get_pronunciation() + " has a context: " + str(rule.get_context())
+        if rule.get_context() is not None: rule.set_context(None)
         assert isinstance(rule, MergeRule) and not hasattr(rule, "set_merger"), \
             "only MergeRules may be added as global rules; use add_selfmodrule() or add_app_rule()"
         self._add_to(rule, self._global_rules)

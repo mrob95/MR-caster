@@ -152,3 +152,33 @@ class CasterPythonRule(MergeRule):
 control.app_rule(CasterPythonRule())
 
 #---------------------------------------------------------------------------
+
+class JupyterPython(MergeRule):
+    non = PythonNon
+    mwith = "Core"
+    mcontext = AppContext(title="jupyter notebook")
+    pronunciation = "jupyter python"
+
+    mapping = {
+        "<command>":
+            execution.Alternating("command"),
+
+        BINDINGS["function_prefix"] + " <fun>":
+            Text("%(fun)s()") + Key("left"),
+
+        "method": ContextAction(
+            Text("def (self):") + Key("left:7"),
+            [(AppContext(title="Sublime Text"), Text("defs") + Key("tab"))]),
+        "list comprehension": ContextAction(
+            Text("[ for  in i]") + Key("left:11"),
+            [(AppContext(title="Sublime Text"), Text("lc") + Key("tab"))]),
+    }
+    extras = [
+        Choice("fun",      BINDINGS["functions"]),
+        Choice("command",  BINDINGS["commands"]),
+    ]
+    defaults = {
+        "exception": "",
+    }
+
+control.app_rule(JupyterPython())
