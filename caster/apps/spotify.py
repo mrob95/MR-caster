@@ -1,8 +1,4 @@
-from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef, Repeat)
-from caster.lib.dfplus.actions import Key, Text
-from caster.lib.dfplus.context import AppContext
-from caster.lib.merge.mergerule import MergeRule
-from caster.lib import control
+from caster.imports import *
 
 class SpotifyRule(MergeRule):
     pronunciation = "Spotify"

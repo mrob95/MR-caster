@@ -1,10 +1,4 @@
-from dragonfly import Dictation, MappingRule, Choice, Clipboard, Function
-from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve, MultiChoice
-from caster.lib.dfplus.context import AppContext
-from caster.lib.dfplus.integers import IntegerRef, ShortIntegerRef
-
-from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
+from caster.imports import *
 
 BINDINGS = utilities.load_toml_relative("config/gitbash.toml")
 CORE     = utilities.load_toml_relative("config/core.toml")
@@ -30,7 +24,7 @@ class GitBashRule(MergeRule):
         "<command>": execution.Alternating("command"),
 
         "go <directory>":
-            Text("cd %(directory)s") + Key("enter"),
+            Text("cd \"%(directory)s\"") + Key("enter"),
 
         "folder <directory>":
             Text("%(directory)s"),

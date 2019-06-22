@@ -1,11 +1,13 @@
-from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Function, ContextAction
-from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve
-from caster.lib.dfplus.context import AppContext
+# from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Function, ContextAction
+# from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve
+# from caster.lib.dfplus.context import AppContext
 
-from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
-import re
-from subprocess import Popen
+# from caster.lib import control, utilities, execution
+# from caster.lib.merge.mergerule import MergeRule
+# import re
+# from subprocess import Popen
+
+from caster.imports import *
 
 BINDINGS = utilities.load_toml_relative("config/python.toml")
 
@@ -166,19 +168,31 @@ class JupyterPython(MergeRule):
         BINDINGS["function_prefix"] + " <fun>":
             Text("%(fun)s()") + Key("left"),
 
-        "method": ContextAction(
-            Text("def (self):") + Key("left:7"),
-            [(AppContext(title="Sublime Text"), Text("defs") + Key("tab"))]),
-        "list comprehension": ContextAction(
+        "method":
+            Text("def (self)") + Key("colon/3, left:7"),
+        "list comprehension":
             Text("[ for  in i]") + Key("left:11"),
-            [(AppContext(title="Sublime Text"), Text("lc") + Key("tab"))]),
+
+        "(insert | new) cell"       : Key("a-enter"),
+        "run cell"                  : Key("c-enter"),
+        "(next cell | necker) [<n>]": Key("s-enter:%(n)s"),
+        "split cell"                : Key("cs-minus"),
+
+        "indent [<n>]"              : Key("c-rbracket:%(n)s"),
+        "outdent [<n>]"             : Key("c-lbracket:%(n)s"),
+
+        "show help"                 : Key("s-tab"),
+
+        "comment line"              : Key("c-slash"),
     }
     extras = [
+        IntegerRef("n", 1, 10),
         Choice("fun",      BINDINGS["functions"]),
         Choice("command",  BINDINGS["commands"]),
     ]
     defaults = {
         "exception": "",
+        "n": 1,
     }
 
 control.app_rule(JupyterPython())

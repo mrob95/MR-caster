@@ -21,6 +21,7 @@
 "Sumatra [PDF]"  = "SumatraPDF "
 "to file"        = " > "
 "sed replace"    = ["sed -i -e \"s///g\"", "left:4"]
+"jupiter notebook" = "jupyter notebook"
 
 [latex_commands]
 "PDF LaTeX"              = "pdflatex "

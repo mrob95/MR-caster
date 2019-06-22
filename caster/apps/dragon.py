@@ -1,8 +1,4 @@
-from dragonfly import (Grammar, Playback, Key, Dictation, Function)
-
-from caster.lib.merge.mergerule import MergeRule
-from caster.lib import utilities
-
+from caster.imports import *
 
 class DragonRule(MergeRule):
     pronunciation = "dragon"
@@ -25,11 +21,4 @@ class DragonRule(MergeRule):
     ]
     defaults = {}
 
-
-#---------------------------------------------------------------------------
-
-grammar = Grammar("Dragon Naturallyspeaking")
-
-rule = DragonRule(name="dragon")
-grammar.add_rule(rule)
-grammar.load()
+control.non_ccr_app_rule(DragonRule())

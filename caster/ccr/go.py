@@ -3,12 +3,7 @@ Created on , 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Choice, Function
-from caster.lib.dfplus.actions import Key, Text, Mouse
-from caster.lib.dfplus.context import AppContext
-
-from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
+from caster.imports import *
 
 BINDINGS = utilities.load_toml_relative("config/go.toml")
 

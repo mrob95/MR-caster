@@ -1,9 +1,4 @@
-from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef, Mimic, Playback, Repeat, ShortIntegerRef)
-from caster.lib.dfplus.actions import Key, Text
-from caster.lib.dfplus.context import AppContext
-
-from caster.lib.merge.mergerule import MergeRule
-from caster.lib import control
+from caster.imports import *
 
 class VirtualBoxRule(MergeRule):
 	pronunciation = "virtualbox"
@@ -16,7 +11,6 @@ class VirtualBoxRule(MergeRule):
 		"browser"      : Key("w-f2"),
 		"worker <n>"     : Key("w-%(n)s"),
 		"transfer worker <n>"     : Key("ws-%(n)s"),
-
 	}
 
 	extras = [

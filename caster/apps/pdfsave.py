@@ -1,9 +1,4 @@
-import subprocess
-# import dragonfly
-from dragonfly import Choice, Function, Dictation, Window, Grammar
-
-from caster.lib import utilities
-from caster.lib.merge.selfmodrule import SelfModifyingRule
+from caster.imports import *
 
 #module functions
 def bring_it(path, page=None):
@@ -56,8 +51,4 @@ class BookmarkRule(SelfModifyingRule):
         Dictation("key"),
     ]
 
-
-bookmark_rule = BookmarkRule()
-grammar = Grammar("bookmark")
-grammar.add_rule(bookmark_rule)
-grammar.load()
+control.non_ccr_app_rule(BookmarkRule())

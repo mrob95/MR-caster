@@ -2,13 +2,7 @@
 Mike Roberts 13/09/18
 '''
 
-from dragonfly import (Dictation, Grammar, IntegerRef, MappingRule,
-                       Pause, Repeat, ShortIntegerRef, Choice, Function)
-from caster.lib.dfplus.actions import Key, Text, Store, Retrieve, Mouse
-from caster.lib.dfplus.context import AppContext
-
-from caster.lib.merge.mergerule import MergeRule
-from caster.lib import control, navigation, utilities
+from caster.imports import *
 
 BINDINGS = utilities.load_toml_relative("config/r.toml")
 

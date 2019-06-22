@@ -1,10 +1,4 @@
-from dragonfly import (Grammar, Pause, Choice, Function, Mimic, Playback, Repeat, Dictation)
-from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve
-from caster.lib.dfplus.context import AppContext
-from caster.lib.dfplus.integers import IntegerRef, ShortIntegerRef
-
-from caster.lib.merge.mergerule import MergeRule
-from caster.lib import control
+from caster.imports import *
 
 class RuleNameRule(MergeRule):
 	pronunciation = "apppronunciation"

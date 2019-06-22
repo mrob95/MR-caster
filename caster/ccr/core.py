@@ -3,19 +3,8 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, Dictation, Repeat, MappingRule, Playback, Clipboard, Mimic, ContextAction, Window
-from dragonfly.actions.action_mouse import get_cursor_position
+from caster.imports import *
 
-from caster.lib.dfplus.integers import ShortIntegerRefNo8
-from caster.lib.dfplus.actions import Key, Text, Mouse
-from caster.lib.dfplus.context import AppContext
-from caster.lib.dfplus.integers import IntegerRef, ShortIntegerRef
-from caster.lib import control, utilities, navigation, textformat, execution
-from caster.lib.latex import tex_funcs
-from caster.lib.merge.mergerule import MergeRule
-
-from dragonfly.language.en.characters import element_series_wrap_class
-import os, datetime
 _NEXUS = control.nexus()
 
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
@@ -23,11 +12,8 @@ CORE     = utilities.load_toml_relative("config/core.toml")
 PERSONAL = utilities.load_toml_relative("config/personal.toml")
 LATEX    = utilities.load_toml_relative("config/latex.toml")
 
-_LETTERS, _DIRECTIONS = "letters", "directions"
-if SETTINGS["alternative_letters"]:
-	_LETTERS += "_alt"
-if SETTINGS["alternative_directions"]:
-	_DIRECTIONS += "_alt"
+_LETTERS    = "letters_alt" if SETTINGS["alternative_letters"] else "letters"
+_DIRECTIONS = "directions_alt" if SETTINGS["alternative_directions"] else "directions"
 
 def alphabet(big, letter):
 	if big:
@@ -39,7 +25,7 @@ def windowinfo():
     print(wd.title)
     print(wd.executable)
 
-class CoreNon(MappingRule):
+class CoreNon(MergeRule):
     mapping = {
         "configure " + CORE["pronunciation"]:
             Function(utilities.load_config, config_name="core.toml"),
@@ -168,8 +154,10 @@ class Core(MergeRule):
     mapping = {
     	"[<big>] <letter>": Function(alphabet),
 
-        CORE["numbers_prefix"] + " <wnKK> [<wnKK2>] [<wnKK3>] [<wnKK4>] [<wnKK5>]":
-            Text("%(wnKK)s" + "%(wnKK2)s" + "%(wnKK3)s" + "%(wnKK4)s" + "%(wnKK5)s"),
+        # CORE["numbers_prefix"] + " <wnKK> [<wnKK2>] [<wnKK3>] [<wnKK4>] [<wnKK5>]":
+        #     Text("%(wnKK)s" + "%(wnKK2)s" + "%(wnKK3)s" + "%(wnKK4)s" + "%(wnKK5)s"),
+        CORE["numbers_prefix"] + " <num_seq>":
+            Function(lambda num_seq: Text("".join([str(i) for i in num_seq])).execute()),
 
     	"<punctuation>": Key("%(punctuation)s"),
 
@@ -234,6 +222,7 @@ class Core(MergeRule):
         Dictation("text"),
         ShortIntegerRefNo8("n", 2, 20),
         # IntegerRef("n", 2, 20),
+        Repetition(IntegerRef("wnKK", 0, 10), min=1, max=5, name="num_seq"),
         IntegerRef("wnKK", 0, 10),
         IntegerRef("wnKK2", 0, 10),
         IntegerRef("wnKK3", 0, 10),

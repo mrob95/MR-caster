@@ -1,9 +1,4 @@
-from dragonfly import (Grammar, Dictation, IntegerRef)
-from caster.lib.dfplus.actions import Key, Text
-from caster.lib.dfplus.context import AppContext
-
-from caster.lib import control
-from caster.lib.merge.mergerule import MergeRule
+from caster.imports import *
 
 class EmacsRule(MergeRule):
     pronunciation = "E max"

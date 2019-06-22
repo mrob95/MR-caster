@@ -1,9 +1,4 @@
-from dragonfly import (Grammar, Dictation, Repeat, Choice, Clipboard, Function, IntegerRef)
-from caster.lib.dfplus.actions import Key, Text, Store, Retrieve
-from caster.lib.dfplus.context import AppContext
-
-from caster.lib import control
-from caster.lib.merge.mergerule import MergeRule
+from caster.imports import *
 
 class ChromeRule(MergeRule):
     pronunciation = "google chrome"

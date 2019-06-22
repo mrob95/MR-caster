@@ -3,14 +3,7 @@ Created on Sep 4, 2018
 
 @author: Mike Roberts
 '''
-from dragonfly import Function, Choice, Dictation, Repeat
-
-from caster.lib.dfplus.context import AppContext
-from caster.lib.dfplus.actions import Text, Key, Mouse
-from caster.lib.dfplus.integers import IntegerRef
-from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
-from caster.lib.merge.nestedrule import NestedRule
+from caster.imports import *
 
 BINDINGS = utilities.load_toml_relative("config/ScientificNotebook6.toml")
 CORE = utilities.load_toml_relative("config/core.toml")

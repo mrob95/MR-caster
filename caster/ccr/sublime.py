@@ -1,12 +1,4 @@
-from dragonfly import (Grammar, Dictation, Choice, Repeat, Dictation, Function, Pause)
-
-from caster.lib.dfplus.actions import Key, Text, Store, Retrieve
-from caster.lib.dfplus.context import AppContext
-from caster.lib.dfplus.integers import IntegerRef, ShortIntegerRef
-from caster.lib import control, navigation
-from caster.lib.merge.mergerule import MergeRule
-import sys
-
+from caster.imports import *
 
 class SublimeRule(MergeRule):
     pronunciation = "sublime"
@@ -172,7 +164,7 @@ class SublimeCCRRule(MergeRule):
 
         "edit next [<n3>]"               : Key("c-d")*Repeat(extra="n3"),
         "align that"                     : Key("ca-a"),
-        "go to file"                     : Key("c-p"),
+        "(go to file | good for)"        : Key("c-p"),
         "comment line"                   : Key("c-slash"),
 
         "<action> scope [<n2>]"          : Key("cs-space:%(n2)s, %(action)s"),

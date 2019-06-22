@@ -49,8 +49,9 @@
 "head"                        = ["head()", ""]
 "index"                       = ["index", ""]
 "info"                        = ["info()", ""]
-"reset index"                 = ["reset_index()", ""]
 "not null"                    = ["notnull()", ""]
+"plot"                        = ["plot()", ""]
+"reset index"                 = ["reset_index()", ""]
 "shape"                       = ["shape", ""]
 "tail"                        = ["tail()", ""]
 "value counts"                = ["value_counts()", ""]
@@ -86,6 +87,9 @@
 "to CSV"                      = ["to_csv()", "left"]
 "to excel"                    = ["to_excel()", "left"]
 "to feather"                  = ["to_feather()", "left"]
+#
+"axis one"                    = "axis=1"
+"inplace true"                = "inplace=True"
 
 [matplotlib]
 "name"                        = "matplotlib.pyplot"
@@ -100,6 +104,7 @@
 "why limit"                   = ["plt.ylim()", "left"]
 #
 "plot"                        = ["plot()", "left"]
+"scatter"                     = ["scatter()", "left"]
 
 [sklearn]
 "pronunciation"                        = "sigh [kit] learn"

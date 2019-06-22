@@ -1,11 +1,4 @@
-from dragonfly import Dictation, MappingRule, Choice, Function, IntegerRef, Repeat, Clipboard
-from caster.lib.dfplus.actions import Key, Text, Mouse
-from caster.lib.dfplus.context import AppContext
-import markdown2
-
-from caster.lib import control, utilities, execution
-from caster.lib.merge.mergerule import MergeRule
-
+from caster.imports import *
 
 def CliptoHTML():
     Key("c-c/10").execute()

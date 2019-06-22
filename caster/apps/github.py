@@ -1,11 +1,8 @@
-from dragonfly import (Grammar, Repeat, Choice, IntegerRef)
-from caster.lib.dfplus.actions import Key, Text
-from caster.lib.dfplus.context import AppContext
-
-from caster.lib.merge.mergerule import MergeRule
+from caster.imports import *
 
 class GitHubRule(MergeRule):
     pronunciation = "github"
+    mcontext = AppContext(executable="GitHubDesktop")
 
     mapping = {
             "new repository": Key("c-n"),
@@ -47,12 +44,4 @@ class GitHubRule(MergeRule):
     ]
     defaults = {"n": 1}
 
-
-#---------------------------------------------------------------------------
-
-context = AppContext(executable="GitHubDesktop")
-grammar = Grammar("GitHubDesktop", context=context)
-
-rule = GitHubRule(name="GitHubDesktop")
-grammar.add_rule(rule)
-grammar.load()
+control.non_ccr_app_rule(GitHubRule())

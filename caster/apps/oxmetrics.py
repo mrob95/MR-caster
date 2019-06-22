@@ -1,12 +1,8 @@
-from dragonfly import (Grammar, Pause, Choice, Function, IntegerRef)
-from caster.lib.dfplus.actions import Key, Text
-from caster.lib.dfplus.context import AppContext
-
-from caster.lib.merge.mergerule import MergeRule
-
+from caster.imports import *
 
 class OxMetricsRule(MergeRule):
     pronunciation = "OxMetrics"
+    mcontext = AppContext(executable="OxMetrics", title="OxMetrics")
 
     mapping = {
     	"open file": Key("c-o"),
@@ -20,9 +16,4 @@ class OxMetricsRule(MergeRule):
     defaults = {
     }
 
-
-context = AppContext(executable="OxMetrics", title="OxMetrics")
-grammar = Grammar("OxMetrics", context=context)
-rule = OxMetricsRule()
-grammar.add_rule(OxMetricsRule(name="OxMetrics"))
-grammar.load()
+control.non_ccr_app_rule(OxMetricsRule())

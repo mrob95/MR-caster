@@ -1,10 +1,4 @@
-from dragonfly import (Grammar, Pause, Choice, Function, Mimic, Playback, Repeat, Dictation)
-from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve
-from caster.lib.dfplus.context import AppContext
-from caster.lib.dfplus.integers import IntegerRef, ShortIntegerRef
-
-from caster.lib.merge.mergerule import MergeRule
-from caster.lib import control
+from caster.imports import *
 
 class JupyterRule(MergeRule):
 	pronunciation = "jupyter notebook"
@@ -20,6 +14,8 @@ class JupyterRule(MergeRule):
 		"outdent [<n>]"             : Key("c-lbracket:%(n)s"),
 
 		"show help"                 : Key("s-tab"),
+
+		"comment line"              : Key("c-slash"),
 	}
 
 	extras = [
