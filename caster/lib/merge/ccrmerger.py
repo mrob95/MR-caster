@@ -108,14 +108,6 @@ class CCRMerger(object):
         assert rule.get_merge_with() is not None, "app rules must define mwith, " + rule.get_pronunciation() + " has no mwith"
         self._add_to(rule, self._app_rules)
 
-    def add_non_ccr_app_rule(self, rule, context=None):
-        if context is not None and rule.get_context() is None: rule.set_context(context)
-        grammar = Grammar(str(rule), context=rule.get_context())
-        grammar.add_rule(rule)
-        if rule.non is not None:
-            grammar.add_rule(rule.non())
-        grammar.load()
-
     def add_selfmod_rule(self, rule):
         assert hasattr(rule,"set_merger"), "only SelfModifyingRules may be added by add_selfmodrule()"
         assert not hasattr(rule, "master_node"), "NodeRules are not permitted in the merger"

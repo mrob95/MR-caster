@@ -1,4 +1,5 @@
 from ctrl.nexus import Nexus
+from dragonfly import Grammar
 
 _NEXUS = None
 
@@ -15,7 +16,12 @@ def global_rule(rule):
     nexus().merger.add_global_rule(rule)
 
 def non_ccr_app_rule(rule, context=None):
-    nexus().merger.add_non_ccr_app_rule(rule, context=context)
+    if context is not None and rule.get_context() is None: rule.set_context(context)
+    grammar = Grammar(str(rule), context=rule.get_context())
+    grammar.add_rule(rule)
+    if rule.non is not None:
+        grammar.add_rule(rule.non())
+    grammar.load()
 
 def selfmod_rule(rule):
     nexus().merger.add_selfmod_rule(rule)
