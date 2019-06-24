@@ -16,9 +16,7 @@ _LETTERS    = "letters_alt" if SETTINGS["alternative_letters"] else "letters"
 _DIRECTIONS = "directions_alt" if SETTINGS["alternative_directions"] else "directions"
 
 def alphabet(big, letter):
-	if big:
-		letter = letter.upper()
-	Key(letter).execute()
+	Key(letter.upper() if big else letter).execute()
 
 def windowinfo():
     wd = Window.get_foreground()

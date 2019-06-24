@@ -78,6 +78,7 @@ class ChromeRule(MergeRule):
             "timetable": "timetable.york.ac.uk",
             "twitter"  : "twitter.com",
             "VLE"      : "https://vle.york.ac.uk",
+            "what's app": "https://web.whatsapp.com/",
             "youtube"  : "youtube.com",
         }),
         Choice("numberth", {

@@ -164,7 +164,7 @@ class SublimeCCRRule(MergeRule):
 
         "edit next [<n3>]"               : Key("c-d")*Repeat(extra="n3"),
         "align that"                     : Key("ca-a"),
-        "(go to file | good for)"        : Key("c-p"),
+        "(go to file | good for | good file)": Key("c-p"),
         "comment line"                   : Key("c-slash"),
 
         "<action> scope [<n2>]"          : Key("cs-space:%(n2)s, %(action)s"),

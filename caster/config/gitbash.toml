@@ -18,6 +18,7 @@
 "move file"      = "mv  "
 "paste"          = ["", "s-insert"]
 "pipe"           = " | "
+"lodge and"      = " && "
 "Sumatra [PDF]"  = "SumatraPDF "
 "to file"        = " > "
 "sed replace"    = ["sed -i -e \"s///g\"", "left:4"]
@@ -76,6 +77,7 @@
 "git diff"                            = "git diff"
 "git discard"                         = "git checkout -- "
 "git fetch upstream"                  = "git fetch upstream"
+"git fetch upstream and pull"         = "git fetch upstream && git pull"
 "git fetch"                           = "git fetch "
 "git gooey blame"                     = "git gui blame PATH"
 "git hub"                             = "https://github.com/"
@@ -87,6 +89,7 @@
 "git pull"                            = "git pull "
 "git push set upstream [origin]"      = "git push --set-upstream origin "
 "git push"                            = "git push "
+"git rebase"                          = "git rebase "
 "git remote add origin"               = "git remote add origin "
 "git remote"                          = "git remote "
 "git remove branch"                   = "git branch -d "
