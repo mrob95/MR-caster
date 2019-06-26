@@ -95,6 +95,7 @@ class IntegerRefMF(RuleWrap):
 class ShortIntegerRefNo8(RuleWrap):
     def __init__(self, name, min, max, default=None):
         content = language.ShortIntegerContent
+
         content.builders[1] = MapIntBuilder({
                                  "one"  : 1,
                                  "two"  : 2,

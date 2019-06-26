@@ -56,8 +56,8 @@ class CoreNon(MergeRule):
         "volume up [<n>]"     : Key("volumeup/5:%(n)d"),
         "volume down [<n>]"   : Key("volumedown/5:%(n)d"),
         "volume (mute|unmute)": Key("volumemute"),
-        "music next"          : Key("tracknext"),
-        "music previous"      : Key("trackprev"),
+        "music next [<n>]"    : Key("tracknext/5:%(n)d"),
+        "music previous [<n>]": Key("trackprev/5:%(n)d"),
         "music (pause|play)"  : Key("playpause"),
 
         #---------------------------------------------------------------------------

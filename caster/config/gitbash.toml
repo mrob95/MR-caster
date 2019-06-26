@@ -78,6 +78,8 @@
 "git discard"                         = "git checkout -- "
 "git fetch upstream"                  = "git fetch upstream"
 "git fetch upstream and pull"         = "git fetch upstream && git pull"
+"git fetch origin"                    = "git fetch origin"
+"git fetch origin and pull"           = "git fetch origin && git pull"
 "git fetch"                           = "git fetch "
 "git gooey blame"                     = "git gui blame PATH"
 "git hub"                             = "https://github.com/"
