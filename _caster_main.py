@@ -1,3 +1,6 @@
+import logging
+logging.basicConfig()
+
 from dragonfly import (Function, Grammar, Choice)
 
 from caster.lib import control, utilities

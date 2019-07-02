@@ -76,6 +76,7 @@
 "git commit"                          = ["git commit -m \"\"", "left"]
 "git diff"                            = "git diff"
 "git discard"                         = "git checkout -- "
+"git (discard all | reset hard)"      = "git reset --hard"
 "git fetch upstream"                  = "git fetch upstream"
 "git fetch upstream and pull"         = "git fetch upstream && git pull"
 "git fetch origin"                    = "git fetch origin"
@@ -99,4 +100,5 @@
 "git stash branch"                    = "git stash branch NAME"
 "git stash list"                      = "git stash list"
 "git stash"                           = "git stash"
+"git (stash pop | retrieve)"          = "git stash"
 "git status"                          = ["git status", "enter"]

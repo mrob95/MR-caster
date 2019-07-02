@@ -171,5 +171,6 @@ def enclose_selected(enclosure):
 actions = {"select" : "",
            "copy"   : "c-c",
            "cut"    : "c-x",
+           "insert" : "c-enter",
            "remove" : "backspace",
            "replace": "c-v"}

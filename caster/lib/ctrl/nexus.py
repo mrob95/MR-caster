@@ -7,7 +7,6 @@ from caster.lib.merge.mergepair import MergeInf
 import sys
 
 class Nexus:
-
     def __init__(self, real_merger_config=True):
         self.clip = {}
         self.temp = ""

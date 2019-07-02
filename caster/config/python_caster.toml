@@ -5,6 +5,7 @@
 "dictation"            = "Dictation"
 "execute"              = "execute"
 "function"             = "Function"
+"run command"          = "RunCommand"
 "integer ref"          = "IntegerRef"
 "short integer ref"    = "ShortIntegerRef"
 "key"                  = "Key"

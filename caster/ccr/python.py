@@ -1,18 +1,6 @@
-# from dragonfly import Dictation, MappingRule, Choice, IntegerRef, Function, ContextAction
-# from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve
-# from caster.lib.dfplus.context import AppContext
-
-# from caster.lib import control, utilities, execution
-# from caster.lib.merge.mergerule import MergeRule
-# import re
-# from subprocess import Popen
-
 from caster.imports import *
 
 BINDINGS = utilities.load_toml_relative("config/python.toml")
-
-def test(arg):
-    Text(arg).execute()
 
 def setters():
     Store().execute()
@@ -27,6 +15,7 @@ class PythonNon(MergeRule):
     mapping = {
         "cheat sheet <module>":
             Function(lambda module: Popen(["SumatraPDF", "C:/Users/Mike/Documents/cheatsheets/python/%s.pdf" % module])),
+            # RunCommand(["SumatraPDF", "C:/Users/Mike/Documents/cheatsheets/python/%(module)s.pdf"]),
 
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
@@ -46,10 +35,8 @@ class PythonNon(MergeRule):
         BINDINGS["method_prefix"] + " <mmeth>":
             Function(lambda mmeth: Text("def __%s__(%s):" % (mmeth[0], mmeth[1])).execute()),
 
-        "try except [<exception>]":
-            Text("try: ") + Key("enter:2, backspace") + Text("except%(exception)s:") + Key("up"),
-        "try except <exception> as":
-            Text("try:") + Key("enter:2, backspace") + Text("except%(exception)s as :") + Key("left"),
+        "try except [<exception>] [<as>]":
+            Text("try: ") + Key("enter:2, backspace") + Text("except%(exception)s%(as)s:") + Key("up"),
 
         "insert line break": Text("#" + ("-"*77)),
 
@@ -67,9 +54,10 @@ class PythonNon(MergeRule):
         Choice("mmeth",    BINDINGS["misc_methods"]),
         Choice("exception",BINDINGS["exceptions"]),
         Choice("fun",      BINDINGS["functions"]),
-
+        Choice("as", {"as": " as "}),
     ]
     defaults = {
+        "as"       : "",
         "exception": "",
     }
 
@@ -147,7 +135,7 @@ class CasterPythonRule(MergeRule):
     }
     extras = [
         IntegerRef("intn", 1, 1001),
-        Choice("cfun", CASTER["functions"]),
+        Choice("cfun",  CASTER["functions"]),
         Choice("cmisc", CASTER["misc"]),
     ]
 
@@ -180,8 +168,6 @@ class JupyterPython(MergeRule):
 
         "indent [<n>]"              : Key("c-rbracket:%(n)s"),
         "outdent [<n>]"             : Key("c-lbracket:%(n)s"),
-
-        "show help"                 : Key("s-tab"),
 
         "comment line"              : Key("c-slash"),
     }

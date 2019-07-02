@@ -4,6 +4,7 @@ Created on Sep 1, 2015
 @author: synkarius
 '''
 from dragonfly import MappingRule, Pause, Function
+from caster.lib import utilities
 
 
 class MergeRule(MappingRule):

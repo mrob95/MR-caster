@@ -4,7 +4,7 @@
 "pronunciation"        = "Core"
 "capitals_prefix"      = "big"
 "numbers_prefix"       = "numb"
-"dictation_prefix"     = "say"
+"dictation_prefix"     = "(say | so)"
 "extreme"              = "wally"
 
 [directories]

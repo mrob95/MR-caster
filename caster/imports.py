@@ -1,5 +1,5 @@
 from dragonfly import Dictation, MappingRule, Choice, Function, ContextAction, Repetition, Compound
-from dragonfly import Repeat, Playback, Mimic, Window, Clipboard
+from dragonfly import Repeat, Playback, Mimic, Window, Clipboard, RunCommand
 from dragonfly.actions.action_mouse import get_cursor_position
 
 from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve, MultiChoice

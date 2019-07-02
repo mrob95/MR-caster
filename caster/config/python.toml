@@ -66,11 +66,13 @@ method_prefix   = "meth"
 "iffae not"           = ["if not ", "colon/3, left"]
 "import"              = "import "
 "insert long comment" = ["''''''", "left:3, enter:2, up"]
+"insert doc string"   = ['""""""', "left:3, enter:2, up"]
 "lambda"              = ["lambda ", "colon/3, left"]
 "lodge and"           = " and "
 "lodge in"            = " in "
 "lodge is"            = " is "
 "lodge not"           = " not "
+"lodge not in "       = " not "
 "lodge or"            = " or "
 "lodge for"           = " for "
 "return"              = "return "
@@ -118,11 +120,13 @@ method_prefix   = "meth"
 "ex or"                    = "xor"
 
 [misc_methods]
-"get item"    = ["getitem", "self, key"]
-"set item"    = ["setitem", "self, key, value"]
-"delete item" = ["delitem", "self, key"]
-"contains"    = ["contains", "self, item"]
-"missing"     = ["missing", "self, key"]
+"get item"         = ["getitem", "self, key"]
+"get attribute"    = ["getattr", "self, name"]
+"set attribute"    = ["setattr", "self, name"]
+"set item"         = ["setitem", "self, key, value"]
+"delete item"      = ["delitem", "self, key"]
+"contains"         = ["contains", "self, item"]
+"missing"          = ["missing", "self, key"]
 
 
 [exceptions]
