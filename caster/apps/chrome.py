@@ -8,6 +8,7 @@ class ChromeRule(MergeRule):
 
         "[new] incognito window"  : Key("cs-n"),
         "new tab [<n>]"           : Key("c-t:%(n)s"),
+        "close tab [<n>]"         : Key("c-w:%(n)s"),
         "reopen tab [<n>]"        : Key("cs-t:%(n)s"),
         "<numberth> tab"          : Key("c-%(numberth)s"),
         "close all tabs"          : Key("cs-w"),

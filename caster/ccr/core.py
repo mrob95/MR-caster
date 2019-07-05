@@ -1,9 +1,5 @@
-'''
-Created on Sep 4, 2018
-
-@author: Mike Roberts
-'''
 from caster.imports import *
+from caster.lib.dfplus.recorder import recorder
 
 _NEXUS = control.nexus()
 
@@ -15,9 +11,6 @@ LATEX    = utilities.load_toml_relative("config/latex.toml")
 _LETTERS    = "letters_alt" if SETTINGS["alternative_letters"] else "letters"
 _DIRECTIONS = "directions_alt" if SETTINGS["alternative_directions"] else "directions"
 
-def alphabet(big, letter):
-	Key(letter.upper() if big else letter).execute()
-
 def windowinfo():
     wd = Window.get_foreground()
     print(wd.title)
@@ -25,6 +18,15 @@ def windowinfo():
 
 class CoreNon(MergeRule):
     mapping = {
+
+        "start recording": Function(recorder.start_recording),
+
+        "stop recording": Function(recorder.stop_recording),
+
+        "play recording": Function(recorder.execute),
+
+        #-----------------------------------------------------------------------------
+
         "configure " + CORE["pronunciation"]:
             Function(utilities.load_config, config_name="core.toml"),
 
@@ -150,10 +152,9 @@ class Core(MergeRule):
     pronunciation = CORE["pronunciation"]
 
     mapping = {
-    	"[<big>] <letter>": Function(alphabet),
+    	"[<big>] <letter>":
+            Function(lambda big, letter: Key(letter.upper() if big else letter).execute()),
 
-        # CORE["numbers_prefix"] + " <wnKK> [<wnKK2>] [<wnKK3>] [<wnKK4>] [<wnKK5>]":
-        #     Text("%(wnKK)s" + "%(wnKK2)s" + "%(wnKK3)s" + "%(wnKK4)s" + "%(wnKK5)s"),
         CORE["numbers_prefix"] + " <num_seq>":
             Function(lambda num_seq: Text("".join([str(i) for i in num_seq])).execute()),
 

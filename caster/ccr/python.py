@@ -11,6 +11,8 @@ def setters():
     for arg in args2:
         Text("self.%s = %s\n" % (arg, arg)).execute()
 
+camel = lambda t: t[0] + (t.title().replace(" ", "")[1:] if len(t)>1 else "")
+
 class PythonNon(MergeRule):
     mapping = {
         "cheat sheet <module>":
@@ -26,13 +28,13 @@ class PythonNon(MergeRule):
         "create setters":
             Function(setters),
 
-        BINDINGS["method_prefix"] + " init":
+        BINDINGS["magic_prefix"] + " init":
             Text("def __init__():") + Key("left:2") + Text("self, "),
-        BINDINGS["method_prefix"] + " <umeth>":
+        BINDINGS["magic_prefix"] + " <umeth>":
             Text("def __%(umeth)s__(self):"),
-        BINDINGS["method_prefix"] + " <bmeth>":
+        BINDINGS["magic_prefix"] + " <bmeth>":
             Text("def __%(bmeth)s__(self, other):"),
-        BINDINGS["method_prefix"] + " <mmeth>":
+        BINDINGS["magic_prefix"] + " <mmeth>":
             Function(lambda mmeth: Text("def __%s__(%s):" % (mmeth[0], mmeth[1])).execute()),
 
         "try except [<exception>] [<as>]":
@@ -91,20 +93,33 @@ class Python(MergeRule):
 
         BINDINGS["function_prefix"] + " <fun>":
             Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
+        BINDINGS["method_prefix"] + " <fun>":
+            Text(".%(fun)s()") + Key("left"),
 
         "method": ContextAction(
             Text("def (self):") + Key("left:7"),
             [(AppContext(title="Sublime Text"), Text("defs") + Key("tab"))]),
-        "list comprehension": ContextAction(
+        "list comp": ContextAction(
             Text("[ for  in i]") + Key("left:11"),
             [(AppContext(title="Sublime Text"), Text("lc") + Key("tab"))]),
+
+        "method <snaketext>": Text("def %(snaketext)s(self):") + Key("left:2"),
+        "function <snaketext>": Text("def %(snaketext)s():") + Key("left:2"),
+        "selfie [<snaketext>]": Text("self.%(snaketext)s"),
+        "classy [<classtext>]": Text("class %(classtext)s:") + Key("left"),
     }
     extras = [
+        Dictation("snaketext").replace(" ", "_"),
+        Dictation("classtext").title().replace(" ", ""),
+        # Dictation("classtext", lambda text: text.title().replace(" ", "")),
+        # Dictation("classtext", camel),
         Choice("fun",      BINDINGS["functions"]),
         Choice("command",  BINDINGS["commands"]),
     ]
     defaults = {
         "exception": "",
+        "selftext": "",
+        "classtext": "",
     }
 
 control.app_rule(Python())

@@ -23,6 +23,8 @@
 "to file"        = " > "
 "sed replace"    = ["sed -i -e \"s///g\"", "left:4"]
 "jupiter notebook" = "jupyter notebook"
+"rename PNG large" = "rename 'png_large' 'png' *.png_large"
+"rename jay peg large" = "rename 'jpg_large' 'jpg' *.jpg_large"
 
 [latex_commands]
 "PDF LaTeX"              = "pdflatex "
@@ -61,6 +63,7 @@
 "git (GUI | gooey)"                   = "git gui"
 "git add all"                         = "git add -A"
 "git add"                             = "git add "
+"git remove"                          = "git rm "
 "git base"                            = "git "
 "git blame"                           = "git blame PATH -L FIRSTLINE,LASTLINE"
 "git branch set upstream [to]"        = "git branch --set-upstream-to="
@@ -100,5 +103,6 @@
 "git stash branch"                    = "git stash branch NAME"
 "git stash list"                      = "git stash list"
 "git stash"                           = "git stash"
-"git (stash pop | retrieve)"          = "git stash"
+"git unstage"                         = "git reset -- "
+"git (stash pop | retrieve)"          = "git stash pop"
 "git status"                          = ["git status", "enter"]

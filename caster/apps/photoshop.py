@@ -23,10 +23,14 @@ class PhotoshopRule(MergeRule):
 
         "zoom in [<n>]"       : Key("c-equals:%(n)s"),
         "zoom out [<n>]"      : Key("c-minus:%(n)s"),
+
+        "brush size down [<n>]": Key("lbracket:%(n)s"),
+        "brush size up [<n>]": Key("rbracket:%(n)s"),
         }
 
     extras = [
         IntegerRef("n", 1, 10),
+        ShortIntegerRef("percent", 1, 100),
     ]
     defaults = {
         "n": 1,

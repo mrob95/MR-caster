@@ -3,8 +3,9 @@ Created on Sep 1, 2015
 
 @author: synkarius
 '''
-from dragonfly import MappingRule, Pause, Function
+from dragonfly import MappingRule, Pause, Function, ActionBase
 from caster.lib import utilities
+from caster.lib.dfplus.recorder import recorder
 
 
 class MergeRule(MappingRule):
@@ -149,3 +150,30 @@ class MergeRule(MappingRule):
     def _display_available_commands(self):
         for spec in self.mapping_actual().keys():
             print(spec)  # do something fancier when the ui is better
+
+
+
+    # def process_recognition(self, node):
+    #     item_value = node.value()
+
+    #     # Prepare *extras* dict for passing to _process_recognition().
+    #     extras = {}
+    #     extras.update(self._defaults)
+    #     for name, element in self._extras.items():
+    #         extra_node = node.get_child_by_name(name, shallow=True)
+    #         if extra_node:
+    #             extras[name] = extra_node.value()
+    #         elif element.has_default():
+    #             extras[name] = element.default
+
+    #     # Call the method to do the actual processing.
+    #     self._process_recognition(item_value, extras)
+
+    def _process_recognition(self, value, extras):
+        if isinstance(value, ActionBase):
+            if recorder.is_recording():
+                recorder.add_action(value, extras)
+            value.execute(extras)
+        elif self._log_proc:
+            self._log_proc.warning("%s: mapping value is not an action,"
+                                   " cannot execute." % self)

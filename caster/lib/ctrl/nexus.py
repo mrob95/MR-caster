@@ -5,6 +5,7 @@ from caster.lib.merge.ccrmerger import CCRMerger
 from caster.lib.merge.mergepair import MergeInf
 
 import sys
+import natlink
 
 class Nexus:
     def __init__(self, real_merger_config=True):

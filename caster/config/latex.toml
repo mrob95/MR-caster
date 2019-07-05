@@ -116,6 +116,7 @@
 "(macron | bar)"              = "="
 
 [commandnoarg]
+"line end"           = "\\\n"
 "tiny text"          = "tiny"
 "small text"         = "small"
 "normal size text"   = "normalsize"

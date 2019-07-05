@@ -12,6 +12,7 @@ from dragonfly.grammar.rule_compound import CompoundRule
 from caster.lib import utilities
 from caster.lib.merge.mergepair import MergePair, MergeInf
 from caster.lib.merge.mergerule import MergeRule
+from caster.lib.dfplus.recorder import recorder
 
 CCR_PATH = utilities.get_full_path("config/ccr.toml")
 
@@ -366,27 +367,21 @@ class CCRMerger(object):
                 print("Filter function '" + filter_fn.__name__ + "' failed.")
 
     def _create_repeat_rule(self, rule):
-        ORIGINAL, SEQ, TERMINAL = "original", "caster_base_sequence", "terminal"
+        SEQ = "caster_base_sequence"
         alts = [RuleRef(rule=rule)]  #+[RuleRef(rule=sm) for sm in selfmod]
         single_action = Alternative(alts)
         max = CCRMerger.MAX_REPETITIONS
         sequence = Repetition(single_action, min=1, max=max, name=SEQ)
-        original = Alternative(alts, name=ORIGINAL)
-        terminal = Alternative(alts, name=TERMINAL)
 
         class RepeatRule(CompoundRule):
-            spec = "[<" + ORIGINAL + "> original] [<" + SEQ + ">] [terminal <" + TERMINAL + ">]"
-            extras = [sequence, original, terminal]
+            spec = "<" + SEQ + ">"
+            extras = [sequence]
 
             def _process_recognition(self, node, extras):
-                original = extras[ORIGINAL] if ORIGINAL in extras else None
                 sequence = extras[SEQ] if SEQ in extras else None
-                terminal = extras[TERMINAL] if TERMINAL in extras else None
-                if original is not None: original.execute()
                 if sequence is not None:
                     for action in sequence:
                         action.execute()
-                if terminal is not None: terminal.execute()
 
         rules = []
         rules.append(RepeatRule(name="Repeater" + MergeRule.get_merge_name()))

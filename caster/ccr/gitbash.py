@@ -3,12 +3,6 @@ from caster.imports import *
 BINDINGS = utilities.load_toml_relative("config/gitbash.toml")
 CORE     = utilities.load_toml_relative("config/core.toml")
 
-def checkout(text):
-    Text("git checkout " + text.replace(" ", "_")).execute()
-    output = "test" + text
-    Text(output).execute()
-    Text("git checkout " + text).execute()
-
 class GitBashNon(MergeRule):
     mapping = {
         "configure " + BINDINGS["pronunciation"]:
@@ -17,9 +11,7 @@ class GitBashNon(MergeRule):
         "git fetch pull <prn>": Text("git fetch upstream pull/%(prn)s/head:pr-%(prn)s && git checkout pr-%(prn)s"),
 
         "git check out <text>":
-            # Function(lambda text: Text("git checkout " + text.replace(" ", "_").execute())),
             Text("git checkout %(text)s"),
-            # Function(checkout),
     }
     extras = [
         Dictation("text").replace(" ", "_"),
