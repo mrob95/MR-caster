@@ -39,13 +39,7 @@ class GitBashRule(MergeRule):
 
     extras = [
         Choice("directory",      CORE["directories"]),
-        MultiChoice("command",  [BINDINGS["git_commands"],
-                                 BINDINGS["python_commands"],
-                                 BINDINGS["r_commands"],
-                                 BINDINGS["image_commands"],
-                                 BINDINGS["latex_commands"],
-                                 BINDINGS["jekyll_commands"],
-                                 BINDINGS["general_commands"]]),
+        Choice("command",  BINDINGS["commands"]),
     ]
 
 control.app_rule(GitBashRule())

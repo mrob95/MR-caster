@@ -57,8 +57,6 @@ magic_prefix    = "magic"
 [commands]
 "assign"              = " = "
 "breaker"             = "break"
-"class"               = ["class ", "colon/3, left"]
-"dunder init"         = ["__init__()", "left"]
 "for each"            = ["for  in ", "colon/3, left:5"]
 "for loop"            = ["for i in range():", "left:2"]
 "from import"         = ["from  import ", "home, right:5"]

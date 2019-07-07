@@ -118,7 +118,7 @@ class Python(MergeRule):
     ]
     defaults = {
         "exception": "",
-        "selftext": "",
+        "snaketext": "",
         "classtext": "",
     }
 

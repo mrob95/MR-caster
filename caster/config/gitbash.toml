@@ -1,12 +1,11 @@
 "pronunciation" = "Git Bash"
 "executable_contexts" = ["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe", "powershell"]
 
-[general_commands]
+[commands]
 "bash"           = "bash "
 "cancel"         = ["", "c-c"]
 "CD up"          = ["cd ..", "enter"]
 "CD"             = "cd "
-"copy"           = ["", "c-insert"]
 "dot PDF"        = ".pdf"
 "dot jay peg"    = ".jpg"
 "dot PNG"        = ".png"
@@ -16,44 +15,43 @@
 "line count"     = "wc -l "
 "make directory" = "mkdir "
 "move file"      = "mv  "
-"paste"          = ["", "s-insert"]
 "pipe"           = " | "
 "lodge and"      = " && "
 "Sumatra [PDF]"  = "SumatraPDF "
 "to file"        = " > "
 "sed replace"    = ["sed -i -e \"s///g\"", "left:4"]
 "jupiter notebook" = "jupyter notebook"
-"rename PNG large" = "rename 'png_large' 'png' *.png_large"
-"rename jay peg large" = "rename 'jpg_large' 'jpg' *.jpg_large"
-
-[latex_commands]
+#------------------------------------------------------
+# latex
 "PDF LaTeX"              = "pdflatex "
 "bib TeX"                = "bibtex "
 "pan doc"                = ["pandoc \"\" -o \"", "left:6"]
 "pan doc beamer"         = ["pandoc  -t beamer -o ", "left:14"]
-
-[python_commands]
+#------------------------------------------------------
+# python
 "python 3"               = ["python3 .py", "left:3"]
 "python 2"               = ["python27 .py", "left:3"]
 "python 2 64 "           = "C:/Python27-64/python.exe "
 "python 2 pip [install]" = "python27 -m pip install "
 "python 3 pip [install]" = "python3 -m pip install "
 "pip two (install | build) package" = "pip2 install -e ."
-
-[r_commands]
+#------------------------------------------------------
+# r
 "R script"               = ["Rscript .r", "left:2"]
 "R markdown"             = ["Rscript -e \"rmarkdown::render('.Rmd', clean=TRUE)\"", "left:19"]
-
-[jekyll_commands]
+#------------------------------------------------------
+# jekyll
 "jekyll serve watch"     = "jekyll serve --watch"
 "jekyll build"           = "jekyll build"
 "jekyll"                 = "jekyll "
-
-[image_commands]
+#------------------------------------------------------
+# image
 "image [magic] trim"     = ["convert  -fuzz 1% -trim +repage ", "left:24"]
 "image [magic] transparent"     = ["convert  -fuzz 1% -transparent white ", "left:29"]
-
-[git_commands]
+"rename PNG large" = "rename 'png_large' 'png' *.png_large"
+"rename jay peg large" = "rename 'jpg_large' 'jpg' *.jpg_large"
+#------------------------------------------------------
+# git
 "generate change log" = ["github_changelog_generator /", "left"]
 "generate mathfly change log" = ["github_changelog_generator mrob95/mathfly", "left"]
 "(undo changes | git reset hard)"              = "git reset --hard"
