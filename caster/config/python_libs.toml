@@ -31,6 +31,7 @@
 "import_as"                   = "pd"
 "(con cat | concatenate)"     = ["pd.concat()", "left"]
 "data frame"                  = ["pd.DataFrame()", "left"]
+"categorical"                  = ["pd.Categorical()", "left"]
 "melt"                        = ["pd.melt()", "left"]
 "merge"                       = ["pd.merge()", "left"]
 "read CSV"                    = ["pd.read_csv()", "left"]
@@ -50,6 +51,7 @@
 "index"                       = ["index", ""]
 "info"                        = ["info()", ""]
 "not null"                    = ["notnull()", ""]
+"is null"                     = ["isnull()", ""]
 "plot"                        = ["plot()", ""]
 "reset index"                 = ["reset_index()", ""]
 "shape"                       = ["shape", ""]

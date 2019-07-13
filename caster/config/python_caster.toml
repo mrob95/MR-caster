@@ -21,6 +21,7 @@
 "from dragonfly import all"      = "from dragonfly import Dictation, Choice, Function, IntegerRef, "
 "from dragonfly import"          = "from dragonfly import "
 "import actions"                 = "from caster.lib.dfplus.actions import Key, Text, Mouse, Store, Retrieve"
+"import everything"                 = "from caster.imports import *"
 "Import [app] context"           = "from caster.lib.dfplus.context import AppContext"
 "import merge rule"              = "from caster.lib.merge.mergerule import MergeRule"
 "import (libs | libraries)"      = "from caster.lib import control, utilities, execution"

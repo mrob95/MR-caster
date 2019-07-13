@@ -4,7 +4,7 @@
 "pronunciation"        = "Core"
 "capitals_prefix"      = "big"
 "numbers_prefix"       = "numb"
-"dictation_prefix"     = "(say | so)"
+"dictation_prefix"     = "(say)"
 "extreme"              = "wally"
 
 [directories]
@@ -58,7 +58,6 @@
 "yes"                  =  "y"
 "zulu"                 = "z"
 
-
 [punctuation]
 "ampersand"               = "ampersand"
 "apostrophe"              = "apostrophe"
@@ -68,7 +67,7 @@
 "backtick"                = "backtick"
 "pipe symbol"             = "bar"
 "caret"                   = "caret"
-"colon"                   = "colon"
+"colon"                   = "colon/3"
 "comma"                   = "comma"
 "boom"                    = "comma, space"
 "dollar"                  = "dollar"
@@ -119,8 +118,8 @@
 
 [misc_core_keys]
 "eskimo"               = "escape"
-"(ender | end oh)"     = "end"
-"homer"                = "home"
+"(easter)"             = "end"
+"(wester | homer)"     = "home"
 "shackle"              = "home, s-end"
 "select all"           = "c-a"
 "find"                 = "c-f"

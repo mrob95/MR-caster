@@ -65,5 +65,4 @@ class Rlang(MergeRule):
     ]
     defaults = {}
 
-
 control.app_rule(Rlang())

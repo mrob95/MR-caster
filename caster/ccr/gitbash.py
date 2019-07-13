@@ -10,21 +10,25 @@ class GitBashNon(MergeRule):
 
         "git fetch pull <prn>": Text("git fetch upstream pull/%(prn)s/head:pr-%(prn)s && git checkout pr-%(prn)s"),
 
-        "git check out <text>":
-            Text("git checkout %(text)s"),
+        "git <command> <snake_text>":
+            Text("git %(command)s %(snake_text)s"),
     }
     extras = [
-        Dictation("text").replace(" ", "_"),
+        Dictation("snake_text").replace(" ", "_"),
         ShortIntegerRef("prn", 1, 10000),
+        Choice("command", {
+            "check out" : "checkout",
+            "new branch": "checkout -b",
+        }),
     ]
 
 class GitBashRule(MergeRule):
-    non = GitBashNon
+    non           = GitBashNon
     pronunciation = BINDINGS["pronunciation"]
-    mwith = "Core"
-    mcontext = AppContext(executable=BINDINGS["executable_contexts"])
+    mwith         = "Core"
+    mcontext      = AppContext(executable=BINDINGS["executable_contexts"])
 
-    mapping = {
+    mapping       = {
         "<command>": execution.Alternating("command"),
 
         "go <directory>":
@@ -38,8 +42,8 @@ class GitBashRule(MergeRule):
     }
 
     extras = [
-        Choice("directory",      CORE["directories"]),
-        Choice("command",  BINDINGS["commands"]),
+        Choice("directory",   CORE["directories"]),
+        Choice("command",     BINDINGS["commands"]),
     ]
 
 control.app_rule(GitBashRule())

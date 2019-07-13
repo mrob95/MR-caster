@@ -153,6 +153,12 @@ def action_lines(action, ln1, ln2, go_to_line="c-g", select_line_down="s-down", 
     command = Key(go_to_line) + Text(str(top_line)) + Key("enter%s, home%s, %s%s:%s, %s" % (wait, wait, select_line_down, wait, str(num_lines), action))
     command.execute()
 
+actions = {"select" : "",
+           "copy"   : "c-c",
+           "cut"    : "c-x",
+           "insert" : "c-enter",
+           "remove" : "backspace",
+           "replace": "c-v"}
 
 def enclose_selected(enclosure):
     '''
@@ -167,10 +173,3 @@ def enclose_selected(enclosure):
         # Attempt to paste enclosed text without altering clipboard
         if not utilities.paste_string(enclosed_text):
             print("failed to paste {}".format(enclosed_text))
-
-actions = {"select" : "",
-           "copy"   : "c-c",
-           "cut"    : "c-x",
-           "insert" : "c-enter",
-           "remove" : "backspace",
-           "replace": "c-v"}

@@ -1,5 +1,6 @@
 from dragonfly import Key, Mouse, Pause, ActionBase, ActionError, Alternative, Compound, RuleWrap
 from dragonfly import Text as TextBase
+from dragonfly import Key as KeyBase
 from inspect import getargspec
 import re
 from six import string_types
@@ -10,8 +11,12 @@ from dragonfly.language.base.integer import Integer
 
 class Text(TextBase):
     _pause_default = 0.002
-    def __init__(self, spec=None, static=False, pause=_pause_default, autofmt=False, use_hardware=False):
-        TextBase.__init__(self, spec=spec, static=static, pause=pause, autofmt=autofmt, use_hardware=use_hardware)
+
+class SlowText(TextBase):
+    _pause_default = 0.02
+
+class SlowKey(KeyBase):
+    interval_default = 2.0
 
 from caster.lib import utilities, control, navigation
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
@@ -83,32 +88,3 @@ class Retrieve(ActionBase):
         else:
             Key(self.action_if_no_text).execute()
         return True
-
-class MultiChoice(Alternative):
-
-    def __init__(self, name, choices, extras=None, default=None):
-
-        # Argument type checking.
-        assert isinstance(name, string_types) or name is None
-        for choice in choices:
-            assert isinstance(choice, dict)
-
-        # self._choices = {k:v for k,v in choices.items()}
-        self._choices = {}
-        for choice in choices:
-            self._choices.update(choice)
-
-        for k, v in self._choices.items():
-            assert isinstance(k, string_types)
-
-        # Construct children from the given choice keys and values.
-        self._extras = extras
-        children = []
-        for k, v in self._choices.items():
-            child = Compound(spec=k, value=v, extras=extras)
-            children.append(child)
-
-        # Initialize super class.
-        Alternative.__init__(self, children=children,
-                                       name=name, default=default)
-

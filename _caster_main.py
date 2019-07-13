@@ -37,7 +37,7 @@ main_rule = MainRule()
 grammar.add_rule(main_rule)
 grammar.load()
 
-
+from caster.lib.dfplus import modes
 # def changeCallback(cbType, args):
 #     print(cbType) # 'mic' or 'user'
 #     print(args) # 'off',   'on', 'disabled' and 'sleeping'.

@@ -65,6 +65,19 @@ def save_toml_relative(data, path):
     path = get_full_path(path)
     return save_toml_file(data, path)
 
+class ReadText:
+    def __init__(self, same_is_okay=False):
+        self.same_is_okay = same_is_okay
+
+    def __enter__(self):
+        self.prior = Clipboard(from_system=True)
+        Key("c-c").execute()
+        time.sleep(0.05)
+        return Clipboard.get_system_text()
+
+    def __exit__(self, type, value, traceback):
+        self.prior.copy_to_system()
+
 def read_selected(same_is_okay=False):
     '''Returns a tuple:
     (0, "text from system") - indicates success
@@ -127,13 +140,10 @@ def browser_open(url):
 
 def browser_search(text=None, url="https://www.google.com/search?q=%s"):
     if not text:
-        _, selection = read_selected(True)
-        selection = ''.join(i for i in selection if ord(i)<128)
-    else:
-        selection = str(text)
-    url = url % selection.replace(" ", "+").replace("\n", "")
+        with ReadText(True) as t:
+            text = ''.join(i for i in t if ord(i)<128)
+    url = url % text.replace(" ", "+").replace("\n", "")
     browser_open(url)
-
 
 def terminal(dir):
     Popen(["C:/Program Files/Git/git-bash.exe",
@@ -143,14 +153,24 @@ def mathfly_switch():
     Popen("C:/Users/Mike/Documents/NatLink/mathfly/SwitchHere.bat")
 
 def word_count():
-    _, selection = read_selected(True)
-    words_list = selection.replace("\n", " ").split(" ")
-    toast_notify("Word count", str(len(words_list)))
+    with ReadText(True) as t:
+        words_list = t.replace("\n", " ").split(" ")
+        toast_notify("Word count", str(len(words_list)))
+
+    # _, selection = read_selected(True)
+    # words_list = selection.replace("\n", " ").split(" ")
+    # toast_notify("Word count", str(len(words_list)))
 
 def tinyurl():
-    _, selection = read_selected(True)
-    url = "http://tinyurl.com/api-create.php?url=" + selection
+    with ReadText(True) as t:
+        url = "http://tinyurl.com/api-create.php?url=" + t
     request = Request(url)
     response = urlopen(request)
     tiny = response.read()
     Clipboard.set_system_text(tiny)
+    # _, selection = read_selected(True)
+    # url = "http://tinyurl.com/api-create.php?url=" + selection
+    # request = Request(url)
+    # response = urlopen(request)
+    # tiny = response.read()
+    # Clipboard.set_system_text(tiny)

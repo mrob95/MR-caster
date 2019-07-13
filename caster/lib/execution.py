@@ -1,6 +1,6 @@
 from dragonfly import Playback, Clipboard, ActionBase
 
-from caster.lib.dfplus.actions import Key, Text, Mouse
+from caster.lib.dfplus.actions import Key, Text, SlowKey, SlowText, Mouse
 from caster.lib import utilities
 
 # Alternate between executing as text and executing as keys
@@ -20,6 +20,22 @@ class Alternating(ActionBase):
                     Text(command[i]).execute()
                 else:
                     Key(command[i]).execute()
+
+class SlowAlternating(ActionBase):
+    def __init__(self, command=""):
+        ActionBase.__init__(self)
+        self.command = command
+
+    def _execute(self, data=None):
+        command = data[self.command]
+        if type(command) in [str, int, unicode]:
+            SlowText(str(command)).execute()
+        elif type(command) in [list, tuple]:
+            for i in range(len(command)):
+                if i%2==0:
+                    SlowText(command[i]).execute()
+                else:
+                    SlowKey(command[i]).execute()
 
 def template(template):
     utilities.paste_string(template)

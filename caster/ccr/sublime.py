@@ -61,7 +61,8 @@ class SublimeRule(MergeRule):
 
         "command pallette [<dict>]"      : Key("cs-p") + Text("%(dict)s"),
         "search in directory"            : Key("cs-f"),
-        "go to that"                     : Store() + Key("cs-r") + Retrieve() + Key("enter"),
+        # "go to (that | the)"             : Store() + Key("cs-r") + Retrieve() + Key("enter"),
+        "go to (that | the)"             : Key("f12"),
         "search [for] that"              : Store() + Key("cs-f") + Retrieve() + Key("enter"),
         "find that"                      : Store() + Key("c-f") + Retrieve() + Key("enter"),
         #

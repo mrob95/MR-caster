@@ -73,6 +73,9 @@ class MergeRule(MappingRule):
             return False
         return self.ID == other.ID
 
+    def __call__(self):
+        return self
+
     ''' "copy" getters used for safe merging;
     "actual" versions used for filter functions'''
 

@@ -1,6 +1,7 @@
 from caster.imports import *
 
 class ChromeRule(MergeRule):
+
     pronunciation = "google chrome"
     mcontext = AppContext(executable="chrome")
 
@@ -8,11 +9,9 @@ class ChromeRule(MergeRule):
 
         "[new] incognito window"  : Key("cs-n"),
         "new tab [<n>]"           : Key("c-t:%(n)s"),
-        "close tab [<n>]"         : Key("c-w:%(n)s"),
+        "close tab [<n>]"         : Key("c-w/3:%(n)s"),
         "reopen tab [<n>]"        : Key("cs-t:%(n)s"),
         "<numberth> tab"          : Key("c-%(numberth)s"),
-        "close all tabs"          : Key("cs-w"),
-        "duplicate tab"           : Key("y, t"),
 
         "page back [<n>]"         : Key("a-left:%(n)s"),
         "page forward [<n>]"      : Key("a-right:%(n)s"),
@@ -49,7 +48,6 @@ class ChromeRule(MergeRule):
         "step out"                : Key("s-f11"),
 
         "copy all"                : Key("c-a/20, c-c"),
-        "split right"             : Key("w-left/50, W/50, w-right"),
 
         "go <site>":
             Key("c-l/10") + Text("%(site)s") + Key("enter"),
@@ -60,7 +58,26 @@ class ChromeRule(MergeRule):
             # Key("a-d") + Store() + Key("delete") + Text("https://sci-hub.tw/") + Retrieve() + Key("enter"),
             Key("a-d/10, left/10") + Text("https://sci-hub.tw/") + Key("enter"),
 
-        }
+        #------------------------------------------------
+        # Modeless navigation
+        # map <a-w> moveTabToNewWindow
+        # map <a-m> toggleMuteTab
+        # map <a-r> goToRoot
+        # map <a-i> focusInput
+        # map <a-u> duplicateTab
+        # map <a-left> scrollLeft
+        # map <a-right> scrollRight
+
+        "split right"       : Key("w-left/50, a-w/50, w-right"),
+        "toggle mute"       : Key("a-m"),
+        "duplicate tab"     : Key("a-u"),
+        "show links"        : Key("c-comma"),
+        "go to root"        : Key("a-r"),
+        "focus input"       : Key("a-i"),
+        "scroll left [<n>]" : Key("a-left:%(n)s"),
+        "scroll right [<n>]": Key("a-right:%(n)s"),
+
+    }
     extras = [
         Dictation("dict"),
         Dictation("text"),

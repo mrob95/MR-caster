@@ -20,13 +20,14 @@ magic_prefix    = "magic"
 "find all"              = "find_all"
 "find"                  = "find"
 "float"                 = "float"
-"get"                   = "get"
 "head"                  = "head"
+"get attribute"         = "getattr"
 "has attribute"         = "hasattr"
 "join"                  = "join"
 "index"                 = "index"
 "insert"                = "insert"
 "items"                 = "items"
+"is instance"           = "isinstance"
 "init"                  = "__init__"
 "keys"                  = "keys"
 "length"                = "len"
@@ -69,6 +70,7 @@ magic_prefix    = "magic"
 "insert doc string"   = ['""""""', "left:3, enter:2, up"]
 "lambda"              = ["lambda ", "colon/3, left"]
 "lodge and"           = " and "
+"lodge as"            = " as "
 "lodge in"            = " in "
 "lodge is"            = " is "
 "lodge is not"        = " is not "
@@ -87,21 +89,24 @@ magic_prefix    = "magic"
 
 [unary_methods]
 "(int | integer)"          = "int"
+"(iter | iterator)"        = "iter"
 "(len | length)"           = "len"
 "(negation | negative)"    = "neg"
+"(non zero | boolean)"     = "nonzero"
 "(reper | representation)" = "repr"
 "absolute"                 = "abs"
+"ceiling"                  = "ceil"
+"call"                  = "call"
 "dir"                      = "dir"
 "enter"                    = "enter"
-"exit"                     = "exit"
+"floor"                    = "floor"
 "invert"                   = "invert"
-"(iter | iterator)"        = "iter"
 "name"                     = "name"
 "new"                      = "new"
-"(non zero | boolean)"     = "nonzero"
 "positive"                 = "pos"
 "size of"                  = "sizeof"
 "string"                   = "str"
+"truncate"                 = "trunc"
 "unicode"                  = "unicode"
 
 [binary_methods]
@@ -109,7 +114,9 @@ magic_prefix    = "magic"
 "subtract"                 = "sub"
 "multiply"                 = "mul"
 "divide"                   = "div"
+"floor divide"             = "floordiv"
 "equal"                    = "eq"
+"not equal"                = "ne"
 "less than"                = "lt"
 "greater than"             = "gt"
 "less equal"               = "le"
@@ -119,15 +126,23 @@ magic_prefix    = "magic"
 "and"                      = "and"
 "or"                       = "or"
 "ex or"                    = "xor"
+"left [bitwise] shift"     = "lshift"
+"right [bitwise] shift"    = "rshift"
 
 [misc_methods]
-"get item"         = ["getitem", "self, key"]
+"init"             = ["init", "self"]
+"new"              = ["new", "cls"]
+"delete"           = ["del", "self"]
 "get attribute"    = ["getattr", "self, name"]
-"set attribute"    = ["setattr", "self, name"]
+"delete attribute"    = ["delattr", "self, name"]
+"set attribute"    = ["setattr", "self, name, value"]
+"get item"         = ["getitem", "self, key"]
 "set item"         = ["setitem", "self, key, value"]
 "delete item"      = ["delitem", "self, key"]
 "contains"         = ["contains", "self, item"]
 "missing"          = ["missing", "self, key"]
+"round"          = ["round", "self, n"]
+"exit" = ["exit", "type, value, traceback"]
 
 
 [exceptions]
