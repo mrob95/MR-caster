@@ -36,10 +36,10 @@ def quote():
         Text("``\'\'").execute()
         Key("left:2").execute()
 
-def section(sub, dict):
+def section(sub, text):
     Text("\\" + sub + "section{}").execute()
     Key("left").execute()
-    Text(str(dict).capitalize()).execute()
+    Text(text.capitalize()).execute()
     Key("c-enter").execute()
 
 def packages(packopts):

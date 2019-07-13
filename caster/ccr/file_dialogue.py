@@ -25,7 +25,6 @@ class FileDialogueRule(MergeRule):
         "go <directory>"     : Key("a-d/20") + Text("%(directory)s") + Key("enter"),
     }
     extras = [
-        Dictation("text"),
         Choice("directory", CORE["directories"]),
         Choice("ext", {
             "batch"         : "bat",
@@ -43,8 +42,5 @@ class FileDialogueRule(MergeRule):
             "yammel"        : "yml",
         }),
     ]
-    defaults = {
-        "text": "",
-    }
 
 control.app_rule(FileDialogueRule())

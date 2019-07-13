@@ -17,9 +17,4 @@ class PowerShellRule(MergeRule):
         "dot PDF"     : Text(".pdf"),
     }
 
-    extras = [
-    ]
-    defaults = {
-    }
-
 control.non_ccr_app_rule(PowerShellRule())

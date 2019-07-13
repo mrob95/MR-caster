@@ -3,7 +3,7 @@ Created on Sep 1, 2015
 
 @author: synkarius
 '''
-from dragonfly import MappingRule, Pause, Function, ActionBase, IntegerRef
+from dragonfly import MappingRule, Pause, Function, ActionBase, IntegerRef, Dictation
 from caster.lib import utilities
 from caster.lib.dfplus.recorder import recorder
 
@@ -41,6 +41,15 @@ class MergeRule(MappingRule):
     CCR copies; mwith is a list of get_pronunciation()s'''
     mwith = None
 
+    default_extras = {
+        "n"   : IntegerRef("n", 1, 20),
+        "text": Dictation("text"),
+    }
+    default_defaults = {
+        "n": 1,
+        "text": "",
+    }
+
     def __init__(self,
                  name=None,
                  mapping=None,
@@ -62,10 +71,6 @@ class MergeRule(MappingRule):
         self._mwith = self.__class__.mwith
         if self._mwith is None: self._mwith = mwith
 
-        if mapping is not None:
-            mapping["display available commands"] = Function(
-                lambda: self._display_available_commands())
-
         self.add_defaults()
         MappingRule.__init__(self, name, mapping, extras, defaults, exported)
 
@@ -78,8 +83,14 @@ class MergeRule(MappingRule):
         return self
 
     def add_defaults(self):
-        self.extras.append(IntegerRef("n", 1, 20))
-        self.defaults.update({"n": 1})
+        if self.mapping:
+            for name in self.default_extras.keys():
+                match = "<%s>" % name
+                for spec in self.mapping.keys():
+                    if match in spec:
+                        self.extras.append(self.default_extras[name])
+                        if name in self.default_defaults:
+                            self.defaults[name] = self.default_defaults[name]
 
     ''' "copy" getters used for safe merging;
     "actual" versions used for filter functions'''

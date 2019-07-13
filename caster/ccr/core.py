@@ -95,8 +95,8 @@ class CoreNon(MergeRule):
 
         "<search> that":
             Function(lambda search: utilities.browser_search(url=search)),
-        "<search> <dict>":
-            Function(lambda search, dict: utilities.browser_search(dict, url=search)),
+        "<search> <text>":
+            Function(lambda search, text: utilities.browser_search(text, url=search)),
 
         "tiny URL that":
             Function(utilities.tinyurl),
@@ -130,7 +130,6 @@ class CoreNon(MergeRule):
         "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
         }
     extras = [
-        Dictation("dict"),
         Choice("direction",            CORE[_DIRECTIONS]),
         Choice("direction2",           CORE[_DIRECTIONS]),
         Choice("misc_core_keys_noCCR", CORE["misc_core_keys_noCCR"]),
@@ -216,7 +215,6 @@ class Core(MergeRule):
     	}
 
     extras = [
-        Dictation("text"),
         Repetition(IntegerRef("wnKK", 0, 10), min=1, max=5, name="num_seq"),
         IntegerRef("wnKK", 0, 10),
         IntegerRef("wnKK2", 0, 10),

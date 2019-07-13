@@ -11,9 +11,4 @@ class OxMetricsRule(MergeRule):
     	"model": Key("a-y"),
     }
 
-    extras = [
-    ]
-    defaults = {
-    }
-
 control.non_ccr_app_rule(OxMetricsRule())

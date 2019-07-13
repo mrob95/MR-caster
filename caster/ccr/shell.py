@@ -33,7 +33,4 @@ class Shell(MergeRule):
         # Choice("fun",    BINDINGS["functions"]),
     ]
 
-    defaults = {}
-
-
 control.app_rule(Shell())

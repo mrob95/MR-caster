@@ -37,9 +37,4 @@ class Go(MergeRule):
         Choice("command", BINDINGS["commands"]),
     ]
 
-    defaults = {
-    }
-
-
-
 control.app_rule(Go())

@@ -75,9 +75,7 @@ class AccessibilityRule(MergeRule):
                 end_relative_phrase=str(extras["relative_phrase"])))
     ]
 
-    defaults = {
 
-    }
 
 
 context = AppContext(executable="chrome") \

@@ -80,8 +80,8 @@ class sn_mathematicsNon(MergeRule):
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="scientific_notebook.toml"),
 
-        "text <dict>":
-            Key("c-t") + Function(lambda dict: Text(str(dict).capitalize()).execute()),
+        "text <text>":
+            Key("c-t") + Function(lambda text: Text(text.capitalize()).execute()),
         "<control>":
             Key("%(control)s"),
 
@@ -89,7 +89,6 @@ class sn_mathematicsNon(MergeRule):
             Key("home, s-end, c-x, backspace, %(direction)s:%(n)s, end, enter, c-v")
     }
     extras = [
-        Dictation("dict"),
         IntegerRef("n", 1, 10),
         Choice("direction", {"up":"up", "down": "down"}),
         Choice("control", BINDINGS["control"]),

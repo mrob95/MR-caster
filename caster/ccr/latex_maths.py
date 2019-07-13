@@ -27,7 +27,5 @@ class LaTeXmath(MergeRule):
         Choice("symbol", BINDINGS["symbols"]),
         Choice("misc_symbol", BINDINGS["misc_symbols"]),
         ]
-    defaults = {
-    }
 
 control.global_rule(LaTeXmath())

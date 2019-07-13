@@ -30,7 +30,6 @@ class EmacsRule(MergeRule):
         "toggle line numbers": Key("a-m, t, n"),
     }
     extras = [
-        Dictation("text"),
         Dictation("mim"),
         IntegerRef("ln1", 1, 1000),
     ]

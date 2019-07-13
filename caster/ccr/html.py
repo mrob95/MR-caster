@@ -26,7 +26,5 @@ class HTML(MergeRule):
     extras = [
         Choice("element", BINDINGS["elements"]),
         ]
-    defaults = {}
-
 
 control.global_rule(HTML())

@@ -46,7 +46,6 @@ class Markdown(MergeRule):
             Function(lambda n: Text("---|"*(n-1) + "---").execute()) + Key("enter"),
     }
     extras = [
-        Dictation("text"),
         IntegerRef("num", 1, 7),
         Choice("element", BINDINGS["elements"]),
         Choice("output", BINDINGS["outputs"]),
@@ -54,7 +53,6 @@ class Markdown(MergeRule):
         Choice("command", BINDINGS["alternating"]),
     ]
     defaults = {
-        "text": "",
         "num": 1,
     }
 

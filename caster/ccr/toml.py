@@ -33,7 +33,4 @@ class TOML(MergeRule):
         Choice("command", BINDINGS["commands"]),
     ]
 
-    defaults = {}
-
-
 control.app_rule(TOML())

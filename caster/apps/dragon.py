@@ -17,8 +17,5 @@ class DragonRule(MergeRule):
         'command mode':
             Playback([(["command", "mode", "on"], 0.0)]),
     }
-    extras = [
-    ]
-    defaults = {}
 
 control.non_ccr_app_rule(DragonRule())

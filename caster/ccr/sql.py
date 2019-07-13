@@ -38,7 +38,4 @@ class SQL(MergeRule):
         Choice("logical",BINDINGS["logicals"]),
     ]
 
-    defaults = {}
-
-
 control.app_rule(SQL())

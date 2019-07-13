@@ -55,7 +55,6 @@ class Rlang(MergeRule):
     }
 
     extras = [
-        Dictation("text"),
         Choice("command",  BINDINGS["commands"]),
         Choice("function", BINDINGS["r_functions"]),
         Choice("ggfun",    BINDINGS["r_graph"]),
@@ -63,6 +62,5 @@ class Rlang(MergeRule):
         Choice("modelargs",BINDINGS["r_model"]),
         Choice("library",  BINDINGS["libraries"]),
     ]
-    defaults = {}
 
 control.app_rule(Rlang())

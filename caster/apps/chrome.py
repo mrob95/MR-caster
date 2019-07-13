@@ -79,7 +79,6 @@ class ChromeRule(MergeRule):
 
     }
     extras = [
-        Dictation("text"),
         Choice("site", {
             "amazon"   : "smile.amazon.co.uk",
             "kindle"   : "https://smile.amazon.co.uk/Kindle-eBooks-books/b/ref=nav_shopall_kbo5?ie=UTF8&node=341689031",

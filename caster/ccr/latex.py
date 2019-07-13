@@ -19,12 +19,10 @@ class LaTeXNon(MergeRule):
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
 
-        "[<sub>] section <dict>":
+        "[<sub>] section <text>":
             Function(tex_funcs.section),
     }
-
     extras = [
-        Dictation("dict"),
         Choice("sub", {
             "sub": "sub",
             "sub sub": "subsub",
@@ -92,6 +90,5 @@ class LaTeX(MergeRule):
         "packopts" : "",
         "doc_class": "",
     }
-
 
 control.global_rule(LaTeX())

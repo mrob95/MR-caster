@@ -120,7 +120,6 @@ class SublimeRule(MergeRule):
         "configure alignment": Key("f10, p, right, p, right, down, enter"),
     }
     extras = [
-        Dictation("text"),
         ShortIntegerRef("ln1",1, 1000),
         ShortIntegerRef("ln2", 1, 1000),
         IntegerRef("n2", 1, 9),
@@ -147,7 +146,6 @@ class SublimeRule(MergeRule):
             }),
     ]
     defaults = {
-        "text"    : "",
         "ln2"     : None,
         "n2"      : 1,
         "n3"      : 1,
@@ -220,9 +218,6 @@ class SublimeTeXRule(MergeRule):
             Key("c-r") + Text("%(text)s") + Key("enter"),
         "count words": Key("cs-c"),
     }
-    extras = [
-        Dictation("text"),
-    ]
 
 control.non_ccr_app_rule(SublimeTeXRule())
 

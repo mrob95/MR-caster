@@ -76,13 +76,12 @@ class SN6_nested(NestedRule):
 
 class SN6Non(MergeRule):
     mapping = {
-        "text <dict>":
+        "text <text>":
             Key("c-t") + Function(lambda dict: Text(str(dict).capitalize()).execute()),
         "<control>":
             Key("%(control)s"),
     }
     extras = [
-        Dictation("dict"),
         Choice("control", BINDINGS["control"]),
     ]
 

@@ -46,19 +46,19 @@ class VSCodeRule(MergeRule):
 
         #
         "find"                           : Key("c-f"),
-        "find <dict>"                    : Key("c-f") + Text("%(dict)s") + Key("escape"),
+        "find <text>"                    : Key("c-f") + Text("%(text)s") + Key("escape"),
         "find next [<n2>]"               : Key("f3")*Repeat(extra="n2"),
         "find previous [<n2>]"           : Key("s-f3")*Repeat(extra="n2"),
         "find all"                       : Key("a-enter"),
         "replace"                        : Key("c-h"),
         #
 
-        "go to <dict> [<filetype>]"      : Key("c-p") + Text("%(dict)s" + "%(filetype)s") + Key("enter"),
+        "go to <text> [<filetype>]"      : Key("c-p") + Text("%(text)s" + "%(filetype)s") + Key("enter"),
         "go to word"                     : Key("c-semicolon"),
         "go to symbol"                   : Key("c-r"),
         "go to [symbol in] project"      : Key("cs-r"),
 
-        "command pallette [<dict>]"      : Key("cs-p") + Text("%(dict)s"),
+        "command pallette [<text>]"      : Key("cs-p") + Text("%(text)s"),
         "search in directory"            : Key("cs-f"),
         "go to that"                     : Store() + Key("cs-r") + Retrieve() + Key("enter"),
         "search [for] that"              : Store() + Key("cs-f") + Retrieve() + Key("enter"),
@@ -111,7 +111,6 @@ class VSCodeRule(MergeRule):
         "configure alignment": Key("f10, p, right, p, right, down, enter"),
     }
     extras = [
-        Dictation("dict"),
         ShortIntegerRef("ln1", 1, 1000),
         ShortIntegerRef("ln2", 1, 1000),
         IntegerRef("n2", 1, 9),
@@ -144,7 +143,6 @@ class VSCodeRule(MergeRule):
             }),
     ]
     defaults = {
-        "dict": "",
         "ln2": None,
         "n2": 1,
         "n3": 1,
