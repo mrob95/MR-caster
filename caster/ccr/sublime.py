@@ -47,19 +47,19 @@ class SublimeRule(MergeRule):
 
         #
         "find"                           : Key("c-f"),
-        "find <dict>"                    : Key("c-f") + Text("%(dict)s") + Key("escape"),
+        "find <text>"                    : Key("c-f") + Text("%(text)s") + Key("escape"),
         "find next [<n2>]"               : Key("f3")*Repeat(extra="n2"),
         "find previous [<n2>]"           : Key("s-f3")*Repeat(extra="n2"),
         "find all"                       : Key("a-enter"),
         "replace"                        : Key("c-h"),
         #
 
-        "go to <dict> [<filetype>]"      : Key("c-p") + Text("%(dict)s" + "%(filetype)s") + Key("enter"),
+        "go to <text> [<filetype>]"      : Key("c-p") + Text("%(text)s" + "%(filetype)s") + Key("enter"),
         "go to word"                     : Key("c-semicolon"),
         "go to symbol"                   : Key("c-r"),
         "go to [symbol in] project"      : Key("cs-r"),
 
-        "command pallette [<dict>]"      : Key("cs-p") + Text("%(dict)s"),
+        "command pallette [<text>]"      : Key("cs-p") + Text("%(text)s"),
         "search in directory"            : Key("cs-f"),
         # "go to (that | the)"             : Store() + Key("cs-r") + Retrieve() + Key("enter"),
         "go to (that | the)"             : Key("f12"),
@@ -105,6 +105,7 @@ class SublimeRule(MergeRule):
         "split right"                    : Key("as-2, c-1, cs-2"),
         #
         "terminal here"                  : Key("cs-t"),
+        "explorer here"                  : Key("ca-e"),
 
         "zoom in [<n2>]"                 : Key("c-equal")*Repeat(extra="n2"),
         "zoom out [<n2>]"                : Key("c-minus")*Repeat(extra="n2"),
@@ -119,7 +120,7 @@ class SublimeRule(MergeRule):
         "configure alignment": Key("f10, p, right, p, right, down, enter"),
     }
     extras = [
-        Dictation("dict"),
+        Dictation("text"),
         ShortIntegerRef("ln1",1, 1000),
         ShortIntegerRef("ln2", 1, 1000),
         IntegerRef("n2", 1, 9),
@@ -146,7 +147,7 @@ class SublimeRule(MergeRule):
             }),
     ]
     defaults = {
-        "dict"    : "",
+        "text"    : "",
         "ln2"     : None,
         "n2"      : 1,
         "n3"      : 1,
@@ -161,7 +162,7 @@ class SublimeCCRRule(MergeRule):
     mwith = ["Core"]
     mcontext = AppContext(title="Sublime Text")
     mapping = {
-        "line <n>"                       : Key("c-g") + Text("%(n)s") + Key("enter"),
+        "line <ln1>"                     : Key("c-g") + Text("%(n)s") + Key("enter"),
 
         "edit next [<n3>]"               : Key("c-d")*Repeat(extra="n3"),
         "align that"                     : Key("ca-a"),
@@ -175,10 +176,9 @@ class SublimeCCRRule(MergeRule):
         "indent [<n2>]"                  : Key("c-rbracket:%(n2)s"),
 
         "auto complete"                  : Key("c-space"),
-
     }
     extras = [
-        ShortIntegerRef("n", 1, 1000),
+        ShortIntegerRef("ln1", 1, 1000),
         IntegerRef("n2", 1, 9),
         IntegerRef("n3", 1, 21),
         Choice("action", navigation.actions),
@@ -208,12 +208,6 @@ class SublimeRRule(MergeRule):
         "vee table that":
                 Store() + Key("c-2") + Text("library(vtable)") + Key("enter/50") + Retrieve() + Key("space, percent, rangle, percent") + Text(" vtable()") + Key("enter/50, c-1"),
     }
-    extras = [
-        IntegerRef("n", 1, 9),
-    ]
-    default = {
-        "n": 1,
-    }
 
 control.app_rule(SublimeRRule())
 
@@ -222,17 +216,13 @@ control.app_rule(SublimeRRule())
 class SublimeTeXRule(MergeRule):
     mcontext = AppContext(title=[".tex", ".md"]) & AppContext(title="Sublime Text")
     mapping = {
-        "go [to] (word | name) <dict>":
-            Key("c-r") + Text("%(dict)s") + Key("enter"),
+        "go [to] (word | name) <text>":
+            Key("c-r") + Text("%(text)s") + Key("enter"),
         "count words": Key("cs-c"),
-
     }
     extras = [
-        Dictation("dict"),
+        Dictation("text"),
     ]
-    default = {
-        "n": 1,
-    }
 
 control.non_ccr_app_rule(SublimeTeXRule())
 

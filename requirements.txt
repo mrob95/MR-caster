@@ -1,0 +1,11 @@
+dragonfly2
+wxpython
+pillow
+toml
+future
+mock
+setuptools
+win10toast
+beautifulsoup4
+six
+pywin32

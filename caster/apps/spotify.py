@@ -22,12 +22,4 @@ class SpotifyRule(MergeRule):
         "add to playlist [<n>]": Key("s-f10/10, up:2, right/10, down:%(n)s, enter"),
     }
 
-    extras = [
-    	IntegerRef("n", 1, 10),
-    ]
-    defaults = {
-    	"n": 1,
-
-    }
-
 control.non_ccr_app_rule(SpotifyRule())

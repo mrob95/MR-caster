@@ -18,7 +18,7 @@ class SumatraPDFRule(MergeRule):
 		"find"               : Key("c-f"),
 		"find next"          : Key("f3"),
 		"find previous"      : Key("s-f3"),
-		"page <n>"           : Key("c-g") + Text("%(n)s") + Key("enter"),
+		"page <ln1>"           : Key("c-g") + Text("%(ln1)s") + Key("enter"),
 		"table of contents"  : Key("f12"),
 
 		"zoom in [<n>]"      : Key("c-equals:%(n)s"),
@@ -37,7 +37,7 @@ class SumatraPDFRule(MergeRule):
 	}
 
 	extras = [
-		ShortIntegerRef("n", 1, 1000),
+		ShortIntegerRef("ln1", 1, 1000),
 		Choice("nth", {
 			"first"         : "1",
 			"second"        : "2",
@@ -50,9 +50,5 @@ class SumatraPDFRule(MergeRule):
 			"(last | final)": "9",
 			})
 	]
-
-	defaults = {
-		"n": 1,
-	}
 
 control.non_ccr_app_rule(SumatraPDFRule())

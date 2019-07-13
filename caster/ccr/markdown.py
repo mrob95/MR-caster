@@ -10,7 +10,6 @@ class MarkdownNon(MergeRule):
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="markdown.toml"),
     }
-
     extras = [
         Choice("template", BINDINGS["templates"]),
     ]
@@ -22,12 +21,12 @@ class Markdown(MergeRule):
     mcontext = AppContext(title=BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
     mapping = {
-        "heading [<num>] [<dict>]":
-                Function(lambda num, dict:
-                    Text(("#" * num) + " " + str(dict).capitalize()).execute()),
-        "subheading [<dict>]":
-            Function(lambda num, dict:
-                Text(("#" * 2) + " " + str(dict).capitalize()).execute()),
+        "heading [<num>] [<text>]":
+                Function(lambda num, text:
+                    Text(("#" * num) + " " + text.capitalize()).execute()),
+        "subheading [<text>]":
+            Function(lambda num, text:
+                Text(("#" * 2) + " " + text.capitalize()).execute()),
 
         BINDINGS["insert_prefix"] + " <element>":
             Key("%(element)s"),
@@ -46,19 +45,16 @@ class Markdown(MergeRule):
         "table (break | split) <n>":
             Function(lambda n: Text("---|"*(n-1) + "---").execute()) + Key("enter"),
     }
-
     extras = [
-        Dictation("dict"),
+        Dictation("text"),
         IntegerRef("num", 1, 7),
-        IntegerRef("n", 1, 12),
         Choice("element", BINDINGS["elements"]),
         Choice("output", BINDINGS["outputs"]),
         Choice("option", BINDINGS["options"]),
         Choice("command", BINDINGS["alternating"]),
     ]
-
     defaults = {
-        "dict": "",
+        "text": "",
         "num": 1,
     }
 

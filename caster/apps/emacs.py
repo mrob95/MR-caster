@@ -19,9 +19,9 @@ class EmacsRule(MergeRule):
         "cancel selection":       Key("c-g"),
         "cut selection":          Key("c-w"),
         "paste":                  Key("c-y"),
-        "copy number <n>":        Key("c-x, r, s, %(n)d"),
-        "paste number <n>":       Key("c-x, r, i, %(n)d"),
-        "line <n>":         Key("a-g, g") + Text("%(n)s") + Key("enter"),
+        "copy number <ln1>":        Key("c-x, r, s, %(ln1)d"),
+        "paste number <ln1>":       Key("c-x, r, i, %(ln1)d"),
+        "line <ln1>":         Key("a-g, g") + Text("%(ln1)s") + Key("enter"),
 
         "menu": Key("a-m"),
         "show help": Key("c-h"),
@@ -32,9 +32,9 @@ class EmacsRule(MergeRule):
     extras = [
         Dictation("text"),
         Dictation("mim"),
-        IntegerRef("n", 1, 1000),
+        IntegerRef("ln1", 1, 1000),
     ]
-    defaults = {"n": 1, "mim": ""}
+    defaults = {"ln1": 1, "mim": ""}
 
 control.non_ccr_app_rule(EmacsRule())
 

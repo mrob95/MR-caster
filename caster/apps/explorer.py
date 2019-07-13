@@ -24,9 +24,7 @@ class WERule(MergeRule):
             Key("a-d:50") + Store() + Key("escape:50") + Function(lambda: Popen(["subl", Retrieve.text() + "/"])),
     }
     extras = [
-        IntegerRef("n", 1, 10),
         Choice("path", CORE["directories"]),
     ]
-    defaults = {"n":1}
 
 control.non_ccr_app_rule(WERule())

@@ -2,17 +2,6 @@ from caster.imports import *
 
 BINDINGS = utilities.load_toml_relative("config/python.toml")
 
-def setters():
-    Store().execute()
-    text = re.search(r"self,(.*?)\)", Retrieve.text())
-    args = text.group(1).split(",")
-    args2 = [x.split("=")[0].strip() for x in args]
-    Key("end, enter").execute()
-    for arg in args2:
-        Text("self.%s = %s\n" % (arg, arg)).execute()
-
-camel = lambda t: t[0] + (t.title().replace(" ", "")[1:] if len(t)>1 else "")
-
 class PythonNon(MergeRule):
     mapping = {
         "cheat sheet <module>":
@@ -25,7 +14,7 @@ class PythonNon(MergeRule):
             Function(utilities.load_config, config_name="python.toml"),
 
         "create setters":
-            Function(setters),
+            Function(execution.python_setters),
 
         BINDINGS["magic_prefix"] + " <umeth>":
             Text("def __%(umeth)s__(self):"),
@@ -52,8 +41,8 @@ class PythonNon(MergeRule):
         Choice("mmeth",    BINDINGS["misc_methods"]),
         Choice("exception",BINDINGS["exceptions"]),
         Choice("fun",      BINDINGS["functions"]),
-        Choice("as", {"as": " as "}),
-        Choice("right", {"right": "r", "eye": "i"}),
+        Choice("as",       {"as": " as "}),
+        Choice("right",    {"right": "r", "eye": "i"}),
     ]
     defaults = {
         "as"       : "",
@@ -109,8 +98,6 @@ class Python(MergeRule):
     extras = [
         Dictation("snaketext").lower().replace(" ", "_"),
         Dictation("classtext").title().replace(" ", ""),
-        # Dictation("classtext", lambda text: text.title().replace(" ", "")),
-        # Dictation("classtext", camel),
         Choice("fun",      BINDINGS["functions"]),
         Choice("command",  BINDINGS["commands"]),
     ]

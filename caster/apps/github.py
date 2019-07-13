@@ -5,43 +5,38 @@ class GitHubRule(MergeRule):
     mcontext = AppContext(executable="GitHubDesktop")
 
     mapping = {
-            "new repository": Key("c-n"),
-            "add local repository": Key("c-o"),
-            "clone repository": Key("c-o"),
-            "options": Key("c-comma"),
+        "new repository": Key("c-n"),
+        "add local repository": Key("c-o"),
+        "clone repository": Key("c-o"),
+        "options": Key("c-comma"),
 
-            "changes": Key("c-1"),
-            "history": Key("c-2"),
-            "(repositories | repository list)": Key("c-t"),
-            "branches [list]": Key("c-b"),
+        "changes": Key("c-1"),
+        "history": Key("c-2"),
+        "(repositories | repository list)": Key("c-t"),
+        "branches [list]": Key("c-b"),
 
-            "zoom in [<n>]": Key("c-equals")*Repeat(extra="n"),
-            "zoom out [<n>]": Key("c-minus")*Repeat(extra="n"),
-            "reset zoom": Key("c-0"),
+        "zoom in [<n>]": Key("c-equals")*Repeat(extra="n"),
+        "zoom out [<n>]": Key("c-minus")*Repeat(extra="n"),
+        "reset zoom": Key("c-0"),
 
-            "push [repository]": Key("c-p"),
-            "pull [repository]": Key("cs-p"),
-            "remove repository": Key("c-delete"),
-            "view on github": Key("cs-g"),
-            "(terminal | command prompt)": Key("c-backtick"),
-            "explorer": Key("cs-f"),
-            "edit": Key("cs-a"),
+        "push [repository]": Key("c-p"),
+        "pull [repository]": Key("cs-p"),
+        "remove repository": Key("c-delete"),
+        "view on github": Key("cs-g"),
+        "(terminal | command prompt)": Key("c-backtick"),
+        "explorer": Key("cs-f"),
+        "edit": Key("cs-a"),
 
-            "new branch": Key("cs-n"),
-            "rename branch": Key("cs-r"),
-            "delete branch": Key("cs-d"),
+        "new branch": Key("cs-n"),
+        "rename branch": Key("cs-r"),
+        "delete branch": Key("cs-d"),
 
-            "update from master": Key("cs-u"),
-            "compare to branch": Key("cs-b"),
-            "merge into current [branch]": Key("cs-m"),
+        "update from master": Key("cs-u"),
+        "compare to branch": Key("cs-b"),
+        "merge into current [branch]": Key("cs-m"),
 
-            "compare on github": Key("cs-c"),
-            "[create] pull request": Key("c-r"),
-        }
-    extras = [
-        IntegerRef("n", 1, 10),
-
-    ]
-    defaults = {"n": 1}
+        "compare on github": Key("cs-c"),
+        "[create] pull request": Key("c-r"),
+    }
 
 control.non_ccr_app_rule(GitHubRule())

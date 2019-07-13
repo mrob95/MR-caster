@@ -18,15 +18,14 @@ class FileDialogueRule(MergeRule):
         "go forward [<n>]"   : Key("a-right:%(n)s"),
         "(files | file list)": Key("a-d, f6:3"),
         "navigation [pane]"  : Key("a-d, f6:2"),
-        "file name [<dict>]" : Key("a-d, f6:5") + Text("%(dict)s"),
+        "file name [<text>]" : Key("a-d, f6:5") + Text("%(text)s"),
 
         "dot <ext>"          : Text(".%(ext)s"),
 
         "go <directory>"     : Key("a-d/20") + Text("%(directory)s") + Key("enter"),
     }
     extras = [
-        IntegerRef("n", 1, 10),
-        Dictation("dict"),
+        Dictation("text"),
         Choice("directory", CORE["directories"]),
         Choice("ext", {
             "batch"         : "bat",
@@ -45,8 +44,7 @@ class FileDialogueRule(MergeRule):
         }),
     ]
     defaults = {
-        "n"   : 1,
-        "dict": "",
+        "text": "",
     }
 
 control.app_rule(FileDialogueRule())

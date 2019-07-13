@@ -20,7 +20,7 @@ class ChromeRule(MergeRule):
         "zoom reset"              : Key("c-0"),
         "refresh"                 : Key("c-f5"),
         "switch focus [<n>]"      : Key("f6:%(n)s"),
-        "find <dict>"             : Key("c-f") + Text("%(dict)s"),
+        "find <text>"             : Key("c-f") + Text("%(text)s"),
         "[find] next match [<n>]" : Key("c-g:%(n)s"),
         "[find] prior match [<n>]": Key("cs-g:%(n)s"),
         "[toggle] caret browsing" : Key("f7"),
@@ -79,9 +79,7 @@ class ChromeRule(MergeRule):
 
     }
     extras = [
-        Dictation("dict"),
         Dictation("text"),
-        IntegerRef("n", 1, 10),
         Choice("site", {
             "amazon"   : "smile.amazon.co.uk",
             "kindle"   : "https://smile.amazon.co.uk/Kindle-eBooks-books/b/ref=nav_shopall_kbo5?ie=UTF8&node=341689031",
@@ -113,7 +111,6 @@ class ChromeRule(MergeRule):
             "previous"      :"pgup",
         }),
     ]
-    defaults = {"n": 1, "dict": "nothing"}
 
 control.non_ccr_app_rule(ChromeRule())
 
@@ -164,7 +161,7 @@ class DocsRule(MergeRule):
     }
     extras = [
         IntegerRef("headn", 1, 7),
-        ]
+    ]
     defaults = {"headn": 1}
 
 control.non_ccr_app_rule(DocsRule())

@@ -8,6 +8,9 @@ class GitBashNon(MergeRule):
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="gitbash.toml"),
 
+        "open link":
+            Key("c-insert") + Function(lambda: utilities.browser_open(Clipboard.get_system_text())),
+
         "git fetch pull <prn>": Text("git fetch upstream pull/%(prn)s/head:pr-%(prn)s && git checkout pr-%(prn)s"),
 
         "git <command> <snake_text>":
@@ -32,15 +35,11 @@ class GitBashRule(MergeRule):
         "<command>": execution.Alternating("command"),
 
         "go <directory>":
-            Text("cd \"%(directory)s\"") + Key("enter"),
+            Text("cd '%(directory)s'") + Key("enter"),
 
         "folder <directory>":
-            Text("%(directory)s"),
-
-        "open link":
-            Key("c-insert") + Function(lambda: utilities.browser_open(Clipboard.get_system_text())),
+            Text("'%(directory)s'"),
     }
-
     extras = [
         Choice("directory",   CORE["directories"]),
         Choice("command",     BINDINGS["commands"]),

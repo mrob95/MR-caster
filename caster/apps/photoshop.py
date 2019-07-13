@@ -26,14 +26,6 @@ class PhotoshopRule(MergeRule):
 
         "brush size down [<n>]": Key("lbracket:%(n)s"),
         "brush size up [<n>]": Key("rbracket:%(n)s"),
-        }
-
-    extras = [
-        IntegerRef("n", 1, 10),
-        ShortIntegerRef("percent", 1, 100),
-    ]
-    defaults = {
-        "n": 1,
     }
 
 control.non_ccr_app_rule(PhotoshopRule())

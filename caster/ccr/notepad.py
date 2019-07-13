@@ -12,24 +12,20 @@ class Notepad(MergeRule):
     mapping = {
         "splat [<splatdir>] [<n>]":
             Key("%(splatdir)s") * Repeat(extra="n") + Key("backspace"),
-        "copy HTML": Function(CliptoHTML),
-
-        "select up [<n>]": Function(lambda n: Key("s-up:%s" % str(n-1)).execute()) + Key("s-home"),
-        "select down [<n>]": Function(lambda n: Key("s-down:%s" % str(n-1)).execute()) + Key("s-end"),
-
+        "copy HTML":
+            Function(CliptoHTML),
+        "select up [<n>]":
+            Function(lambda n: Key("s-up:%s" % str(n-1)).execute()) + Key("s-home"),
+        "select down [<n>]":
+            Function(lambda n: Key("s-down:%s" % str(n-1)).execute()) + Key("s-end"),
     }
-
     extras = [
-        IntegerRef("n", 1, 11),
         Choice("splatdir", {
             "lease":"cs-left",
             "ross":"cs-right",
         }),
-
     ]
-
     defaults = {
-        "nnavi10": 1,
         "splatdir": "cs-left",
     }
 

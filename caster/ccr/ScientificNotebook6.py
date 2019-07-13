@@ -83,7 +83,6 @@ class SN6Non(MergeRule):
     }
     extras = [
         Dictation("dict"),
-        IntegerRef("n", 1, 10),
         Choice("control", BINDINGS["control"]),
     ]
 
@@ -119,7 +118,6 @@ class SN6(MergeRule):
         "<numbers> <denominator>":
             Key("c-f") + Text("%(numbers)s") + Key("down") + Text("%(denominator)s") + Key("right"),
     }
-
     extras = [
         IntegerRef("rows",    1, BINDINGS["max_matrix_size"]),
         IntegerRef("cols",    1, BINDINGS["max_matrix_size"]),
@@ -133,7 +131,6 @@ class SN6(MergeRule):
         Choice("misc_sn_text",   BINDINGS["misc_sn_text"]),
         Choice("denominator",    BINDINGS["denominators"]),
     ]
-
     defaults = {
         "big": False,
     }

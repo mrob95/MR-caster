@@ -40,6 +40,15 @@ class SlowAlternating(ActionBase):
 def template(template):
     utilities.paste_string(template)
 
+def python_setters():
+    Store().execute()
+    text = re.search(r"self,(.*?)\)", Retrieve.text())
+    args = text.group(1).split(",")
+    args2 = [x.split("=")[0].strip() for x in args]
+    Key("end, enter").execute()
+    for arg in args2:
+        Text("self.%s = %s\n" % (arg, arg)).execute()
+
 def paste_as_admin():
     text = Clipboard.get_system_text()
     keys = []

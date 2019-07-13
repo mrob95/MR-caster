@@ -131,7 +131,6 @@ class CoreNon(MergeRule):
         }
     extras = [
         Dictation("dict"),
-        IntegerRef("n", 1, 20),
         Choice("direction",            CORE[_DIRECTIONS]),
         Choice("direction2",           CORE[_DIRECTIONS]),
         Choice("misc_core_keys_noCCR", CORE["misc_core_keys_noCCR"]),
@@ -143,7 +142,6 @@ class CoreNon(MergeRule):
                 }),
     ]
     defaults = {
-        "n": 1,
         "direction2": "",
     }
 
@@ -219,8 +217,6 @@ class Core(MergeRule):
 
     extras = [
         Dictation("text"),
-        ShortIntegerRefNo8("n", 2, 20),
-        # IntegerRef("n", 2, 20),
         Repetition(IntegerRef("wnKK", 0, 10), min=1, max=5, name="num_seq"),
         IntegerRef("wnKK", 0, 10),
         IntegerRef("wnKK2", 0, 10),
@@ -259,7 +255,6 @@ class Core(MergeRule):
         "nnavi10"       : 1,
         "nnavi50"       : 1,
         "nnavi500"      : 1,
-        "n"             : 1,
         "direction"     : "left",
         "modifier"      : "",
         "wnKK2"         : "",

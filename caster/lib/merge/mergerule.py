@@ -3,7 +3,7 @@ Created on Sep 1, 2015
 
 @author: synkarius
 '''
-from dragonfly import MappingRule, Pause, Function, ActionBase
+from dragonfly import MappingRule, Pause, Function, ActionBase, IntegerRef
 from caster.lib import utilities
 from caster.lib.dfplus.recorder import recorder
 
@@ -66,6 +66,7 @@ class MergeRule(MappingRule):
             mapping["display available commands"] = Function(
                 lambda: self._display_available_commands())
 
+        self.add_defaults()
         MappingRule.__init__(self, name, mapping, extras, defaults, exported)
 
     def __eq__(self, other):
@@ -75,6 +76,10 @@ class MergeRule(MappingRule):
 
     def __call__(self):
         return self
+
+    def add_defaults(self):
+        self.extras.append(IntegerRef("n", 1, 20))
+        self.defaults.update({"n": 1})
 
     ''' "copy" getters used for safe merging;
     "actual" versions used for filter functions'''

@@ -114,12 +114,12 @@ class Jupyter(Python):
         "command pallette"          : Key("cs-p"),
     }
     extras = list(Python.extras)
-    extras.extend([
-        IntegerRef("n", 1, 20),
-    ])
+    # extras.extend([
+    #     IntegerRef("n", 1, 20),
+    # ])
     defaults = Python.defaults.copy()
-    defaults.update({
-        "n": 1,
-    })
+    # defaults.update({
+    #     "n": 1,
+    # })
 
 control.app_rule(Jupyter())

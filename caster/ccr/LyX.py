@@ -75,13 +75,9 @@ class lyx_mathematicsNon(MergeRule):
             Key("%(control_repeat)s")*Repeat(extra="n"),
     }
     extras = [
-        IntegerRef("n", 1, 10),
         Choice("control",        BINDINGS["control"]),
         Choice("control_repeat", BINDINGS["control_repeat"]),
     ]
-    defaults = {
-        "n": 1,
-    }
 
 class lyx_mathematics(MergeRule):
     non = lyx_mathematicsNon

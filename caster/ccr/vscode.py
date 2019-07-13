@@ -13,11 +13,11 @@ class VSCodeRule(MergeRule):
         "skip next [<n3>]"               : Key("c-k, c-d")*Repeat(extra="n3"),
         "edit all"                       : Key("cs-l"),
 
-        "<action> [line] <n> [by <nn>]"  :
+        "<action> [line] <ln1> [by <ln2>]"  :
             Function(navigation.action_lines),
 
-        "<action> by [line] <n>"  :
-            Key("c-k, c-space, c-g") + Function(lambda n: Text(str(n+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
+        "<action> by [line] <ln1>"  :
+            Key("c-k, c-space, c-g") + Function(lambda ln1: Text(str(ln1+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
 
         "new (file | tab)"               : Key("c-n"),
         # {"keys"                        : ["ctrl+alt+n"], "command": "new_window"},
@@ -109,13 +109,11 @@ class VSCodeRule(MergeRule):
         "format table": Key("cas-t"),
 
         "configure alignment": Key("f10, p, right, p, right, down, enter"),
-
-
     }
     extras = [
         Dictation("dict"),
-        ShortIntegerRef("n",1, 1000),
-        ShortIntegerRef("nn", 1, 1000),
+        ShortIntegerRef("ln1", 1, 1000),
+        ShortIntegerRef("ln2", 1, 1000),
         IntegerRef("n2", 1, 9),
         IntegerRef("n3", 1, 21),
         Choice("action", {
@@ -147,7 +145,7 @@ class VSCodeRule(MergeRule):
     ]
     defaults = {
         "dict": "",
-        "nn": None,
+        "ln2": None,
         "n2": 1,
         "n3": 1,
         "filetype": "",
@@ -161,7 +159,7 @@ class VSCodeCCRRule(MergeRule):
     mwith = ["Core"]
     mcontext = AppContext(title="Visual Studio Code")
     mapping = {
-        "line <n>"       : Key("c-g") + Text("%(n)s") + Key("enter"),
+        "line <ln1>"       : Key("c-g") + Text("%(ln1)s") + Key("enter"),
         # "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter, end"),
 
         "align that"     : Key("ca-a"),
@@ -183,7 +181,7 @@ class VSCodeCCRRule(MergeRule):
 
     }
     extras = [
-        ShortIntegerRef("n", 1, 1000),
+        ShortIntegerRef("ln1", 1, 1000),
         IntegerRef("n2", 1, 9),
         IntegerRef("n11", 1, 20),
         IntegerRef("n12", 0, 10),

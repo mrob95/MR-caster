@@ -25,7 +25,6 @@ class RuleNameRule(MergeRule):
 	}
 
 	extras = [
-		IntegerRef("n", 1, 10),
 		Choice("nth", {
 			"first"         : "1",
 			"second"        : "2",
@@ -38,9 +37,5 @@ class RuleNameRule(MergeRule):
 			"(last | final)": "9",
 			}),
 	]
-
-	defaults = {
-		"n": 1,
-	}
 
 control.non_ccr_app_rule(RuleNameRule())
