@@ -71,6 +71,7 @@ magic_prefix    = "magic"
 "lambda"              = ["lambda ", "colon/3, left"]
 "lodge and"           = " and "
 "lodge as"            = " as "
+"lodge if"            = " if "
 "lodge in"            = " in "
 "lodge is"            = " is "
 "lodge is not"        = " is not "

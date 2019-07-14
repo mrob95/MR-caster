@@ -1,4 +1,4 @@
-from dragonfly import Key, Mouse, Pause, ActionBase, ActionError, Alternative, Compound, RuleWrap
+from dragonfly import Key, Mouse, Pause, ActionBase, ActionError, Alternative, Compound, RuleWrap, Choice
 from dragonfly import Text as TextBase
 from dragonfly import Key as KeyBase
 from inspect import getargspec
@@ -17,6 +17,14 @@ class SlowText(TextBase):
 
 class SlowKey(KeyBase):
     interval_default = 2.0
+
+class Boolean(Choice):
+    def __init__(self, name, spec=None):
+        if not spec: spec = name
+        Choice.__init__(self,
+                        name,
+                        {spec: True},
+                        default=False)
 
 from caster.lib import utilities, control, navigation
 SETTINGS = utilities.load_toml_relative("config/settings.toml")

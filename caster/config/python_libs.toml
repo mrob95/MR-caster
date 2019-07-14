@@ -7,6 +7,7 @@
 "match"                       = ["re.match(r\"\", )", "left:4"]
 "findall"                     = ["re.findall(r\"\", )", "left:4"]
 "compile"                     = ["re.compile(r\"\")", "left:2"]
+"(sub | substitute)"          = ["re.sub(r\"\", , )", "left:6"]
 
 [sys]
 "pronunciation"               = "(system | sis)"

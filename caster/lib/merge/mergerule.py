@@ -3,9 +3,10 @@ Created on Sep 1, 2015
 
 @author: synkarius
 '''
-from dragonfly import MappingRule, Pause, Function, ActionBase, IntegerRef, Dictation
+from dragonfly import MappingRule, Pause, Function, ActionBase, IntegerRef, Dictation, Choice, RuleWrap
 from caster.lib import utilities
-from caster.lib.dfplus.recorder import recorder
+import re
+
 
 
 class MergeRule(MappingRule):
@@ -91,6 +92,7 @@ class MergeRule(MappingRule):
                         self.extras.append(self.default_extras[name])
                         if name in self.default_defaults:
                             self.defaults[name] = self.default_defaults[name]
+                        break
 
     ''' "copy" getters used for safe merging;
     "actual" versions used for filter functions'''
@@ -170,28 +172,57 @@ class MergeRule(MappingRule):
         for spec in self.mapping_actual().keys():
             print(spec)  # do something fancier when the ui is better
 
-
-
-    # def process_recognition(self, node):
-    #     item_value = node.value()
-
-    #     # Prepare *extras* dict for passing to _process_recognition().
-    #     extras = {}
-    #     extras.update(self._defaults)
-    #     for name, element in self._extras.items():
-    #         extra_node = node.get_child_by_name(name, shallow=True)
-    #         if extra_node:
-    #             extras[name] = extra_node.value()
-    #         elif element.has_default():
-    #             extras[name] = element.default
-
-    #     # Call the method to do the actual processing.
-    #     self._process_recognition(item_value, extras)
+    def generate_docs(self):
+        result = "# %s\n## Commands\n" % self.pronunciation.capitalize()
+        result += "| Command | Action | Options |\n"
+        result += "| --- | --- | --- |\n"
+        for k, v in self.mapping.items():
+            if hasattr(v, "base"):
+                v = v.base
+            command = "`%s`" % k
+            action = str(v).replace("ActionSeries", "").replace(", dynamic", "")
+            action = re.sub(r"^\(+", "", action)
+            action = re.sub(r"\)+", ")", action)
+            action = re.sub(r"%\(", "***", action)
+            action = re.sub(r"\)s", "***", action)
+            action = re.sub(r"/\d+", "", action)
+            options = ", ".join(re.findall(r"\<(.+?)\>", k))
+            result  += "| `%s` | `%s` | `%s` |\n" % (command, action, options)
+        if not self.extras:
+            return result
+        result += "\n## Extras\n"
+        for e in self.extras:
+            if isinstance(e, RuleWrap):
+                values = "### %s : Numbers %s-%s\n" % (e.name, e.rule._element._min, e.rule._element._max)
+            elif isinstance(e, Dictation):
+                values = "### %s : Free dictation\n" % e.name
+            elif isinstance(e, Choice):
+                values = "### %s\n" % e.name
+                values += "| Spoken form | Result |\n"
+                values += "| --- | --- |\n"
+                for k, v in e._choices.items():
+                    values += "| `%s` | `%s` |\n" % (k, v)
+            else:
+                values = ""
+            result += values
+        # result += "| Name | Values | Default |\n"
+        # result += "| --- | --- | --- |\n"
+        # for e in self.extras:
+        #     name = e.name
+        #     if isinstance(e, RuleWrap):
+        #         values = "Numbers %s-%s" % (e.rule._element._min, e.rule._element._max)
+        #     elif isinstance(e, Dictation):
+        #         values = "Free dictation"
+        #     elif isinstance(e, Choice):
+        #         values = "<br/>".join(["`%s`:`%s`" % (k,v) for k,v in e._choices.items()]) + "`"
+        #     else:
+        #         values = ""
+        #     default = self.defaults[name] if name in self.defaults else "No default"
+        #     result  += "| %s | %s | %s |\n" % (name, values, default)
+        return result
 
     def _process_recognition(self, value, extras):
         if isinstance(value, ActionBase):
-            if recorder.is_recording():
-                recorder.add_action(value, extras)
             value.execute(extras)
         elif self._log_proc:
             self._log_proc.warning("%s: mapping value is not an action,"

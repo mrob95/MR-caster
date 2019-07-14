@@ -155,7 +155,17 @@ class Core(MergeRule):
         CORE["numbers_prefix"] + " <num_seq>":
             Function(lambda num_seq: Text("".join([str(i) for i in num_seq])).execute()),
 
-    	"<punctuation>": Key("%(punctuation)s"),
+        "[<long>] <punctuation>":
+            Function(lambda long, punctuation:
+                Key("space, %s, space" % punctuation if long else punctuation)
+                .execute()),
+
+        "[<long>] <punctuation2> [<equal>]":
+            Function(lambda long, punctuation2, equal:
+                Key(("space, " if long else "") +
+                punctuation2 + (", =, " if equal else "") +
+                (", space" if long else ""))
+                .execute()),
 
         #---------------------------------------------------------------------------
 
@@ -225,14 +235,17 @@ class Core(MergeRule):
         # IntegerRef("nnavi10", 1, 11),
         IntegerRef("nnavi50", 1, 20),
         IntegerRef("nnavi500", 1, 500),
-        Choice("big",            {CORE["capitals_prefix"]: True}),
+        Boolean("big",        CORE["capitals_prefix"]),
+        Boolean("extreme",    CORE["extreme"]),
+        Boolean("long"),
+        Boolean("equal"),
         Choice("letter",         CORE[_LETTERS]),
         Choice("punctuation",    CORE["punctuation"]),
+        Choice("punctuation2",   CORE["punctuation2"]),
         Choice("key",            CORE["keys"]),
         Choice("misc_core_keys", CORE["misc_core_keys"]),
         Choice("direction",      CORE[_DIRECTIONS]),
         Choice("modifier",       CORE["modifiers"]),
-        Choice("extreme",        {CORE["extreme"]: True}),
         Choice("enclosure",      CORE["enclosures"]),
         Choice("capitalization", CORE["capitalization"]),
         Choice("spacing",        CORE["spacing"]),
@@ -246,8 +259,6 @@ class Core(MergeRule):
     ]
 
     defaults = {
-        "big"           : False,
-        "extreme"       : False,
         "capitalization": 0,
         "spacing"       : 0,
         "nnavi10"       : 1,

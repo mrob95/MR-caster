@@ -65,6 +65,8 @@ class ChromeRule(MergeRule):
         # map <a-r> goToRoot
         # map <a-i> focusInput
         # map <a-u> duplicateTab
+        # map <a-t> closeTabsOnRight
+        # map <a-l> closeTabsOnLeft
         # map <a-left> scrollLeft
         # map <a-right> scrollRight
 
@@ -74,6 +76,8 @@ class ChromeRule(MergeRule):
         "show links"        : Key("c-comma"),
         "go to root"        : Key("a-r"),
         "focus input"       : Key("a-i"),
+        "close tabs right"  : Key("a-t"),
+        "close tabs left"   : Key("a-l"),
         "scroll left [<n>]" : Key("a-left:%(n)s"),
         "scroll right [<n>]": Key("a-right:%(n)s"),
 
@@ -110,8 +114,11 @@ class ChromeRule(MergeRule):
             "previous"      :"pgup",
         }),
     ]
+cr = ChromeRule()
+control.non_ccr_app_rule(cr)
 
-control.non_ccr_app_rule(ChromeRule())
+with open("C:/Users/Mike/Documents/GitHub/test/test.txt", "w+") as f:
+    f.write(cr.generate_docs())
 
 #---------------------------------------------------------------------------
 
