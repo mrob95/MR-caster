@@ -8,7 +8,7 @@ from caster.imports import *
 BINDINGS = utilities.load_toml_relative("config/ScientificNotebook55.toml")
 CORE = utilities.load_toml_relative("config/core.toml")
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 def TeX(symbol):
     return Key("ctrl:down") + Text(symbol) + Key("ctrl:up")
@@ -22,7 +22,7 @@ def matrix(rows, cols):
     Key("f10/5, i/5, down:8, enter/50").execute()
     Key(str(rows) + "/50, tab, " + str(cols) + "/50, enter").execute()
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 class sn_nested(NestedRule):
     mapping = {
@@ -94,7 +94,7 @@ class sn_mathematicsNon(MergeRule):
         Choice("control", BINDINGS["control"]),
     ]
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 class sn_mathematics(MergeRule):
     non           = sn_mathematicsNon
@@ -128,12 +128,11 @@ class sn_mathematics(MergeRule):
         "<numbers> <denominator>":
             Key("c-f") + Text("%(numbers)s") + Key("down") + Text("%(denominator)s") + Key("right"),
     }
-
     extras = [
         IntegerRef("rows",    1, BINDINGS["max_matrix_size"]),
         IntegerRef("cols",    1, BINDINGS["max_matrix_size"]),
         IntegerRefMF("numbers", 0, CORE["numbers_max"]),
-        Choice("big",           {CORE["capitals_prefix"]: True}),
+        Boolean("big", CORE["capitals_prefix"]),
         Choice("greek_letter",   BINDINGS["greek_letters"]),
         Choice("units",          BINDINGS["units"]),
         Choice("symbol",         BINDINGS["tex_symbols"]),
@@ -143,10 +142,4 @@ class sn_mathematics(MergeRule):
         Choice("denominator",    BINDINGS["denominators"]),
     ]
 
-    defaults = {
-        "big": False,
-    }
-
 control.app_rule(sn_mathematics())
-
-#---------------------------------------------------------------------------

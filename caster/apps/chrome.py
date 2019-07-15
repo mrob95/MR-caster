@@ -120,7 +120,7 @@ control.non_ccr_app_rule(cr)
 with open("C:/Users/Mike/Documents/GitHub/test/test.txt", "w+") as f:
     f.write(cr.generate_docs())
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 class DocsRule(MergeRule):
     mcontext = AppContext(title="Google docs")
@@ -166,8 +166,7 @@ class DocsRule(MergeRule):
         "help menu"              : Key("a-h"),
     }
     extras = [
-        IntegerRef("headn", 1, 7),
+        IntegerRef("headn", 1, 7, 1),
     ]
-    defaults = {"headn": 1}
 
 control.non_ccr_app_rule(DocsRule())

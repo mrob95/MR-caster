@@ -35,7 +35,7 @@ class fmanRule(MergeRule):
     }
 
     extras = [
-        IntegerRef("num", 1, 4),
+        IntegerRef("num", 1, 4, 1),
         Choice("fav", {
             "advent": "adv",
             "(docks | documents)":"docs",
@@ -47,8 +47,5 @@ class fmanRule(MergeRule):
             "uni [work]":"uni",
         }),
     ]
-    defaults = {
-        "num":1,
-    }
 
 control.non_ccr_app_rule(fmanRule())

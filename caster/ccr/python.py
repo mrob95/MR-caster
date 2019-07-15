@@ -39,18 +39,13 @@ class PythonNon(MergeRule):
         Choice("umeth",    BINDINGS["unary_methods"]),
         Choice("bmeth",    BINDINGS["binary_methods"]),
         Choice("mmeth",    BINDINGS["misc_methods"]),
-        Choice("exception",BINDINGS["exceptions"]),
+        Choice("exception",BINDINGS["exceptions"], default=""),
         Choice("fun",      BINDINGS["functions"]),
-        Choice("as",       {"as": " as "}),
-        Choice("right",    {"right": "r", "eye": "i"}),
+        Choice("as",       {"as": " as "}, ""),
+        Choice("right",    {"right": "r", "eye": "i"}, ""),
     ]
-    defaults = {
-        "as"       : "",
-        "exception": "",
-        "right"    : "",
-    }
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 PYLIBS = utilities.load_toml_relative("config/python_libs.toml")
 
@@ -66,7 +61,7 @@ for lib, data in PYLIBS.iteritems():
 PythonNon.mapping["import <lib>"] = Text("import %(lib)s") + Key("enter")
 PythonNon.extras.append(Choice("lib", libs))
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 class Python(MergeRule):
     non = PythonNon
@@ -96,20 +91,15 @@ class Python(MergeRule):
         "classy [<classtext>]": Text("class %(classtext)s:") + Key("left"),
     }
     extras = [
-        Dictation("snaketext").lower().replace(" ", "_"),
-        Dictation("classtext").title().replace(" ", ""),
+        Dictation("snaketext", "").lower().replace(" ", "_"),
+        Dictation("classtext", "").title().replace(" ", ""),
         Choice("fun",      BINDINGS["functions"]),
         Choice("command",  BINDINGS["commands"]),
     ]
-    defaults = {
-        "exception": "",
-        "snaketext": "",
-        "classtext": "",
-    }
 
 control.app_rule(Python())
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 CASTER = utilities.load_toml_relative("config/python_caster.toml")
 
@@ -141,4 +131,5 @@ class CasterPythonRule(MergeRule):
 
 control.app_rule(CasterPythonRule())
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
+#------------------------------------------------

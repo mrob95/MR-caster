@@ -42,7 +42,6 @@ def go_to_desktop_number(n):
         else:
             Key("wc-right/10:" + str(n-current)).execute()
 
-
 def close_all_workspaces():
     # vda = load_vda()
     total = vda.GetDesktopCount()
@@ -54,12 +53,12 @@ def initialize_clipboard(nexus):
     if len(nexus.clip) == 0:
         nexus.clip = utilities.load_toml_relative(SETTINGS["clipboard_path"])
 
-def stoosh(nnavi500, nexus, key="c-c"):
+def stoosh(nnavi500, nexus, copy_key="c-c"):
     if nnavi500 == 1:
-        Key(key).execute()
+        Key(copy_key).execute()
     else:
         cb = Clipboard(from_system=True)
-        Key(key).execute()
+        Key(copy_key).execute()
         # time for keypress to execute
         time.sleep(SETTINGS["keypress_wait"])
         nexus.clip[str(nnavi500)] = Clipboard.get_system_text()
@@ -68,13 +67,13 @@ def stoosh(nnavi500, nexus, key="c-c"):
         cb.copy_to_system()
 
 
-def drop(nnavi500, nexus, capitalization, spacing, key="c-v"):
+def drop(nnavi500, nexus, capitalization, spacing, paste_key="c-v"):
     # Remove newlines before pasting into terminal
-    if key == "s-insert":
+    if paste_key == "s-insert":
         Clipboard.set_system_text(Clipboard.get_system_text().replace("\n", ""))
     # Maintain standard spark functionality for non-strings
     if capitalization == 0 and spacing == 0 and nnavi500 == 1:
-        Key(key).execute()
+        Key(paste_key).execute()
         return
     # Get clipboard text
     if nnavi500 > 1:
@@ -91,7 +90,7 @@ def drop(nnavi500, nexus, capitalization, spacing, key="c-v"):
             text = textformat.formatted_text(capitalization, spacing, text)
         Clipboard.set_system_text(text)
         time.sleep(SETTINGS["keypress_wait"])
-        Key(key).execute()
+        Key(paste_key).execute()
         time.sleep(SETTINGS["keypress_wait"])
         # Restore the clipboard contents.
         cb.copy_to_system()

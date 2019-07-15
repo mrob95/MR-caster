@@ -22,7 +22,6 @@ class RuleNameRule(MergeRule):
 		"zoom in [<n>]" : Key("c-equals:%(n)s"),
 		"zoom out [<n>]": Key("c-minus:%(n)s"),
 	}
-
 	extras = [
 		Choice("nth", {
 			"first"         : "1",

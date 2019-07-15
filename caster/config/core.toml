@@ -8,6 +8,7 @@
 "extreme"              = "wally"
 
 [directories]
+"app data"  =  "C:\\Users\\Mike\\AppData"
 "caster"    =  "C:\\Users\\Mike\\Documents\\NatLink\\caster"
 "documents" =  "C:\\Users\\Mike\\Documents"
 "downloads" =  "C:\\Users\\Mike\\Downloads"

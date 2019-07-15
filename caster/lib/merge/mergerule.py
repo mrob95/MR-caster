@@ -43,12 +43,8 @@ class MergeRule(MappingRule):
     mwith = None
 
     default_extras = {
-        "n"   : IntegerRef("n", 1, 20),
-        "text": Dictation("text"),
-    }
-    default_defaults = {
-        "n": 1,
-        "text": "",
+        "n"   : IntegerRef("n", 1, 20, default=1),
+        "text": Dictation("text", default=""),
     }
 
     def __init__(self,
@@ -90,8 +86,6 @@ class MergeRule(MappingRule):
                 for spec in self.mapping.keys():
                     if match in spec:
                         self.extras.append(self.default_extras[name])
-                        if name in self.default_defaults:
-                            self.defaults[name] = self.default_defaults[name]
                         break
 
     ''' "copy" getters used for safe merging;
@@ -179,7 +173,7 @@ class MergeRule(MappingRule):
         for k, v in self.mapping.items():
             if hasattr(v, "base"):
                 v = v.base
-            command = "`%s`" % k
+            command = "%s" % k
             action = str(v).replace("ActionSeries", "").replace(", dynamic", "")
             action = re.sub(r"^\(+", "", action)
             action = re.sub(r"\)+", ")", action)
@@ -187,7 +181,7 @@ class MergeRule(MappingRule):
             action = re.sub(r"\)s", "***", action)
             action = re.sub(r"/\d+", "", action)
             options = ", ".join(re.findall(r"\<(.+?)\>", k))
-            result  += "| `%s` | `%s` | `%s` |\n" % (command, action, options)
+            result  += "| `%s` | `%s` | `%s ` |\n" % (command, action, options)
         if not self.extras:
             return result
         result += "\n## Extras\n"

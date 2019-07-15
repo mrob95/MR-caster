@@ -69,7 +69,7 @@ for lib, data in PYLIBS.iteritems():
 JupyterNon.mapping["import <lib>"] = Text("import %(lib)s") + Key("enter")
 JupyterNon.extras.append(Choice("lib", libs))
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 class Jupyter(Python):
     non = JupyterNon
@@ -104,7 +104,7 @@ class Jupyter(Python):
         "merge below"               : Key("escape, M"),
         "merge above"               : Key("escape, s-up, M"),
         "toggle line numbers"       : Key("escape, L"),
-        "delete cell [<n>]"         : Key("escape, d, d")*Repeat(extra="n"),
+        "delete cell [<n>]"         : Key("escape, d, d")*Repeat("n"),
         "select all"                : Key("c-a"),
 
         "indent [<n>]"              : Key("c-rbracket:%(n)s"),
@@ -114,12 +114,6 @@ class Jupyter(Python):
         "command pallette"          : Key("cs-p"),
     }
     extras = list(Python.extras)
-    # extras.extend([
-    #     IntegerRef("n", 1, 20),
-    # ])
     defaults = Python.defaults.copy()
-    # defaults.update({
-    #     "n": 1,
-    # })
 
 control.app_rule(Jupyter())

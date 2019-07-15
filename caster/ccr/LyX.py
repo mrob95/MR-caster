@@ -72,7 +72,7 @@ class lyx_mathematicsNon(MergeRule):
         "<control>":
             Key("%(control)s"),
         "<control_repeat> [<n>]":
-            Key("%(control_repeat)s")*Repeat(extra="n"),
+            Key("%(control_repeat)s")*Repeat("n"),
     }
     extras = [
         Choice("control",        BINDINGS["control"]),
@@ -124,7 +124,7 @@ class lyx_mathematics(MergeRule):
         IntegerRef("rows", 1, BINDINGS["max_matrix_size"]),
         IntegerRef("cols", 1, BINDINGS["max_matrix_size"]),
         IntegerRef("numbers", 0, CORE["numbers_max"]),
-        Choice("big", {CORE["capitals_prefix"]: True}),
+        Boolean("big", CORE["capitals_prefix"]),
         Choice("greek_letter", BINDINGS["greek_letters"]),
         Choice("symbol1", BINDINGS["tex_symbols1"]),
         Choice("symbol2", BINDINGS["tex_symbols2"]),
@@ -134,9 +134,5 @@ class lyx_mathematics(MergeRule):
         Choice("command", BINDINGS["misc_lyx_commands"]),
         Choice("denominator", BINDINGS["denominators"]),
     ]
-
-    defaults = {
-        "big": False,
-    }
 
 control.app_rule(lyx_mathematics())

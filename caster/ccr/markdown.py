@@ -46,14 +46,11 @@ class Markdown(MergeRule):
             Function(lambda n: Text("---|"*(n-1) + "---").execute()) + Key("enter"),
     }
     extras = [
-        IntegerRef("num", 1, 7),
+        IntegerRef("num", 1, 7, 1),
         Choice("element", BINDINGS["elements"]),
         Choice("output", BINDINGS["outputs"]),
         Choice("option", BINDINGS["options"]),
         Choice("command", BINDINGS["alternating"]),
     ]
-    defaults = {
-        "num": 1,
-    }
 
 control.app_rule(Markdown())

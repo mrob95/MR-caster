@@ -75,14 +75,14 @@ int_1000000s    = MagnitudeIntBuilder(
                   )
 
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 class IntegerContent(IntegerContentBase):
     builders = [int_0, int_1_9, int_10_19, int_20_99,
                 int_100s, int_100big, int_1000s, int_1000000s]
 
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 # Integer reference class.
 
 class IntegerRefMF(RuleWrap):
@@ -90,7 +90,7 @@ class IntegerRefMF(RuleWrap):
         element = Integer(None, min, max, content=IntegerContent)
         RuleWrap.__init__(self, name, element, default=default)
 
-#-----------------------------------------------------------------------------
+#--------------------------------------------------
 
 class ShortIntegerRefNo8(RuleWrap):
     def __init__(self, name, min, max, default=None):

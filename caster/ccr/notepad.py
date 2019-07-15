@@ -11,7 +11,7 @@ class Notepad(MergeRule):
     mcontext = AppContext(title="notepad")
     mapping = {
         "splat [<splatdir>] [<n>]":
-            Key("%(splatdir)s") * Repeat(extra="n") + Key("backspace"),
+            Key("%(splatdir)s") * Repeat("n") + Key("backspace"),
         "copy HTML":
             Function(CliptoHTML),
         "select up [<n>]":
@@ -23,10 +23,7 @@ class Notepad(MergeRule):
         Choice("splatdir", {
             "lease":"cs-left",
             "ross":"cs-right",
-        }),
+        }, "cs-left"),
     ]
-    defaults = {
-        "splatdir": "cs-left",
-    }
 
 control.app_rule(Notepad())

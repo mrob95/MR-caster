@@ -9,8 +9,8 @@ class PycharmRule(MergeRule):
 
         "edit lines"                     : Key("cs-l"),
         "sort lines"                     : Key("f9"),
-        "edit next [<n3>]"               : Key("c-d")*Repeat(extra="n3"),
-        "skip next [<n3>]"               : Key("c-k, c-d")*Repeat(extra="n3"),
+        "edit next [<n3>]"               : Key("c-d")*Repeat("n3"),
+        "skip next [<n3>]"               : Key("c-k, c-d")*Repeat("n3"),
         "edit all"                       : Key("c-d, a-f3"),
         "reverse selection"              : Key("as-r"),
 
@@ -33,7 +33,7 @@ class PycharmRule(MergeRule):
         "save all"                        : Key("f10, f, up:8, enter"),
         #
         "outdent lines"                  : Key("c-lbracket"),
-        "join lines [<n3>]"              : Key("c-j")*Repeat(extra="n3"),
+        "join lines [<n3>]"              : Key("c-j")*Repeat("n3"),
         "match bracket"                  : Key("c-m"),
         #
         # "(select | sell) all"          : Key("c-a"),
@@ -48,8 +48,8 @@ class PycharmRule(MergeRule):
         #
         "find"                           : Key("c-f"),
         "find <text>"                    : Key("c-f") + Text("%(text)s") + Key("escape"),
-        "find next [<n2>]"               : Key("f3")*Repeat(extra="n2"),
-        "find previous [<n2>]"           : Key("s-f3")*Repeat(extra="n2"),
+        "find next [<n2>]"               : Key("f3")*Repeat("n2"),
+        "find previous [<n2>]"           : Key("s-f3")*Repeat("n2"),
         "find all"                       : Key("a-enter"),
         "replace"                        : Key("c-h"),
         #
@@ -86,7 +86,7 @@ class PycharmRule(MergeRule):
         # "cancel build"                 : Key("c-break")),
         #
         "record macro"                   : Key("c-q"),
-        "play macro [<n3>]"              : Key("cs-q")*Repeat(extra="n3"),
+        "play macro [<n3>]"              : Key("cs-q")*Repeat("n3"),
         "(new | create) snippet"         : Key("a-n"),
         #
         "close tab"                      : Key("c-w"),
@@ -104,8 +104,8 @@ class PycharmRule(MergeRule):
         #
         "terminal here"                  : Key("cs-t"),
 
-        "zoom in [<n2>]"                 : Key("c-equal")*Repeat(extra="n2"),
-        "zoom out [<n2>]"                : Key("c-minus")*Repeat(extra="n2"),
+        "zoom in [<n2>]"                 : Key("c-equal")*Repeat("n2"),
+        "zoom out [<n2>]"                : Key("c-minus")*Repeat("n2"),
 
         "align that"                     : Key("ca-a"),
         "go to file"                     : Key("c-p"),
@@ -119,9 +119,9 @@ class PycharmRule(MergeRule):
     }
     extras = [
         ShortIntegerRef("ln1", 1, 1000),
-        ShortIntegerRef("ln2", 1, 1000),
-        IntegerRef("n2", 1, 9),
-        IntegerRef("n3", 1, 21),
+        ShortIntegerRef("ln2", 1, 1000, 0),
+        IntegerRef("n2", 1, 9, 1),
+        IntegerRef("n3", 1, 21, 1),
         Choice("action", navigation.actions),
         Choice("nth", {
             "first"  : "1",
@@ -141,13 +141,7 @@ class PycharmRule(MergeRule):
             "mark [down]" : "md",
             "tech"        : "tex",
             "tommel"      : "toml",
-            }),
+            }, ""),
     ]
-    defaults = {
-        "ln2"     : None,
-        "n2"      : 1,
-        "n3"      : 1,
-        "filetype": "",
-    }
 
 control.non_ccr_app_rule(PycharmRule())

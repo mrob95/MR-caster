@@ -1,8 +1,3 @@
-'''
-Created on , 2018
-
-@author: Mike Roberts
-'''
 from caster.imports import *
 
 BINDINGS = utilities.load_toml_relative("config/go.toml")
@@ -15,7 +10,6 @@ class GoNon(MergeRule):
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="go.toml"),
     }
-
     extras = [
         Choice("template", BINDINGS["templates"]),
     ]
@@ -31,9 +25,8 @@ class Go(MergeRule):
         BINDINGS["type_prefix"] + " <type>":
             Text("%(type)s"),
     }
-
     extras = [
-        Choice("type", BINDINGS["types"]),
+        Choice("type",    BINDINGS["types"]),
         Choice("command", BINDINGS["commands"]),
     ]
 

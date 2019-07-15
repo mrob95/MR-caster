@@ -72,8 +72,8 @@ class RStudioRule(MergeRule):
 
     }
     extras = [
-        ShortIntegerRef("ln1",  1, 1000),
-        ShortIntegerRef("ln2", 1, 1000),
+        ShortIntegerRef("ln1", 1, 1000),
+        ShortIntegerRef("ln2", 1, 1000, 0),
         Choice("function", BINDINGS["r_functions"]),
         Choice("graph",    BINDINGS["r_graph"]),
         Choice("screen_element", {
@@ -92,8 +92,5 @@ class RStudioRule(MergeRule):
             }),
         Choice("action", navigation.actions),
     ]
-    defaults = {
-        "ln2": None,
-    }
 
 control.non_ccr_app_rule(RStudioRule())

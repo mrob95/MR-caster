@@ -9,8 +9,8 @@ class VSCodeRule(MergeRule):
 
         "edit lines"                     : Key("sa-i"),
         "sort lines"                     : Key("f9"),
-        "edit next [<n3>]"               : Key("c-d")*Repeat(extra="n3"),
-        "skip next [<n3>]"               : Key("c-k, c-d")*Repeat(extra="n3"),
+        "edit next [<n3>]"               : Key("c-d")*Repeat("n3"),
+        "skip next [<n3>]"               : Key("c-k, c-d")*Repeat("n3"),
         "edit all"                       : Key("cs-l"),
 
         "<action> [line] <ln1> [by <ln2>]"  :
@@ -31,11 +31,11 @@ class VSCodeRule(MergeRule):
 
         #
         "outdent lines"                  : Key("c-lbracket"),
-        "join lines [<n3>]"              : Key("c-j")*Repeat(extra="n3"),
+        "join lines [<n3>]"              : Key("c-j")*Repeat("n3"),
         "match bracket"                  : Key("c-m"),
         #
         # "(select | sell) all"          : Key("c-a"),
-        "(select | sell) brackets [<n2>]": Key("cs-m")*Repeat(extra="n2"),
+        "(select | sell) brackets [<n2>]": Key("cs-m")*Repeat("n2"),
         "(select | sell) indent"         : Key("cs-j"),
         # {"keys"                        : ["ctrl+alt+p"], "command": "expand_selection_to_paragraph"},
         "(select | sell) paragraph"      : Key("ca-p"),
@@ -47,8 +47,8 @@ class VSCodeRule(MergeRule):
         #
         "find"                           : Key("c-f"),
         "find <text>"                    : Key("c-f") + Text("%(text)s") + Key("escape"),
-        "find next [<n2>]"               : Key("f3")*Repeat(extra="n2"),
-        "find previous [<n2>]"           : Key("s-f3")*Repeat(extra="n2"),
+        "find next [<n2>]"               : Key("f3")*Repeat("n2"),
+        "find previous [<n2>]"           : Key("s-f3")*Repeat("n2"),
         "find all"                       : Key("a-enter"),
         "replace"                        : Key("c-h"),
         #
@@ -80,7 +80,7 @@ class VSCodeRule(MergeRule):
         # "cancel build"                 : Key("c-break")),
         #
         "record macro"                   : Key("c-q"),
-        "play macro [<n3>]"              : Key("cs-q")*Repeat(extra="n3"),
+        "play macro [<n3>]"              : Key("cs-q")*Repeat("n3"),
         "(new | create) snippet"         : Key("a-n"),
         #
         "close tab"                      : Key("c-w"),
@@ -98,8 +98,8 @@ class VSCodeRule(MergeRule):
         #
         "terminal here"                  : Key("cs-t"),
 
-        "zoom in [<n2>]"                 : Key("c-equal")*Repeat(extra="n2"),
-        "zoom out [<n2>]"                : Key("c-minus")*Repeat(extra="n2"),
+        "zoom in [<n2>]"                 : Key("c-equal")*Repeat("n2"),
+        "zoom out [<n2>]"                : Key("c-minus")*Repeat("n2"),
 
         # wrap plus
         "(wrap | split) lines"           : Key("a-q"),
@@ -112,9 +112,9 @@ class VSCodeRule(MergeRule):
     }
     extras = [
         ShortIntegerRef("ln1", 1, 1000),
-        ShortIntegerRef("ln2", 1, 1000),
-        IntegerRef("n2", 1, 9),
-        IntegerRef("n3", 1, 21),
+        ShortIntegerRef("ln2", 1, 1000, 0),
+        IntegerRef("n2", 1, 9, 1),
+        IntegerRef("n3", 1, 21, 1),
         Choice("action", {
             "select": "",
             "copy": "c-c",
@@ -140,25 +140,18 @@ class VSCodeRule(MergeRule):
             "mark [down]": "md",
             "tech": "tex",
             "tommel": "toml",
-            }),
+            }, ""),
     ]
-    defaults = {
-        "ln2": None,
-        "n2": 1,
-        "n3": 1,
-        "filetype": "",
-    }
 
 control.non_ccr_app_rule(VSCodeRule())
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 class VSCodeCCRRule(MergeRule):
     mwith = ["Core"]
     mcontext = AppContext(title="Visual Studio Code")
     mapping = {
         "line <ln1>"       : Key("c-g") + Text("%(ln1)s") + Key("enter"),
-        # "line <n11> [<n12>] [<n13>]"     : Key("c-g") + Text("%(n11)s" + "%(n12)s" + "%(n13)s") + Key("enter, end"),
 
         "align that"     : Key("ca-a"),
         "go to file"     : Key("c-p"),
@@ -169,7 +162,7 @@ class VSCodeCCRRule(MergeRule):
         # {"keys"        : ["ctrl+k", "ctrl+t"], "command": "title_case"},
         "transform title": Key("c-k, c-t"),
 
-        "(select | sell) scope [<n2>]"   : Key("cs-space")*Repeat(extra="n2"),
+        "(select | sell) scope [<n2>]"   : Key("cs-space")*Repeat("n2"),
         "copy scope"   : Key("cs-space, c-c"),
         "replace scope"   : Key("cs-space, c-v"),
 
@@ -180,13 +173,7 @@ class VSCodeCCRRule(MergeRule):
     }
     extras = [
         ShortIntegerRef("ln1", 1, 1000),
-        IntegerRef("n2", 1, 9),
-        IntegerRef("n11", 1, 20),
-        IntegerRef("n12", 0, 10),
-        IntegerRef("n13", 0, 10),
+        IntegerRef("n2", 1, 9, 1),
     ]
-    defaults = {"n12": "", "n13": "", "n2": 1}
 
 control.app_rule(VSCodeCCRRule())
-
-#---------------------------------------------------------------------------

@@ -51,6 +51,8 @@ def formatted_text(capitalization, spacing, t):
             t = "/".join(t.split(" "))
         elif spacing == 6:
             t = "\\".join(t.split(" "))
+        elif spacing == 7:
+            t = ", ".join(t.split(" "))
     return t
 
 def master_format_text(capitalization, spacing, text):

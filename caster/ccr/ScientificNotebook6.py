@@ -8,7 +8,7 @@ from caster.imports import *
 BINDINGS = utilities.load_toml_relative("config/ScientificNotebook6.toml")
 CORE = utilities.load_toml_relative("config/core.toml")
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 def TeX(symbol):
     return Key("c-space") + Text(symbol) + Key("enter")
@@ -121,7 +121,7 @@ class SN6(MergeRule):
         IntegerRef("rows",    1, BINDINGS["max_matrix_size"]),
         IntegerRef("cols",    1, BINDINGS["max_matrix_size"]),
         IntegerRef("numbers", 0, CORE["numbers_max"]),
-        Choice("big",           {CORE["capitals_prefix"]: True}),
+        Boolean("big", CORE["capitals_prefix"]),
         Choice("greek_letter",   BINDINGS["greek_letters"]),
         Choice("units",          BINDINGS["units"]),
         Choice("symbol",         BINDINGS["tex_symbols"]),
@@ -130,8 +130,5 @@ class SN6(MergeRule):
         Choice("misc_sn_text",   BINDINGS["misc_sn_text"]),
         Choice("denominator",    BINDINGS["denominators"]),
     ]
-    defaults = {
-        "big": False,
-    }
 
 control.app_rule(SN6())

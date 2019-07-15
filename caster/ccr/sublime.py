@@ -10,7 +10,7 @@ class SublimeRule(MergeRule):
 
         "edit lines"                     : Key("cs-l"),
         "sort lines"                     : Key("f9"),
-        "skip next [<n3>]"               : Key("c-k, c-d")*Repeat(extra="n3"),
+        "skip next [<n3>]"               : Key("c-k, c-d")*Repeat("n3"),
         "edit all"                       : Key("c-d, a-f3"),
         "reverse selection"              : Key("as-r"),
 
@@ -33,7 +33,7 @@ class SublimeRule(MergeRule):
 
         #
         "outdent lines"                  : Key("c-lbracket"),
-        "join lines [<n3>]"              : Key("c-j")*Repeat(extra="n3"),
+        "join lines [<n3>]"              : Key("c-j")*Repeat("n3"),
         "match bracket"                  : Key("c-m"),
         #
         # "(select | sell) all"          : Key("c-a"),
@@ -48,8 +48,8 @@ class SublimeRule(MergeRule):
         #
         "find"                           : Key("c-f"),
         "find <text>"                    : Key("c-f") + Text("%(text)s") + Key("escape"),
-        "find next [<n2>]"               : Key("f3")*Repeat(extra="n2"),
-        "find previous [<n2>]"           : Key("s-f3")*Repeat(extra="n2"),
+        "find next [<n2>]"               : Key("f3")*Repeat("n2"),
+        "find previous [<n2>]"           : Key("s-f3")*Repeat("n2"),
         "find all"                       : Key("a-enter"),
         "replace"                        : Key("c-h"),
         #
@@ -87,7 +87,7 @@ class SublimeRule(MergeRule):
         # "cancel build"                 : Key("c-break")),
         #
         "record macro"                   : Key("c-q"),
-        "play macro [<n3>]"              : Key("cs-q")*Repeat(extra="n3"),
+        "play macro [<n3>]"              : Key("cs-q")*Repeat("n3"),
         "(new | create) snippet"         : Key("a-n"),
         #
         "close tab"                      : Key("c-w"),
@@ -107,8 +107,8 @@ class SublimeRule(MergeRule):
         "terminal here"                  : Key("cs-t"),
         "explorer here"                  : Key("ca-e"),
 
-        "zoom in [<n2>]"                 : Key("c-equal")*Repeat(extra="n2"),
-        "zoom out [<n2>]"                : Key("c-minus")*Repeat(extra="n2"),
+        "zoom in [<n2>]"                 : Key("c-equal")*Repeat("n2"),
+        "zoom out [<n2>]"                : Key("c-minus")*Repeat("n2"),
 
         # wrap plus
         "(wrap | split) lines"           : Key("a-q"),
@@ -121,9 +121,9 @@ class SublimeRule(MergeRule):
     }
     extras = [
         ShortIntegerRef("ln1",1, 1000),
-        ShortIntegerRef("ln2", 1, 1000),
-        IntegerRef("n2", 1, 9),
-        IntegerRef("n3", 1, 21),
+        ShortIntegerRef("ln2", 1, 1000, 0),
+        IntegerRef("n2", 1, 9, 1),
+        IntegerRef("n3", 1, 21, 1),
         Choice("action", navigation.actions),
         Choice("nth", {
             "first"  : "1",
@@ -143,18 +143,12 @@ class SublimeRule(MergeRule):
             "mark [down]" : "md",
             "tech"        : "tex",
             "tommel"      : "toml",
-            }),
+            }, ""),
     ]
-    defaults = {
-        "ln2"     : None,
-        "n2"      : 1,
-        "n3"      : 1,
-        "filetype": "",
-    }
 
 control.non_ccr_app_rule(SublimeRule())
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 class SublimeCCRRule(MergeRule):
     mwith = ["Core"]
@@ -162,7 +156,7 @@ class SublimeCCRRule(MergeRule):
     mapping = {
         "line <ln1>"                     : Key("c-g") + Text("%(n)s") + Key("enter"),
 
-        "edit next [<n3>]"               : Key("c-d")*Repeat(extra="n3"),
+        "edit next [<n3>]"               : Key("c-d")*Repeat("n3"),
         "align that"                     : Key("ca-a"),
         "(go to file | good for | good file)": Key("c-p"),
         "comment line"                   : Key("c-slash"),
@@ -177,22 +171,21 @@ class SublimeCCRRule(MergeRule):
     }
     extras = [
         ShortIntegerRef("ln1", 1, 1000),
-        IntegerRef("n2", 1, 9),
-        IntegerRef("n3", 1, 21),
+        IntegerRef("n2", 1, 9, 1),
+        IntegerRef("n3", 1, 21, 1),
         Choice("action", navigation.actions),
     ]
-    defaults = {"n2": 1, "n3": 1}
 
 control.app_rule(SublimeCCRRule())
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 class SublimeRRule(MergeRule):
     mwith = ["Core", "R"]
     mcontext = AppContext(title=".R") & AppContext(title="Sublime Text")
     mapping = {
         "run (line | that) [<n>]":
-            Key("cas-r")*Repeat(extra="n"),
+            Key("cas-r")*Repeat("n"),
         "open are terminal":
             Key("ca-r"),
         "terminal right":
@@ -209,7 +202,7 @@ class SublimeRRule(MergeRule):
 
 control.app_rule(SublimeRRule())
 
-#---------------------------------------------------------------------------
+#------------------------------------------------
 
 class SublimeTeXRule(MergeRule):
     mcontext = AppContext(title=[".tex", ".md"]) & AppContext(title="Sublime Text")
@@ -220,5 +213,3 @@ class SublimeTeXRule(MergeRule):
     }
 
 control.non_ccr_app_rule(SublimeTeXRule())
-
-#---------------------------------------------------------------------------

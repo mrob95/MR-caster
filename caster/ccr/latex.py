@@ -26,12 +26,9 @@ class LaTeXNon(MergeRule):
         Choice("sub", {
             "sub": "sub",
             "sub sub": "subsub",
-            }),
+            }, ""),
         Choice("template", BINDINGS["templates"]),
     ]
-    defaults = {
-        "sub": "",
-    }
 
 class LaTeX(MergeRule):
     non = LaTeXNon
@@ -74,9 +71,9 @@ class LaTeX(MergeRule):
     }
 
     extras = [
-        Choice("big",        {CORE["capitals_prefix"]: True}),
-        Choice("packopts",    BINDINGS["packages"]),
-        Choice("doc_class",   BINDINGS["document_classes"]),
+        Boolean("big", CORE["capitals_prefix"]),
+        Choice("packopts",    BINDINGS["packages"], default=""),
+        Choice("doc_class",   BINDINGS["document_classes"], default=""),
         Choice("greek_letter",BINDINGS["greek_letters"]),
         Choice("symbol",      BINDINGS["symbols"]),
         Choice("misc_symbol", BINDINGS["misc_symbols"]),
@@ -85,10 +82,5 @@ class LaTeX(MergeRule):
         Choice("command",     BINDINGS["command"]),
         Choice("environment", BINDINGS["environments"]),
         ]
-    defaults = {
-        "big"      : False,
-        "packopts" : "",
-        "doc_class": "",
-    }
 
 control.global_rule(LaTeX())

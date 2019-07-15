@@ -25,12 +25,12 @@ class CoreNon(MergeRule):
 
         "play recording": Function(recorder.execute),
 
-        #-----------------------------------------------------------------------------
+        #-------------------------------------------------
 
         "configure " + CORE["pronunciation"]:
             Function(utilities.load_config, config_name="core.toml"),
 
-        #---------------------------------------------------------------------------
+        #-----------------------------------------------
 
         "copy mouse position":
             Function(lambda: Clipboard.set_system_text("[%d, %d]" % get_cursor_position())),
@@ -41,7 +41,7 @@ class CoreNon(MergeRule):
         "colic"              : Key("control:down") + Mouse("left") + Key("control:up"),
         "millick"            : Mouse("middle"),
 
-        #---------------------------------------------------------------------------
+        #-----------------------------------------------
 
         "super hold"          : Key("win:down"),
         "super release"       : Key("win:up"),
@@ -62,7 +62,7 @@ class CoreNon(MergeRule):
         "music previous [<n>]": Key("trackprev/5:%(n)d"),
         "music (pause|play)"  : Key("playpause"),
 
-        #---------------------------------------------------------------------------
+        #-----------------------------------------------
 
         "window <direction> [<direction2>]":
             Key("win:down, %(direction)s/15, %(direction2)s, win:up"),
@@ -72,8 +72,8 @@ class CoreNon(MergeRule):
         "show work [spaces]"         : Key("w-tab"),
         "(create | new) work [space]": Key("wc-d"),
         "close work [space]"         : Key("wc-f4"),
-        "next work [space] [<n>]"    : Key("wc-right")*Repeat(extra="n"),
-        "(previous | prior) work [space] [<n>]": Key("wc-left")*Repeat(extra="n"),
+        "next work [space] [<n>]"    : Key("wc-right")*Repeat("n"),
+        "(previous | prior) work [space] [<n>]": Key("wc-left")*Repeat("n"),
 
         "go work [space] <n>":
             Function(lambda n: navigation.go_to_desktop_number(n)),
@@ -91,7 +91,7 @@ class CoreNon(MergeRule):
         "show window information":
             Function(windowinfo),
 
-        #---------------------------------------------------------------------------
+        #-----------------------------------------------
 
         "<search> that":
             Function(lambda search: utilities.browser_search(url=search)),
@@ -119,19 +119,19 @@ class CoreNon(MergeRule):
 
         "switch to math fly": Function(utilities.mathfly_switch),
 
-        #---------------------------------------------------------------------------
+        #-----------------------------------------------
 
         "take screenshot": Key("ws-s"),
 
         "undo [<n>]": ContextAction(Key("c-z:%(n)s"),
-            [(AppContext(title="emacs"), Key("c-slash")*Repeat(extra="n"))]),
+            [(AppContext(title="emacs"), Key("c-slash")*Repeat("n"))]),
         "redo [<n>]": Key("c-y:%(n)s"),
 
         "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
         }
     extras = [
         Choice("direction",            CORE[_DIRECTIONS]),
-        Choice("direction2",           CORE[_DIRECTIONS]),
+        Choice("direction2",           CORE[_DIRECTIONS], default=""),
         Choice("misc_core_keys_noCCR", CORE["misc_core_keys_noCCR"]),
         Choice("search", CORE["search"]),
         Choice("ref_type", {
@@ -140,9 +140,6 @@ class CoreNon(MergeRule):
                 "paper": "paper",
                 }),
     ]
-    defaults = {
-        "direction2": "",
-    }
 
 class Core(MergeRule):
     non = CoreNon
@@ -167,15 +164,15 @@ class Core(MergeRule):
                 (", space" if long else ""))
                 .execute()),
 
-        #---------------------------------------------------------------------------
+        #-----------------------------------------------
 
         "(<direction> | <modifier> [<direction>]) [(<nnavi50> | <extreme>)]":
             Function(navigation.text_nav),
 
-    	"<key> [<n>]": Key("%(key)s")*Repeat(extra="n"),
+    	"<key> [<n>]": Key("%(key)s")*Repeat("n"),
 
         'tabby [<tabdir>] [<nnavi10>]':
-            Key("%(tabdir)s" + "tab")*Repeat(extra="nnavi10"),
+            Key("%(tabdir)s" + "tab")*Repeat("nnavi10"),
         "splat [<splatdir>] [(<nnavi10> | <extreme>)]":
             ContextAction(Function(navigation.splat),
                 [(AppContext("notepad"),
@@ -183,12 +180,12 @@ class Core(MergeRule):
         "check [<n>]":
             ContextAction(Key("c-enter:%(n)s"),
                 [(AppContext(title=["notepad", "scientific notebook", "jupyter notebook"]), Key("end, enter:%(n)s")),
-                (AppContext(title="emacs"), Key("a-m, i, j, down")*Repeat(extra="n"))]),
+                (AppContext(title="emacs"), Key("a-m, i, j, down")*Repeat("n"))]),
 
     	"<misc_core_keys>": Key("%(misc_core_keys)s"),
         "(shift click | shifty)": Key("shift:down") + Mouse("left") + Key("shift:up"),
 
-        #---------------------------------------------------------------------------
+        #-----------------------------------------------
 
         CORE["dictation_prefix"] + " <text> [brunt]":
             Function(textformat.master_format_text, capitalization=0, spacing=0),
@@ -196,14 +193,14 @@ class Core(MergeRule):
         "(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel) <text>":
             Function(textformat.master_format_text),
 
-        #---------------------------------------------------------------------------
+        #-----------------------------------------------
 
         "stoosh [<nnavi500>]":
             ContextAction(Function(navigation.stoosh, nexus=_NEXUS),
                 [(AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]),
-                    Function(navigation.stoosh, nexus=_NEXUS, key="c-insert"))]),
+                    Function(navigation.stoosh, nexus=_NEXUS, copy_key="c-insert"))]),
         "cutter [<nnavi500>]":
-            Function(navigation.stoosh, nexus=_NEXUS, key="c-x"),
+            Function(navigation.stoosh, nexus=_NEXUS, copy_key="c-x"),
         "duple [<nnavi50>]":
             ContextAction(Function(navigation.duple),
                 [(AppContext(title="Sublime Text"), Key("cs-d:%(nnavi50)s")),
@@ -214,27 +211,22 @@ class Core(MergeRule):
         "spark [<nnavi500>] [(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel)]":
             ContextAction(Function(navigation.drop, nexus=_NEXUS),
                 [(AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]),
-                    Function(navigation.drop, nexus=_NEXUS, key="s-insert"))]),
+                    Function(navigation.drop, nexus=_NEXUS, paste_key="s-insert"))]),
 
         "hug <enclosure>":
             Function(navigation.enclose_selected),
 
-        #---------------------------------------------------------------------------
+        #-----------------------------------------------
 
         "<personal>": Text("%(personal)s"),
     	}
 
     extras = [
         Repetition(IntegerRef("wnKK", 0, 10), min=1, max=5, name="num_seq"),
-        IntegerRef("wnKK", 0, 10),
-        IntegerRef("wnKK2", 0, 10),
-        IntegerRef("wnKK3", 0, 10),
-        IntegerRef("wnKK4", 0, 10),
-        IntegerRef("wnKK5", 0, 10),
-        ShortIntegerRefNo8("nnavi10", 1, 11),
+        ShortIntegerRefNo8("nnavi10", 1, 11, 1),
         # IntegerRef("nnavi10", 1, 11),
-        IntegerRef("nnavi50", 1, 20),
-        IntegerRef("nnavi500", 1, 500),
+        IntegerRef("nnavi50", 1, 20, 1),
+        IntegerRef("nnavi500", 1, 500, 1),
         Boolean("big",        CORE["capitals_prefix"]),
         Boolean("extreme",    CORE["extreme"]),
         Boolean("long"),
@@ -244,34 +236,18 @@ class Core(MergeRule):
         Choice("punctuation2",   CORE["punctuation2"]),
         Choice("key",            CORE["keys"]),
         Choice("misc_core_keys", CORE["misc_core_keys"]),
-        Choice("direction",      CORE[_DIRECTIONS]),
-        Choice("modifier",       CORE["modifiers"]),
+        Choice("direction",      CORE[_DIRECTIONS], "left"),
+        Choice("modifier",       CORE["modifiers"], ""),
         Choice("enclosure",      CORE["enclosures"]),
-        Choice("capitalization", CORE["capitalization"]),
-        Choice("spacing",        CORE["spacing"]),
+        Choice("capitalization", CORE["capitalization"], 0),
+        Choice("spacing",        CORE["spacing"], 0),
         Choice("personal",       PERSONAL),
         Choice("splatdir", {
             "ross": "right",
-        }),
+        }, "left"),
         Choice("tabdir", {
             "lease": "s-",
-            }),
+        }, ""),
     ]
-
-    defaults = {
-        "capitalization": 0,
-        "spacing"       : 0,
-        "nnavi10"       : 1,
-        "nnavi50"       : 1,
-        "nnavi500"      : 1,
-        "direction"     : "left",
-        "modifier"      : "",
-        "wnKK2"         : "",
-        "wnKK3"         : "",
-        "wnKK4"         : "",
-        "wnKK5"         : "",
-        "tabdir"        : "",
-        "splatdir"      : "left",
-    }
 
 control.global_rule(Core())
