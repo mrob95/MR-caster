@@ -42,10 +42,10 @@ class MergeRule(MappingRule):
     CCR copies; mwith is a list of get_pronunciation()s'''
     mwith = None
 
-    default_extras = {
-        "n"   : IntegerRef("n", 1, 20, default=1),
-        "text": Dictation("text", default=""),
-    }
+    default_extras = [
+        IntegerRef("n", 1, 20, default=1),
+        Dictation("text", default=""),
+    ]
 
     def __init__(self,
                  name=None,
@@ -68,7 +68,7 @@ class MergeRule(MappingRule):
         self._mwith = self.__class__.mwith
         if self._mwith is None: self._mwith = mwith
 
-        self.add_defaults()
+        self.extras.extend(self.default_extras)
         MappingRule.__init__(self, name, mapping, extras, defaults, exported)
 
     def __eq__(self, other):

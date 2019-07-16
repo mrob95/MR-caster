@@ -1,5 +1,4 @@
 from caster.imports import *
-from caster.lib.dfplus.recorder import recorder
 
 _NEXUS = control.nexus()
 
@@ -8,9 +7,6 @@ CORE     = utilities.load_toml_relative("config/core.toml")
 PERSONAL = utilities.load_toml_relative("config/personal.toml")
 LATEX    = utilities.load_toml_relative("config/latex.toml")
 
-_LETTERS    = "letters_alt" if SETTINGS["alternative_letters"] else "letters"
-_DIRECTIONS = "directions_alt" if SETTINGS["alternative_directions"] else "directions"
-
 def windowinfo():
     wd = Window.get_foreground()
     print(wd.title)
@@ -18,15 +14,6 @@ def windowinfo():
 
 class CoreNon(MergeRule):
     mapping = {
-
-        "start recording": Function(recorder.start_recording),
-
-        "stop recording": Function(recorder.stop_recording),
-
-        "play recording": Function(recorder.execute),
-
-        #-------------------------------------------------
-
         "configure " + CORE["pronunciation"]:
             Function(utilities.load_config, config_name="core.toml"),
 
@@ -231,12 +218,12 @@ class Core(MergeRule):
         Boolean("extreme",    CORE["extreme"]),
         Boolean("long"),
         Boolean("equal"),
-        Choice("letter",         CORE[_LETTERS]),
+        Choice("letter",         CORE["letters_alt"]),
         Choice("punctuation",    CORE["punctuation"]),
         Choice("punctuation2",   CORE["punctuation2"]),
         Choice("key",            CORE["keys"]),
         Choice("misc_core_keys", CORE["misc_core_keys"]),
-        Choice("direction",      CORE[_DIRECTIONS], "left"),
+        Choice("direction",      CORE["directions_alt"], "left"),
         Choice("modifier",       CORE["modifiers"], ""),
         Choice("enclosure",      CORE["enclosures"]),
         Choice("capitalization", CORE["capitalization"], 0),
