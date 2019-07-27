@@ -115,12 +115,12 @@ class CoreNon(MergeRule):
         "redo [<n>]": Key("c-y:%(n)s"),
 
         "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
-        }
+    }
     extras = [
-        Choice("direction",            CORE[_DIRECTIONS]),
-        Choice("direction2",           CORE[_DIRECTIONS], default=""),
+        Choice("direction",            CORE["directions_alt"]),
+        Choice("direction2",           CORE["directions_alt"], default=""),
         Choice("misc_core_keys_noCCR", CORE["misc_core_keys_noCCR"]),
-        Choice("search", CORE["search"]),
+        Choice("search",               CORE["search"]),
         Choice("ref_type", {
                 "book" : "book",
                 "link" : "link",
@@ -175,9 +175,9 @@ class Core(MergeRule):
         #-----------------------------------------------
 
         CORE["dictation_prefix"] + " <text> [brunt]":
-            Function(textformat.master_format_text, capitalization=0, spacing=0),
+            Function(textformat.master_format_text, capitalisation=0, spacing=0),
 
-        "(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel) <text>":
+        "(<capitalisation> <spacing> | <capitalisation> | <spacing>) (bow|bowel) <text>":
             Function(textformat.master_format_text),
 
         #-----------------------------------------------
@@ -195,7 +195,7 @@ class Core(MergeRule):
                 (AppContext(title="pycharm"), Key("c-d:%(nnavi50)s")),
                 (AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]), Key(""))]),
 
-        "spark [<nnavi500>] [(<capitalization> <spacing> | <capitalization> | <spacing>) (bow|bowel)]":
+        "spark [<nnavi500>] [(<capitalisation> <spacing> | <capitalisation> | <spacing>) (bow|bowel)]":
             ContextAction(Function(navigation.drop, nexus=_NEXUS),
                 [(AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]),
                     Function(navigation.drop, nexus=_NEXUS, paste_key="s-insert"))]),
@@ -226,15 +226,11 @@ class Core(MergeRule):
         Choice("direction",      CORE["directions_alt"], "left"),
         Choice("modifier",       CORE["modifiers"], ""),
         Choice("enclosure",      CORE["enclosures"]),
-        Choice("capitalization", CORE["capitalization"], 0),
+        Choice("capitalisation", CORE["capitalisation"], 0),
         Choice("spacing",        CORE["spacing"], 0),
         Choice("personal",       PERSONAL),
-        Choice("splatdir", {
-            "ross": "right",
-        }, "left"),
-        Choice("tabdir", {
-            "lease": "s-",
-        }, ""),
+        Choice("splatdir", {"ross": "right"}, "left"),
+        Choice("tabdir",   {"lease": "s-"}, ""),
     ]
 
 control.global_rule(Core())

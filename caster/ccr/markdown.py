@@ -21,12 +21,10 @@ class Markdown(MergeRule):
     mcontext = AppContext(title=BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
     mapping = {
-        "heading [<num>] [<text>]":
-                Function(lambda num, text:
-                    Text(("#" * num) + " " + text.capitalize()).execute()),
-        "subheading [<text>]":
-            Function(lambda num, text:
-                Text(("#" * 2) + " " + text.capitalize()).execute()),
+        "heading [<num>] [<capitalised_text>]":
+            Text("#")*Repeat("num") + Text(" %(capitalised_text)s"),
+        "subheading [<capitalised_text>]":
+            Text("## %(capitalised_text)s"),
 
         BINDINGS["insert_prefix"] + " <element>":
             Key("%(element)s"),
@@ -44,12 +42,16 @@ class Markdown(MergeRule):
             Function(lambda n: Text("|"*(n-1)).execute()) + Key("home"),
         "table (break | split) <n>":
             Function(lambda n: Text("---|"*(n-1) + "---").execute()) + Key("enter"),
+
+        "insert link": Function(execution.markdown_link),
+
     }
     extras = [
+        Dictation("capitalised_text", "").capitalize(),
         IntegerRef("num", 1, 7, 1),
         Choice("element", BINDINGS["elements"]),
-        Choice("output", BINDINGS["outputs"]),
-        Choice("option", BINDINGS["options"]),
+        Choice("output",  BINDINGS["outputs"]),
+        Choice("option",  BINDINGS["options"]),
         Choice("command", BINDINGS["alternating"]),
     ]
 

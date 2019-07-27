@@ -53,7 +53,6 @@ class Rlang(MergeRule):
         BINDINGS["library_prefix"] + " <library>":
             Text("library(%(library)s)") + Key("end"),
     }
-
     extras = [
         Choice("command",  BINDINGS["commands"]),
         Choice("function", BINDINGS["r_functions"]),

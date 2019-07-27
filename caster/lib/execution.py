@@ -49,6 +49,14 @@ def python_setters():
     for arg in args2:
         Text("self.%s = %s\n" % (arg, arg)).execute()
 
+def markdown_link():
+    text = Clipboard.get_system_text()
+    if len(text)>4 and text[:4] == "http":
+        Text("[]()").execute()
+        Key("left, c-v, left:" + str(len(text) + 2))
+    else:
+        (Text("[]()") + Key("left")).execute()
+
 def paste_as_admin():
     text = Clipboard.get_system_text()
     keys = []

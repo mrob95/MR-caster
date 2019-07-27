@@ -81,21 +81,25 @@ class ChromeRule(MergeRule):
         "scroll left [<n>]" : Key("a-left:%(n)s"),
         "scroll right [<n>]": Key("a-right:%(n)s"),
 
+        "copy current url":
+            Function(lambda: Clipboard.set_system_text(utilities.chrome_get_url())),
     }
     extras = [
         Choice("site", {
             "amazon"   : "smile.amazon.co.uk",
+            "calendar" : "https://www.google.com/calendar",
             "kindle"   : "https://smile.amazon.co.uk/Kindle-eBooks-books/b/ref=nav_shopall_kbo5?ie=UTF8&node=341689031",
             "exams"    : "https://www.york.ac.uk/economics/current-students/ug-information/exampapers/#tab-2",
             "facebook" : "facebook.com",
             "iPlayer"  : "https://www.bbc.co.uk/iplayer",
+            "maps"     : "https://www.google.com/maps",
             "math fly" : "mathfly.org",
             "scholar"  : "scholar.google.co.uk",
             "SMS"      : "https://mightytext.net/web8/",
             "spectator": "spectator.co.uk",
             "times"    : "thetimes.co.uk",
             "timetable": "timetable.york.ac.uk",
-            "twitter"  : "twitter.com",
+            "twitter"  : "twitter.com/home",
             "VLE"      : "https://vle.york.ac.uk",
             "what's app": "https://web.whatsapp.com/",
             "youtube"  : "youtube.com",

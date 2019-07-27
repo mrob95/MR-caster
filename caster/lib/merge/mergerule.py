@@ -79,15 +79,6 @@ class MergeRule(MappingRule):
     def __call__(self):
         return self
 
-    def add_defaults(self):
-        if self.mapping:
-            for name in self.default_extras.keys():
-                match = "<%s>" % name
-                for spec in self.mapping.keys():
-                    if match in spec:
-                        self.extras.append(self.default_extras[name])
-                        break
-
     ''' "copy" getters used for safe merging;
     "actual" versions used for filter functions'''
 

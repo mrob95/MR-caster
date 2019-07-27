@@ -1,40 +1,18 @@
 from dragonfly import Key, Mouse, Pause, ActionBase, ActionError, Alternative, Compound, RuleWrap
-from dragonfly import Text as TextBase, Key as KeyBase, Repeat as RepeatBase, Choice as ChoiceBase, Dictation as DictationBase
+from dragonfly import Text as TextBase, Key as KeyBase
 
 from inspect import getargspec
 import re
 from six import string_types
 
-from dragonfly.language.loader import language
-from dragonfly.language.base.integer_internal import MapIntBuilder
-from dragonfly.language.base.integer import Integer
-
 class Text(TextBase):
     _pause_default = 0.002
 
 class SlowText(TextBase):
-    _pause_default = 0.02
+    _pause_default = 0.01
 
 class SlowKey(KeyBase):
-    interval_default = 2.0
-
-class Boolean(ChoiceBase):
-    def __init__(self, name, spec=None):
-        if not spec: spec = name
-        ChoiceBase.__init__(self,
-                        name,
-                        {spec: True},
-                        default=False)
-
-def Dictation(name=None, default=None):
-    return DictationBase(name=name, default=default)
-
-Repeat = RepeatBase
-# def Repeat(extra=None, count=None):
-    # return RepeatBase(count=count, extra=extra)
-
-def Choice(name, choices, default=None, extras=None):
-    return ChoiceBase(name, choices, extras, default)
+    interval_default = 1.0
 
 from caster.lib import utilities, control, navigation
 SETTINGS = utilities.load_toml_relative("config/settings.toml")

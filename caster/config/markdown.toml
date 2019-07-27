@@ -24,7 +24,7 @@
 "R code"                  = "backtick:3, lbrace, r, rbrace, enter:2, backtick:3, up"
 
 [alternating]
-"link"                  = ["[](url)", "left:6"]
+# "link"                  = ["[](url)", "left:6"]
 "hidden R code"         = ["", "backtick:3", "{r, include=FALSE}", "enter:2, backtick:3, up"]
 "graph"                 = ["", "backtick:3", "{r echo=FALSE}", "enter:2, backtick:3, up"]
 "header"                = ["", "c-home", "---\n\n---", "up", "fontsize: 12pt"]

@@ -74,6 +74,7 @@
 "git clone github"                    = ["git clone https://github.com/.git", "left:4"]
 "git clone"                           = "git clone "
 "git commit all"                      = ["git commit -a -m \"\"", "left"]
+"git commit all and push"             = ["git commit -a -m \"\" && git push", "left:13"]
 "git commit"                          = ["git commit -m \"\"", "left"]
 "git diff"                            = "git diff"
 "git discard"                         = "git checkout -- "

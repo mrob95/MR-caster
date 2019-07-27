@@ -77,12 +77,15 @@ class SN6_nested(NestedRule):
 class SN6Non(MergeRule):
     mapping = {
         "text <text>":
-            Key("c-t") + Function(lambda dict: Text(str(dict).capitalize()).execute()),
+            Key("c-t") + Function(lambda text: Text(str(text).capitalize()).execute()),
         "<control>":
             Key("%(control)s"),
+
+        BINDINGS["unit_prefix"] + " <units>": execution.Alternating("units"),
     }
     extras = [
         Choice("control", BINDINGS["control"]),
+        Choice("units",   BINDINGS["units"]),
     ]
 
 
@@ -102,8 +105,6 @@ class SN6(MergeRule):
         BINDINGS["accent_prefix"] + " <accent>":
             Key("%(accent)s"),
 
-        BINDINGS["unit_prefix"] + " <units>": execution.Alternating("units"),
-
         "<misc_sn_keys>":
             Key("%(misc_sn_keys)s"),
         "<misc_sn_text>":
@@ -115,7 +116,7 @@ class SN6(MergeRule):
         "<numbers>": Text("%(numbers)s"),
 
         "<numbers> <denominator>":
-            Key("c-f") + Text("%(numbers)s") + Key("down") + Text("%(denominator)s") + Key("right"),
+            Key("c-slash") + Text("%(numbers)s") + Key("down") + Text("%(denominator)s") + Key("right"),
     }
     extras = [
         IntegerRef("rows",    1, BINDINGS["max_matrix_size"]),
@@ -123,7 +124,6 @@ class SN6(MergeRule):
         IntegerRef("numbers", 0, CORE["numbers_max"]),
         Boolean("big", CORE["capitals_prefix"]),
         Choice("greek_letter",   BINDINGS["greek_letters"]),
-        Choice("units",          BINDINGS["units"]),
         Choice("symbol",         BINDINGS["tex_symbols"]),
         Choice("accent",         BINDINGS["accents"]),
         Choice("misc_sn_keys",   BINDINGS["misc_sn_keys"]),

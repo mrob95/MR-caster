@@ -4,14 +4,14 @@ BINDINGS = utilities.load_toml_relative("config/python.toml")
 
 class PythonNon(MergeRule):
     mapping = {
-        "cheat sheet <module>":
-            Function(lambda module: Popen(["SumatraPDF", "C:/Users/Mike/Documents/cheatsheets/python/%s.pdf" % module])),
 
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
 
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="python.toml"),
+
+        #------------------------------------------------
 
         "create setters":
             Function(execution.python_setters),
@@ -23,10 +23,18 @@ class PythonNon(MergeRule):
         BINDINGS["magic_prefix"] + " <mmeth>":
             Function(lambda mmeth: Text("def __%s__(%s):" % (mmeth[0], mmeth[1])).execute()),
 
+        BINDINGS["decorator_prefix"] + " <decorator>":
+            Text("@") + Alternating("decorator"),
+
         "try except [<exception>] [<as>]":
             Text("try: ") + Key("enter:2, backspace") + Text("except%(exception)s%(as)s:") + Key("up"),
 
         "insert line break": Text("#" + ("-"*48)),
+
+        #------------------------------------------------
+
+        "cheat sheet <module>":
+            Function(lambda module: Popen(["SumatraPDF", "C:/Users/Mike/Documents/cheatsheets/python/%s.pdf" % module])),
 
         "help <fun>":
             Function(lambda fun: utilities.browser_search(fun, url="https://docs.python.org/3/search.html?q=%s")),
@@ -35,6 +43,7 @@ class PythonNon(MergeRule):
     }
     extras = [
         Choice("module",   BINDINGS["cheatsheets"]),
+        Choice("decorator",BINDINGS["decorators"]),
         Choice("template", BINDINGS["templates"]),
         Choice("umeth",    BINDINGS["unary_methods"]),
         Choice("bmeth",    BINDINGS["binary_methods"]),
@@ -65,7 +74,7 @@ PythonNon.extras.append(Choice("lib", libs))
 
 class Python(MergeRule):
     non = PythonNon
-    mwith = "Core"
+    mwith = ["Core", "Dict"]
     mcontext = AppContext(title=BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
 
@@ -85,14 +94,29 @@ class Python(MergeRule):
             Text("[ for  in i]") + Key("left:11"),
             [(AppContext(title="Sublime Text"), Text("lc") + Key("tab"))]),
 
-        "method <snaketext>": Text("def %(snaketext)s(self):") + Key("left:2"),
-        "function <snaketext>": Text("def %(snaketext)s():") + Key("left:2"),
-        "selfie [<snaketext>]": Text("self.%(snaketext)s"),
-        "classy [<classtext>]": Text("class %(classtext)s:") + Key("left"),
+        #------------------------------------------------
+
+        "method [<under>] <snaketext>":
+            Text("def %(under)s%(snaketext)s(self):") + Key("left:2"),
+        "function <snaketext>":
+            Text("def %(snaketext)s():") + Key("left:2"),
+        "selfie [<under>] [<snaketext>]":
+            Text("self.%(under)s%(snaketext)s"),
+        "classy [<classtext>]":
+            Text("class %(classtext)s:") + Key("left"),
+
+        "<formatting> <text>":
+            Function(lambda formatting, text:
+                textformat.master_format_text(formatting[0], formatting[1], text)),
     }
     extras = [
         Dictation("snaketext", "").lower().replace(" ", "_"),
         Dictation("classtext", "").title().replace(" ", ""),
+        Choice("under", "_", ""),
+        Choice("formatting", {
+            "(snaky | sneaky)": [5, 3],
+            "(singer | title)": [2, 1],
+        }),
         Choice("fun",      BINDINGS["functions"]),
         Choice("command",  BINDINGS["commands"]),
     ]
@@ -114,7 +138,7 @@ class CasterPythonRuleNon(MergeRule):
 
 class CasterPythonRule(MergeRule):
     non = CasterPythonRuleNon
-    mwith = ["Core", "Python"]
+    mwith = ["Core", "Dict", "Python"]
     mcontext = AppContext(title=".py") & AppContext(title=["caster", "mathfly"])
 
     mapping = {
@@ -131,5 +155,4 @@ class CasterPythonRule(MergeRule):
 
 control.app_rule(CasterPythonRule())
 
-#------------------------------------------------
 #------------------------------------------------

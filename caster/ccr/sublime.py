@@ -120,7 +120,7 @@ class SublimeRule(MergeRule):
         "configure alignment": Key("f10, p, right, p, right, down, enter"),
     }
     extras = [
-        ShortIntegerRef("ln1",1, 1000),
+        ShortIntegerRef("ln1", 1, 1000),
         ShortIntegerRef("ln2", 1, 1000, 0),
         IntegerRef("n2", 1, 9, 1),
         IntegerRef("n3", 1, 21, 1),
@@ -154,7 +154,7 @@ class SublimeCCRRule(MergeRule):
     mwith = ["Core"]
     mcontext = AppContext(title="Sublime Text")
     mapping = {
-        "line <ln1>"                     : Key("c-g") + Text("%(n)s") + Key("enter"),
+        "line <ln1>"                     : Key("c-g") + Text("%(ln1)s") + Key("enter"),
 
         "edit next [<n3>]"               : Key("c-d")*Repeat("n3"),
         "align that"                     : Key("ca-a"),

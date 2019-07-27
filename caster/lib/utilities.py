@@ -7,6 +7,7 @@ from urllib2 import Request, urlopen, quote
 from multiprocessing import Process, Queue
 from win10toast import ToastNotifier
 import threading
+import uiautomation as automation
 
 BASE_PATH = os.path.abspath(__file__).replace("\\", "/").rsplit("/lib/")[0]
 
@@ -153,24 +154,27 @@ def mathfly_switch():
     Popen("C:/Users/Mike/Documents/NatLink/mathfly/SwitchHere.bat")
 
 def word_count():
-    with ReadText(True) as t:
-        words_list = t.replace("\n", " ").split(" ")
-        toast_notify("Word count", str(len(words_list)))
-
-    # _, selection = read_selected(True)
-    # words_list = selection.replace("\n", " ").split(" ")
-    # toast_notify("Word count", str(len(words_list)))
+    _, selection = read_selected(True)
+    words_list = selection.replace("\n", " ").split(" ")
+    toast_notify("Word count", str(len(words_list)))
 
 def tinyurl():
-    with ReadText(True) as t:
-        url = "http://tinyurl.com/api-create.php?url=" + t
+    _, selection = read_selected(True)
+    url = "http://tinyurl.com/api-create.php?url=" + selection
     request = Request(url)
     response = urlopen(request)
     tiny = response.read()
     Clipboard.set_system_text(tiny)
-    # _, selection = read_selected(True)
-    # url = "http://tinyurl.com/api-create.php?url=" + selection
-    # request = Request(url)
-    # response = urlopen(request)
-    # tiny = response.read()
-    # Clipboard.set_system_text(tiny)
+
+def chrome_get_url():
+    control = automation.GetFocusedControl()
+    control_list = []
+    while control:
+        control_list.insert(0, control)
+        control = control.GetParentControl()
+    if len(control_list) == 1:
+        control = control_list[0]
+    else:
+        control = control_list[1]
+    address_control = automation.FindControl(control, lambda c, d: isinstance(c, automation.EditControl) and "Address and search bar" in c.Name)
+    return address_control.CurrentValue()

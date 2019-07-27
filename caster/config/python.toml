@@ -4,6 +4,7 @@ function_prefix = "fun"
 template_prefix = "template"
 method_prefix   = "meth"
 magic_prefix    = "magic"
+decorator_prefix    = "atty"
 
 [functions]
 "(int | integer)"       = "int"
@@ -135,16 +136,20 @@ magic_prefix    = "magic"
 "new"              = ["new", "cls"]
 "delete"           = ["del", "self"]
 "get attribute"    = ["getattr", "self, name"]
-"delete attribute"    = ["delattr", "self, name"]
+"delete attribute" = ["delattr", "self, name"]
 "set attribute"    = ["setattr", "self, name, value"]
 "get item"         = ["getitem", "self, key"]
 "set item"         = ["setitem", "self, key, value"]
 "delete item"      = ["delitem", "self, key"]
 "contains"         = ["contains", "self, item"]
 "missing"          = ["missing", "self, key"]
-"round"          = ["round", "self, n"]
-"exit" = ["exit", "type, value, traceback"]
+"round"            = ["round", "self, n"]
+"exit"             = ["exit", "type, value, traceback"]
 
+[decorators]
+"data class" = "dataclass"
+"property" = "property"
+"setter" = [".setter", "left:7"]
 
 [exceptions]
 "arithmetic"         = " ArithmeticError"

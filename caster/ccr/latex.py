@@ -69,11 +69,10 @@ class LaTeX(MergeRule):
         BINDINGS["command_prefix"] + " quote":
             Function(tex_funcs.quote),
     }
-
     extras = [
-        Boolean("big", CORE["capitals_prefix"]),
-        Choice("packopts",    BINDINGS["packages"], default=""),
-        Choice("doc_class",   BINDINGS["document_classes"], default=""),
+        Boolean("big",        CORE["capitals_prefix"]),
+        Choice("packopts",    BINDINGS["packages"], ""),
+        Choice("doc_class",   BINDINGS["document_classes"], ""),
         Choice("greek_letter",BINDINGS["greek_letters"]),
         Choice("symbol",      BINDINGS["symbols"]),
         Choice("misc_symbol", BINDINGS["misc_symbols"]),
@@ -81,6 +80,6 @@ class LaTeX(MergeRule):
         Choice("commandnoarg",BINDINGS["commandnoarg"]),
         Choice("command",     BINDINGS["command"]),
         Choice("environment", BINDINGS["environments"]),
-        ]
+    ]
 
 control.global_rule(LaTeX())

@@ -195,9 +195,11 @@ class CCRMerger(object):
         grammar = Grammar(name, context=context)
         self._grammars.append(grammar)
         if ccr:
-            repeaters = self._create_repeat_rule(rule)
-            for repeater in repeaters:
-                grammar.add_rule(repeater)
+            repeater = self._create_repeat_rule(rule)
+            grammar.add_rule(repeater)
+            if rule.nested is not None:
+                nested = self._create_nested_rule(rule)
+                grammar.add_rule(nested)
         else:
             grammar.add_rule(rule)
 
@@ -253,8 +255,8 @@ class CCRMerger(object):
                     if base is None: base = rule
                     else: base = self._compatibility_merge(mp, base, rule)
         else:  # rebuild via composite
-            composite = base.composite.copy(
-            )  # IDs of all rules that the composite rule is made of
+            # IDs of all rules that the composite rule is made of
+            composite = base.composite.copy()
             if time != MergeInf.SELFMOD:
                 assert name is not None
                 named_rule = self._global_rules[name]
@@ -368,37 +370,34 @@ class CCRMerger(object):
 
     def _create_repeat_rule(self, rule):
         SEQ = "caster_base_sequence"
-        alts = [RuleRef(rule=rule)]  #+[RuleRef(rule=sm) for sm in selfmod]
+        alts = [RuleRef(rule=rule)]
         single_action = Alternative(alts)
         max = CCRMerger.MAX_REPETITIONS
-        sequence = Repetition(single_action, min=1, max=max, name=SEQ)
 
         class RepeatRule(CompoundRule):
-            spec = "<" + SEQ + ">"
-            extras = [sequence]
+            spec = "<%s>" % SEQ
+            extras = [Repetition(single_action, min=1, max=max, name=SEQ)]
 
             def _process_recognition(self, node, extras):
-                sequence = extras[SEQ] if SEQ in extras else None
-                if sequence is not None:
-                    for action in sequence:
-                        action.execute()
+                for action in extras[SEQ]:
+                    action.execute()
 
-        rules = []
-        rules.append(RepeatRule(name="Repeater" + MergeRule.get_merge_name()))
+        return RepeatRule(name="Repeater" + MergeRule.get_merge_name())
 
-        if rule.nested is not None:
-            bef  = Repetition(single_action, min=1, max=8, name="before")
-            aft  = Repetition(single_action, min=1, max=8, name="after")
-            seq1 = Repetition(single_action, min=1, max=6, name="sequence1")
-            seq2 = Repetition(single_action, min=1, max=6, name="sequence2")
-            sing1 = Alternative(alts, name="singleton1")
-            sing2 = Alternative(alts, name="singleton2")
+    def _create_nested_rule(self, rule):
+        alts = [RuleRef(rule=rule)]  #+[RuleRef(rule=sm) for sm in selfmod]
+        single_action = Alternative(alts)
+        bef  = Repetition(single_action, min=1, max=8, name="before")
+        aft  = Repetition(single_action, min=1, max=8, name="after")
+        seq1 = Repetition(single_action, min=1, max=6, name="sequence1")
+        seq2 = Repetition(single_action, min=1, max=6, name="sequence2")
+        sing1 = Alternative(alts, name="singleton1")
+        sing2 = Alternative(alts, name="singleton2")
 
-            if rule.nested.extras is None:
-                rule.nested.extras = [bef, aft, seq1, seq2, sing1, sing2]
-            else:
-                rule.nested.extras.extend([bef, aft, seq1, seq2, sing1, sing2])
-            nested = rule.nested()
-            rules.append(nested)
+        if rule.nested.extras is None:
+            rule.nested.extras = [bef, aft, seq1, seq2, sing1, sing2]
+        else:
+            rule.nested.extras.extend([bef, aft, seq1, seq2, sing1, sing2])
 
-        return rules
+        nested = rule.nested()
+        return nested

@@ -67,12 +67,12 @@ def stoosh(nnavi500, nexus, copy_key="c-c"):
         cb.copy_to_system()
 
 
-def drop(nnavi500, nexus, capitalization, spacing, paste_key="c-v"):
+def drop(nnavi500, nexus, capitalisation, spacing, paste_key="c-v"):
     # Remove newlines before pasting into terminal
     if paste_key == "s-insert":
         Clipboard.set_system_text(Clipboard.get_system_text().replace("\n", ""))
     # Maintain standard spark functionality for non-strings
-    if capitalization == 0 and spacing == 0 and nnavi500 == 1:
+    if capitalisation == 0 and spacing == 0 and nnavi500 == 1:
         Key(paste_key).execute()
         return
     # Get clipboard text
@@ -86,8 +86,8 @@ def drop(nnavi500, nexus, capitalization, spacing, paste_key="c-v"):
     # Format if necessary, and paste
     if text is not None:
         cb = Clipboard(from_system=True)
-        if capitalization != 0 or spacing != 0:
-            text = textformat.formatted_text(capitalization, spacing, text)
+        if capitalisation != 0 or spacing != 0:
+            text = textformat.formatted_text(capitalisation, spacing, text)
         Clipboard.set_system_text(text)
         time.sleep(SETTINGS["keypress_wait"])
         Key(paste_key).execute()

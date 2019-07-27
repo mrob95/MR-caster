@@ -83,7 +83,7 @@
 "less equal"              = "langle, equal"
 "equal to"                = "space, equal, equal, space"
 "angle"                   = "langle, rangle, left"
-"prekris"                 = "lparen, rparen, left"
+"(prekris | prens)"       = "lparen, rparen, left"
 "brax"                    = "lbracket, rbracket, left"
 "curly"                   = "lbrace, rbrace, left"
 "left paren"              = "lparen"
@@ -154,7 +154,7 @@
 'quotes'               = '"~"'
 'backticks'            = '`~`'
 
-[capitalization]
+[capitalisation]
 "yell"                 = 1
 "tie"                  = 2
 "(Gerrish | camel)"    = 3

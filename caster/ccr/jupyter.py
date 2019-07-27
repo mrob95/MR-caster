@@ -75,17 +75,26 @@ class Jupyter(Python):
     non = JupyterNon
     mwith = "Core"
     mcontext = AppContext(title="jupyter notebook")
+    # mcontext = ChromeURLContext([".ipynb", "kernel_name"])
     pronunciation = "jupyter python"
     mapping = {
         "<command>":
                 Alternating("command"),
 
-        "method <snaketext>": Text("def %(snaketext)s(self):") + Key("left:2"),
-        "function <snaketext>": Text("def %(snaketext)s():") + Key("left:2"),
-        "selfie [<snaketext>]": Text("self.%(snaketext)s"),
-        "classy [<classtext>]": Text("class %(classtext)s:") + Key("left"),
+        "method [<under>] <snaketext>":
+            Text("def %(under)s%(snaketext)s(self):") + Key("left:2"),
+        "function <snaketext>":
+            Text("def %(snaketext)s():") + Key("left:2"),
+        "selfie [<under>] [<snaketext>]":
+            Text("self.%(under)s%(snaketext)s"),
+        "classy [<classtext>]":
+            Text("class %(classtext)s:") + Key("left"),
 
-        #-------------------------------------------------
+        "<formatting> <text>":
+            Function(lambda formatting, text:
+                textformat.master_format_text(formatting[0], formatting[1], text)),
+
+        #------------------------------------------------
 
         BINDINGS["function_prefix"] + " <fun>":
             Text("%(fun)s()") + Key("left"),
@@ -114,6 +123,5 @@ class Jupyter(Python):
         "command pallette"          : Key("cs-p"),
     }
     extras = list(Python.extras)
-    defaults = Python.defaults.copy()
 
 control.app_rule(Jupyter())
