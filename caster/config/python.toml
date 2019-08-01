@@ -73,6 +73,7 @@ decorator_prefix    = "atty"
 "lambda"              = ["lambda ", "colon/3, left"]
 "lodge and"           = " and "
 "lodge as"            = " as "
+"lodge else"          = " else "
 "lodge if"            = " if "
 "lodge in"            = " in "
 "lodge is"            = " is "

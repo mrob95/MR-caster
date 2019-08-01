@@ -15,12 +15,12 @@ class ModeManager():
 
     def check_context(self):
         if natlink.getMicState() == "on":
-            window = Window.get_foreground()
-            should_be_normal = not self.command_contexts.matches(window.executable, window.title, window.handle)
-            if should_be_normal and self.mode == "command":
-                self.switch_mode("normal")
-            elif not should_be_normal and self.mode == "normal":
+            w = Window.get_foreground()
+            should_be_command = self.command_contexts.matches(w.executable, w.title, w.handle)
+            if should_be_command and self.mode == "normal":
                 self.switch_mode("command")
+            elif not should_be_command and self.mode == "command":
+                self.switch_mode("normal")
             else:
                 pass
 
