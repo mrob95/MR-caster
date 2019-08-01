@@ -166,7 +166,7 @@ class Core(MergeRule):
                     Function(navigation.splat, manual=True))]),
         "check [<n>]":
             ContextAction(Key("c-enter:%(n)s"),
-                [(AppContext(title=["notepad", "scientific notebook", "jupyter notebook"]), Key("end, enter:%(n)s")),
+                [(AppContext(title=["notepad", "scientific notebook", "jupyter"]), Key("end, enter:%(n)s")),
                 (AppContext(title="emacs"), Key("a-m, i, j, down")*Repeat("n"))]),
 
     	"<misc_core_keys>": Key("%(misc_core_keys)s"),

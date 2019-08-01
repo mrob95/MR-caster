@@ -22,7 +22,7 @@ ccr_modules = ["core",
 			"notepad",
 			"toml",
 			# "sql",
-			# "shell",
+			"shell",
 			# "vscode"
 			]
 app_modules = [

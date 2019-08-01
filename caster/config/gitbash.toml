@@ -2,27 +2,32 @@
 "executable_contexts" = ["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe", "powershell"]
 
 [commands]
-"bash"           = "bash "
-"cancel"         = ["", "c-c"]
-"CD up"          = ["cd ..", "enter"]
-"CD"             = "cd "
-"dot PDF"        = ".pdf"
-"dot jay peg"    = ".jpg"
-"dot PNG"        = ".png"
-"dot pie"        = ".py"
-"dot tex"        = ".tex"
-"(LS | list)"    = "ls "
-"line count"     = "wc -l "
-"make directory" = "mkdir "
-"move file"      = "mv  "
-"pipe"           = " | "
-"lodge and"      = " && "
-"Sumatra [PDF]"  = "SumatraPDF "
-"to file"        = " > "
-"sed replace"    = ["sed -i -e \"s///g\"", "left:4"]
-"jupiter notebook" = "jupyter notebook"
+"bash"                   = "bash "
+"cancel"                 = ["", "c-c"]
+"CD up"                  = ["cd ..", "enter"]
+"CD"                     = "cd "
+"dot PDF"                = ".pdf"
+"dot jay peg"            = ".jpg"
+"dot PNG"                = ".png"
+"dot pie"                = ".py"
+"dot tex"                = ".tex"
+"(LS | list)"            = "ls "
+"line count"             = "wc -l "
+"make directory"         = "mkdir "
+"move file"              = "mv  "
+"pipe"                   = " | "
+"lodge and"              = " && "
+"to file"                = " > "
+"sed replace"            = ["sed -i -e \"s///g\"", "left:4"]
+"Sumatra [PDF]"          = "SumatraPDF "
+"Sublime here"           = "subl -n "
+"jupiter notebook"       = "jupyter notebook"
+"jupiter lab"            = "jupyter lab"
+"youtube download"       = "youtube-dl "
+"FFM peg"                = "ffmpeg "
 #------------------------------------------------------
 # latex
+"create slides" = ["py \"C:/Users/Mike/Documents/GitHub/slide-html/bin/slide.py\"  slides.html", "left:12"]
 "PDF LaTeX"              = "pdflatex "
 "bib TeX"                = "bibtex "
 "pan doc"                = ["pandoc \"\" -o \"", "left:6"]
@@ -34,6 +39,7 @@
 "python 2 64 "           = "C:/Python27-64/python.exe "
 "python 2 pip [install]" = "python27 -m pip install "
 "python 3 pip [install]" = "python3 -m pip install "
+"upgrade pip" = "--upgrade pip"
 "pip two (install | build) package" = "pip2 install -e ."
 #------------------------------------------------------
 # r

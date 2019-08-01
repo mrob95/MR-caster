@@ -1,5 +1,5 @@
 pronunciation   = "Python"
-title_contexts  = [".py", "python"]
+title_contexts  = [".py", "python", "jupyterlab"]
 function_prefix = "fun"
 template_prefix = "template"
 method_prefix   = "meth"
@@ -40,6 +40,7 @@ decorator_prefix    = "atty"
 "print"                 = "print"
 "range"                 = "range"
 "read lines"            = "readlines"
+"read"                  = "read"
 "remove"                = "remove"
 "replace"               = "replace"
 "reverse"               = "reverse"

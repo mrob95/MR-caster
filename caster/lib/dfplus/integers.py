@@ -2,6 +2,7 @@ from dragonfly.language.base.integer_internal import MapIntBuilder, MagnitudeInt
 from dragonfly.language.loader import language
 from dragonfly.language.base.integer import Integer
 from dragonfly.grammar.elements_basic import RuleWrap
+from dragonfly import Choice
 
 int_0           = MapIntBuilder({
                                  "zero":       0,
@@ -146,3 +147,9 @@ class ShortIntegerRef(RuleWrap):
 
         element = Integer(None, min, max, content=content)
         RuleWrap.__init__(self, name, element, default=default)
+
+def TestInteger(name, min, max, default=None):
+  return Choice(name, {str(i): i for i in range(min, max)}, default=default)
+
+# IntegerRef = TestInteger
+# ShortIntegerRef = TestInteger

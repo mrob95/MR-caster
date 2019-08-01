@@ -10,6 +10,7 @@ import natlink
 class Nexus:
     def __init__(self, real_merger_config=True):
         self.clip = {}
+        self.backup = {}
         self.temp = ""
         self.reload_settings()
         self.preserved = None
@@ -31,6 +32,24 @@ class Nexus:
                 natlink.addWord(word)
             except:
                 pass
+
+    def load_app_rules2(self, apps):
+        apploaded = []
+        for module_name in apps:
+            try:
+                path = "apps/%s.py" % module_name
+                code = utilities.read_text_relative(path)
+                exec(code)
+                apploaded.append(module_name)
+                # self.backup[path] = code
+            except Exception as e:
+                print("Ignoring rule '{}'. Failed to load with: ".format(module_name))
+                print(e)
+                # path = "apps/%s.py" % module_name
+                # if path in self.backup:
+        if apploaded:
+            print("App modules loaded: " + ", ".join(apploaded))
+
 
     def load_app_rules(self, apps):
         apploaded = []

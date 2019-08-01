@@ -66,6 +66,11 @@ def save_toml_relative(data, path):
     path = get_full_path(path)
     return save_toml_file(data, path)
 
+def read_text_relative(path):
+    path = get_full_path(path)
+    with open(path, "r") as f:
+        return f.read()
+
 class ReadText:
     def __init__(self, same_is_okay=False):
         self.same_is_okay = same_is_okay

@@ -1,12 +1,17 @@
-from dragonfly import Key, Mouse, Pause, ActionBase, ActionError, Alternative, Compound, RuleWrap
+from dragonfly import Mouse, Pause, ActionBase, ActionError, Alternative, Compound, RuleWrap
 from dragonfly import Text as TextBase, Key as KeyBase
 
 from inspect import getargspec
 import re
 from six import string_types
 
+TextBase.__call__ = lambda self, data=None: self.execute(data)
+KeyBase.__call__ = lambda self, data=None: self.execute(data)
+
 class Text(TextBase):
     _pause_default = 0.002
+
+Key = KeyBase
 
 class SlowText(TextBase):
     _pause_default = 0.01

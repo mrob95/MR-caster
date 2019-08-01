@@ -21,6 +21,8 @@ class Markdown(MergeRule):
     mcontext = AppContext(title=BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
     mapping = {
+        "compose": Key("ralt"),
+
         "heading [<num>] [<capitalised_text>]":
             Text("#")*Repeat("num") + Text(" %(capitalised_text)s"),
         "subheading [<capitalised_text>]":

@@ -74,7 +74,7 @@ PythonNon.extras.append(Choice("lib", libs))
 
 class Python(MergeRule):
     non = PythonNon
-    mwith = ["Core", "Dict"]
+    mwith = ["Core"]
     mcontext = AppContext(title=BINDINGS["title_contexts"])
     pronunciation = BINDINGS["pronunciation"]
 
@@ -138,7 +138,7 @@ class CasterPythonRuleNon(MergeRule):
 
 class CasterPythonRule(MergeRule):
     non = CasterPythonRuleNon
-    mwith = ["Core", "Dict", "Python"]
+    mwith = ["Core", "Python"]
     mcontext = AppContext(title=".py") & AppContext(title=["caster", "mathfly"])
 
     mapping = {
@@ -156,3 +156,35 @@ class CasterPythonRule(MergeRule):
 control.app_rule(CasterPythonRule())
 
 #------------------------------------------------
+
+class JupyterLabRule(MergeRule):
+    mwith = ["Core", "Python"]
+    mcontext = AppContext(title="JupyterLab")
+
+    mapping = {
+        "next pane [<n>]"          : Key("cs-rbracket:%(n)s"),
+        "previous pane [<n>]"      : Key("cs-lbracket:%(n)s"),
+
+        "replace": Key("cs-r"),
+
+        "toggle cyber"              : Key("c-b"),
+        "(insert | new) cell"       : Key("a-enter"),
+        "run cell"                  : Key("c-enter"),
+        "(next cell | necker) [<n>]": Key("s-enter:%(n)s"),
+        "split cell"                : Key("cs-minus"),
+        "[insert] cell above"       : Key("escape, a"),
+        "[insert] cell below"       : Key("escape, b"),
+        "merge below"               : Key("escape, M"),
+        "merge above"               : Key("escape, s-up, M"),
+        "toggle line numbers"       : Key("escape, L"),
+        "delete cell [<n>]"         : Key("escape, d, d")*Repeat("n"),
+        "select all"                : Key("c-a"),
+
+        "indent [<n>]"              : Key("c-rbracket:%(n)s"),
+        "outdent [<n>]"             : Key("c-lbracket:%(n)s"),
+
+        "comment line"              : Key("c-slash"),
+        "command pallette"          : Key("cs-p"),
+    }
+
+control.app_rule(JupyterLabRule())

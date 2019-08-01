@@ -171,6 +171,7 @@ class SublimeCCRRule(MergeRule):
     }
     extras = [
         ShortIntegerRef("ln1", 1, 1000),
+        # TestInteger("ln1", 1, 1000),
         IntegerRef("n2", 1, 9, 1),
         IntegerRef("n3", 1, 21, 1),
         Choice("action", navigation.actions),
