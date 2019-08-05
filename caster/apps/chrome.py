@@ -1,5 +1,7 @@
 from caster.imports import *
 
+BRING = utilities.load_toml_relative("config/bringme.toml")
+
 class ChromeRule(MergeRule):
 
     pronunciation = "google chrome"
@@ -52,7 +54,8 @@ class ChromeRule(MergeRule):
         "copy all"                : Key("c-a/20, c-c"),
 
         "go <site>":
-            Key("c-l/10") + Text("%(site)s") + Key("enter"),
+            Key("a-d/10") + Text("%(site)s") + Key("enter"),
+
         "search <text>":
             Key("c-l/10") + Text("%(text)s") + Key("enter"),
 
@@ -87,25 +90,7 @@ class ChromeRule(MergeRule):
             Function(lambda: Clipboard.set_system_text(utilities.chrome_get_url())),
     }
     extras = [
-        Choice("site", {
-            "amazon"   : "smile.amazon.co.uk",
-            "calendar" : "https://www.google.com/calendar",
-            "kindle"   : "https://smile.amazon.co.uk/Kindle-eBooks-books/b/ref=nav_shopall_kbo5?ie=UTF8&node=341689031",
-            "exams"    : "https://www.york.ac.uk/economics/current-students/ug-information/exampapers/#tab-2",
-            "facebook" : "facebook.com",
-            "iPlayer"  : "https://www.bbc.co.uk/iplayer",
-            "maps"     : "https://www.google.com/maps",
-            "math fly" : "mathfly.org",
-            "scholar"  : "scholar.google.co.uk",
-            "SMS"      : "https://mightytext.net/web8/",
-            "spectator": "spectator.co.uk",
-            "times"    : "thetimes.co.uk",
-            "timetable": "timetable.york.ac.uk",
-            "twitter"  : "twitter.com/home",
-            "VLE"      : "https://vle.york.ac.uk",
-            "what's app": "https://web.whatsapp.com/",
-            "youtube"  : "youtube.com",
-        }),
+        Choice("site", BRING["website"]),
         Choice("numberth", {
             "first"         : "1",
             "second"        : "2",

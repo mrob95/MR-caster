@@ -33,15 +33,8 @@ class GitBashRule(MergeRule):
 
     mapping       = {
         "<command>": execution.Alternating("command"),
-
-        "go <directory>":
-            Text("cd '%(directory)s'") + Key("enter"),
-
-        "folder <directory>":
-            Text("'%(directory)s'"),
     }
     extras = [
-        Choice("directory",   CORE["directories"]),
         Choice("command",     BINDINGS["commands"]),
     ]
 

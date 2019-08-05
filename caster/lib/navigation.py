@@ -6,7 +6,7 @@ import time
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
 
 # https://github.com/reckoner/pyVirtualDesktopAccessor
-from ctypes import cdll
+from ctypes import cdll, windll
 from win32gui import GetForegroundWindow
 # def load_vda():
 vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor.dll"))
@@ -15,7 +15,7 @@ vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor.d
 def move_current_window_to_desktop(n=0,follow=False):
     # vda = load_vda()
     wndh = GetForegroundWindow()
-    vda.MoveWindowToDesktopNumber(wndh, n-1)
+    vda.MoveWindowToDesktopNumber(int(wndh), n-1)
     if follow:
         vda.GoToDesktopNumber(n-1)
 

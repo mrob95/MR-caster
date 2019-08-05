@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 import io, os, sys, time, re, datetime
-import toml
+import toml, webbrowser
+from PIL import ImageGrab
 from subprocess import Popen
-from dragonfly import Choice, Clipboard, Key
+from dragonfly import Choice, Clipboard, Key, Window
 from urllib2 import Request, urlopen, quote
-from multiprocessing import Process, Queue
-from win10toast import ToastNotifier
 import threading
 import uiautomation as automation
 
@@ -22,7 +21,6 @@ def diary():
         with open(path, "w+") as f:
             f.write(title = "# %s - Notes - Mike Roberts\n" % datestr)
     Popen(["notepad", path])
-
 
 def toast_notify(title="title", message="message"):
     Popen([
@@ -70,19 +68,6 @@ def read_text_relative(path):
     path = get_full_path(path)
     with open(path, "r") as f:
         return f.read()
-
-class ReadText:
-    def __init__(self, same_is_okay=False):
-        self.same_is_okay = same_is_okay
-
-    def __enter__(self):
-        self.prior = Clipboard(from_system=True)
-        Key("c-c").execute()
-        time.sleep(0.05)
-        return Clipboard.get_system_text()
-
-    def __exit__(self, type, value, traceback):
-        self.prior.copy_to_system()
 
 def read_selected(same_is_okay=False):
     '''Returns a tuple:
@@ -141,13 +126,14 @@ def kill_notepad():
     Popen(get_full_path("lib/bin/notepad_kill.bat"))
 
 def browser_open(url):
-    browser = SETTINGS["browser_path"]
-    Popen([browser, url])
+    # browser = SETTINGS["browser_path"]
+    # Popen([browser, url])
+    webbrowser.open_new_tab(url)
 
 def browser_search(text=None, url="https://www.google.com/search?q=%s"):
     if not text:
-        with ReadText(True) as t:
-            text = ''.join(i for i in t if ord(i)<128)
+        _, t = read_selected(True)
+        text = ''.join(i for i in t if ord(i)<128)
     url = url % text.replace(" ", "+").replace("\n", "")
     browser_open(url)
 
@@ -162,6 +148,11 @@ def word_count():
     _, selection = read_selected(True)
     words_list = selection.replace("\n", " ").split(" ")
     toast_notify("Word count", str(len(words_list)))
+
+def windowinfo():
+    wd = Window.get_foreground()
+    print(wd.title)
+    print(wd.executable)
 
 def tinyurl():
     _, selection = read_selected(True)
@@ -183,3 +174,14 @@ def chrome_get_url():
         control = control_list[1]
     address_control = automation.FindControl(control, lambda c, d: isinstance(c, automation.EditControl) and "Address and search bar" in c.Name)
     return address_control.CurrentValue()
+
+def save_clipboard_image():
+    images_dir = "C:/Users/Mike/Pictures/saved"
+    now = datetime.datetime.now()
+    file_name = str(now).rsplit(".", 1)[0].replace(":", "")
+    im = ImageGrab.grabclipboard()
+    try:
+        im.save('%s/%s.png' % (images_dir, file_name),'PNG')
+    except AttributeError:
+        print("Clipboard does not contain an image")
+

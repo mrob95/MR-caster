@@ -6,6 +6,7 @@
 "cancel"                 = ["", "c-c"]
 "CD up"                  = ["cd ..", "enter"]
 "CD"                     = "cd "
+"curl"                   = "curl "
 "dot PDF"                = ".pdf"
 "dot jay peg"            = ".jpg"
 "dot PNG"                = ".png"
@@ -23,11 +24,11 @@
 "Sublime here"           = "subl -n "
 "jupiter notebook"       = "jupyter notebook"
 "jupiter lab"            = "jupyter lab"
-"youtube download"       = "youtube-dl "
+"youtube download"       = "youtube-dl -f best "
 "FFM peg"                = "ffmpeg "
 #------------------------------------------------------
 # latex
-"create slides" = ["py \"C:/Users/Mike/Documents/GitHub/slide-html/bin/slide.py\"  slides.html", "left:12"]
+"create slides" = ["py \"C:/Users/Mike/Documents/GitHub/slide-html/bin/slide.py\" ", "left:12"]
 "PDF LaTeX"              = "pdflatex "
 "bib TeX"                = "bibtex "
 "pan doc"                = ["pandoc \"\" -o \"", "left:6"]
@@ -82,7 +83,7 @@
 "git commit all"                      = ["git commit -a -m \"\"", "left"]
 "git commit all and push"             = ["git commit -a -m \"\" && git push", "left:13"]
 "git commit"                          = ["git commit -m \"\"", "left"]
-"git diff"                            = "git diff"
+"git diff"                            = "git diff "
 "git discard"                         = "git checkout -- "
 "git (discard all | reset hard)"      = "git reset --hard"
 "git fetch upstream"                  = "git fetch upstream"

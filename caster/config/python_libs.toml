@@ -1,6 +1,10 @@
 [os]
 "pronunciation"               = "OS"
 
+[shlex]
+"pronunciation" = "shlex"
+"split" = ["shlex.split()", "left"]
+
 [re]
 "pronunciation"               = "(regular expressions | regex)"
 "search"                      = ["re.search(r\"\", )", "left:4"]
@@ -125,3 +129,26 @@
 "accuracy score"                       = ["accuracy_score()", "left"]
 "predict"                                = ["predict()", "left"]
 "train test split"                                = ["train_test_split()", "left"]
+
+[webbrowser]
+"pronunciation" = "web browser"
+"open new tab" = ["webbrowser.open_new_tab()", "left"]
+
+[itertools]
+"pronunciation" = "iter tools"
+"accumulate"   = ["accumulate()", "left"]
+"chain"        = ["chain()", "left"]
+"combinations" = ["combinations()", "left"]
+"compress"     = ["compress()", "left"]
+"cycle"        = ["cycle()", "left"]
+"drop while"   = ["dropwhile()", "left"]
+"group by"     = ["groupby()", "left"]
+"I filter"     = ["ifilter()", "left"]
+"I map"        = ["imap()", "left"]
+"I slice"      = ["islice()", "left"]
+"I zip"        = ["izip()", "left"]
+"permutations" = ["permutations()", "left"]
+"product"      = ["product()", "left"]
+"repeat"       = ["repeat()", "left"]
+"take while"   = ["takewhile()", "left"]
+"tee"          = ["tee()", "left"]

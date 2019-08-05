@@ -7,22 +7,6 @@
 "dictation_prefix"     = "(say)"
 "extreme"              = "wally"
 
-[directories]
-"app data"  =  "C:\\Users\\Mike\\AppData"
-"caster"    =  "C:\\Users\\Mike\\Documents\\NatLink\\caster"
-"documents" =  "C:\\Users\\Mike\\Documents"
-"downloads" =  "C:\\Users\\Mike\\Downloads"
-"summer"    =  "C:\\Users\\Mike\\Documents\\summer of stats"
-"mike"      =  "C:\\Users\\Mike"
-"e-books"   =  "C:\\Users\\Mike\\Documents\\ebooks"
-"films"     =  "E:\\films"
-"git hub"   =  "C:\\Users\\Mike\\Documents\\GitHub"
-"math fly"  =  "C:\\Users\\Mike\\Documents\\NatLink\\mathfly"
-"papers"    =  "C:\\Users\\Mike\\Documents\\papers"
-"pictures"  =  "C:\\Users\\Mike\\Pictures"
-"queue tea" =  "C:\\Users\\Mike\\Pictures\\pol\\qt"
-"sea"       =  "C:\\"
-
 [search]
 "amazon"   = "https://smile.amazon.co.uk/s?k=%s"
 "kindle"   = "https://smile.amazon.co.uk/s?k=%s&rh=n%%3A341689031"

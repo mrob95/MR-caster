@@ -156,6 +156,7 @@ decorator_prefix    = "atty"
 [exceptions]
 "arithmetic"         = " ArithmeticError"
 "assertion"          = " AssertionError"
+"attribute"          = " AttributeError"
 "environment"        = " EnvironmentError"
 "EOF"                = " EOFError"
 "exception"          = " Exception"

@@ -7,11 +7,6 @@ CORE     = utilities.load_toml_relative("config/core.toml")
 PERSONAL = utilities.load_toml_relative("config/personal.toml")
 LATEX    = utilities.load_toml_relative("config/latex.toml")
 
-def windowinfo():
-    wd = Window.get_foreground()
-    print(wd.title)
-    print(wd.executable)
-
 class CoreNon(MergeRule):
     mapping = {
         "configure " + CORE["pronunciation"]:
@@ -53,6 +48,9 @@ class CoreNon(MergeRule):
 
         "window <direction> [<direction2>]":
             Key("win:down, %(direction)s/15, %(direction2)s, win:up"),
+        "focus <direction>":
+            Function(lambda direction:
+                Mouse("[0, 81]" if direction == "left" else "[1920, 81]" + "/10, left").execute()),
         'minimize': Playback([(["minimize", "window"], 0.0)]),
         'maximize': Playback([(["maximize", "window"], 0.0)]),
 
@@ -76,7 +74,7 @@ class CoreNon(MergeRule):
             Function(navigation.close_all_workspaces),
 
         "show window information":
-            Function(windowinfo),
+            Function(utilities.windowinfo),
 
         #-----------------------------------------------
 
@@ -109,6 +107,7 @@ class CoreNon(MergeRule):
         #-----------------------------------------------
 
         "take screenshot": Key("ws-s"),
+        "save clipboard image": Function(utilities.save_clipboard_image),
 
         "undo [<n>]": ContextAction(Key("c-z:%(n)s"),
             [(AppContext(title="emacs"), Key("c-slash")*Repeat("n"))]),

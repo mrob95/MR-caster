@@ -26,7 +26,7 @@ class PythonNon(MergeRule):
         BINDINGS["decorator_prefix"] + " <decorator>":
             Text("@") + Alternating("decorator"),
 
-        "try except [<exception>] [<as>]":
+        "try except [<exception>] [error] [<as>]":
             Text("try: ") + Key("enter:2, backspace") + Text("except%(exception)s%(as)s:") + Key("up"),
 
         "insert line break": Text("#" + ("-"*48)),
@@ -35,6 +35,7 @@ class PythonNon(MergeRule):
 
         "cheat sheet <module>":
             Function(lambda module: Popen(["SumatraPDF", "C:/Users/Mike/Documents/cheatsheets/python/%s.pdf" % module])),
+            # RunCommand("SumatraPDF C:/Users/Mike/Documents/cheatsheets/python/%(module)s.pdf"),
 
         "help <fun>":
             Function(lambda fun: utilities.browser_search(fun, url="https://docs.python.org/3/search.html?q=%s")),
@@ -67,7 +68,8 @@ for lib, data in PYLIBS.iteritems():
     # e.g. "numb pie <numpy_lib>": execution.Alternating("numpy_lib")
     PythonNon.mapping["%s <%s_lib>" % (pronunciation, lib)] = Alternating("%s_lib" % lib)
     PythonNon.extras.append(Choice("%s_lib" % lib, data))
-PythonNon.mapping["import <lib>"] = Text("import %(lib)s") + Key("enter")
+PythonNon.mapping["import <lib>"] = Text("import %(lib)s")
+PythonNon.mapping["from <lib> import"] = Text("from %(lib)s import ")
 PythonNon.extras.append(Choice("lib", libs))
 
 #------------------------------------------------

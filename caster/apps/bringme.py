@@ -1,126 +1,139 @@
-import os
-import threading
-import subprocess
-import time
-import webbrowser
-# import dragonfly
-from dragonfly import Choice, Function, Dictation, Window, Grammar
-
-from caster.lib import utilities
-from caster.lib.dfplus.actions import Text, Key
-from caster.lib.merge.selfmodrule import SelfModifyingRule
-
-DEFAULT_CONFIG = {
-        "website": {},
-        "folder": {},
-        "program": {},
-        "file": {},
-    }
-
-CONFIG = utilities.load_toml_relative("config/bringme.toml")
-if not CONFIG:
-    CONFIG = DEFAULT_CONFIG
-
-def refresh():
-    bring_rule.refresh()
-
-#module functions
-def bring_it(desired_item):
-    '''
-    Currently simply invoke os.startfile. New thread keeps Dragon from crashing.
-    '''
-    item, item_type = desired_item
-    if item_type == "website":
-        utilities.browser_open(item)
-    elif item_type == 'folder':
-        subprocess.Popen(['C:/Windows/explorer.exe', item])
-    elif item_type == 'program':
-        subprocess.Popen(item)
-    else:
-        threading.Thread(target=os.startfile, args=(item,)).start()
-
-def bring_add(launch, key):
-    '''
-    Add current program or highlighted text to bring me
-    '''
-    key = str(key)
-    if launch == "program":
-        path = Window.get_foreground().executable
-        if not path:
-            # dragonfly.get_engine().speak("program not detected")
-            print("Program path for bring me not found ")
-    # elif launch == 'folder':
-    #     Key("a-d").execute()
-    #     Key("escape").execute()
-    else:
-        Key("a-d/5").execute()
-        _, path = utilities.read_selected(True)
-        Key("escape").execute()
-    if not path:
-        print('Cannot add %s as %s to bringme: cannot get path', launch, key)
-        return
-    CONFIG[launch][key] = path
-    utilities.save_toml_relative(CONFIG, "config/bringme.toml")
-    refresh()
-
-def bring_remove(key):
-    '''
-    Remove item from bring me
-    '''
-    key = str(key)
-    for section in CONFIG.keys():
-        if key in CONFIG[section]:
-            del CONFIG[section][key]
-            utilities.save_toml_relative(CONFIG, "config/bringme.toml")
-            refresh()
-            return
-
-def bring_restore():
-    '''
-    Restore bring me list to defaults
-    '''
-    global CONFIG
-    CONFIG = DEFAULT_CONFIG
-    refresh()
-
-def _rebuild_items():
-    #logger.debug('Bring me rebuilding extras')
-    return {key: (os.path.expandvars(value), header) for header, section in CONFIG.iteritems()
-        for key, value in section.iteritems()}
+from caster.imports import *
 
 class BringRule(SelfModifyingRule):
-
     pronunciation = "bring me"
 
-    def refresh(self, *args):
-        #logger.debug('Bring me refresh')
-        self.extras[0] = Choice('desired_item', _rebuild_items())
+    def refresh(self):
+        self.mapping = {
+            "bring me <program>":
+                Function(self.bring_program),
+            "bring me <website>":
+                Function(self.bring_website),
+            "bring me <folder> [in <app>]":
+                Function(self.bring_folder),
+            "bring me <file>":
+                Function(self.bring_file),
+            "refresh bring me":
+                Function(self.load_and_refresh),
+            "<launch> to bring me as <key>":
+                Function(self.bring_add),
+            "to bring me as <key>":
+                Function(self.bring_add_auto),
+            "remove <key> from bring me":
+                Function(self.bring_remove),
+        }
+        self.extras = [
+            Choice(
+                "launch", {
+                    "[current] program": "program",
+                    "website": "website",
+                    "folder": "folder",
+                }),
+            Choice("app", {
+                "terminal": "terminal",
+                "explorer": "explorer",
+            }),
+            Dictation("key"),
+        ]
+        self.extras.extend(self._rebuild_items())
+        self.defaults = {"app": None}
         self.reset(self.mapping)
 
-    mapping = {
-       "bring me <desired_item>":
-            Function(bring_it),
-       "<launch> to bring me [as] <key>":
-            Function(bring_add),
-       "remove <key> from bring me":
-            Function(bring_remove),
-       "restore bring me defaults":
-            Function(bring_restore),
-    }
+    def __init__(self):
+        # Contexts
+        self.browser_context = AppContext(["chrome", "firefox"])
+        self.explorer_context = AppContext(["explorer.exe", "save", "open", "select", "choose directory"])
+        self.terminal_context = AppContext("mintty.exe")
+        # Paths
+        self.terminal_path = "C:\\Program Files\\Git\\git-bash.exe"
+        self.explorer_path = "C:\\Windows\\explorer.exe"
+        self.config_path = "config/bringme.toml"
+        # Get things set up
+        self.config = {}
+        self.load_config()
+        SelfModifyingRule.__init__(self)
 
-    extras = [
-        Choice("desired_item", _rebuild_items()),
-        Choice("launch", {
-            "[current] program": "program",
-            "website": "website",
-            "folder": "folder",
-            "file": "file",
-        }),
-        Dictation("key"),
-    ]
+    def bring_website(self, website):
+        ContextAction(Function(utilities.browser_open),
+            [(self.browser_context,
+                Key("c-l/10") + Text("%(url)s") + Key("enter"))]
+            ).execute({"url": website})
 
 
-bring_rule = BringRule()
-grammar = Grammar("bring me")
-grammar.add_rule(bring_rule)
-grammar.load()
+    def bring_folder(self, folder, app):
+        if not app:
+            ContextAction(Function(lambda: Popen([self.explorer_path, folder])), [
+                (self.terminal_context, Text("cd \"%s\"\n" % folder)),
+                (self.explorer_context, Key("c-l/5") + Text("%s\n" % folder))
+            ]).execute()
+        elif app == "terminal":
+            Popen([self.terminal_path, "--cd=" + folder.replace("\\", "/")])
+        else:
+            Popen([self.explorer_path, folder])
+
+    def bring_program(self, program):
+        Popen(program)
+
+    def bring_file(self, file):
+        threading.Thread(target=os.startfile, args=(file, )).start()
+
+    def bring_add(self, launch, key):
+        # Add current program or highlighted text to bring me
+        key = str(key)
+        if launch == "program":
+            path = Window.get_foreground().executable
+            if not path:
+                # dragonfly.get_engine().speak("program not detected")
+                print("Program path for bring me not found ")
+        else:
+            Key("a-d/5").execute()
+            _, path = utilities.read_selected()
+            Key("escape").execute()
+        if not path:
+            # logger.warn('Cannot add %s as %s to bringme: cannot get path', launch, key)
+            return
+        self.config[launch][key] = path
+        self.save_config()
+        self.refresh()
+
+    def bring_add_auto(self, key):
+        def add(launch):
+            return Function(lambda: self.bring_add(launch, key))
+
+        ContextAction(add("program"), [
+            (self.browser_context, add("website")),
+            (self.explorer_context, add("folder")),
+        ]).execute()
+
+    def bring_remove(self, key):
+        # Remove item from bring me
+        key = str(key)
+        for section in self.config.keys():
+            if key in self.config[section]:
+                del self.config[section][key]
+                self.save_config()
+                self.refresh()
+                return
+
+    def _rebuild_items(self):
+        # E.g. [Choice("folder", {"my pictures": ...}), ...]
+        return [
+            Choice(header,
+                   {key: os.path.expandvars(value)
+                    for key, value in section.iteritems()})
+            for header, section in self.config.iteritems()
+        ]
+
+    def load_and_refresh(self):
+        self.load_config()
+        self.refresh()
+
+    def load_config(self):
+        self.config = utilities.load_toml_relative(self.config_path)
+        if not self.config:
+            print("Could not load bringme defaults")
+
+    def save_config(self):
+        utilities.save_toml_relative(self.config, self.config_path)
+
+control.non_ccr_app_rule(BringRule())
