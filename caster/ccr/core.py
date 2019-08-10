@@ -13,17 +13,24 @@ class CoreNon(MergeRule):
             Function(utilities.load_config, config_name="core.toml"),
 
         #-----------------------------------------------
+        # Mouse
 
         "copy mouse position":
             Function(lambda: Clipboard.set_system_text("[%d, %d]" % get_cursor_position())),
         "squat"              : Mouse("left:down"),
-        "bench"              : Mouse("left:up"),
+        "bench"              : ContextAction(Mouse("left:up"), [(AppContext("snippingtool.exe"), Mouse("left:up/100") + Function(utilities.save_clipboard_image))]),
         "kick"               : Playback([(["mouse", "click"], 0.0)]),
         "shift right click"  : Key("shift:down") + Mouse("right") + Key("shift:up"),
         "colic"              : Key("control:down") + Mouse("left") + Key("control:up"),
         "millick"            : Mouse("middle"),
 
         #-----------------------------------------------
+        # Keys
+        "undo [<n>]": ContextAction(Key("c-z:%(n)s"),
+            [(AppContext(title="emacs"), Key("c-slash")*Repeat("n"))]),
+        "redo [<n>]": Key("c-y:%(n)s"),
+
+        "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
 
         "super hold"          : Key("win:down"),
         "super release"       : Key("win:up"),
@@ -45,14 +52,17 @@ class CoreNon(MergeRule):
         "music (pause|play)"  : Key("playpause"),
 
         #-----------------------------------------------
+        # Window management
 
         "window <direction> [<direction2>]":
             Key("win:down, %(direction)s/15, %(direction2)s, win:up"),
         "focus <direction>":
             Function(lambda direction:
                 Mouse("[0, 81]" if direction == "left" else "[1920, 81]" + "/10, left").execute()),
-        'minimize': Playback([(["minimize", "window"], 0.0)]),
-        'maximize': Playback([(["maximize", "window"], 0.0)]),
+        "minimize":
+            Playback([(["minimize", "window"], 0.0)]),
+        "maximize":
+            Playback([(["maximize", "window"], 0.0)]),
 
         "show work [spaces]"         : Key("w-tab"),
         "(create | new) work [space]": Key("wc-d"),
@@ -77,6 +87,7 @@ class CoreNon(MergeRule):
             Function(utilities.windowinfo),
 
         #-----------------------------------------------
+        # Web, misc
 
         "<search> that":
             Function(lambda search: utilities.browser_search(url=search)),
@@ -94,10 +105,6 @@ class CoreNon(MergeRule):
 
         "open diary": Function(utilities.diary),
         "close all notepads": Function(utilities.kill_notepad),
-        "paste as text":
-            Function(lambda: Text(Clipboard.get_system_text()).execute()),
-
-        "paste as administrator": Function(execution.paste_as_admin),
 
         "open terminal":
             Function(lambda: utilities.terminal("C:/Users/Mike/Documents")),
@@ -105,15 +112,16 @@ class CoreNon(MergeRule):
         "switch to math fly": Function(utilities.mathfly_switch),
 
         #-----------------------------------------------
+        # Clipboard
+        "paste as text":
+            Function(lambda: Text(Clipboard.get_system_text()).execute()),
+
+        "paste as administrator": Function(execution.paste_as_admin),
 
         "take screenshot": Key("ws-s"),
         "save clipboard image": Function(utilities.save_clipboard_image),
-
-        "undo [<n>]": ContextAction(Key("c-z:%(n)s"),
-            [(AppContext(title="emacs"), Key("c-slash")*Repeat("n"))]),
-        "redo [<n>]": Key("c-y:%(n)s"),
-
-        "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
+        "fix clipboard path":
+            Function(lambda: Clipboard.set_system_text(Clipboard.get_system_text().replace("\\", "/"))),
     }
     extras = [
         Choice("direction",            CORE["directions_alt"]),
@@ -132,6 +140,7 @@ class Core(MergeRule):
     pronunciation = CORE["pronunciation"]
 
     mapping = {
+        # Alphanumeric
     	"[<big>] <letter>":
             Function(lambda big, letter: Key(letter.upper() if big else letter).execute()),
 
@@ -151,13 +160,13 @@ class Core(MergeRule):
                 .execute()),
 
         #-----------------------------------------------
-
+        # Keys
         "(<direction> | <modifier> [<direction>]) [(<nnavi50> | <extreme>)]":
             Function(navigation.text_nav),
 
     	"<key> [<n>]": Key("%(key)s")*Repeat("n"),
 
-        'tabby [<tabdir>] [<nnavi10>]':
+        "tabby [<tabdir>] [<nnavi10>]":
             Key("%(tabdir)s" + "tab")*Repeat("nnavi10"),
         "splat [<splatdir>] [(<nnavi10> | <extreme>)]":
             ContextAction(Function(navigation.splat),
@@ -172,7 +181,7 @@ class Core(MergeRule):
         "(shift click | shifty)": Key("shift:down") + Mouse("left") + Key("shift:up"),
 
         #-----------------------------------------------
-
+        # Text
         CORE["dictation_prefix"] + " <text> [brunt]":
             Function(textformat.master_format_text, capitalisation=0, spacing=0),
 
@@ -180,7 +189,7 @@ class Core(MergeRule):
             Function(textformat.master_format_text),
 
         #-----------------------------------------------
-
+        # Clipboard
         "stoosh [<nnavi500>]":
             ContextAction(Function(navigation.stoosh, nexus=_NEXUS),
                 [(AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]),

@@ -2,15 +2,17 @@ from caster.lib import control, utilities, textformat
 from caster.lib.dfplus.actions import Key, Text, Mouse
 from caster.lib.clipboard import Clipboard
 from dragonfly.actions.action_mouse import get_cursor_position
-import time
+import time, struct
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
 
 # https://github.com/reckoner/pyVirtualDesktopAccessor
-from ctypes import cdll, windll
+from ctypes import cdll
 from win32gui import GetForegroundWindow
-# def load_vda():
-vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor.dll"))
-# vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor.dll"))
+
+if struct.calcsize("P")*8 == 32:
+    vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor.dll"))
+else:
+    vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor64.dll"))
 
 def move_current_window_to_desktop(n=0,follow=False):
     # vda = load_vda()

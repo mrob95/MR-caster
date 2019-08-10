@@ -209,6 +209,7 @@ class CCRMerger(object):
             for rule in grammar.rules:
                 rule.disable()
             grammar.disable()
+            grammar.unload()
             del grammar
 
     def _sync_enabled(self):

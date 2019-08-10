@@ -1,5 +1,5 @@
 "pronunciation"   = "Markdown"
-"title_contexts"  = [".md", ".Rmd", "GitHub", "Gitter", "Notepad", ".html"]
+"title_contexts"  = [".md", ".Rmd", "Gitter", "Notepad", ".html"]
 "insert_prefix"   = "insert"
 "template_prefix" = "template"
 "output_prefix"   = "output"

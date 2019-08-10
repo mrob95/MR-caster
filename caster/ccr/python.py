@@ -29,7 +29,10 @@ class PythonNon(MergeRule):
         "try except [<exception>] [error] [<as>]":
             Text("try: ") + Key("enter:2, backspace") + Text("except%(exception)s%(as)s:") + Key("up"),
 
+        "comment [<comment>]": Text("# %(comment)s"),
+
         "insert line break": Text("#" + ("-"*48)),
+        "insert to do": Text("# TODO: "),
 
         #------------------------------------------------
 
@@ -43,6 +46,7 @@ class PythonNon(MergeRule):
             Function(utilities.browser_search, url="https://www.google.com/search?q=python+%s"),
     }
     extras = [
+        Dictation("comment", "").capitalize(),
         Choice("module",   BINDINGS["cheatsheets"]),
         Choice("decorator",BINDINGS["decorators"]),
         Choice("template", BINDINGS["templates"]),
@@ -104,6 +108,8 @@ class Python(MergeRule):
             Text("def %(snaketext)s():") + Key("left:2"),
         "selfie [<under>] [<snaketext>]":
             Text("self.%(under)s%(snaketext)s"),
+        "pointer [<under>] [<snaketext>]":
+            Text(".%(under)s%(snaketext)s"),
         "classy [<classtext>]":
             Text("class %(classtext)s:") + Key("left"),
 

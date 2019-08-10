@@ -20,8 +20,9 @@
 "lodge and"              = " && "
 "to file"                = " > "
 "sed replace"            = ["sed -i -e \"s///g\"", "left:4"]
-"Sumatra [PDF]"          = "SumatraPDF "
-"Sublime here"           = "subl -n "
+"sumatra [PDF]"          = "SumatraPDF "
+"sublime"                = "subl -n "
+"sublime here"           = ["subl -n .", "enter"]
 "jupiter notebook"       = "jupyter notebook"
 "jupiter lab"            = "jupyter lab"
 "youtube download"       = "youtube-dl -f best "

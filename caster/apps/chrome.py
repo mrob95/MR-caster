@@ -24,7 +24,7 @@ class ChromeRule(MergeRule):
         "zoom reset"              : Key("c-0"),
         "refresh"                 : Key("c-f5"),
         "switch focus [<n>]"      : Key("f6:%(n)s"),
-        "find <text>"             : Key("c-f") + Text("%(text)s"),
+        "find <text>"             : Key("c-f/20") + Text("%(text)s"),
         "[find] next match [<n>]" : Key("c-g:%(n)s"),
         "[find] prior match [<n>]": Key("cs-g:%(n)s"),
         "[toggle] caret browsing" : Key("f7"),
@@ -54,14 +54,14 @@ class ChromeRule(MergeRule):
         "copy all"                : Key("c-a/20, c-c"),
 
         "go <site>":
-            Key("a-d/10") + Text("%(site)s") + Key("enter"),
+            Key("c-l/10") + Text("%(site)s") + Key("enter"),
 
         "search <text>":
             Key("c-l/10") + Text("%(text)s") + Key("enter"),
 
         "science hub":
             # Key("a-d") + Store() + Key("delete") + Text("https://sci-hub.tw/") + Retrieve() + Key("enter"),
-            Key("a-d/10, left/10") + Text("https://sci-hub.tw/") + Key("enter"),
+            Key("c-l/10, left/10") + Text("https://sci-hub.tw/") + Key("enter"),
 
         #------------------------------------------------
         # Modeless navigation
@@ -75,16 +75,25 @@ class ChromeRule(MergeRule):
         # map <a-left> scrollLeft
         # map <a-right> scrollRight
 
-        "split right"       : Key("w-left/50, a-w/50, w-right"),
-        "toggle mute"       : Key("a-m"),
-        "duplicate tab"     : Key("a-u"),
-        "show links"        : Key("c-comma"),
-        "go to root"        : Key("a-r"),
-        "focus input"       : Key("a-i"),
-        "close tabs right"  : Key("a-t"),
-        "close tabs left"   : Key("a-l"),
-        "scroll left [<n>]" : Key("a-left:%(n)s"),
-        "scroll right [<n>]": Key("a-right:%(n)s"),
+        # "split right"       : Key("w-left/50, a-w/50, w-right"),
+        # "toggle mute"       : Key("a-m"),
+        # "duplicate tab"     : Key("a-u"),
+        # "show links"        : Key("c-comma"),
+        # "go to root"        : Key("a-r"),
+        # "focus input"       : Key("a-i"),
+        # "close tabs right"  : Key("a-t"),
+        # "close tabs left"   : Key("a-l"),
+        # "scroll left [<n>]" : Key("a-left:%(n)s"),
+        # "scroll right [<n>]": Key("a-right:%(n)s"),
+
+        #------------------------------------------------
+        # Surfing
+        "(toggle) surfing keys": Key("a-s"),
+        "split right"       : Key("w-left/50, W/50, w-right"),
+        "duplicate tab"     : Key("y, t"),
+        "go to root"        : Key("g, U"),
+        "scroll left [<n>]" : Key("h:%(n)s"),
+        "scroll right [<n>]": Key("l:%(n)s"),
 
         "copy current url":
             Function(lambda: Clipboard.set_system_text(utilities.chrome_get_url())),

@@ -137,7 +137,7 @@ class SublimeRule(MergeRule):
             "ninth"  : "9",
             }),
         Choice("cols", {"one": "1", "two": "2", "three": "3", "grid": "5",}),
-        Choice("panel", {"one": "1", "left": "1", "two": "2", "right": "2", }),
+        Choice("panel", {"one": "1", "left": "1", "two": "2", "right": "2", "three": "3", "four": "4"}),
         Choice("filetype", {
             "pie | python": "py",
             "mark [down]" : "md",
@@ -155,6 +155,8 @@ class SublimeCCRRule(MergeRule):
     mcontext = AppContext(title="Sublime Text")
     mapping = {
         "line <ln1>"                     : Key("c-g") + Text("%(ln1)s") + Key("enter"),
+
+        "shunt [<n>]": Key("s-down:%(n)s"),
 
         "edit next [<n3>]"               : Key("c-d")*Repeat("n3"),
         "align that"                     : Key("ca-a"),

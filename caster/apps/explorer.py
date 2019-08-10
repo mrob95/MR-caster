@@ -3,7 +3,7 @@ from caster.imports import *
 BRING = utilities.load_toml_relative("config/bringme.toml")
 
 def new_window():
-    Key("a-d/10").execute()
+    Key("a-d/100").execute()
     _, path = utilities.read_selected(True)
     # Key("escape").execute()
     Popen(["explorer", path])
