@@ -1,6 +1,6 @@
 from dragonfly import Playback, Clipboard, ActionBase
 
-from caster.lib.dfplus.actions import Key, Text, SlowKey, SlowText, Mouse
+from caster.lib.dfplus.actions import Key, Text, SlowKey, SlowText, Mouse, Store, Retrieve
 from caster.lib import utilities
 
 # Alternate between executing as text and executing as keys
@@ -51,9 +51,10 @@ def python_setters():
 
 def markdown_link():
     text = Clipboard.get_system_text()
-    if len(text)>4 and text[:4] == "http":
+    print(text)
+    if len(text)>4 and text.startswith("http"):
         Text("[]()").execute()
-        Key("left, c-v, left:" + str(len(text) + 2))
+        Key("left, c-v, left:" + str(len(text) + 2)).execute()
     else:
         (Text("[]()") + Key("left")).execute()
 

@@ -60,9 +60,12 @@ class CoreNon(MergeRule):
             Function(lambda direction:
                 Mouse("[0, 81]" if direction == "left" else "[1920, 81]" + "/10, left").execute()),
         "minimize":
-            Playback([(["minimize", "window"], 0.0)]),
+            Function(lambda: Window.get_foreground().minimize()),
         "maximize":
-            Playback([(["maximize", "window"], 0.0)]),
+            Function(lambda: Window.get_foreground().maximize()),
+        "close window":
+            # Function(lambda: Window.get_foreground().close()),
+            Key("a-f4"),
 
         "show work [spaces]"         : Key("w-tab"),
         "(create | new) work [space]": Key("wc-d"),
@@ -76,6 +79,8 @@ class CoreNon(MergeRule):
             Function(lambda n: navigation.move_current_window_to_desktop(n)),
         "move work [space] <n>":
             Function(lambda n: navigation.move_current_window_to_desktop(n, True)),
+        "move everything to work [space] <n>":
+            Function(navigation.move_desktop_to),
         "send work [space] new":
             Function(navigation.move_current_window_to_new_desktop, follow=False),
         "move work [space] new":
@@ -145,7 +150,8 @@ class Core(MergeRule):
             Function(lambda big, letter: Key(letter.upper() if big else letter).execute()),
 
         CORE["numbers_prefix"] + " <num_seq>":
-            Function(lambda num_seq: Text("".join([str(i) for i in num_seq])).execute()),
+            # Function(lambda num_seq: Text("".join([str(i) for i in num_seq])).execute()),
+            Text("%(num_seq)s"),
 
         "[<long>] <punctuation>":
             Function(lambda long, punctuation:
@@ -217,7 +223,8 @@ class Core(MergeRule):
     	}
 
     extras = [
-        Repetition(IntegerRef("wnKK", 0, 10), min=1, max=5, name="num_seq"),
+        Modifier(Repetition(IntegerRef("", 0, 10), min=1, max=5, name="num_seq"), 
+            lambda r: "".join(map(str, r))),
         ShortIntegerRefNo8("nnavi10", 1, 11, 1),
         # IntegerRef("nnavi10", 1, 11),
         IntegerRef("nnavi50", 1, 20, 1),

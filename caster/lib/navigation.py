@@ -1,3 +1,4 @@
+from dragonfly import Window
 from caster.lib import control, utilities, textformat
 from caster.lib.dfplus.actions import Key, Text, Mouse
 from caster.lib.clipboard import Clipboard
@@ -32,11 +33,6 @@ def move_current_window_to_new_desktop(follow=False):
         vda.GoToDesktopNumber(current)
 
 def go_to_desktop_number(n):
-    # vda = load_vda()
-    # vda.GoToDesktopNumber(n-1)
-    # position = get_cursor_position()
-    # Mouse("[300, 1], left").execute()
-    # Mouse("[%d, %d]" % position).execute()
     current = vda.GetCurrentDesktopNumber() + 1
     if n>=1 and n != current:
         if current>n:
@@ -49,6 +45,11 @@ def close_all_workspaces():
     total = vda.GetDesktopCount()
     go_to_desktop_number(total)
     Key("wc-f4/10:" + str(total-1)).execute()
+
+def move_desktop_to(n):
+    for window in Window.get_all_windows():
+        if vda.IsWindowOnCurrentVirtualDesktop(window.handle):
+            vda.MoveWindowToDesktopNumber(window.handle, n-1)
 
 
 def initialize_clipboard(nexus):
@@ -77,6 +78,7 @@ def drop(nnavi500, nexus, capitalisation, spacing, paste_key="c-v"):
     if capitalisation == 0 and spacing == 0 and nnavi500 == 1:
         Key(paste_key).execute()
         return
+
     # Get clipboard text
     if nnavi500 > 1:
         if str(nnavi500) in nexus.clip:

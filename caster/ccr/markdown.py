@@ -52,12 +52,13 @@ class Markdown(MergeRule):
             Text("```%(language)s```") + Key("left:3, enter:2, up"),
     }
     extras = [
-        Dictation("capitalised_text", "").capitalize(),
+        Modifier(Dictation("capitalised_text", ""),
+            lambda s: s.capitalize()),
         IntegerRef("num", 1, 7, 1),
         Choice("element", BINDINGS["elements"]),
         Choice("output",  BINDINGS["outputs"]),
         Choice("option",  BINDINGS["options"]),
-        Choice("remarks",  BINDINGS["remarks"]),
+        Choice("remarks", BINDINGS["remarks"]),
         Choice("language",BINDINGS["languages"], ""),
         Choice("command", BINDINGS["alternating"]),
     ]

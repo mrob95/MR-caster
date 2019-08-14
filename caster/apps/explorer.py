@@ -1,12 +1,9 @@
 from caster.imports import *
 
 BRING = utilities.load_toml_relative("config/bringme.toml")
+CORE  = utilities.load_toml_relative("config/core.toml")
 
-def new_window():
-    Key("a-d/100").execute()
-    _, path = utilities.read_selected(True)
-    # Key("escape").execute()
-    Popen(["explorer", path])
+current_directory = lambda: Window.get_foreground().title
 
 class WERule(MergeRule):
     pronunciation = "explorer"
@@ -14,7 +11,6 @@ class WERule(MergeRule):
 
     mapping = {
         "address bar"                        : Key("a-d"),
-        "new window"                         : Function(new_window),
         "new folder"                         : Key("cs-n"),
         "new file"                           : Key("a-f, w, t"),
         "[(show | file | folder)] properties": Key("a-enter"),
@@ -25,16 +21,20 @@ class WERule(MergeRule):
         "go <folder>":
             Key("a-d/10") + Text("%(folder)s") + Key("enter"),
 
+        "follow <letter_rep>":
+            Text("%(letter_rep)s") + Key("enter"),
+
         # "terminal here"                      : Key("f6:5, s-f10, g, down, enter"),
         "terminal here":
-            Key("a-d/20") + Store() + Key("escape/20") + Function(lambda: utilities.terminal(Retrieve.text())),
+            Function(lambda: utilities.terminal(current_directory().replace("\\", "/"))),
         "new window"                         :
-            Key("a-d:50") + Store() + Key("escape:50") + Function(lambda: Popen(["explorer", Retrieve.text() + "/"])),
+             Function(lambda: Popen(["explorer", current_directory()])),
         "sublime here"                       :
-            Key("a-d:50") + Store() + Key("escape:50") + Function(lambda: Popen(["subl", Retrieve.text() + "/"])),
+             Function(lambda: Popen(["subl", "-n", current_directory()])),
     }
     extras = [
         Choice("folder", BRING["folder"]),
+        Modifier(Repetition(Choice("", CORE["letters_alt"]), 1, 5, "letter_rep"), lambda r: "".join(r)),
     ]
 
 control.non_ccr_app_rule(WERule())
@@ -58,9 +58,13 @@ class FileDialogueRule(MergeRule):
             Key("a-d/10") + Text("%(folder)s") + Key("enter"),
 
         "dot <ext>"          : Text(".%(ext)s"),
+
+        "follow <letter_rep>":
+            Text("%(letter_rep)s") + Key("enter"),
     }
     extras = [
         Choice("folder", BRING["folder"]),
+        Modifier(Repetition(Choice("", CORE["letters_alt"]), 1, 5, "letter_rep"), lambda r: "".join(r)),
         Choice("ext", {
             "batch"         : "bat",
             "(hyper | HTML)": "html",

@@ -89,7 +89,9 @@ class Python(MergeRule):
             Alternating("command"),
 
         BINDINGS["function_prefix"] + " <fun>":
-            Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
+            ContextAction(Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
+            [(AppContext(title="jupyter"), Text("%(fun)s()") + Key("left"))]),
+
         BINDINGS["method_prefix"] + " <fun>":
             Text(".%(fun)s()") + Key("left"),
 
@@ -118,8 +120,11 @@ class Python(MergeRule):
                 textformat.master_format_text(formatting[0], formatting[1], text)),
     }
     extras = [
-        Dictation("snaketext", "").lower().replace(" ", "_"),
-        Dictation("classtext", "").title().replace(" ", ""),
+        # Dictation("snaketext", "").lower().replace(" ", "_"),
+        Modifier(Dictation("snaketext", ""), 
+            lambda s: s.lower().replace(" ", "_")),
+        Modifier(Dictation("classtext", ""), 
+            lambda s: s.title().replace(" ", "")),
         Choice("under", "_", ""),
         Choice("formatting", {
             "(snaky | sneaky)": [5, 3],
