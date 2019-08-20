@@ -65,14 +65,16 @@ decorator_prefix    = "atty"
 "args and kwargs"     = "*args, **kwargs"
 "assign"              = " = "
 "breaker"             = "break"
+"double under" = ["____", "left:2"]
 "for each"            = ["for  in ", "colon/3, left:5"]
 "for loop"            = ["for i in range():", "left:2"]
 "from import"         = ["from  import ", "home, right:5"]
 "function"            = ["def ()", "colon/3, left:3"]
-"inline if"           = [" if  else ", "left:6"]
+"if name is main"     = "if __name__ == '__main__':\n"
 "(iffae | iffy)"      = ["if ", "colon/3, left"]
 "iffae not"           = ["if not ", "colon/3, left"]
 "import"              = "import "
+"inline if"           = [" if  else ", "left:6"]
 "insert long comment" = ["''''''", "left:3, enter:2, up"]
 "insert doc string"   = ['""""""', "left:3, enter:2, up"]
 "lambda"              = ["lambda ", "colon/3, left"]

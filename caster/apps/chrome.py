@@ -30,7 +30,8 @@ class ChromeRule(MergeRule):
         "[toggle] caret browsing" : Key("f7"),
 
         "home page"               : Key("a-home"),
-        "show history"            : Key("c-h"),
+        # "show history"            : Key("c-h"),
+        "show history"            : Key("c-t") + Text("chrome://history/\n"),
         "[google] search"         : Key("c-l"),
         "show downloads"          : Key("c-j"),
         "[add] bookmark"          : Key("c-d"),
@@ -114,11 +115,8 @@ class ChromeRule(MergeRule):
             "previous"      :"pgup",
         }),
     ]
-cr = ChromeRule()
-control.non_ccr_app_rule(cr)
 
-with open("C:/Users/Mike/Documents/GitHub/test/test.txt", "w+") as f:
-    f.write(cr.generate_docs())
+control.non_ccr_app_rule(ChromeRule())
 
 #------------------------------------------------
 

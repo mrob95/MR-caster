@@ -28,6 +28,8 @@ class PythonNon(MergeRule):
 
         "try except [<exception>] [error] [<as>]":
             Text("try: ") + Key("enter:2, backspace") + Text("except%(exception)s%(as)s:") + Key("up"),
+        "raise [<exception>] [error]":
+            Text("raise%(exception)s"),
 
         "comment [<comment>]": Text("# %(comment)s"),
 
@@ -159,6 +161,8 @@ class CasterPythonRule(MergeRule):
         BINDINGS["function_prefix"] + " <cfun>":
             Store(same_is_okay=False) + Text("%(cfun)s()") + Key("left") + Retrieve(action_if_text="right"),
         "<cmisc>": execution.Alternating("cmisc"),
+
+        "go to core [pie]": Key("c-p") + Text("core\n"),
     }
     extras = [
         IntegerRef("intn", 1, 1001),

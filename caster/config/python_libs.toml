@@ -17,6 +17,12 @@
 "pronunciation"               = "(system | sis)"
 "path append"                 = ["sys.path.append()", "left"]
 
+[click]
+"pronunciation"           = "click"
+"command"                 = "@click.command()"
+"echo"                    = ["click.echo()", "left"]
+"option"                  = ["@click.option(\n'-',\nhelp=\n)", "up:2, end, left:2"]
+
 [numpy]
 "pronunciation"               = "numb pie"
 "import_as"                   = "np"

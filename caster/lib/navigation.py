@@ -7,18 +7,19 @@ import time, struct
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
 
 # https://github.com/reckoner/pyVirtualDesktopAccessor
-from ctypes import cdll
+from ctypes import cdll, windll
 from win32gui import GetForegroundWindow
 
 if struct.calcsize("P")*8 == 32:
     vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor.dll"))
+    # vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor32_3.dll"))
 else:
     vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor64.dll"))
 
 def move_current_window_to_desktop(n=0,follow=False):
     # vda = load_vda()
     wndh = GetForegroundWindow()
-    vda.MoveWindowToDesktopNumber(int(wndh), n-1)
+    vda.MoveWindowToDesktopNumber(wndh, n-1)
     if follow:
         vda.GoToDesktopNumber(n-1)
 
@@ -157,6 +158,7 @@ def action_lines(action, ln1, ln2, go_to_line="c-g", select_line_down="s-down", 
     command.execute()
 
 actions = {"select" : "",
+            "comment": "c-slash",
            "copy"   : "c-c",
            "cut"    : "c-x",
            "insert" : "c-enter",

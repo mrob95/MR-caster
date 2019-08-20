@@ -5,8 +5,10 @@ from PIL import ImageGrab
 from subprocess import Popen
 from dragonfly import Choice, Clipboard, Key, Window
 from urllib2 import Request, urlopen, quote
+# from urllib.parse import quote_pwe would reckon and do threelus
 import threading
 import uiautomation as automation
+
 
 BASE_PATH = os.path.abspath(__file__).replace("\\", "/").rsplit("/lib/")[0]
 
@@ -132,9 +134,10 @@ def browser_open(url):
 
 def browser_search(text=None, url="https://www.google.com/search?q=%s"):
     if not text:
-        _, t = read_selected(True)
-        text = ''.join(i for i in t if ord(i)<128)
-    url = url % text.replace(" ", "+").replace("\n", "")
+        _, text = read_selected(True)
+    # text = ''.join(i for i in text if ord(i)<128)
+    # url = url % text.replace(" ", "+").replace("\n", "")
+    url = url % quote(text)
     browser_open(url)
 
 def terminal(dir):

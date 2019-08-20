@@ -20,7 +20,7 @@ ccr_modules = ["core",
 			"sublime",
 			"notepad",
 			"toml",
-			# "sql",
+			"sql",
 			"shell",
 			# "vscode"
 			]

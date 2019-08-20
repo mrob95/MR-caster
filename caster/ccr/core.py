@@ -19,7 +19,7 @@ class CoreNon(MergeRule):
             Function(lambda: Clipboard.set_system_text("[%d, %d]" % get_cursor_position())),
         "squat"              : Mouse("left:down"),
         "bench"              : ContextAction(Mouse("left:up"), [(AppContext("snippingtool.exe"), Mouse("left:up/100") + Function(utilities.save_clipboard_image))]),
-        "kick"               : Playback([(["mouse", "click"], 0.0)]),
+        "kick"               : Mouse("left"),
         "shift right click"  : Key("shift:down") + Mouse("right") + Key("shift:up"),
         "colic"              : Key("control:down") + Mouse("left") + Key("control:up"),
         "millick"            : Mouse("middle"),
@@ -64,7 +64,6 @@ class CoreNon(MergeRule):
         "maximize":
             Function(lambda: Window.get_foreground().maximize()),
         "close window":
-            # Function(lambda: Window.get_foreground().close()),
             Key("a-f4"),
 
         "show work [spaces]"         : Key("w-tab"),
@@ -150,7 +149,6 @@ class Core(MergeRule):
             Function(lambda big, letter: Key(letter.upper() if big else letter).execute()),
 
         CORE["numbers_prefix"] + " <num_seq>":
-            # Function(lambda num_seq: Text("".join([str(i) for i in num_seq])).execute()),
             Text("%(num_seq)s"),
 
         "[<long>] <punctuation>":
@@ -184,7 +182,8 @@ class Core(MergeRule):
                 (AppContext(title="emacs"), Key("a-m, i, j, down")*Repeat("n"))]),
 
     	"<misc_core_keys>": Key("%(misc_core_keys)s"),
-        "(shift click | shifty)": Key("shift:down") + Mouse("left") + Key("shift:up"),
+        "(shift click | shifty)": 
+            Key("shift:down") + Mouse("left") + Key("shift:up"),
 
         #-----------------------------------------------
         # Text

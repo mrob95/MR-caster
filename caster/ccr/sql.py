@@ -28,14 +28,26 @@ class SQL(MergeRule):
             Text("%(logical)s"),
 
 
+        # BINDINGS["function_prefix"] + " <fun>":
+        #     Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
         BINDINGS["function_prefix"] + " <fun>":
-            Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
+            Text("%(fun)s() ") + Key("left:2"),
+
+        "<formatting> <text>":
+            Function(lambda formatting, text:
+                textformat.master_format_text(formatting[0], formatting[1], text)),
     }
 
     extras = [
         Choice("fun",    BINDINGS["functions"]),
         Choice("command",BINDINGS["commands"]),
         Choice("logical",BINDINGS["logicals"]),
+        Choice("formatting", {
+            "(snaky | sneaky)": [5, 3],
+            "(singer | title)": [2, 1],
+            "yeller"          : [1, 0],
+        }),
+
     ]
 
 control.app_rule(SQL())

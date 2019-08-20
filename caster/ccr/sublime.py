@@ -20,6 +20,13 @@ class SublimeRule(MergeRule):
         "<action> by [line] <ln1>"  :
             Key("c-k, c-space, c-g") + Function(lambda ln1: Text(str(ln1+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
 
+        "<action> up <n>": 
+            Function(lambda action, n: 
+                Key("up:%s, s-down:%s, %s" % (n-1, n, action)).execute()),
+        "<action> down [<n>]": 
+            Function(lambda action, n: 
+                Key("s-down:%s, %s" % (n, action)).execute()),
+
         "new (file | tab)"               : Key("c-n"),
         # {"keys"                        : ["ctrl+alt+n"], "command": "new_window"},
         "new window"                     : Key("ca-n"),
@@ -56,6 +63,7 @@ class SublimeRule(MergeRule):
 
         "go to <text> [<filetype>]"      : Key("c-p") + Text("%(text)s" + "%(filetype)s") + Key("enter"),
         "go to word"                     : Key("c-semicolon"),
+        "go to symbol <text>"            : Key("c-r") + Text("%(text)s\n"),
         "go to symbol"                   : Key("c-r"),
         "go to [symbol in] project"      : Key("cs-r"),
 

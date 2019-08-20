@@ -42,6 +42,9 @@ class GitBashRule(MergeRule):
         "<command>": execution.Alternating("command"),
 
         "git clone": Text("git clone ") + Function(clip_repo) + Text(" "),
+
+        "zoom in [<n>]": Key("c-equal:%(n)s"),
+        "zoom out [<n>]": Key("c-minus:%(n)s"),
     }
     extras = [
         Choice("command",     BINDINGS["commands"]),
