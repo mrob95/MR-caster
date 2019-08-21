@@ -64,6 +64,8 @@ class ChromeRule(MergeRule):
             # Key("a-d") + Store() + Key("delete") + Text("https://sci-hub.tw/") + Retrieve() + Key("enter"),
             Key("c-l/10, left/10") + Text("https://sci-hub.tw/") + Key("enter"),
 
+        "save image": Function(utilities.chrome_save_image),
+
         #------------------------------------------------
         # Modeless navigation
         # map <a-w> moveTabToNewWindow

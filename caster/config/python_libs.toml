@@ -21,6 +21,7 @@
 "pronunciation"           = "click"
 "command"                 = "@click.command()"
 "echo"                    = ["click.echo()", "left"]
+"argument"                = ["click.argument()", "left"]
 "option"                  = ["@click.option(\n'-',\nhelp=\n)", "up:2, end, left:2"]
 
 [numpy]

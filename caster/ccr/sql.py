@@ -9,8 +9,11 @@ class SQLNon(MergeRule):
 
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="sql.toml"),
+
+        "limit <n1000>": Text("LIMIT %(n1000)s"),
     }
     extras = [
+        ShortIntegerRef("n1000", 1, 10000),
         Choice("template", BINDINGS["templates"]),
     ]
 

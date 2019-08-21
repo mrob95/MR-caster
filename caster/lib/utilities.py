@@ -36,7 +36,7 @@ def toast_notify(title="title", message="message"):
 def save_toml_file(data, path):
     try:
         formatted_data = unicode(toml.dumps(data))
-        with io.open(path, "wt", encoding="utf-8") as f:
+        with io.open(path, "wt+", encoding="utf-8") as f:
             f.write(formatted_data)
     except Exception:
         raise
@@ -178,13 +178,23 @@ def chrome_get_url():
     address_control = automation.FindControl(control, lambda c, d: isinstance(c, automation.EditControl) and "Address and search bar" in c.Name)
     return address_control.CurrentValue()
 
-def save_clipboard_image():
-    images_dir = "C:/Users/Mike/Pictures/saved"
+def image_name(dir="C:/Users/Mike/Pictures/saved"):
     now = datetime.datetime.now()
     file_name = str(now).rsplit(".", 1)[0].replace(":", "")
+    return "%s/%s" % (dir, file_name)
+
+def save_clipboard_image():
     im = ImageGrab.grabclipboard()
     try:
-        im.save('%s/%s.png' % (images_dir, file_name),'PNG')
+        im.save('%s.png' % image_name(),'PNG')
     except AttributeError:
         print("Clipboard does not contain an image")
 
+def chrome_save_image():
+    # Key("a-d/50").execute()
+    # _, selection = read_selected(True)
+    # Key("escape").execute()
+    selection = chrome_get_url()
+    img_type = selection.rsplit(".", 1)[1]
+    if img_type in ["jpeg", "jpg", "png"]:
+        Popen(["wget", "-O", "%s.%s" % (image_name(), img_type), selection])

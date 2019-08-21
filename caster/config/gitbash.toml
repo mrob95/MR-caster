@@ -27,6 +27,12 @@
 "jupiter lab"            = "jupyter lab"
 "youtube download"       = "youtube-dl -f best "
 "FFM peg"                = "ffmpeg "
+"W get"                  = "wget "
+"curly"                  = "curl "
+"catty"                  = "cat "
+#------------------------------------------------------
+# options
+"option help"            = " --help"
 #------------------------------------------------------
 # latex
 "create slides" = ["py \"C:/Users/Mike/Documents/GitHub/slide-html/bin/slide.py\" ", "left:12"]

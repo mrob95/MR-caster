@@ -39,6 +39,8 @@ class GitBashRule(MergeRule):
     mcontext      = AppContext(executable=BINDINGS["executable_contexts"])
 
     mapping       = {
+        "option <alph>": Text(" -%(alph)s "),
+
         "<command>": execution.Alternating("command"),
 
         "git clone": Text("git clone ") + Function(clip_repo) + Text(" "),
@@ -47,6 +49,7 @@ class GitBashRule(MergeRule):
         "zoom out [<n>]": Key("c-minus:%(n)s"),
     }
     extras = [
+        Modifier(Repetition(Choice("",CORE["letters_alt"]), 1, 4, "alph"), lambda r:"".join(r)),
         Choice("command",     BINDINGS["commands"]),
     ]
 
