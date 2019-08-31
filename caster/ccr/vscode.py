@@ -98,9 +98,6 @@ class VSCodeRule(MergeRule):
         #
         "terminal here"                  : Key("cs-t"),
 
-        "zoom in [<n2>]"                 : Key("c-equal")*Repeat("n2"),
-        "zoom out [<n2>]"                : Key("c-minus")*Repeat("n2"),
-
         # wrap plus
         "(wrap | split) lines"           : Key("a-q"),
 

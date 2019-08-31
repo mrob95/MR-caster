@@ -19,8 +19,7 @@ class ChromeRule(MergeRule):
 
         "page back [<n>]"         : Key("a-left:%(n)s"),
         "page forward [<n>]"      : Key("a-right:%(n)s"),
-        "zoom in [<n>]"           : Key("c-plus:%(n)s"),
-        "zoom out [<n>]"          : Key("c-minus:%(n)s"),
+
         "zoom reset"              : Key("c-0"),
         "refresh"                 : Key("c-f5"),
         "switch focus [<n>]"      : Key("f6:%(n)s"),

@@ -22,7 +22,7 @@ class TOML(MergeRule):
 
     mapping = {
         "<command>":
-            execution.Alternating("command"),
+            Alternating("command"),
 
         "command that":
             Key("end, s-home") + Store() + Key("quote, right:2, space, equal, space, quote") + Retrieve(),

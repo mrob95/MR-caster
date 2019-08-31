@@ -22,7 +22,7 @@ class className(MergeRule):
 
     mapping = {
         "<command>":
-            execution.Alternating("command"),
+            Alternating("command"),
 
         BINDINGS["function_prefix"] + " <fun>":
             Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),

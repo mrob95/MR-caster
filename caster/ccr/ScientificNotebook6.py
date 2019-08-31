@@ -81,7 +81,7 @@ class SN6Non(MergeRule):
         "<control>":
             Key("%(control)s"),
 
-        BINDINGS["unit_prefix"] + " <units>": execution.Alternating("units"),
+        BINDINGS["unit_prefix"] + " <units>": Alternating("units"),
     }
     extras = [
         Choice("control", BINDINGS["control"]),

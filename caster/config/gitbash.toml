@@ -1,5 +1,5 @@
 "pronunciation" = "Git Bash"
-"executable_contexts" = ["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe", "powershell"]
+"executable_contexts" = ["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe", "powershell", "[shell]", "debian.exe", "windowsterminal.exe", "conemu.exe"]
 
 [commands]
 "bash"                   = "bash "
@@ -31,8 +31,12 @@
 "curly"                  = "curl "
 "catty"                  = "cat "
 #------------------------------------------------------
+"pacman install" = "pacman -S "
+#------------------------------------------------------
 # options
+"option continue"        = " --continue "
 "option help"            = " --help"
+"option version"         = " --version"
 #------------------------------------------------------
 # latex
 "create slides" = ["py \"C:/Users/Mike/Documents/GitHub/slide-html/bin/slide.py\" ", "left:12"]
@@ -42,13 +46,16 @@
 "pan doc beamer"         = ["pandoc  -t beamer -o ", "left:14"]
 #------------------------------------------------------
 # python
-"python 3"               = ["python3 .py", "left:3"]
-"python 2"               = ["python27 .py", "left:3"]
+"python 3"               = "python3 "
+"python 2"               = "python27 "
 "python 2 64 "           = "C:/Python27-64/python.exe "
 "python 2 pip [install]" = "python27 -m pip install "
 "python 3 pip [install]" = "python3 -m pip install "
 "upgrade pip" = "--upgrade pip"
 "pip two (install | build) package" = "pip2 install -e ."
+"pie test" = "pytest "
+"pie flakes" = "pyflakes "
+"eye python" = "ipython "
 #------------------------------------------------------
 # r
 "R script"               = ["Rscript .r", "left:2"]
@@ -65,57 +72,66 @@
 "rename PNG large" = "rename 'png_large' 'png' *.png_large"
 "rename jay peg large" = "rename 'jpg_large' 'jpg' *.jpg_large"
 #------------------------------------------------------
-# git
 "generate change log" = ["github_changelog_generator /", "left"]
 "generate mathfly change log" = ["github_changelog_generator mrob95/mathfly", "left"]
-"(undo changes | git reset hard)"              = "git reset --hard"
-"git (abort cherry pick | cherry pick abort)"  = "git cherry-pick --abort"
-"git (branch delete | delete branch)" = "git branch -D "
-"git (checkout branch | new branch)"  = "git checkout -b "
-"git (GUI | gooey)"                   = "git gui"
-"git add all"                         = "git add -A"
-"git add"                             = "git add "
-"git remove"                          = "git rm "
-"git base"                            = "git "
-"git blame"                           = "git blame PATH -L FIRSTLINE,LASTLINE"
-"git branch set upstream [to]"        = "git branch --set-upstream-to="
-"git branch"                          = "git branch "
-"git checkout develop"                = ["git checkout develop", "enter"]
-"git checkout master"                 = ["git checkout master", "enter"]
-"git checkout upstream develop"       = ["git checkout upstream/develop", "enter"]
-"git checkout"                        = "git checkout "
-"git cherry pick"                     = "git cherry-pick "
-"git clone github"                    = ["git clone https://github.com/.git", "left:4"]
-# "git clone"                           = "git clone "
-"git commit all"                      = ["git commit -a -m \"\"", "left"]
-"git commit all and push"             = ["git commit -a -m \"\" && git push", "left:13"]
-"git commit"                          = ["git commit -m \"\"", "left"]
-"git diff"                            = "git diff "
-"git discard"                         = "git checkout -- "
-"git (discard all | reset hard)"      = "git reset --hard"
-"git fetch upstream"                  = "git fetch upstream"
-"git fetch upstream and pull"         = "git fetch upstream && git pull"
-"git fetch origin"                    = "git fetch origin"
-"git fetch origin and pull"           = "git fetch origin && git pull"
-"git fetch"                           = "git fetch "
-"git gooey blame"                     = "git gui blame PATH"
-"git hub"                             = "https://github.com/"
-"git init"                            = "git init"
-"git log"                             = "git log"
-"git merge tool"                      = "git mergetool"
-"git merge"                           = "git merge "
-"git publish"                         = "git push -u origin "
-"git pull"                            = "git pull "
-"git push set upstream [origin]"      = "git push --set-upstream origin "
-"git push"                            = "git push "
-"git rebase"                          = "git rebase "
-"git remote add origin"               = "git remote add origin "
-"git remote"                          = "git remote "
-"git remove branch"                   = "git branch -d "
-"git reset"                           = "git reset"
-"git stash branch"                    = "git stash branch NAME"
-"git stash list"                      = "git stash list"
-"git stash"                           = "git stash"
-"git unstage"                         = "git reset -- "
-"git (stash pop | retrieve)"          = "git stash pop"
-"git status"                          = ["git status", "enter"]
+
+#------------------------------------------------------
+# git
+[git_commands]
+"gabort cherry pick | cherry pick abort)"  = "git cherry-pick --abort"
+"delete branch" = "branch -D "
+"new branch"  = "checkout -b "
+"(GUI | gooey)"                   = "gui"
+"add"                             = "add "
+"add all"                         = "add -A"
+"add force "                      = "add -f "
+"remove"                          = "rm "
+"remove cashed"                   = "rm --cached "
+"base"                            = ""
+"blame"                           = "blame PATH -L FIRSTLINE,LASTLINE"
+"branch set upstream [to]"        = "branch --set-upstream-to="
+"branch"                          = "branch "
+"checkout develop"                = ["checkout develop", "enter"]
+"checkout master"                 = ["checkout master", "enter"]
+"checkout upstream develop"       = ["checkout upstream/develop", "enter"]
+"checkout"                        = "checkout "
+"checkout (remote | track)"       = "checkout --track "
+"cherry pick"                     = "cherry-pick "
+"clone github"                    = ["clone https://github.com/.git", "left:4"]
+#t clone"                           = "clone "
+"commit all"                      = ["commit -a -m \"\"", "left"]
+"commit all and push"             = ["commit -a -m \"\" && git push", "left:13"]
+"commit"                          = ["commit -m \"\"", "left"]
+"diff"                            = "diff "
+"discard"                         = "checkout -- "
+"(discard all | reset hard)"      = "reset --hard"
+"fetch upstream"                  = "fetch upstream"
+"fetch upstream and pull"         = "fetch upstream && git pull"
+"fetch origin"                    = "fetch origin"
+"fetch origin and pull"           = "fetch origin && git pull"
+"fetch"                           = "fetch "
+"gooey blame"                     = "gui blame PATH"
+"hub"                             = "https://github.com/"
+"init"                            = "init "
+"log"                             = "log"
+"merge tool"                      = "mergetool"
+"merge"                           = "merge "
+"publish"                         = "push -u origin "
+"pull"                            = "pull "
+"push set upstream [origin]"      = "push --set-upstream origin "
+"push"                            = "push "
+"rebase"                          = "rebase "
+"remote"                          = "remote "
+"remote add origin"               = "remote add origin "
+"remote prune origin"                          = "remote prune origin "
+"remote prune origin dry run"     = "remote prune origin --dry-run"
+"remote rename"                   = "remote rename "
+"remove branch"                   = "branch -d "
+"reset"                           = "reset"
+"(remote show | show remotes)"    = "remote -v "
+"stash branch"                    = "stash branch NAME"
+"stash list"                      = "stash list"
+"stash"                           = "stash"
+"(stash pop | retrieve)"          = "stash pop"
+"unstage"                         = "reset -- "
+"status"                          = ["status", "enter"]

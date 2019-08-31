@@ -15,8 +15,6 @@ class GitHubRule(MergeRule):
         "(repositories | repository list)": Key("c-t"),
         "branches [list]": Key("c-b"),
 
-        "zoom in [<n>]": Key("c-equals")*Repeat("n"),
-        "zoom out [<n>]": Key("c-minus")*Repeat("n"),
         "reset zoom": Key("c-0"),
 
         "push [repository]": Key("c-p"),

@@ -5,7 +5,7 @@ dragon_path = "C:/Program Files (x86)/Nuance/NaturallySpeaking15/Program/natspea
 browser_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 editor_path = "C:/Program Files/Sublime Text 3/sublime_text.exe"
 ccr_modules = ["core",
-			# "ScientificNotebook55",
+			"ScientificNotebook55",
 			# "ScientificNotebook6",
 			# "LyX",
 			"latex",
@@ -22,7 +22,7 @@ ccr_modules = ["core",
 			"toml",
 			"sql",
 			"shell",
-			# "vscode"
+			"vscode"
 			]
 app_modules = [
 			"chrome",
@@ -63,5 +63,7 @@ add_words = ["heteroscedasticity",
 	"stationarity",
 	"mathfly",
 	"GitHub",
-	"ender"
+	"ender",
+	"natlink",
+	"draconity"
 	]

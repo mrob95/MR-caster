@@ -20,7 +20,7 @@ class Go(MergeRule):
     mcontext = AppContext(title=".go")
     mapping = {
         "<command>":
-            execution.Alternating("command"),
+            Alternating("command"),
 
         BINDINGS["type_prefix"] + " <type>":
             Text("%(type)s"),

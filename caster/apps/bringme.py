@@ -87,7 +87,7 @@ class BringRule(SelfModifyingRule):
                 print("Program path for bring me not found ")
         else:
             Key("a-d/5").execute()
-            _, path = utilities.read_selected()
+            path = utilities.read_selected()
             Key("escape").execute()
         if not path:
             # logger.warn('Cannot add %s as %s to bringme: cannot get path', launch, key)

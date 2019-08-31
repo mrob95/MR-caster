@@ -16,7 +16,7 @@ class LaTeXmath(MergeRule):
         "<numbers1>": Text("%(numbers1)s"),
         "<numbers2>": Text("%(numbers2)s"),
         "<symbol>":  Function(tex_funcs.symbol),
-        "<misc_symbol>": execution.Alternating("misc_symbol"),
+        "<misc_symbol>": Alternating("misc_symbol"),
     }
 
     extras = [

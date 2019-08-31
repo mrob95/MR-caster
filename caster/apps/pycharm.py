@@ -104,9 +104,6 @@ class PycharmRule(MergeRule):
         #
         "terminal here"                  : Key("cs-t"),
 
-        "zoom in [<n2>]"                 : Key("c-equal")*Repeat("n2"),
-        "zoom out [<n2>]"                : Key("c-minus")*Repeat("n2"),
-
         "align that"                     : Key("ca-a"),
         "go to file"                     : Key("c-p"),
         "comment line"                   : Key("c-slash"),

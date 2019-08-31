@@ -18,9 +18,6 @@ class RuleNameRule(MergeRule):
 		"find"          : Key("c-f"),
 		"find next"     : Key("f3"),
 		"find previous" : Key("s-f3"),
-
-		"zoom in [<n>]" : Key("c-equals:%(n)s"),
-		"zoom out [<n>]": Key("c-minus:%(n)s"),
 	}
 	extras = [
 		Choice("nth", {

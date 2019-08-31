@@ -51,8 +51,12 @@ class CoreNon(MergeRule):
         "music previous [<n>]": Key("trackprev/5:%(n)d"),
         "music (pause|play)"  : Key("playpause"),
 
+        "zoom in [<n>]"       : Key("c-equal:%(n)s"),
+        "zoom out [<n>]"      : Key("c-minus:%(n)s"),
         #-----------------------------------------------
         # Window management
+        "switch sublime <text>":
+            Function(lambda text: Window.get_matching_windows("sublime", str(text))[0]._bring_to_top()),
 
         "window <direction> [<direction2>]":
             Key("win:down, %(direction)s/15, %(direction2)s, win:up"),
@@ -93,9 +97,9 @@ class CoreNon(MergeRule):
         #-----------------------------------------------
         # Web, misc
 
-        "<search> that":
+        "<search> search that":
             Function(lambda search: utilities.browser_search(url=search)),
-        "<search> <text>":
+        "<search> search <text>":
             Function(lambda search, text: utilities.browser_search(text, url=search)),
 
         "tiny URL that":
@@ -182,7 +186,7 @@ class Core(MergeRule):
                 (AppContext(title="emacs"), Key("a-m, i, j, down")*Repeat("n"))]),
 
     	"<misc_core_keys>": Key("%(misc_core_keys)s"),
-        "(shift click | shifty)": 
+        "(shift click | shifty)":
             Key("shift:down") + Mouse("left") + Key("shift:up"),
 
         #-----------------------------------------------
@@ -190,7 +194,7 @@ class Core(MergeRule):
         CORE["dictation_prefix"] + " <text> [brunt]":
             Function(textformat.master_format_text, capitalisation=0, spacing=0),
 
-        "(<capitalisation> <spacing> | <capitalisation> | <spacing>) (bow|bowel) <text>":
+        "(<capitalisation> <spacing> | <capitalisation> | <spacing>) (bow|bowel) <text> [brunt]":
             Function(textformat.master_format_text),
 
         #-----------------------------------------------
@@ -198,20 +202,24 @@ class Core(MergeRule):
         "stoosh [<nnavi500>]":
             ContextAction(Function(navigation.stoosh, nexus=_NEXUS),
                 [(AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]),
-                    Function(navigation.stoosh, nexus=_NEXUS, copy_key="c-insert"))]),
+                    Function(navigation.stoosh, nexus=_NEXUS, copy_key="c-insert")),
+                (AppContext(executable="windowsterminal.exe"),
+                    Function(navigation.stoosh, nexus=_NEXUS, copy_key="cs-c"))]),
         "cutter [<nnavi500>]":
             Function(navigation.stoosh, nexus=_NEXUS, copy_key="c-x"),
         "duple [<nnavi50>]":
             ContextAction(Function(navigation.duple),
                 [(AppContext(title="Sublime Text"), Key("cs-d:%(nnavi50)s")),
-                (AppContext(title="jupyter notebook"), Function(navigation.duple, esc=False)),
+                (AppContext(title="jupyter"), Function(navigation.duple, esc=False)),
                 (AppContext(title="pycharm"), Key("c-d:%(nnavi50)s")),
-                (AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]), Key(""))]),
+                (AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe", "windowsterminal"]), Key(""))]),
 
         "spark [<nnavi500>] [(<capitalisation> <spacing> | <capitalisation> | <spacing>) (bow|bowel)]":
             ContextAction(Function(navigation.drop, nexus=_NEXUS),
                 [(AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]),
-                    Function(navigation.drop, nexus=_NEXUS, paste_key="s-insert"))]),
+                    Function(navigation.drop, nexus=_NEXUS, paste_key="s-insert")),
+                (AppContext("windowsterminal.exe"),
+                    Function(navigation.drop, nexus=_NEXUS, paste_key="cs-v"))]),
 
         "hug <enclosure>":
             Function(navigation.enclose_selected),
@@ -222,7 +230,7 @@ class Core(MergeRule):
     	}
 
     extras = [
-        Modifier(Repetition(IntegerRef("", 0, 10), min=1, max=5, name="num_seq"), 
+        Modifier(Repetition(IntegerRef("", 0, 10), min=1, max=5, name="num_seq"),
             lambda r: "".join(map(str, r))),
         ShortIntegerRefNo8("nnavi10", 1, 11, 1),
         # IntegerRef("nnavi10", 1, 11),

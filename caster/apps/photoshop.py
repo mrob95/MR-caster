@@ -21,9 +21,6 @@ class PhotoshopRule(MergeRule):
         "step backwards [<n>]": Key("ca-z:%(n)s"),
         "step forwards [<n>]" : Key("cs-z:%(n)s"),
 
-        "zoom in [<n>]"       : Key("c-equals:%(n)s"),
-        "zoom out [<n>]"      : Key("c-minus:%(n)s"),
-
         "brush size down [<n>]": Key("lbracket:%(n)s"),
         "brush size up [<n>]": Key("rbracket:%(n)s"),
     }

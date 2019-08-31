@@ -51,7 +51,7 @@ class LaTeX(MergeRule):
         BINDINGS["symbol_prefix"] + " <symbol>":
             Function(tex_funcs.symbol),
         BINDINGS["symbol_prefix"] + " <misc_symbol>":
-            execution.Alternating("misc_symbol"),
+            Alternating("misc_symbol"),
         BINDINGS["accent_prefix"] + " <accent>":
             Store(same_is_okay=False) + Text("\\%(accent)s{}") + Key("left") + Retrieve(action_if_text="right"),
 

@@ -25,7 +25,7 @@ class SQL(MergeRule):
 
     mapping = {
         "<command>":
-            execution.Alternating("command"),
+            Alternating("command"),
 
         BINDINGS["logical_prefix"] + "<logical>":
             Text("%(logical)s"),

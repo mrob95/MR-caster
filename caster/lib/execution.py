@@ -14,7 +14,9 @@ class Alternating(ActionBase):
         command = data[self.command]
         if type(command) in [str, int, unicode]:
             Text(str(command)).execute()
-        elif type(command) in [list, tuple]:
+        elif type(command) in [list, tuple] and len(command) == 1:
+            (Text(command[0]) + Key("left")).execute()
+        else:
             for i in range(len(command)):
                 if i%2==0:
                     Text(command[i]).execute()

@@ -9,10 +9,11 @@
 
 [search]
 "amazon"   = "https://smile.amazon.co.uk/s?k=%s"
+"google"   = "https://www.google.com/search?q=%s"
 "kindle"   = "https://smile.amazon.co.uk/s?k=%s&rh=n%%3A341689031"
 "morrisons"= "https://groceries.morrisons.com/search?entry=%s"
+"python"   = "https://www.google.com/search?q=python+%s"
 "wikipedia"= "https://en.wikipedia.org/w/index.php?search=%s"
-"google"   = "https://www.google.com/search?q=%s"
 "youtube"  = "https://www.youtube.com/results?search_query=%s"
 
 [letters_alt]

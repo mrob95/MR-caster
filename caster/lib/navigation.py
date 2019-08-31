@@ -6,26 +6,23 @@ from dragonfly.actions.action_mouse import get_cursor_position
 import time, struct
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
 
-# https://github.com/reckoner/pyVirtualDesktopAccessor
-from ctypes import cdll, windll
-from win32gui import GetForegroundWindow
+# https://github.com/mrob95/pyVirtualDesktopAccessor
+from ctypes import cdll
+# from win32gui import GetForegroundWindow
 
 if struct.calcsize("P")*8 == 32:
-    vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor.dll"))
-    # vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor32_3.dll"))
+    vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor32.dll"))
 else:
     vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor64.dll"))
 
 def move_current_window_to_desktop(n=0,follow=False):
-    # vda = load_vda()
-    wndh = GetForegroundWindow()
+    wndh = Window.get_foreground().handle
     vda.MoveWindowToDesktopNumber(wndh, n-1)
     if follow:
         vda.GoToDesktopNumber(n-1)
 
 def move_current_window_to_new_desktop(follow=False):
-    # vda = load_vda()
-    wndh = GetForegroundWindow()
+    wndh = Window.get_foreground().handle
     current = vda.GetCurrentDesktopNumber()
     total = vda.GetDesktopCount()
     Key("wc-d").execute()
@@ -34,12 +31,13 @@ def move_current_window_to_new_desktop(follow=False):
         vda.GoToDesktopNumber(current)
 
 def go_to_desktop_number(n):
-    current = vda.GetCurrentDesktopNumber() + 1
-    if n>=1 and n != current:
-        if current>n:
-            Key("wc-left/10:" + str(current-n)).execute()
-        else:
-            Key("wc-right/10:" + str(n-current)).execute()
+    # current = vda.GetCurrentDesktopNumber() + 1
+    # if n>=1 and n != current:
+    #     if current>n:
+    #         Key("wc-left/10:" + str(current-n)).execute()
+    #     else:
+    #         Key("wc-right/10:" + str(n-current)).execute()
+    vda.GoToDesktopNumber(n-1)
 
 def close_all_workspaces():
     # vda = load_vda()
@@ -170,8 +168,8 @@ def enclose_selected(enclosure):
     Encloses selected text in the appropriate enclosures
     By using the system Clipboard as a buffer ( doesn't delete previous contents)
     '''
-    (err, selected_text) = utilities.read_selected(True)
-    if err == 0:
+    selected_text = utilities.read_selected(True)
+    if selected_text:
         opener = enclosure.split('~')[0]
         closer = enclosure.split('~')[1]
         enclosed_text = opener + selected_text + closer

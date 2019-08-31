@@ -21,8 +21,6 @@ class SumatraPDFRule(MergeRule):
 		"page <ln1>"           : Key("c-g") + Text("%(ln1)s") + Key("enter"),
 		"table of contents"  : Key("f12"),
 
-		"zoom in [<n>]"      : Key("c-equals:%(n)s"),
-		"zoom out [<n>]"     : Key("c-minus:%(n)s"),
 		"fit page"           : Key("c-0"),
 		"actual size"        : Key("c-1"),
 		"fit width"          : Key("c-2"),

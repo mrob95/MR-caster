@@ -17,7 +17,7 @@ class RlangNon(MergeRule):
         BINDINGS["template_prefix"] + " <template>":
             Function(execution.template),
 
-        BINDINGS["markdown_prefix"] + " <markdown_command>": execution.Alternating("markdown_command"),
+        BINDINGS["markdown_prefix"] + " <markdown_command>": Alternating("markdown_command"),
 
         "configure " + BINDINGS["pronunciation"]:
             Function(utilities.load_config, config_name="r.toml"),
@@ -36,7 +36,7 @@ class Rlang(MergeRule):
 
     mapping = {
         "<command>":
-            execution.Alternating("command"),
+            Alternating("command"),
 
         BINDINGS["function_prefix"] + " <function>":
             Function(lambda function: rfunc(function)),

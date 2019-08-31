@@ -11,6 +11,7 @@ decorator_prefix    = "atty"
 "(iter | hitter) items" = "iteritems"
 "append"                = "append"
 "apply"                 = "apply"
+"bites" = "bytes"
 "capitalise"            = "capitalize"
 "clear"                 = "clear"
 "callable"              = "callable"
@@ -64,8 +65,9 @@ decorator_prefix    = "atty"
 [commands]
 "args and kwargs"     = "*args, **kwargs"
 "assign"              = " = "
+"assert"              = "assert "
 "breaker"             = "break"
-"double under" = ["____", "left:2"]
+"double under"        = ["____", "left:2"]
 "for each"            = ["for  in ", "colon/3, left:5"]
 "for loop"            = ["for i in range():", "left:2"]
 "from import"         = ["from  import ", "home, right:5"]
@@ -107,7 +109,7 @@ decorator_prefix    = "atty"
 "(reper | representation)" = "repr"
 "absolute"                 = "abs"
 "ceiling"                  = "ceil"
-"call"                  = "call"
+"call"                     = "call"
 "dir"                      = "dir"
 "enter"                    = "enter"
 "floor"                    = "floor"
@@ -187,6 +189,29 @@ decorator_prefix    = "atty"
 "unbound local"      = " UnboundLocalError"
 "value"              = " ValueError"
 "zero division"      = " ZeroDivisionError"
+
+[types]
+"(inter | integer)"   = "int"
+"(dict | dictionary)" = "Dict"
+"any"                 = "Any"
+"callable"            = "Callable"
+"float"               = "float"
+"generic"             = "Generic"
+"iterator"            = "Iterator"
+"iterable"            = "Iterable"
+"list"                = "List"
+"named tuple"         = "NamedTuple"
+"new type"            = "NewType"
+"sequence"            = "Sequence"
+"string"              = "str"
+"tuple"               = "Tuple"
+"type var"            = "TypeVar"
+"union"               = "Union"
+
+[docs]
+"pie test"           = "https://docs.pytest.org/en/latest/reference.html"
+"standard [library]" = "https://docs.python.org/3/library/index.html"
+
 
 [cheatsheets]
 "numb pie"           = "numpy"

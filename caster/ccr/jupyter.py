@@ -63,7 +63,7 @@ for lib, data in PYLIBS.iteritems():
     pronunciation = data.pop("pronunciation")
     name = data.pop("name") if "name" in data else lib
     libs[pronunciation] = name + " as " + data.pop("import_as") if "import_as" in data else name
-    # e.g. "numb pie <numpy_lib>": execution.Alternating("numpy_lib")
+    # e.g. "numb pie <numpy_lib>": Alternating("numpy_lib")
     JupyterNon.mapping["%s <%s_lib>" % (pronunciation, lib)] = Alternating("%s_lib" % lib)
     JupyterNon.extras.append(Choice("%s_lib" % lib, data))
 JupyterNon.mapping["import <lib>"] = Text("import %(lib)s") + Key("enter")

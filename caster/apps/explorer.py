@@ -3,7 +3,18 @@ from caster.imports import *
 BRING = utilities.load_toml_relative("config/bringme.toml")
 CORE  = utilities.load_toml_relative("config/core.toml")
 
-current_directory = lambda: Window.get_foreground().title
+def current_directory():
+    title = Window.get_foreground().title
+    remap = {
+        "Downloads": "C:\\Users\\Mike\\Downloads",
+        "Documents": "C:\\Users\\Mike\\Documents",
+        "Pictures": "C:\\Users\\Mike\\Pictures",
+        "Mike": "C:\\Users\\Mike",
+    }
+    if title in remap.keys():
+        title = remap[title]
+    # print(title)
+    return title
 
 class WERule(MergeRule):
     pronunciation = "explorer"
@@ -30,7 +41,7 @@ class WERule(MergeRule):
         "new window"                         :
              Function(lambda: Popen(["explorer", current_directory()])),
         "sublime here"                       :
-             Function(lambda: Popen(["subl", "-n", current_directory()])),
+             Function(lambda: Popen(["subl", "-n", current_directory().replace("\\", "/")])),
     }
     extras = [
         Choice("folder", BRING["folder"]),

@@ -89,10 +89,10 @@ def read_selected(same_is_okay=False):
         temporary = Clipboard.get_system_text()
         cb.copy_to_system()
     except Exception:
-        return 2, None
+        return None
     if prior_content == temporary and not same_is_okay:
-        return 1, None
-    return 0, temporary
+        return None
+    return temporary
 
 def paste_string(content):
     cb = Clipboard(from_system=True)
@@ -134,7 +134,7 @@ def browser_open(url):
 
 def browser_search(text=None, url="https://www.google.com/search?q=%s"):
     if not text:
-        _, text = read_selected(True)
+        text = read_selected(True)
     # text = ''.join(i for i in text if ord(i)<128)
     # url = url % text.replace(" ", "+").replace("\n", "")
     url = url % quote(text)
@@ -143,12 +143,14 @@ def browser_search(text=None, url="https://www.google.com/search?q=%s"):
 def terminal(dir):
     Popen(["C:/Program Files/Git/git-bash.exe",
         "--cd=" + dir.replace("\\", "/")])
+    # Popen(["C:/Program Files/WindowsApps/Microsoft.WindowsTerminal_0.4.2382.0_x64__8wekyb3d8bbwe/WindowsTerminal.exe",
+        # "--cd=" + dir.replace("\\", "/")])
 
 def mathfly_switch():
     Popen("C:/Users/Mike/Documents/NatLink/mathfly/SwitchHere.bat")
 
 def word_count():
-    _, selection = read_selected(True)
+    selection = read_selected(True)
     words_list = selection.replace("\n", " ").split(" ")
     toast_notify("Word count", str(len(words_list)))
 
@@ -158,7 +160,7 @@ def windowinfo():
     print(wd.executable)
 
 def tinyurl():
-    _, selection = read_selected(True)
+    selection = read_selected(True)
     url = "http://tinyurl.com/api-create.php?url=" + selection
     request = Request(url)
     response = urlopen(request)
@@ -192,7 +194,7 @@ def save_clipboard_image():
 
 def chrome_save_image():
     # Key("a-d/50").execute()
-    # _, selection = read_selected(True)
+    # selection = read_selected(True)
     # Key("escape").execute()
     selection = chrome_get_url()
     img_type = selection.rsplit(".", 1)[1]

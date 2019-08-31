@@ -30,6 +30,8 @@ class PythonNon(MergeRule):
             Text("try: ") + Key("enter:2, backspace") + Text("except%(exception)s%(as)s:") + Key("up"),
         "raise [<exception>] [error]":
             Text("raise%(exception)s"),
+        "error <exception> [error]":
+            Text("%(exception)s"),
 
         "comment [<comment>]": Text("# %(comment)s"),
 
@@ -40,10 +42,11 @@ class PythonNon(MergeRule):
 
         "cheat sheet <module>":
             Function(lambda module: Popen(["SumatraPDF", "C:/Users/Mike/Documents/cheatsheets/python/%s.pdf" % module])),
-            # RunCommand("SumatraPDF C:/Users/Mike/Documents/cheatsheets/python/%(module)s.pdf"),
 
         "help <fun>":
             Function(lambda fun: utilities.browser_search(fun, url="https://docs.python.org/3/search.html?q=%s")),
+        "help <docs>":
+            Function(lambda docs: utilities.browser_open(docs)),
         "help that":
             Function(utilities.browser_search, url="https://www.google.com/search?q=python+%s"),
     }
@@ -55,8 +58,9 @@ class PythonNon(MergeRule):
         Choice("umeth",    BINDINGS["unary_methods"]),
         Choice("bmeth",    BINDINGS["binary_methods"]),
         Choice("mmeth",    BINDINGS["misc_methods"]),
-        Choice("exception",BINDINGS["exceptions"], default=""),
+        Choice("exception",BINDINGS["exceptions"], ""),
         Choice("fun",      BINDINGS["functions"]),
+        Choice("docs",     BINDINGS["docs"]),
         Choice("as",       {"as": " as "}, ""),
         Choice("right",    {"right": "r", "eye": "i"}, ""),
     ]
@@ -71,7 +75,7 @@ for lib, data in PYLIBS.iteritems():
     pronunciation = data.pop("pronunciation")
     name = data.pop("name") if "name" in data else lib
     libs[pronunciation] = name + " as " + data.pop("import_as") if "import_as" in data else name
-    # e.g. "numb pie <numpy_lib>": execution.Alternating("numpy_lib")
+    # e.g. "numb pie <numpy_lib>": Alternating("numpy_lib")
     PythonNon.mapping["%s <%s_lib>" % (pronunciation, lib)] = Alternating("%s_lib" % lib)
     PythonNon.extras.append(Choice("%s_lib" % lib, data))
 PythonNon.mapping["import <lib>"] = Text("import %(lib)s")
@@ -96,6 +100,11 @@ class Python(MergeRule):
 
         BINDINGS["method_prefix"] + " <fun>":
             Text(".%(fun)s()") + Key("left"),
+
+        "from typing import <types>": Text("from typing import %(types)s"),
+        "type <types>"        : Text("%(types)s"),
+        "type is <types>"     : Text(": %(types)s"),
+        "produces [<types>]"  : Key("end, left") + Text(" -> %(types)s"),
 
         "method": ContextAction(
             Text("def (self):") + Key("left:7"),
@@ -122,11 +131,12 @@ class Python(MergeRule):
                 textformat.master_format_text(formatting[0], formatting[1], text)),
     }
     extras = [
-        # Dictation("snaketext", "").lower().replace(" ", "_"),
-        Modifier(Dictation("snaketext", ""), 
-            lambda s: s.lower().replace(" ", "_")),
-        Modifier(Dictation("classtext", ""), 
-            lambda s: s.title().replace(" ", "")),
+        Dictation("snaketext", "").lower().replace(" ", "_"),
+        Dictation("classtext", "").title().replace(" ", ""),
+        # Modifier(Dictation("snaketext", ""),
+        #     lambda s: s.lower().replace(" ", "_")),
+        # Modifier(Dictation("classtext", ""),
+        #     lambda s: s.title().replace(" ", "")),
         Choice("under", "_", ""),
         Choice("formatting", {
             "(snaky | sneaky)": [5, 3],
@@ -134,6 +144,7 @@ class Python(MergeRule):
         }),
         Choice("fun",      BINDINGS["functions"]),
         Choice("command",  BINDINGS["commands"]),
+        Choice("types",    BINDINGS["types"], ""),
     ]
 
 control.app_rule(Python())
@@ -160,7 +171,7 @@ class CasterPythonRule(MergeRule):
         "integer ref <intn>": Text("IntegerRef("", 1, %(intn)s),") + Key("c-left:3"),
         BINDINGS["function_prefix"] + " <cfun>":
             Store(same_is_okay=False) + Text("%(cfun)s()") + Key("left") + Retrieve(action_if_text="right"),
-        "<cmisc>": execution.Alternating("cmisc"),
+        "<cmisc>": Alternating("cmisc"),
 
         "go to core [pie]": Key("c-p") + Text("core\n"),
     }

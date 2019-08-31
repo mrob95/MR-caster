@@ -20,11 +20,11 @@ class SublimeRule(MergeRule):
         "<action> by [line] <ln1>"  :
             Key("c-k, c-space, c-g") + Function(lambda ln1: Text(str(ln1+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
 
-        "<action> up <n>": 
-            Function(lambda action, n: 
+        "<action> up <n>":
+            Function(lambda action, n:
                 Key("up:%s, s-down:%s, %s" % (n-1, n, action)).execute()),
-        "<action> down [<n>]": 
-            Function(lambda action, n: 
+        "<action> down [<n>]":
+            Function(lambda action, n:
                 Key("s-down:%s, %s" % (n, action)).execute()),
 
         "new (file | tab)"               : Key("c-n"),
@@ -114,9 +114,6 @@ class SublimeRule(MergeRule):
         #
         "terminal here"                  : Key("cs-t"),
         "explorer here"                  : Key("ca-e"),
-
-        "zoom in [<n2>]"                 : Key("c-equal")*Repeat("n2"),
-        "zoom out [<n2>]"                : Key("c-minus")*Repeat("n2"),
 
         # wrap plus
         "(wrap | split) lines"           : Key("a-q"),

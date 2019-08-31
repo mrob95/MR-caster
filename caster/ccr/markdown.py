@@ -30,7 +30,7 @@ class Markdown(MergeRule):
             Key("%(element)s"),
 
         BINDINGS["insert_prefix"] + " <command>":
-            execution.Alternating("command"),
+            Alternating("command"),
 
         BINDINGS["output_prefix"] + " <output>":
             Text("%(output)s"),
@@ -39,7 +39,7 @@ class Markdown(MergeRule):
             Text("%(option)s"),
 
         "remark <remarks>":
-            execution.Alternating("remarks"),
+            Alternating("remarks"),
 
         "table row <n>":
             Function(lambda n: Text("|"*(n-1)).execute()) + Key("home"),

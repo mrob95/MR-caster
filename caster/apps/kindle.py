@@ -5,13 +5,10 @@ class KindleRule(MergeRule):
 	mcontext = AppContext(title="kindle for PC")
 
 	mapping = {
-		"library": Key("ca-l"),
-		"(show | hide) notebook": Key("c-b"),
-		"(search | find)": Key("c-f"),
+		"library"                : Key("ca-l"),
+		"(show | hide) notebook" : Key("c-b"),
+		"(search | find)"        : Key("c-f"),
 		"(synchronise | refresh)": Key("f5"),
-
-		"zoom in [<n>]" : Key("c-equals:%(n)s"),
-		"zoom out [<n>]": Key("c-minus:%(n)s"),
 	}
 
 control.non_ccr_app_rule(KindleRule())
