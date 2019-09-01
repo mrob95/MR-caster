@@ -46,7 +46,7 @@ class GitBashRule(MergeRule):
         "<command>": Alternating("command"),
 
         "git <git_command>":
-            Text("git ") + Alternating("command"),
+            Text("git ") + Alternating("git_command"),
         "git clone":
             Text("git clone ") + Function(clip_repo) + Text(" "),
         "git remote add":
