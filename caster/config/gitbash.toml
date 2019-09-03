@@ -89,6 +89,7 @@
 "remove cashed"                = "rm --cached "
 "branch set upstream [to]"     = "branch --set-upstream-to="
 "branch"                       = "branch "
+"branch remotes"               = "branch -r "
 "checkout develop"             = ["checkout develop", "enter"]
 "checkout master"              = ["checkout master", "enter"]
 "checkout upstream develop"    = ["checkout upstream/develop", "enter"]
@@ -124,6 +125,7 @@
 "remote add origin"            = "remote add origin "
 "remote prune origin"          = "remote prune origin "
 "remote prune origin dry run"  = "remote prune origin --dry-run"
+"remote set url"               = "remote set-url "
 "remote rename"                = "remote rename "
 "remove branch"                = "branch -d "
 "reset"                        = "reset"
@@ -132,5 +134,9 @@
 "stash list"                   = "stash list"
 "stash"                        = "stash"
 "(stash pop | retrieve)"       = "stash pop"
-"unstage"                      = "reset -- "
+"subversion clone"             = "svn clone "
+"subversion fetch"             = "svn fetch "
+"subversion rebase"            = "svn rebase "
 "status"                       = ["status", "enter"]
+"tag"                          = "tag "
+"unstage"                      = "reset -- "

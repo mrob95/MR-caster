@@ -105,7 +105,7 @@ class CoreNon(MergeRule):
         "tiny URL that":
             Function(utilities.tinyurl),
 
-        "get word count": ContextAction(Function(utilities.word_count),
+        "show word count": ContextAction(Function(utilities.word_count),
             [(AppContext(".tex"), Function(tex_funcs.word_count_from_string))]),
 
         "add <ref_type> to bibliography":
