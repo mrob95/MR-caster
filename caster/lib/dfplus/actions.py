@@ -19,7 +19,8 @@ class SlowText(TextBase):
 class SlowKey(KeyBase):
     interval_default = 1.0
 
-from caster.lib import utilities, control, navigation
+from caster.lib import utilities, control
+
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
 # Override imported dragonfly actions with aenea's if the 'use_aenea' setting
 # is set to true.

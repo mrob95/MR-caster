@@ -77,19 +77,19 @@ class CoreNon(MergeRule):
         "(previous | prior) work [space] [<n>]": Key("wc-left")*Repeat("n"),
 
         "go work [space] <n>":
-            Function(lambda n: navigation.go_to_desktop_number(n)),
+            Function(lambda n: workspace.go_to_n(n)),
         "send work [space] <n>":
-            Function(lambda n: navigation.move_current_window_to_desktop(n)),
+            Function(lambda n: workspace.move_current_to_n(n)),
         "move work [space] <n>":
-            Function(lambda n: navigation.move_current_window_to_desktop(n, True)),
+            Function(lambda n: workspace.move_current_to_n(n, True)),
         "move everything to work [space] <n>":
-            Function(navigation.move_desktop_to),
+            Function(workspace.move_desktop_to),
         "send work [space] new":
-            Function(navigation.move_current_window_to_new_desktop, follow=False),
+            Function(workspace.move_current_to_new, follow=False),
         "move work [space] new":
-            Function(navigation.move_current_window_to_new_desktop, follow=True),
+            Function(workspace.move_current_to_new, follow=True),
         "close all work [spaces]":
-            Function(navigation.close_all_workspaces),
+            Function(workspace.close_all),
 
         "show window information":
             Function(utilities.windowinfo),

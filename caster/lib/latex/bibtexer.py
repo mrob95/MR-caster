@@ -1,5 +1,5 @@
 from caster.lib.dfplus.actions import Key, Text
-from caster.lib.clipboard import Clipboard
+from caster.lib.dfplus.clipboard import Clipboard
 from urllib2 import Request, urlopen, quote
 from bs4 import BeautifulSoup
 

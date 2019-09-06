@@ -128,23 +128,17 @@ def kill_notepad():
     Popen(get_full_path("lib/bin/notepad_kill.bat"))
 
 def browser_open(url):
-    # browser = SETTINGS["browser_path"]
-    # Popen([browser, url])
     webbrowser.open_new_tab(url)
 
 def browser_search(text=None, url="https://www.google.com/search?q=%s"):
     if not text:
         text = read_selected(True)
-    # text = ''.join(i for i in text if ord(i)<128)
-    # url = url % text.replace(" ", "+").replace("\n", "")
     url = url % quote(text)
     browser_open(url)
 
 def terminal(dir):
     Popen(["C:/Program Files/Git/git-bash.exe",
         "--cd=" + dir.replace("\\", "/")])
-    # Popen(["C:/Program Files/WindowsApps/Microsoft.WindowsTerminal_0.4.2382.0_x64__8wekyb3d8bbwe/WindowsTerminal.exe",
-        # "--cd=" + dir.replace("\\", "/")])
 
 def mathfly_switch():
     Popen("C:/Users/Mike/Documents/NatLink/mathfly/SwitchHere.bat")
@@ -193,9 +187,6 @@ def save_clipboard_image():
         print("Clipboard does not contain an image")
 
 def chrome_save_image():
-    # Key("a-d/50").execute()
-    # selection = read_selected(True)
-    # Key("escape").execute()
     selection = chrome_get_url()
     img_type = selection.rsplit(".", 1)[1]
     if img_type in ["jpeg", "jpg", "png"]:

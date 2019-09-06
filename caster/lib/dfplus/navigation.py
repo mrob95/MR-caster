@@ -1,55 +1,11 @@
 from dragonfly import Window
-from caster.lib import control, utilities, textformat
+from caster.lib import control, utilities
+from caster.lib.dfplus import textformat
 from caster.lib.dfplus.actions import Key, Text, Mouse
-from caster.lib.clipboard import Clipboard
+from caster.lib.dfplus.clipboard import Clipboard
 from dragonfly.actions.action_mouse import get_cursor_position
 import time, struct
 SETTINGS = utilities.load_toml_relative("config/settings.toml")
-
-# https://github.com/mrob95/pyVirtualDesktopAccessor
-from ctypes import cdll
-# from win32gui import GetForegroundWindow
-
-if struct.calcsize("P")*8 == 32:
-    vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor32.dll"))
-else:
-    vda = cdll.LoadLibrary(utilities.get_full_path("lib/bin/VirtualDesktopAccessor64.dll"))
-
-def move_current_window_to_desktop(n=0,follow=False):
-    wndh = Window.get_foreground().handle
-    vda.MoveWindowToDesktopNumber(wndh, n-1)
-    if follow:
-        vda.GoToDesktopNumber(n-1)
-
-def move_current_window_to_new_desktop(follow=False):
-    wndh = Window.get_foreground().handle
-    current = vda.GetCurrentDesktopNumber()
-    total = vda.GetDesktopCount()
-    Key("wc-d").execute()
-    vda.MoveWindowToDesktopNumber(wndh, total)
-    if not follow:
-        vda.GoToDesktopNumber(current)
-
-def go_to_desktop_number(n):
-    # current = vda.GetCurrentDesktopNumber() + 1
-    # if n>=1 and n != current:
-    #     if current>n:
-    #         Key("wc-left/10:" + str(current-n)).execute()
-    #     else:
-    #         Key("wc-right/10:" + str(n-current)).execute()
-    vda.GoToDesktopNumber(n-1)
-
-def close_all_workspaces():
-    # vda = load_vda()
-    total = vda.GetDesktopCount()
-    go_to_desktop_number(total)
-    Key("wc-f4/10:" + str(total-1)).execute()
-
-def move_desktop_to(n):
-    for window in Window.get_all_windows():
-        if vda.IsWindowOnCurrentVirtualDesktop(window.handle):
-            vda.MoveWindowToDesktopNumber(window.handle, n-1)
-
 
 def initialize_clipboard(nexus):
     if len(nexus.clip) == 0:

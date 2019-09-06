@@ -53,7 +53,7 @@ class VSCodeRule(MergeRule):
         "replace"                        : Key("c-h"),
         #
 
-        "go to <text> [<filetype>]"      : Key("c-p") + Text("%(text)s" + "%(filetype)s") + Key("enter"),
+        "go to <text> [<filetype>]"      : Key("c-p") + Text("%(text)s" + "%(filetype)s") + Pause("10") + Key("enter"),
         "go to word"                     : Key("c-semicolon"),
         "go to symbol"                   : Key("c-r"),
         "go to [symbol in] project"      : Key("cs-r"),

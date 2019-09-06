@@ -1,7 +1,7 @@
 from dragonfly import Function
 from caster.lib import control, utilities
 from caster.lib.dfplus.actions import Key, Text, Store, Retrieve
-from caster.lib.clipboard import Clipboard
+from caster.lib.dfplus.clipboard import Clipboard
 from caster.lib.latex import bibtexer, book_citation_generator, word_counter
 import codecs
 import sys, threading
