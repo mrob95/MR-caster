@@ -1,7 +1,7 @@
 import logging
 logging.basicConfig()
 
-from dragonfly import (Function, Grammar, Choice)
+from dragonfly import Function, Grammar, Choice, get_engine
 
 from caster.lib import control, utilities
 from caster.lib.merge.mergerule import MergeRule
@@ -37,7 +37,9 @@ main_rule = MainRule()
 grammar.add_rule(main_rule)
 grammar.load()
 
-from caster.lib.dfplus import modes
+if get_engine() == "natlink":
+    from caster.lib.dfplus import modes
+
 # def changeCallback(cbType, args):
 #     print(cbType) # 'mic' or 'user'
 #     print(args) # 'off',   'on', 'disabled' and 'sleeping'.
