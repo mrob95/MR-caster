@@ -133,10 +133,6 @@ class Python(MergeRule):
     extras = [
         Dictation("snaketext", "").lower().replace(" ", "_"),
         Dictation("classtext", "").title().replace(" ", ""),
-        # Modifier(Dictation("snaketext", ""),
-        #     lambda s: s.lower().replace(" ", "_")),
-        # Modifier(Dictation("classtext", ""),
-        #     lambda s: s.title().replace(" ", "")),
         Choice("under", "_", ""),
         Choice("formatting", {
             "(snaky | sneaky)": [5, 3],
