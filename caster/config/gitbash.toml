@@ -12,6 +12,7 @@
 "dot PNG"                = ".png"
 "dot pie"                = ".py"
 "dot tex"                = ".tex"
+"echo" = "echo "
 "(LS | list)"            = "ls "
 "line count"             = "wc -l "
 "make directory"         = "mkdir "

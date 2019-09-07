@@ -72,11 +72,6 @@ def read_text_relative(path):
         return f.read()
 
 def read_selected(same_is_okay=False):
-    '''Returns a tuple:
-    (0, "text from system") - indicates success
-    (1, None) - indicates no change
-    (2, None) - indicates clipboard error
-    '''
     time.sleep(SETTINGS["keypress_wait"])
     cb = Clipboard(from_system=True)
     temporary = None

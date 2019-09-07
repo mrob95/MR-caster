@@ -29,7 +29,7 @@ def symbol(symbol):
         Key("left:" + str(2*int(symbol[1])-1)).execute()
 
 def quote():
-    e, text = utilities.read_selected(False)
+    text = utilities.read_selected(False)
     if text:
         Text("``" + text + "\'\'").execute()
     else:
@@ -49,7 +49,7 @@ def packages(packopts):
         back_curl("usepackage" + packopts[0], packopts[1])
 
 def begin_end(environment):
-    e, text = utilities.read_selected(False)
+    text = utilities.read_selected(False)
     if type(environment) in [str, unicode]:
         env, arg = environment, ""
     elif type(environment) in [tuple, list]:
@@ -83,7 +83,7 @@ def selection_to_bib(ref_type, bib_path):
 
 
 def word_count_from_string():
-    _, raw = utilities.read_selected(True)
+    raw = utilities.read_selected(True)
     raw_line_list = raw.split("\n")
     sentence_list = word_counter.extract_sentences(raw_line_list)
     words_list = word_counter.extract_words(sentence_list)
