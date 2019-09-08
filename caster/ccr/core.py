@@ -210,6 +210,7 @@ class Core(MergeRule):
         "duple [<nnavi50>]":
             ContextAction(Function(navigation.duple),
                 [(AppContext(title="Sublime Text"), Key("cs-d:%(nnavi50)s")),
+                [(AppContext(title="visual studio code"), Key("sa-down")),
                 (AppContext(title="jupyter"), Function(navigation.duple, esc=False)),
                 (AppContext(title="pycharm"), Key("c-d:%(nnavi50)s")),
                 (AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe", "windowsterminal"]), Key(""))]),

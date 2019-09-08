@@ -1,5 +1,11 @@
 from caster.imports import *
 
+def Wait():
+    return Pause("50")
+
+def Pallette(command):
+    return Key("cs-p") + Wait() + Text(command) + Key("enter")
+
 class VSCodeRule(MergeRule):
     pronunciation = "VSCode"
     mcontext = AppContext(title="Visual Studio Code")
@@ -20,24 +26,21 @@ class VSCodeRule(MergeRule):
             Key("c-k, c-space, c-g") + Function(lambda ln1: Text(str(ln1+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
 
         "new (file | tab)"               : Key("c-n"),
-        # {"keys"                        : ["ctrl+alt+n"], "command": "new_window"},
         "new window"                     : Key("cs-n"),
         "open file"                      : Key("c-o"),
-        # {"keys"                        : ["ctrl+shift+o"], "command": "prompt_add_folder"},
         "open folder"                    : Key("c-k, c-o"),
+        "open recent"                    : Key("c-r"),
         "save as"                        : Key("cs-s"),
         "save all"                        : Key("c-k, s"),
-        "revert (file | [unsaved] changes)": Key("f10, f, up:3, enter"),
+        "revert (file | changes)": Pallette("revert file"),
 
         #
         "outdent lines"                  : Key("c-lbracket"),
         "join lines [<n3>]"              : Key("c-j")*Repeat("n3"),
         "match bracket"                  : Key("c-m"),
         #
-        # "(select | sell) all"          : Key("c-a"),
         "(select | sell) brackets [<n2>]": Key("cs-m")*Repeat("n2"),
         "(select | sell) indent"         : Key("cs-j"),
-        # {"keys"                        : ["ctrl+alt+p"], "command": "expand_selection_to_paragraph"},
         "(select | sell) paragraph"      : Key("ca-p"),
         # SelectUntil
         "(select | sell) until"          : Key("as-s"),
@@ -53,14 +56,14 @@ class VSCodeRule(MergeRule):
         "replace"                        : Key("c-h"),
         #
 
-        "go to <text> [<filetype>]"      : Key("c-p") + Text("%(text)s" + "%(filetype)s") + Pause("10") + Key("enter"),
+        "go to <text> [<filetype>]"      : Key("c-p") + Text("%(text)s" + "%(filetype)s") + Wait() + Key("enter"),
         "go to word"                     : Key("c-semicolon"),
         "go to symbol"                   : Key("c-r"),
         "go to [symbol in] project"      : Key("cs-r"),
 
         "command pallette [<text>]"      : Key("cs-p") + Text("%(text)s"),
         "search in directory"            : Key("cs-f"),
-        "go to that"                     : Store() + Key("cs-r") + Retrieve() + Key("enter"),
+        "go to that"                     : Key("f12"),
         "search [for] that"              : Store() + Key("cs-f") + Retrieve() + Key("enter"),
         "find that"                      : Store() + Key("c-f") + Retrieve() + Key("enter"),
         #
@@ -70,20 +73,16 @@ class VSCodeRule(MergeRule):
         "fold [level] <n2>"              : Key("c-k, c-%(n2)s"),
         #
         "full screen"                    : Key("f11"),
-        "(set | add) bookmark"           : Key("c-f2"),
-        "next bookmark"                  : Key("f2"),
-        "previous bookmark"              : Key("s-f2"),
-        "clear bookmarks"                : Key("cs-f2"),
         #
         "build it"                       : Key("c-b"),
         "build with"                     : Key("cs-b"),
-        # "cancel build"                 : Key("c-break")),
         #
-        "record macro"                   : Key("c-q"),
-        "play macro [<n3>]"              : Key("cs-q")*Repeat("n3"),
+        # "record macro"                   : Key("c-q"),
+        # "play macro [<n3>]"              : Key("cs-q")*Repeat("n3"),
         "(new | create) snippet"         : Key("a-n"),
         #
         "close tab"                      : Key("c-w"),
+        "close all tabs"                 : Key("c-k, c-w"),
         "next tab"                       : Key("c-pgdown"),
         "previous tab"                   : Key("c-pgup"),
         "<nth> tab"                      : Key("a-%(nth)s"),
@@ -96,7 +95,8 @@ class VSCodeRule(MergeRule):
         "duplicate (tab | file)"         : Key("ca-v"),
         "split right"                    : Key("as-2, c-1, cs-2"),
         #
-        "terminal here"                  : Key("cs-t"),
+        "terminal here"                  : Key("cs-c"),
+        "open settings": Key("c-comma"),
 
         # wrap plus
         "(wrap | split) lines"           : Key("a-q"),

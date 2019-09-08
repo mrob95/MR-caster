@@ -5,7 +5,7 @@ class ModeManager():
     def __init__(self):
         self.mode = "normal"
         self.frequency = 5
-        self.command_titles = ["sublime", "jupyter", "rstudio", "mingw64", "lyx", "scientific notebook"]
+        self.command_titles = ["sublime", "jupyter", "rstudio", "mingw64", "lyx", "scientific notebook", "visual studio code"]
         self.command_contexts = AppContext(title=self.command_titles)
         self.timer = get_engine().create_timer(self.check_context, self.frequency)
 
