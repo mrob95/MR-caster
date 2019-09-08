@@ -15,8 +15,8 @@ class VSCodeRule(MergeRule):
 
         "edit lines"                     : Key("sa-i"),
         "sort lines"                     : Key("f9"),
-        "edit next [<n3>]"               : Key("c-d")*Repeat("n3"),
-        "skip next [<n3>]"               : Key("c-k, c-d")*Repeat("n3"),
+        "edit next [<n>]"               : Key("c-d")*Repeat("n"),
+        "skip next [<n>]"               : Key("c-k, c-d")*Repeat("n"),
         "edit all"                       : Key("cs-l"),
 
         "<action> [line] <ln1> [by <ln2>]"  :
@@ -31,35 +31,25 @@ class VSCodeRule(MergeRule):
         "open folder"                    : Key("c-k, c-o"),
         "open recent"                    : Key("c-r"),
         "save as"                        : Key("cs-s"),
-        "save all"                        : Key("c-k, s"),
+        "save all"                       : Key("c-k, s"),
         "revert (file | changes)": Pallette("revert file"),
-
-        #
-        "outdent lines"                  : Key("c-lbracket"),
-        "join lines [<n3>]"              : Key("c-j")*Repeat("n3"),
-        "match bracket"                  : Key("c-m"),
-        #
-        "(select | sell) brackets [<n2>]": Key("cs-m")*Repeat("n2"),
-        "(select | sell) indent"         : Key("cs-j"),
-        "(select | sell) paragraph"      : Key("ca-p"),
-        # SelectUntil
-        "(select | sell) until"          : Key("as-s"),
-
-        "toggle side bar"                : Key("c-b"),
-
+        "close tab"                      : Key("c-w"),
+        "close all tabs"                 : Key("c-k, c-w"),
+        "next tab"                       : Key("c-pgdown"),
+        "previous tab"                   : Key("c-pgup"),
+        "<nth> tab"                      : Key("a-%(nth)s"),
         #
         "find"                           : Key("c-f"),
-        "find <text>"                    : Key("c-f") + Text("%(text)s") + Key("escape"),
-        "find next [<n2>]"               : Key("f3")*Repeat("n2"),
-        "find previous [<n2>]"           : Key("s-f3")*Repeat("n2"),
+        "find <text>"                    : Key("c-f") + Wait() + Text("%(text)s") + Key("escape"),
+        "find next [<n>]"               : Key("f3")*Repeat("n"),
+        "find previous [<n>]"           : Key("s-enter")*Repeat("n"),
         "find all"                       : Key("a-enter"),
         "replace"                        : Key("c-h"),
         #
-
         "go to <text> [<filetype>]"      : Key("c-p") + Text("%(text)s" + "%(filetype)s") + Wait() + Key("enter"),
         "go to word"                     : Key("c-semicolon"),
-        "go to symbol"                   : Key("c-r"),
-        "go to [symbol in] project"      : Key("cs-r"),
+        "go to symbol"                   : Key("cs-o"),
+        "go to [symbol in] project"      : Key("c-t"),
 
         "command pallette [<text>]"      : Key("cs-p") + Text("%(text)s"),
         "search in directory"            : Key("cs-f"),
@@ -73,45 +63,29 @@ class VSCodeRule(MergeRule):
         "fold [level] <n2>"              : Key("c-k, c-%(n2)s"),
         #
         "full screen"                    : Key("f11"),
+        "toggle side bar"                : Key("c-b"),
         #
         "build it"                       : Key("c-b"),
         "build with"                     : Key("cs-b"),
         #
         # "record macro"                   : Key("c-q"),
-        # "play macro [<n3>]"              : Key("cs-q")*Repeat("n3"),
-        "(new | create) snippet"         : Key("a-n"),
-        #
-        "close tab"                      : Key("c-w"),
-        "close all tabs"                 : Key("c-k, c-w"),
-        "next tab"                       : Key("c-pgdown"),
-        "previous tab"                   : Key("c-pgup"),
-        "<nth> tab"                      : Key("a-%(nth)s"),
+        # "play macro [<n>]"              : Key("cs-q")*Repeat("n"),
+        "transform upper": Pallette("uppercase"),
+        "transform lower": Pallette("lowercase"),
+        "transform title": Pallette("titlecase"),
         #
         "column <cols>"                  : Key("as-%(cols)s"),
         "focus <panel>"                  : Key("c-%(panel)s"),
         "move <panel>"                   : Key("cs-%(panel)s"),
-
-        # {"keys"                        : ["ctrl+alt+v"], "command": "clone_file"}
-        "duplicate (tab | file)"         : Key("ca-v"),
-        "split right"                    : Key("as-2, c-1, cs-2"),
+        "split right"                    : Key("c-backslash"),
         #
         "terminal here"                  : Key("cs-c"),
         "open settings": Key("c-comma"),
-
-        # wrap plus
-        "(wrap | split) lines"           : Key("a-q"),
-
-        "paste from history": Key("c-k, c-v"),
-
-        "format table": Key("cas-t"),
-
-        "configure alignment": Key("f10, p, right, p, right, down, enter"),
     }
     extras = [
         ShortIntegerRef("ln1", 1, 1000),
         ShortIntegerRef("ln2", 1, 1000, 0),
         IntegerRef("n2", 1, 9, 1),
-        IntegerRef("n3", 1, 21, 1),
         Choice("action", {
             "select": "",
             "copy": "c-c",
@@ -148,16 +122,12 @@ class VSCodeCCRRule(MergeRule):
     mwith = ["Core"]
     mcontext = AppContext(title="Visual Studio Code")
     mapping = {
-        "line <ln1>"       : Key("c-g") + Text("%(ln1)s") + Key("enter"),
+        "line <ln1>"       : Key("c-g") + Wait() + Text("%(ln1)s") + Key("enter"),
 
-        "align that"     : Key("ca-a"),
+        "shunt [<n>]": Key("s-down:%(n)s"),
+
         "go to file"     : Key("c-p"),
         "comment line"   : Key("c-slash"),
-
-        "transform upper": Key("c-k, c-u"),
-        "transform lower": Key("c-k, c-l"),
-        # {"keys"        : ["ctrl+k", "ctrl+t"], "command": "title_case"},
-        "transform title": Key("c-k, c-t"),
 
         "(select | sell) scope [<n2>]"   : Key("cs-space")*Repeat("n2"),
         "copy scope"   : Key("cs-space, c-c"),
@@ -166,7 +136,6 @@ class VSCodeCCRRule(MergeRule):
         "indent [<n2>]": Key("c-rbracket:%(n2)s"),
 
         "auto complete": Key("c-space"),
-
     }
     extras = [
         ShortIntegerRef("ln1", 1, 1000),

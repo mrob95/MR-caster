@@ -174,9 +174,9 @@ class Core(MergeRule):
 
     	"<key> [<n>]": Key("%(key)s")*Repeat("n"),
 
-        "tabby [<tabdir>] [<nnavi10>]":
-            Key("%(tabdir)s" + "tab")*Repeat("nnavi10"),
-        "splat [<splatdir>] [(<nnavi10> | <extreme>)]":
+        "tabby [<tabdir>] [<n>]":
+            Key("%(tabdir)s" + "tab")*Repeat("n"),
+        "splat [<splatdir>] [(<n> | <extreme>)]":
             ContextAction(Function(navigation.splat),
                 [(AppContext("notepad"),
                     Function(navigation.splat, manual=True))]),
@@ -207,12 +207,12 @@ class Core(MergeRule):
                     Function(navigation.stoosh, nexus=_NEXUS, copy_key="cs-c"))]),
         "cutter [<nnavi500>]":
             Function(navigation.stoosh, nexus=_NEXUS, copy_key="c-x"),
-        "duple [<nnavi50>]":
+        "duple [<n>]":
             ContextAction(Function(navigation.duple),
-                [(AppContext(title="Sublime Text"), Key("cs-d:%(nnavi50)s")),
-                [(AppContext(title="visual studio code"), Key("sa-down")),
+                [(AppContext(title="Sublime Text"), Key("cs-d:%(n)s")),
+                (AppContext(title="visual studio code"), Key("sa-down")),
                 (AppContext(title="jupyter"), Function(navigation.duple, esc=False)),
-                (AppContext(title="pycharm"), Key("c-d:%(nnavi50)s")),
+                (AppContext(title="pycharm"), Key("c-d:%(n)s")),
                 (AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe", "windowsterminal"]), Key(""))]),
 
         "spark [<nnavi500>] [(<capitalisation> <spacing> | <capitalisation> | <spacing>) (bow|bowel)]":
@@ -233,9 +233,6 @@ class Core(MergeRule):
     extras = [
         Modifier(Repetition(IntegerRef("", 0, 10), min=1, max=5, name="num_seq"),
             lambda r: "".join(map(str, r))),
-        ShortIntegerRefNo8("nnavi10", 1, 11, 1),
-        # IntegerRef("nnavi10", 1, 11),
-        IntegerRef("nnavi50", 1, 20, 1),
         IntegerRef("nnavi500", 1, 500, 1),
         Boolean("big",        CORE["capitals_prefix"]),
         Boolean("extreme",    CORE["extreme"]),
