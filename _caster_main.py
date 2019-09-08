@@ -37,7 +37,7 @@ main_rule = MainRule()
 grammar.add_rule(main_rule)
 grammar.load()
 
-if get_engine() == "natlink":
+if get_engine()._name == "natlink":
     from caster.lib.dfplus import modes
 
 # def changeCallback(cbType, args):

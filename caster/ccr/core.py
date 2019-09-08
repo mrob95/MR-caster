@@ -169,7 +169,7 @@ class Core(MergeRule):
 
         #-----------------------------------------------
         # Keys
-        "(<direction> | <modifier> [<direction>]) [(<nnavi50> | <extreme>)]":
+        "(<direction> | <modifier> [<direction>]) [(<n> | <extreme>)]":
             Function(navigation.text_nav),
 
     	"<key> [<n>]": Key("%(key)s")*Repeat("n"),

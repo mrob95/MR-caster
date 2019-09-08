@@ -54,30 +54,30 @@ def drop(nnavi500, nexus, capitalisation, spacing, paste_key="c-v"):
         # Restore the clipboard contents.
         cb.copy_to_system()
 
-def duple(nnavi50, esc=True):
+def duple(n, esc=True):
     cb = Clipboard(from_system=True)
     if esc: Key("escape").execute()
     Key("home, s-end, c-c, end").execute()
     time.sleep(SETTINGS["keypress_wait"])
-    for _ in range(nnavi50):
+    for _ in range(n):
         Key("enter, c-v").execute()
         time.sleep(SETTINGS["keypress_wait"])
     cb.copy_to_system()
 
-def splat(splatdir, nnavi10, extreme, manual=False):
+def splat(splatdir, n, extreme, manual=False):
     if extreme and splatdir == "left":
         key = "s-home, delete"
     elif extreme and splatdir == "right":
         key = "s-end, delete"
     elif manual:
-        key = "cs-%s:%s, delete" % (splatdir, nnavi10)
+        key = "cs-%s:%s, delete" % (splatdir, n)
     elif splatdir == "left":
-        key = "c-backspace:%s" % nnavi10
+        key = "c-backspace:%s" % n
     elif splatdir == "right":
-        key = "c-delete:%s" % nnavi10
+        key = "c-delete:%s" % n
     Key(key).execute()
 
-def text_nav(modifier, direction, nnavi50, extreme):
+def text_nav(modifier, direction, n, extreme):
     k = ""
     if extreme:
         if direction in ["left", "up"]:
@@ -87,7 +87,7 @@ def text_nav(modifier, direction, nnavi50, extreme):
         if direction in ["up", "down"]:
             k = "c-" + k
     else:
-        k = str(direction) + ":" + str(nnavi50)
+        k = str(direction) + ":" + str(n)
     if modifier:
         if "c-" in k:
             k = str(modifier).replace("c", "") + k

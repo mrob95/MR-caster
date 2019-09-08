@@ -1,7 +1,7 @@
 from caster.imports import *
 
 def Wait():
-    return Pause("50")
+    return Pause("15")
 
 def Pallette(command):
     return Key("cs-p") + Wait() + Text(command) + Key("enter")
@@ -64,6 +64,9 @@ class VSCodeRule(MergeRule):
         #
         "full screen"                    : Key("f11"),
         "toggle side bar"                : Key("c-b"),
+        "toggle problems"                : Key("cs-m"),
+        "toggle extensions"              : Key("cs-x"),
+        "open settings"                  : Key("c-comma"),
         #
         "build it"                       : Key("c-b"),
         "build with"                     : Key("cs-b"),
@@ -80,7 +83,7 @@ class VSCodeRule(MergeRule):
         "split right"                    : Key("c-backslash"),
         #
         "terminal here"                  : Key("cs-c"),
-        "open settings": Key("c-comma"),
+        "explorer here"                  : Key("sa-r"),
     }
     extras = [
         ShortIntegerRef("ln1", 1, 1000),
@@ -135,7 +138,7 @@ class VSCodeCCRRule(MergeRule):
 
         "indent [<n2>]": Key("c-rbracket:%(n2)s"),
 
-        "auto complete": Key("c-space"),
+        "[auto] complete": Key("c-space"),
     }
     extras = [
         ShortIntegerRef("ln1", 1, 1000),

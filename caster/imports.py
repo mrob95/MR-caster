@@ -3,7 +3,6 @@ from dragonfly.actions.action_mouse import get_cursor_position
 
 from caster.lib.dfplus.actions import Key, Text, SlowKey, SlowText, Mouse
 from caster.lib.dfplus.actions import Store, Retrieve
-from caster.lib.dfplus.elements import Dictation, Choice, Boolean
 from caster.lib.dfplus.elements import Dictation, Choice, Boolean, Modifier
 from caster.lib.dfplus.context import AppContext, ChromeURLContext
 from caster.lib.dfplus.integers import ShortIntegerRef, ShortIntegerRefNo8, IntegerRef, IntegerRefMF, TestInteger
