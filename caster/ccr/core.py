@@ -18,7 +18,7 @@ class CoreNon(MergeRule):
         "copy mouse position":
             Function(lambda: Clipboard.set_system_text("[%d, %d]" % get_cursor_position())),
         "squat"              : Mouse("left:down"),
-        "bench"              : ContextAction(Mouse("left:up"), [(AppContext("snippingtool.exe"), Mouse("left:up/100") + Function(utilities.save_clipboard_image))]),
+        "bench"              : ContextAction(Mouse("left:up"), [(AppContext("ShellExperienceHost.exe"), Mouse("left:up/100") + Function(utilities.save_clipboard_image))]),
         "kick"               : Mouse("left"),
         "shift right click"  : Key("shift:down") + Mouse("right") + Key("shift:up"),
         "colic"              : Key("control:down") + Mouse("left") + Key("control:up"),

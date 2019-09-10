@@ -6,7 +6,7 @@ class ModeManager():
         self.mode = "normal"
         self.frequency = 5
         self.command_titles = ["sublime", "jupyter", "rstudio", "mingw64", "lyx", "scientific notebook"]
-        self.command_executables = ["code.exe"]
+        self.command_executables = ["code.exe", "kindle.exe"]
         self.command_contexts = AppContext(title=self.command_titles) | AppContext(self.command_executables)
         self.timer = get_engine().create_timer(self.check_context, self.frequency)
 

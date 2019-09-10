@@ -56,6 +56,8 @@ class VSCodeRule(MergeRule):
         "go to that"                     : Key("f12"),
         "search [for] that"              : Store() + Key("cs-f") + Retrieve() + Key("enter"),
         "find that"                      : Store() + Key("c-f") + Retrieve() + Key("enter"),
+        "rename symbol": Key("f2"),
+        "peek (definition | that)": Key("a-f12"),
         #
         "fold"                           : Key("cs-lbracket"),
         "unfold"                         : Key("cs-rbracket"),
@@ -64,9 +66,10 @@ class VSCodeRule(MergeRule):
         #
         "full screen"                    : Key("f11"),
         "toggle side bar"                : Key("c-b"),
-        "toggle problems"                : Key("cs-m"),
-        "toggle extensions"              : Key("cs-x"),
+        "(toggle | show) problems"       : Key("cs-m"),
+        "(toggle | show) extensions"     : Key("cs-x"),
         "open settings"                  : Key("c-comma"),
+        "open keyboard shortcuts"        : Key("c-k, c-s"),
         #
         "build it"                       : Key("c-b"),
         "build with"                     : Key("cs-b"),
@@ -78,8 +81,8 @@ class VSCodeRule(MergeRule):
         "transform title": Pallette("titlecase"),
         #
         "column <cols>"                  : Key("as-%(cols)s"),
-        "focus <panel>"                  : Key("c-%(panel)s"),
-        "move <panel>"                   : Key("cs-%(panel)s"),
+        "focus <panel>"                  : Key("c-k, c-%(panel)s"),
+        "move <panel>"                   : Key("c-k, cs-%(panel)s"),
         "split right"                    : Key("c-backslash"),
         #
         "terminal here"                  : Key("cs-c"),
@@ -89,13 +92,7 @@ class VSCodeRule(MergeRule):
         ShortIntegerRef("ln1", 1, 1000),
         ShortIntegerRef("ln2", 1, 1000, 0),
         IntegerRef("n2", 1, 9, 1),
-        Choice("action", {
-            "select": "",
-            "copy": "c-c",
-            "cut": "c-x",
-            "(delete | remove)": "backspace",
-            "replace": "c-v",
-            }),
+        Choice("action", navigation.actions),
         Choice("nth", {
             "first"  : "1",
             "second" : "2",
@@ -105,16 +102,26 @@ class VSCodeRule(MergeRule):
             "sixth"  : "6",
             "seventh": "7",
             "eighth" : "8",
-            "ninth"  : "9",
+            "last"   : "9",
             }),
-        Choice("cols", {"one": "1", "two": "2", "three": "3", "grid": "5",}),
-        Choice("panel", {"one": "1", "left": "1", "two": "2", "right": "2", }),
+        Choice("cols", {
+            "one": "1",
+            "two": "2",
+            "three": "3",
+            "grid": "5",
+         }),
+        Choice("panel", {
+            "up": "up",
+            "down": "down",
+            "left": "left",
+            "right": "right",
+        }),
         Choice("filetype", {
             "pie | python": "py",
             "mark [down]": "md",
             "tech": "tex",
             "tommel": "toml",
-            }, ""),
+        }, ""),
     ]
 
 control.non_ccr_app_rule(VSCodeRule())
