@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from bs4 import BeautifulSoup
+try:
+    from bs4 import BeautifulSoup
+except:
+    pass
 from urllib2 import Request, urlopen, quote
 from caster.lib.dfplus.actions import Key, Text
 from caster.lib.dfplus.clipboard import Clipboard

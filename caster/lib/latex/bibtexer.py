@@ -1,7 +1,10 @@
 from caster.lib.dfplus.actions import Key, Text
 from caster.lib.dfplus.clipboard import Clipboard
 from urllib2 import Request, urlopen, quote
-from bs4 import BeautifulSoup
+try:
+    from bs4 import BeautifulSoup
+except:
+    pass
 
 import re
 import os
