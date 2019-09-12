@@ -6,7 +6,6 @@ from caster.lib.latex import bibtexer, book_citation_generator, word_counter
 import codecs
 import sys, threading
 _NEXUS = control.nexus()
-from win10toast import ToastNotifier
 
 
 # Execute \first{second}, if second is empty then end inside the brackets for user input

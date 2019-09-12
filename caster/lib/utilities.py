@@ -5,7 +5,7 @@ from PIL import ImageGrab
 from subprocess import Popen
 from dragonfly import Choice, Clipboard, Key, Window
 from urllib2 import Request, urlopen, quote
-# from urllib.parse import quote_pwe would reckon and do threelus
+# from urllib.parse import quote_plus
 import threading
 try:
     import uiautomation as automation
