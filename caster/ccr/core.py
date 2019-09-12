@@ -55,14 +55,8 @@ class CoreNon(MergeRule):
         "zoom out [<n>]"      : Key("c-minus:%(n)s"),
         #-----------------------------------------------
         # Window management
-        "switch sublime <text>":
-            Function(lambda text: Window.get_matching_windows("sublime", str(text))[0]._bring_to_top()),
-
         "window <direction> [<direction2>]":
             Key("win:down, %(direction)s/15, %(direction2)s, win:up"),
-        "focus <direction>":
-            Function(lambda direction:
-                Mouse("[0, 81]" if direction == "left" else "[1920, 81]" + "/10, left").execute()),
         "minimize":
             Function(lambda: Window.get_foreground().minimize()),
         "maximize":

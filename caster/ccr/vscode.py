@@ -13,18 +13,6 @@ class VSCodeRule(MergeRule):
     mapping = {
         "comment block"                  : Key("sa-a"),
 
-        "edit lines"                     : Key("sa-i"),
-        "sort lines"                     : Key("f9"),
-        "edit next [<n>]"               : Key("c-d")*Repeat("n"),
-        "skip next [<n>]"               : Key("c-k, c-d")*Repeat("n"),
-        "edit all"                       : Key("cs-l"),
-
-        "<action> [line] <ln1> [by <ln2>]"  :
-            Function(navigation.action_lines),
-
-        "<action> by [line] <ln1>"  :
-            Key("c-k, c-space, c-g") + Function(lambda ln1: Text(str(ln1+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
-
         "new (file | tab)"               : Key("c-n"),
         "new window"                     : Key("cs-n"),
         "open file"                      : Key("c-o"),
@@ -32,32 +20,46 @@ class VSCodeRule(MergeRule):
         "open recent"                    : Key("c-r"),
         "save as"                        : Key("cs-s"),
         "save all"                       : Key("c-k, s"),
-        "revert (file | changes)": Pallette("revert file"),
+        "revert (file | changes)"        : Pallette("revert file"),
         "close tab"                      : Key("c-w"),
         "close all tabs"                 : Key("c-k, c-w"),
         "next tab"                       : Key("c-pgdown"),
         "previous tab"                   : Key("c-pgup"),
         "<nth> tab"                      : Key("a-%(nth)s"),
         #
+        "terminal here"                  : Key("cs-c"),
+        "explorer here"                  : Key("sa-r"),
+        #
         "find"                           : Key("c-f"),
         "find <text>"                    : Key("c-f") + Wait() + Text("%(text)s") + Key("escape"),
-        "find next [<n>]"               : Key("f3")*Repeat("n"),
-        "find previous [<n>]"           : Key("s-enter")*Repeat("n"),
+        "find next [<n>]"                : Key("f3")*Repeat("n"),
+        "find previous [<n>]"            : Key("s-enter")*Repeat("n"),
         "find all"                       : Key("a-enter"),
         "replace"                        : Key("c-h"),
+        "search in directory"            : Key("cs-f"),
         #
         "go to <text> [<filetype>]"      : Key("c-p") + Text("%(text)s" + "%(filetype)s") + Wait() + Key("enter"),
         "go to word"                     : Key("c-semicolon"),
         "go to symbol"                   : Key("cs-o"),
         "go to [symbol in] project"      : Key("c-t"),
-
-        "command pallette [<text>]"      : Key("cs-p") + Text("%(text)s"),
-        "search in directory"            : Key("cs-f"),
         "go to that"                     : Key("f12"),
-        "search [for] that"              : Store() + Key("cs-f") + Retrieve() + Key("enter"),
-        "find that"                      : Store() + Key("c-f") + Retrieve() + Key("enter"),
-        "rename symbol": Key("f2"),
-        "peek (definition | that)": Key("a-f12"),
+        "peek (definition | that)"       : Key("a-f12"),
+        "command pallette [<text>]"      : Key("cs-p") + Text("%(text)s"),
+        "rename symbol"                  : Key("f2"),
+        #
+        "edit lines"                     : Key("sa-i"),
+        "sort lines"                     : Key("f9"),
+        "edit next [<n>]"                : Key("c-d")*Repeat("n"),
+        "skip next [<n>]"                : Key("c-k, c-d")*Repeat("n"),
+        "edit all"                       : Key("cs-l"),
+        "<action> [line] <ln1> [by <ln2>]"  :
+            Function(navigation.action_lines),
+        "<action> by [line] <ln1>"  :
+            Key("c-k, c-space, c-g") + Function(lambda ln1: Text(str(ln1+1)).execute()) + Key("enter, c-k, c-a, %(action)s, c-k, c-g"),
+        #
+        "transform upper"                : Pallette("uppercase"),
+        "transform lower"                : Pallette("lowercase"),
+        "transform title"                : Pallette("titlecase"),
         #
         "fold"                           : Key("cs-lbracket"),
         "unfold"                         : Key("cs-rbracket"),
@@ -74,19 +76,10 @@ class VSCodeRule(MergeRule):
         "build it"                       : Key("c-b"),
         "build with"                     : Key("cs-b"),
         #
-        # "record macro"                   : Key("c-q"),
-        # "play macro [<n>]"              : Key("cs-q")*Repeat("n"),
-        "transform upper": Pallette("uppercase"),
-        "transform lower": Pallette("lowercase"),
-        "transform title": Pallette("titlecase"),
-        #
         "column <cols>"                  : Key("as-%(cols)s"),
         "focus <panel>"                  : Key("c-k, c-%(panel)s"),
         "move <panel>"                   : Key("c-k, cs-%(panel)s"),
         "split right"                    : Key("c-backslash"),
-        #
-        "terminal here"                  : Key("cs-c"),
-        "explorer here"                  : Key("sa-r"),
     }
     extras = [
         ShortIntegerRef("ln1", 1, 1000),
@@ -138,10 +131,6 @@ class VSCodeCCRRule(MergeRule):
 
         "go to file"     : Key("c-p"),
         "comment line"   : Key("c-slash"),
-
-        "(select | sell) scope [<n2>]"   : Key("cs-space")*Repeat("n2"),
-        "copy scope"   : Key("cs-space, c-c"),
-        "replace scope"   : Key("cs-space, c-v"),
 
         "indent [<n2>]": Key("c-rbracket:%(n2)s"),
 

@@ -7,7 +7,10 @@ from dragonfly import Choice, Clipboard, Key, Window
 from urllib2 import Request, urlopen, quote
 # from urllib.parse import quote_pwe would reckon and do threelus
 import threading
-import uiautomation as automation
+try:
+    import uiautomation as automation
+except:
+    pass
 
 
 BASE_PATH = os.path.abspath(__file__).replace("\\", "/").rsplit("/lib/")[0]
