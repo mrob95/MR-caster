@@ -199,7 +199,7 @@ class Core(MergeRule):
                 (AppContext(title="pycharm"), Key("c-d:%(n)s")),
                 (AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe", "windowsterminal"]), Key(""))]),
 
-        "spark [<nnavi500>] [(<capitalisation> <spacing> | <capitalisation> | <spacing>) (bow|bowel)]":
+        "(spark | sparky) [<nnavi500>] [(<capitalisation> <spacing> | <capitalisation> | <spacing>) (bow|bowel)]":
             ContextAction(Function(navigation.drop, nexus=_NEXUS),
                 [(AppContext(executable=["\\sh.exe", "\\bash.exe", "\\cmd.exe", "\\mintty.exe"]),
                     Function(navigation.drop, nexus=_NEXUS, paste_key="s-insert")),
@@ -236,5 +236,8 @@ class Core(MergeRule):
         Choice("splatdir", {"ross": "right"}, "left"),
         Choice("tabdir",   {"lease": "s-"}, ""),
     ]
+
+if get_engine()._name == "kaldi":
+    Core.mapping["command"] = Key("")
 
 control.global_rule(Core())

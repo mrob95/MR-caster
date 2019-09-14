@@ -20,8 +20,6 @@ class MainRule(MergeRule):
 	mapping = {
         "<enable> <name>": Function(_NEXUS.rule_changer),
 
-        "reboot dragon": Function(utilities.reboot),
-
         "rebuild caster": Function(_NEXUS.build),
 	}
 	extras=[
@@ -32,13 +30,16 @@ class MainRule(MergeRule):
         }),
 	]
 
+if get_engine()._name == "natlink":
+    from caster.lib.dfplus import modes
+    MainRule.mapping["reboot dragon"] = Function(utilities.reboot),
+
+
+
 grammar = Grammar('general')
 main_rule = MainRule()
 grammar.add_rule(main_rule)
 grammar.load()
-
-if get_engine()._name == "natlink":
-    from caster.lib.dfplus import modes
 
 # def changeCallback(cbType, args):
 #     print(cbType) # 'mic' or 'user'
