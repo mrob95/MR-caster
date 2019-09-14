@@ -104,7 +104,7 @@ class Python(MergeRule):
         "from typing import <types>": Text("from typing import %(types)s"),
         "type <types>"        : Text("%(types)s"),
         "type is <types>"     : Text(": %(types)s"),
-        "produces [<types>]"  : Key("end, left") + Text(" -> %(types)s"),
+        "produces [<types>]"  : Key("end:2, left") + Text(" -> %(types)s"),
 
         "method": ContextAction(
             Text("def (self):") + Key("left:7"),

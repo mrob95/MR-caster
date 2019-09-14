@@ -97,7 +97,7 @@
 # "tabby"              = "tab"
 # "tabby left"         = "s-tab"
 "shock"                = "enter"
-"clear"                = "backspace"
+"(clear | clearing)"   = "backspace"
 # "splat"              = "c-backspace"
 # "splat right"        = "c-delete"
 "deli"                 = "del"

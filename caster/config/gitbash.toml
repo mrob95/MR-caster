@@ -36,6 +36,8 @@
 #------------------------------------------------------
 # options
 "option continue"        = " --continue "
+"option abort"           = " --abort "
+"option skip"            = " --skip "
 "option help"            = " --help"
 "option version"         = " --version"
 #------------------------------------------------------
@@ -100,6 +102,7 @@
 "commit all"                   = ["commit -a -m \"\"", "left"]
 "commit all and push"          = ["commit -a -m \"\" && git push", "left:13"]
 "commit"                       = ["commit -m \"\"", "left"]
+"commit fix u"                 = "commit --fixup "
 "diff"                         = "diff "
 "discard"                      = "checkout -- "
 "(discard all | reset hard)"   = "reset --hard"
@@ -116,11 +119,14 @@
 "merge"                        = "merge "
 "merge abort"                  = "merge --abort "
 "merge continue"               = "merge --continue "
-"publish"                      = "push -u origin "
 "pull"                         = "pull "
+"publish"                      = "push -u origin "
 "push set upstream [origin]"   = "push --set-upstream origin "
 "push"                         = "push "
-"rebase"                       = "rebase "
+"push force"                   = "push --force "
+"rebase"                       = "rebase master"
+"rebase auto squash"           = "rebase -i --autosquash master"
+"rebase interactive"           = "rebase -i "
 "remote"                       = "remote "
 "remote add origin"            = "remote add origin "
 "remote prune origin"          = "remote prune origin "
