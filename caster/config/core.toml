@@ -112,7 +112,7 @@
 "and save"             = "c-s"
 
 [misc_core_keys_noCCR]
-"save"                 = "c-s"
+"save [file]"          = "c-s"
 
 [directions]
 "left"                 = "left"

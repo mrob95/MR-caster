@@ -32,16 +32,6 @@ class CoreNon(MergeRule):
 
         "<misc_core_keys_noCCR>": Key("%(misc_core_keys_noCCR)s"),
 
-        "super hold"          : Key("win:down"),
-        "super release"       : Key("win:up"),
-        "shift hold"          : Key("shift:down"),
-        "shift release"       : Key("shift:up"),
-        "control hold"        : Key("ctrl:down"),
-        "control release"     : Key("ctrl:up"),
-        "(meta|alt) hold"     : Key("alt:down"),
-        "(meta|alt) release"  : Key("alt:up"),
-        "all release"         : Key("win:up, shift:up, ctrl:up, alt:up"),
-        "release all"         : Key("win:up, shift:up, ctrl:up, alt:up"),
         "context menu"        : Key("s-f10"),
 
         "volume up [<n>]"     : Key("volumeup/5:%(n)d"),
@@ -170,7 +160,7 @@ class Core(MergeRule):
 
         "tabby [<tabdir>] [<n>]":
             Key("%(tabdir)s" + "tab")*Repeat("n"),
-        "splat [<splatdir>] [(<n> | <extreme>)]":
+        "(splat | spat) [<splatdir>] [(<n> | <extreme>)]":
             ContextAction(Function(navigation.splat),
                 [(AppContext("notepad"),
                     Function(navigation.splat, manual=True))]),
