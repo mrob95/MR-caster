@@ -32,7 +32,7 @@ class MainRule(MergeRule):
 
 if get_engine()._name == "natlink":
     from caster.lib.dfplus import modes
-    MainRule.mapping["reboot dragon"] = Function(utilities.reboot),
+    MainRule.mapping["reboot dragon"] = Function(utilities.reboot)
 
 
 

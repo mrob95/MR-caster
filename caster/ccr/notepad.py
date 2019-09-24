@@ -14,12 +14,14 @@ class Notepad(MergeRule):
             Key("%(splatdir)s") * Repeat("n") + Key("backspace"),
         "copy HTML":
             Function(CliptoHTML),
+        "copy all":
+            Key("c-a, c-c"),
 
-        "<action> up <n>": 
-            Function(lambda action, n: 
+        "<action> up <n>":
+            Function(lambda action, n:
                 Key("up:%s, home, s-down:%s, s-end, %s" % (n-1, n, action)).execute()),
-        "<action> down [<n>]": 
-            Function(lambda action, n: 
+        "<action> down [<n>]":
+            Function(lambda action, n:
                 Key("home, s-down:%s, s-end, %s" % (n-1, action)).execute()),
     }
     extras = [

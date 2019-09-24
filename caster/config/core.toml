@@ -93,7 +93,7 @@
 "slash"                   = "slash"
 
 [keys]
-"ace"                  = "space"
+"(ace | space)"        = "space"
 # "tabby"              = "tab"
 # "tabby left"         = "s-tab"
 "shock"                = "enter"

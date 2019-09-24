@@ -69,7 +69,8 @@ class VSCodeRule(MergeRule):
         "full screen"                    : Key("f11"),
         "toggle side bar"                : Key("c-b"),
         "(toggle | show) problems"       : Key("cs-m"),
-        "(toggle | show) extensions"     : Key("cs-x"),
+        "show extensions"                : Key("cs-x"),
+        "show explorer"                  : Key("cs-e"),
         "open settings"                  : Key("c-comma"),
         "open keyboard shortcuts"        : Key("c-k, c-s"),
         #

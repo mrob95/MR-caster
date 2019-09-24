@@ -13,7 +13,7 @@ class ChromeRule(MergeRule):
         "new tab [<n>]"           : Key("c-t:%(n)s"),
         "next tab [<n>]"          : Key("c-tab:%(n)s"),
         "previous tab [<n>]"      : Key("cs-tab:%(n)s"),
-        "close tab [<n>]"         : Key("c-w/3:%(n)s"),
+        "close tab [<n>]"         : Key("c-w/5:%(n)s"),
         "reopen tab [<n>]"        : Key("cs-t:%(n)s"),
         "<numberth> tab"          : Key("c-%(numberth)s"),
 

@@ -233,6 +233,7 @@ class Core(MergeRule):
         Choice("capitalisation", CORE["capitalisation"], 0),
         Choice("spacing",        CORE["spacing"], 0),
         Choice("personal",       PERSONAL),
+        # Choice("personal",       {}),
         Choice("splatdir", {"ross": "right"}, "left"),
         Choice("tabdir",   {"lease": "s-"}, ""),
     ]
