@@ -26,13 +26,13 @@ def move_current_to_new(follow=False):
         vda.GoToDesktopNumber(current)
 
 def go_to_n(n):
-    # current = vda.GetCurrentDesktopNumber() + 1
-    # if n>=1 and n != current:
-    #     if current>n:
-    #         Key("wc-left/10:" + str(current-n)).execute()
-    #     else:
-    #         Key("wc-right/10:" + str(n-current)).execute()
-    vda.GoToDesktopNumber(n-1)
+    current = vda.GetCurrentDesktopNumber() + 1
+    if n>=1 and n != current:
+        if current>n:
+            Key("wc-left/10:" + str(current-n)).execute()
+        else:
+            Key("wc-right/10:" + str(n-current)).execute()
+    # vda.GoToDesktopNumber(n-1)
 
 def close_all():
     total = vda.GetDesktopCount()

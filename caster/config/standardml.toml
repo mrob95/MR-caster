@@ -1,0 +1,14 @@
+pronunciation = "standard ML"
+title_contexts = [".sml"]
+function_prefix = "fun"
+template_prefix = "template"
+
+[functions]
+"absolute" = "abs"
+
+
+[commands]
+"use file" = ['use "";', "left"]
+"function" = "function "
+
+[templates]
