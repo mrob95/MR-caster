@@ -38,7 +38,7 @@ class VSCodeRule(MergeRule):
         "replace"                        : Key("c-h"),
         "search in directory"            : Key("cs-f"),
         #
-        "go to <text> [<filetype>]"      : Key("c-p") + Text("%(text)s" + "%(filetype)s") + Wait() + Key("enter"),
+        "go to <text> [<filetype>]"      : Key("c-p") + Wait() + Text("%(text)s" + "%(filetype)s") + Wait() + Key("enter"),
         "go to word"                     : Key("c-semicolon"),
         "go to symbol"                   : Key("cs-o"),
         "go to [symbol in] project"      : Key("c-t"),
