@@ -3,12 +3,29 @@ title_contexts = [".sml"]
 function_prefix = "fun"
 template_prefix = "template"
 
-[functions]
+[monads]
 "absolute" = "abs"
+"divide" = "div"
+"tail" = "tl"
+"head" = "hd"
+"null" = "null"
 
+[functions]
+"test" = "test"
 
 [commands]
 "use file" = ['use "";', "left"]
 "function" = "function "
+"assign" = " = "
+"lodge else"          = "else "
+"lodge if"            = "if "
+"lodge then"            = "then "
+"lodge let"            = "let "
+"lodge end"            = "end"
+"semi" = ["", "end, semicolon"]
+"value false"         = "false"
+"value true"          = "true"
+"valley" = "val "
+
 
 [templates]

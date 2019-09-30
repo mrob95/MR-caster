@@ -42,6 +42,8 @@ class WERule(MergeRule):
              Function(lambda: Popen(["explorer", current_directory()])),
         "sublime here"                       :
              Function(lambda: Popen(["subl", "-n", current_directory().replace("\\", "/")])),
+        "[VS] code here"                       :
+             Function(lambda: Popen(["code", current_directory().replace("\\", "/")])),
     }
     extras = [
         Choice("folder", BRING["folder"]),

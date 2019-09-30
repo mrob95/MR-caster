@@ -71,6 +71,9 @@ class VSCodeRule(MergeRule):
         "(toggle | show) problems"       : Key("cs-m"),
         "show extensions"                : Key("cs-x"),
         "show explorer"                  : Key("cs-e"),
+        "show terminal"                  : Key("c-apostrophe"),
+        "new terminal"                   : Key("cs-apostrophe"),
+        "show python repel"              : Key("cs-p") + Wait() + Text("pyrepl\n"),
         "open settings"                  : Key("c-comma"),
         "open keyboard shortcuts"        : Key("c-k, c-s"),
         #

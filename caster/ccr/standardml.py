@@ -24,13 +24,17 @@ class SML(MergeRule):
         "<command>":
             Alternating("command"),
 
+        BINDINGS["function_prefix"] + " <monad>":
+            Text("%(monad)s "),
+
         BINDINGS["function_prefix"] + " <fun>":
-            Store(same_is_okay=False) + Text("%(fun)s()") + Key("left") + Retrieve(action_if_text="right"),
+            Text("%(fun)s()") + Key("left"),
     }
 
     extras = [
         Choice("command",BINDINGS["commands"]),
         Choice("fun",    BINDINGS["functions"]),
+        Choice("monad",    BINDINGS["monads"]),
     ]
 
 control.app_rule(SML())
